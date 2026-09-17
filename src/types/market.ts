@@ -92,11 +92,13 @@ export interface Provider {
   /** Kategoriespezifische Abweichungen von Name/Logo. */
   variants?: Partial<Record<CategoryId, ProviderVariant>>;
   /**
-   * Kennzeichnet den Initiator der Übersicht. Wird in der Detailansicht offen
-   * ausgewiesen, damit die Doppelrolle "Herausgeber und Anbieter" transparent
-   * ist. Bewusst als Datenfeld, damit die UI keinen Anbieter hardcodiert.
+   * Offenlegungshinweis, falls zwischen Herausgeber und Anbieter eine
+   * wirtschaftliche Verbindung besteht. Wird in der Detailansicht angezeigt.
+   *
+   * Bewusst als Freitext im Datensatz: Die UI kennt dadurch keinen Anbieter
+   * namentlich, und jede Verbindung kann exakt so benannt werden, wie sie ist.
    */
-  isInitiator?: boolean;
+  disclosureNote?: string;
 }
 
 /** Aktiver Zustand der Toolbar über der Marktübersicht. */

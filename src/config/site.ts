@@ -9,9 +9,9 @@ export const siteConfig = {
   title: 'Die digitale Tierarztpraxis – Marktübersicht 2026',
   subtitle: 'Digitale Lösungen für Tierarztpraxen im DACH-Markt',
   /*
-    Bewusst "anbieterübergreifend" statt "unabhängig": Der Initiator ist selbst
-    Marktteilnehmer und in mehreren Kategorien vertreten. Eine
-    Unabhängigkeitsbehauptung wäre in dieser Konstellation angreifbar.
+    Bewusst "anbieterübergreifend" statt "unabhängig": Der Herausgeber ist an
+    einem der gelisteten Anbieter beteiligt. Eine Unabhängigkeitsbehauptung
+    wäre in dieser Konstellation angreifbar – siehe `transparency`.
   */
   intro:
     'Eine anbieterübergreifende Übersicht digitaler Lösungen entlang der modernen Tierarztpraxis.',
@@ -22,19 +22,35 @@ export const siteConfig = {
   edition: 'September 2026',
 
   /**
-   * Kontaktadresse für Anbieter-Hinweise und Korrekturen.
+   * Kontaktadresse für Anbieter-Hinweise, Korrekturen und Entfernungswünsche.
    *
    * TODO: Vor dem Livegang durch ein real existierendes Postfach ersetzen.
+   * example.com ist von der IANA für Platzhalter reserviert, es kann also
+   * niemand versehentlich Post bekommen – es kommt aber auch nichts an.
    */
-  contactEmail: 'marktuebersicht@petleo.net',
+  contactEmail: 'kontakt@example.com',
 
-  /** Initiator der Übersicht – dezent dargestellt, aber offen benannt. */
-  initiator: {
-    name: 'Petleo',
-    url: 'https://www.petleo.net',
-    /** Transparenzhinweis, direkt im Kopfbereich sichtbar. */
-    disclosure:
-      'Initiiert von Petleo. Petleo ist selbst Anbieter und in mehreren Kategorien vertreten – ohne Sonderplatzierung.',
+  /** Herausgeber der Übersicht. Privat betrieben, nicht von einem Anbieter. */
+  publisher: {
+    name: 'Thomas Freimoser',
+    role: 'Experte für digitale Tiermedizin',
+  },
+
+  /*
+    Offenlegung wirtschaftlicher Verbindungen.
+
+    Bewusst ehrlich formuliert: Der Herausgeber ist an einem der gelisteten
+    Anbieter beteiligt. Statt Neutralität zu behaupten, benennt die Seite die
+    Einschränkung – das ist belastbarer und für Leserinnen und Leser fairer.
+  */
+  transparency: {
+    heading: 'Zur Transparenz',
+    affiliation:
+      'Thomas Freimoser arbeitet für die Petleo GmbH und ist als Late Co-Founder an ihr beteiligt. Darüber hinaus ist er in der FleXchange-Medical GmbH aktiv.',
+    limitation:
+      'Petleo ist in mehreren Kategorien dieser Übersicht vertreten. Eine im strengen Sinne neutrale Marktübersicht kann sie deshalb nicht sein – das sollte man beim Lesen wissen.',
+    safeguards:
+      'Was dennoch gilt: Die Sortierung ist in allen Kategorien rein alphabetisch. Es gibt keine Rangfolge, keine Bewertung und keine bezahlten Platzierungen. Die Aufnahme folgt für alle Anbieter denselben Kriterien und ist kostenfrei.',
   },
 
   /*
@@ -56,10 +72,16 @@ export const siteConfig = {
   downloadFileName: 'digitale-tierarztpraxis-marktuebersicht-2026.png',
   ogImage: 'og/marktuebersicht-2026.png',
 
-  /** Rechtliche Seiten. TODO: durch echte URLs ersetzen. */
+  /*
+    Rechtliche Seiten. Liegen als statische Dateien unter public/ – so
+    funktionieren sie auf GitHub Pages ohne Routing.
+
+    TODO: Beide Seiten sind Entwürfe und müssen vor dem Livegang ausgefüllt
+    werden. Das Impressum braucht eine ladungsfähige Anschrift (§ 5 DDG).
+  */
   legal: {
-    imprintUrl: 'https://www.petleo.net/impressum',
-    privacyUrl: 'https://www.petleo.net/datenschutz',
+    imprintUrl: 'impressum.html',
+    privacyUrl: 'datenschutz.html',
   },
 } as const;
 
@@ -76,6 +98,7 @@ export const countryOrder: Country[] = ['DE', 'AT', 'CH'];
 export const anchors = {
   marketMap: 'marktuebersicht',
   methodology: 'methodik',
+  transparency: 'transparenz',
   submit: 'anbieter-vorschlagen',
 } as const;
 
@@ -86,6 +109,19 @@ export const anchors = {
 export function asset(path: string): string {
   const base = import.meta.env.BASE_URL || '/';
   return `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+}
+
+/**
+ * Löst einen konfigurierten Link auf: absolute URLs bleiben unverändert,
+ * relative Pfade werden am Basispfad des Deployments ausgerichtet.
+ */
+export function resolveLink(url: string): string {
+  return /^https?:\/\//.test(url) ? url : asset(url);
+}
+
+/** Gibt an, ob ein Link auf eine fremde Seite zeigt. */
+export function isExternalLink(url: string): boolean {
+  return /^https?:\/\//.test(url);
 }
 
 /** Erzeugt einen vorausgefüllten mailto-Link. */

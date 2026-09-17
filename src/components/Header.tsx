@@ -22,18 +22,17 @@ export function Header() {
         </div>
       </div>
 
-      <p className="mt-5 max-w-2xl text-sm leading-relaxed text-ink-500">{siteConfig.intro}</p>
+      {/* Byline: Die Übersicht wird von einer Person herausgegeben, nicht von einem Anbieter. */}
+      <p className="mt-5 text-sm text-ink-700">
+        Herausgegeben von{' '}
+        <span className="font-semibold text-ink-900">{siteConfig.publisher.name}</span>
+        <span className="text-ink-500"> · {siteConfig.publisher.role}</span>
+      </p>
+
+      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-500">{siteConfig.intro}</p>
 
       <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-800">
         Stand: {siteConfig.edition}
-      </p>
-
-      {/*
-        Offenlegung direkt im Kopfbereich statt nur im Footer: Der Initiator
-        ist selbst Marktteilnehmer, das gehört sichtbar an den Anfang.
-      */}
-      <p className="mt-4 max-w-2xl text-xs leading-relaxed text-ink-500">
-        {siteConfig.initiator.disclosure}
       </p>
 
       <div className="no-print mt-7 flex flex-wrap items-center gap-3">

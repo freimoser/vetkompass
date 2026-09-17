@@ -52,7 +52,7 @@ npm run lint
 ```
 src/
   components/      UI-Bausteine (Header, MarketMap, CategoryCard, …)
-  config/site.ts   Titel, Kontaktadresse, Downloads, Rechtstext-Links
+  config/site.ts   Titel, Herausgeber, Kontakt, Rechtstexte, Downloads
   data/
     categories.ts  Die 9 Kategorien inkl. Desktop-Platzierung
     providers.ts   Zentrale Anbieterliste – die einzige Quelle für Anbieterdaten
@@ -62,6 +62,8 @@ public/
   logos/           Anbieterlogos
   downloads/       Original-Grafik zum Download
   og/              Social-Preview-Bild
+  impressum.html   Rechtsseite (Entwurf, statisch – kein Routing nötig)
+  datenschutz.html Rechtsseite (Entwurf)
 ```
 
 Grundregel: **Anbieterdaten stehen niemals in Komponenten.** Die UI rendert
@@ -167,15 +169,24 @@ Darunter werden alle Karten gestapelt; `placement` wird dann ignoriert.
 | `contactEmail`        | Empfänger aller Hinweis-, Korrektur- und Entfernungs-Mails    |
 | `legal`               | Links zu Impressum und Datenschutz                            |
 | `downloadImage`       | Pfad zur Original-Grafik unter `public/`                      |
-| `initiator`           | Name, Link und Transparenzhinweis des Initiators              |
+| `publisher`           | Herausgeber der Seite (Name und Rolle, erscheint als Byline)   |
+| `transparency`        | Offenlegung wirtschaftlicher Verbindungen des Herausgebers     |
 | `trademarkNotice`     | Hinweis zu fremden Marken und Logos                           |
 | `noAffiliationNotice` | Klarstellung, dass keine Geschäftsbeziehung besteht           |
 | `removalNotice`       | Hinweis für Rechteinhaber auf den Entfernungs-Weg             |
 
-> **Vor dem Livegang prüfen:** `contactEmail` zeigt derzeit auf eine
-> Platzhalter-Adresse und muss durch ein real existierendes Postfach ersetzt
-> werden. Ebenso sind die Links unter `legal` auf Impressum und Datenschutz zu
-> setzen.
+> **Vor dem Livegang erledigen:**
+>
+> 1. `contactEmail` steht auf `kontakt@example.com` – einer von der IANA für
+>    Platzhalter reservierten Domain. Dort kommt nichts an. Alle drei
+>    Hinweis-Schaltflächen sind nur so viel wert wie das Postfach dahinter.
+> 2. `public/impressum.html` und `public/datenschutz.html` sind Entwürfe. Das
+>    Impressum braucht eine **ladungsfähige Anschrift** (§ 5 DDG) – ein Postfach
+>    genügt nicht. Bei privatem Betrieb ohne Geschäftsadresse ist das die
+>    Privatanschrift.
+> 3. Die Datenschutzerklärung beschreibt Hosting über GitHub Pages (US-Anbieter).
+>    Wer das vermeiden will, wechselt auf einen Hoster in der EU und passt den
+>    Abschnitt an.
 
 ### Umgebungsvariablen
 
@@ -226,7 +237,8 @@ Diese Übersicht ist bewusst neutral angelegt:
 - der Redaktionsstand wird sichtbar genannt
 - „Kein Anspruch auf Vollständigkeit“ wird sichtbar kommuniziert
 
-Petleo ist Initiator der Übersicht und erhält keine Sonderplatzierung.
+Die Übersicht wird privat von Thomas Freimoser herausgegeben, nicht von einem
+Unternehmen.
 
 ### Rechtliche Vorkehrungen
 
@@ -240,19 +252,24 @@ entsteht. Dafür sind eingebaut:
 - **Entfernungs-Weg für Rechteinhaber** – als eigener Button im CTA-Abschnitt,
   als Link im Footer und im Detaildialog jedes Anbieters. Alle drei erzeugen
   eine vorausgefüllte Mail an `contactEmail`.
-- **Offenlegung der Doppelrolle des Initiators** – direkt im Kopfbereich, im
-  Methodik-Abschnitt und im Detaildialog. Letzteres läuft über das Datenfeld
-  `isInitiator` am Anbieter, damit die UI keinen Anbieter hardcodiert.
-- Bewusst **„anbieterübergreifend" statt „unabhängig"**: Der Initiator ist
-  selbst Marktteilnehmer und in mehreren Kategorien vertreten. Eine
-  Unabhängigkeitsbehauptung wäre in dieser Konstellation wettbewerbsrechtlich
-  angreifbar (§ 5 UWG).
+- **Offenlegung wirtschaftlicher Verbindungen** im eigenen Abschnitt
+  „Zur Transparenz“ (`#transparenz`), verlinkt aus Footer und Methodik. Der
+  Abschnitt behauptet keine Neutralität, sondern benennt die Einschränkung
+  ausdrücklich.
+- **Offenlegung am einzelnen Anbieter** über das Datenfeld `disclosureNote`.
+  Der Text steht in `src/data/providers.ts`, nicht in einer Komponente – die UI
+  kennt keinen Anbieter namentlich. Wo ein Hinweis gesetzt ist, entfallen
+  automatisch der Satz „keine geschäftliche Verbindung“ und der
+  Entfernungs-Link, weil beides dort widersprüchlich wäre.
+- Bewusst **„anbieterübergreifend" statt „unabhängig"**: Der Herausgeber ist an
+  einem der gelisteten Anbieter beteiligt. Eine Unabhängigkeitsbehauptung wäre
+  in dieser Konstellation wettbewerbsrechtlich angreifbar (§ 5 UWG).
 
-Da die Übersicht von einem Marktteilnehmer herausgegeben wird, handelt es sich
-um geschäftlichen Verkehr – auch ohne Einnahmen. Die genannten Texte liegen
-zentral in `src/config/site.ts` und lassen sich nach anwaltlicher Prüfung ohne
-Code-Änderung anpassen. Eine solche Prüfung wird vor dem Livegang empfohlen;
-dieses Repository ersetzt sie nicht.
+Auch als privates Angebot handelt es sich um geschäftlichen Verkehr, weil der
+Herausgeber an einem gelisteten Anbieter beteiligt ist. Die genannten Texte
+liegen zentral in `src/config/site.ts` und lassen sich nach anwaltlicher Prüfung
+ohne Code-Änderung anpassen. Eine solche Prüfung wird vor dem Livegang
+empfohlen; dieses Repository ersetzt sie nicht.
 
 ### Offene Datenpflege
 

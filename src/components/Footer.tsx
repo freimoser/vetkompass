@@ -1,12 +1,13 @@
-import { anchors, mailtoLink, siteConfig } from '../config/site';
+import { anchors, isExternalLink, mailtoLink, resolveLink, siteConfig } from '../config/site';
 
-/** Minimalistischer Footer. Der Initiator bleibt bewusst dezent. */
+/** Minimalistischer Footer mit Herausgeber-, Marken- und Rechtshinweisen. */
 export function Footer() {
   const links = [
     { label: 'Über die Marktübersicht', href: `#${anchors.methodology}` },
+    { label: 'Transparenz', href: `#${anchors.transparency}` },
     { label: 'Anbieter ergänzen', href: `#${anchors.submit}` },
-    { label: 'Impressum', href: siteConfig.legal.imprintUrl, external: true },
-    { label: 'Datenschutz', href: siteConfig.legal.privacyUrl, external: true },
+    { label: 'Impressum', href: resolveLink(siteConfig.legal.imprintUrl) },
+    { label: 'Datenschutz', href: resolveLink(siteConfig.legal.privacyUrl) },
   ];
 
   return (
@@ -18,16 +19,13 @@ export function Footer() {
             Stand: {siteConfig.edition} · Kein Anspruch auf Vollständigkeit
           </p>
           <p className="mt-3 text-xs text-ink-500">
-            Initiiert von{' '}
+            Herausgegeben von {siteConfig.publisher.name} · {siteConfig.publisher.role}.{' '}
             <a
-              href={siteConfig.initiator.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`#${anchors.transparency}`}
               className="underline underline-offset-2 hover:text-ink-700"
             >
-              {siteConfig.initiator.name}
+              Zur Transparenz
             </a>
-            .
           </p>
         </div>
 
@@ -37,7 +35,9 @@ export function Footer() {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  {...(isExternalLink(link.href)
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
                   className="underline-offset-4 hover:text-brand-700 hover:underline"
                 >
                   {link.label}
