@@ -1,7 +1,7 @@
 # Die digitale Tierarztpraxis – Marktübersicht 2026
 
-Eine unabhängige, datengetriebene Marktübersicht digitaler Lösungen für
-Tierarztpraxen im DACH-Markt. Statische Single-Page-Anwendung, gebaut mit React,
+Eine anbieterübergreifende, datengetriebene Marktübersicht digitaler Lösungen
+für Tierarztpraxen im DACH-Markt. Statische Single-Page-Anwendung, gebaut mit React,
 TypeScript, Vite und Tailwind CSS, deploybar über GitHub Pages.
 
 - 9 Kategorien von digitaler Sichtbarkeit bis Tierhalter-App
