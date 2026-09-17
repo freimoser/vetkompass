@@ -1,0 +1,141 @@
+@import 'tailwindcss';
+
+/*
+  Designsystem der Marktübersicht.
+  Weißer Grund, helles Veterinary-Blau als einziger Akzent, dunkle Typografie.
+  Bewusst zurückhaltend: Die Karte selbst soll wirken, nicht die Oberfläche.
+*/
+@theme {
+  --color-brand-50: #f0f8fd;
+  --color-brand-100: #dceffa;
+  --color-brand-200: #bfe2f6;
+  --color-brand-300: #8ecdef;
+  --color-brand-400: #55b2e4;
+  --color-brand-500: #2b9ad8;
+  --color-brand-600: #1a7eb8;
+  --color-brand-700: #176595;
+  --color-brand-800: #18567c;
+  --color-brand-900: #194867;
+
+  --color-ink-900: #0f1419;
+  --color-ink-700: #333c45;
+  --color-ink-500: #5b6874;
+  --color-ink-300: #8b97a3;
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+
+  --radius-card: 1rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /*
+      Kein scroll-padding: Die Sticky-Toolbar sitzt am Anfang des
+      Marktübersicht-Abschnitts und ist an allen Ankerzielen entweder selbst
+      das oberste Element oder bereits wieder aus dem Fluss gelöst.
+    */
+  }
+
+  body {
+    @apply bg-white text-ink-900 antialiased;
+    font-family: var(--font-sans);
+  }
+
+  /* Durchgängig sichtbarer, kontraststarker Fokus-Ring. */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Dünn umrandete Box – das prägende Element der Original-Grafik. */
+  .map-card {
+    @apply rounded-[var(--radius-card)] border border-brand-300 bg-white;
+  }
+
+  /*
+    Logo-Raster einer Kategorie.
+    Die Spaltenzahl im Desktop-Layout kommt aus den Kategoriedaten
+    (`--logo-cols`), nicht aus einer hardcodierten Klasse je Kategorie.
+  */
+  .logo-grid {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+  }
+
+  @media (min-width: 640px) {
+    .logo-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .logo-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .logo-grid {
+      grid-template-columns: repeat(var(--logo-cols, 2), minmax(0, 1fr));
+    }
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm
+           font-medium transition-colors;
+  }
+
+  .chip-idle {
+    @apply border-brand-200 bg-white text-ink-700 hover:border-brand-400 hover:bg-brand-50;
+  }
+
+  .chip-active {
+    @apply border-brand-600 bg-brand-600 text-white;
+  }
+
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm
+           font-semibold transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-brand-600 text-white hover:bg-brand-700;
+  }
+
+  .btn-secondary {
+    @apply border border-brand-300 bg-white text-brand-700 hover:border-brand-500
+           hover:bg-brand-50;
+  }
+}
+
+/* Print: Die Seite soll als Marktübersicht auf Papier funktionieren. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .map-card {
+    break-inside: avoid;
+  }
+}

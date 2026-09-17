@@ -1,0 +1,83 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Erlaubt manuelles Auslösen über den Actions-Tab.
+  workflow_dispatch:
+
+# Nur Leserechte auf den Code, Schreibrechte für die Pages-Bereitstellung.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Laufende Deployments nicht abbrechen, aber auch nicht parallel ausführen.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Basispfad und Seiten-URL bestimmen
+        id: paths
+        env:
+          # Optionale Repository-Variablen überschreiben die Automatik
+          # (Settings → Secrets and variables → Actions → Variables).
+          OVERRIDE_BASE: ${{ vars.VITE_BASE }}
+          OVERRIDE_SITE_URL: ${{ vars.VITE_SITE_URL }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          if [ -n "$OVERRIDE_BASE" ]; then
+            BASE="$OVERRIDE_BASE"
+          elif [[ "$REPO_NAME" == *.github.io ]]; then
+            # User-/Organisationsseite liegt direkt unter der Domain-Wurzel.
+            BASE="/"
+          else
+            BASE="/$REPO_NAME/"
+          fi
+
+          if [ -n "$OVERRIDE_SITE_URL" ]; then
+            SITE_URL="$OVERRIDE_SITE_URL"
+          else
+            SITE_URL="https://$(echo "$OWNER" | tr '[:upper:]' '[:lower:]').github.io$BASE"
+          fi
+
+          echo "base=$BASE" >> "$GITHUB_OUTPUT"
+          echo "site_url=$SITE_URL" >> "$GITHUB_OUTPUT"
+          echo "Basispfad: $BASE"
+          echo "Seiten-URL: $SITE_URL"
+
+      - run: npm ci
+
+      - name: Build
+        env:
+          VITE_BASE: ${{ steps.paths.outputs.base }}
+          VITE_SITE_URL: ${{ steps.paths.outputs.site_url }}
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

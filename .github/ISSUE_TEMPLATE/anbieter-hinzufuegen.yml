@@ -1,0 +1,95 @@
+name: Anbieter hinzufügen oder aktualisieren
+description: Einen fehlenden Anbieter vorschlagen oder eine bestehende Zuordnung korrigieren.
+title: '[Anbieter] '
+labels: ['anbieter']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für den Hinweis! Die Marktübersicht erhebt keinen Anspruch auf
+        Vollständigkeit und lebt von Korrekturen aus der Branche.
+
+        Eine Aufnahme ist kostenfrei. Es gibt keine bezahlten Platzierungen.
+
+  - type: dropdown
+    id: art
+    attributes:
+      label: Art des Hinweises
+      options:
+        - Neuer Anbieter
+        - Korrektur an einem bestehenden Eintrag
+        - Anbieter existiert nicht mehr
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Name des Anbieters
+      placeholder: z. B. Vetstoria
+    validations:
+      required: true
+
+  - type: input
+    id: website
+    attributes:
+      label: Website
+      placeholder: https://…
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: kategorien
+    attributes:
+      label: Passende Kategorie(n)
+      description: Mehrfachnennung ist möglich und ausdrücklich erwünscht.
+      options:
+        - label: 1 – Digitale Sichtbarkeit & Neukundengewinnung
+        - label: 2 – Online-Terminvereinbarung
+        - label: 3 – Intake-Fragebögen & Self-Check-in
+        - label: 4 – KI-Dokumentations- & Praxisassistenten
+        - label: 5 – Branchen-Newsletter
+        - label: 6 – Praxissoftware (PIMS)
+        - label: 6a – PIMS-Add-ons für digitale Services
+        - label: 7 – Online-Videosprechstunde
+        - label: 8 – Praxiseigene Videosprechstunde
+        - label: 9 – Tierhalter-App / Patientenportal
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: laender
+    attributes:
+      label: Verfügbarkeit im DACH-Raum
+      options:
+        - label: Deutschland
+        - label: Österreich
+        - label: Schweiz
+    validations:
+      required: true
+
+  - type: textarea
+    id: beschreibung
+    attributes:
+      label: Neutrale Kurzbeschreibung
+      description: |
+        Ein bis zwei Sätze, sachlich formuliert. Keine Werbesprache, keine
+        Superlative, keine Preise.
+      placeholder: Lösung für …
+    validations:
+      required: true
+
+  - type: input
+    id: logo
+    attributes:
+      label: Logo
+      description: |
+        Link zu einer SVG- oder PNG-Datei mit transparentem Hintergrund, oder
+        das Logo direkt an dieses Issue anhängen.
+      placeholder: https://…
+
+  - type: textarea
+    id: kontext
+    attributes:
+      label: Weitere Hinweise
+      description: Alles, was für die Einordnung hilfreich ist.
