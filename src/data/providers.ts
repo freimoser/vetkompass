@@ -181,6 +181,7 @@ export const providers: Provider[] = [
     // Ein Datensatz, viele Kategorien – bewusst keine Kopien je Kategorie.
     categories: [1, 2, 3, 4, 5, 6, 8, 9],
     subgroups: ['pims-addons'],
+    isInitiator: true,
     description:
       'Digitale Plattform für Tierarztpraxen mit Bausteinen für Sichtbarkeit, Online-Terminvereinbarung, digitale Patientenaufnahme, KI-Unterstützung, Videosprechstunde und Tierhalter-App.',
     tags: [
@@ -207,6 +208,7 @@ export const providers: Provider[] = [
     countries: [...DACH],
     categories: [6],
     subgroups: ['pims-addons'],
+    isInitiator: true,
     description:
       'Add-on für die Anbindung bildgebender Verfahren (DICOM) an bestehende Praxissoftware.',
     tags: ['Add-on', 'DICOM', 'Bildgebung'],

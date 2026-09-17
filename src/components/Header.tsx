@@ -28,6 +28,14 @@ export function Header() {
         Stand: {siteConfig.edition}
       </p>
 
+      {/*
+        Offenlegung direkt im Kopfbereich statt nur im Footer: Der Initiator
+        ist selbst Marktteilnehmer, das gehört sichtbar an den Anfang.
+      */}
+      <p className="mt-4 max-w-2xl text-xs leading-relaxed text-ink-500">
+        {siteConfig.initiator.disclosure}
+      </p>
+
       <div className="no-print mt-7 flex flex-wrap items-center gap-3">
         <a href={`#${anchors.marketMap}`} className="btn-primary">
           Marktübersicht entdecken

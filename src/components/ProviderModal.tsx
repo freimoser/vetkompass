@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ExternalLink, X } from 'lucide-react';
+import { ExternalLink, Info, X } from 'lucide-react';
 import { asset, countryLabels, countryOrder, mailtoLink, siteConfig } from '../config/site';
 import { categoriesById } from '../data/categories';
 import { labelFor } from '../lib/market';
@@ -138,6 +138,17 @@ export function ProviderModal({ entry, onClose }: ProviderModalProps) {
 
         <p className="mt-3 text-sm leading-relaxed text-ink-700">{provider.description}</p>
 
+        {/* Doppelrolle des Initiators offenlegen – datengesteuert, nicht hardcodiert. */}
+        {provider.isInitiator ? (
+          <p className="mt-4 flex gap-2 rounded-lg border border-brand-200 bg-brand-50 p-3 text-xs leading-relaxed text-ink-700">
+            <Info aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+            <span>
+              {siteConfig.initiator.name} hat diese Marktübersicht initiiert und ist zugleich
+              Anbieter. Die Platzierung folgt denselben Regeln wie bei allen anderen Einträgen.
+            </span>
+          </p>
+        ) : null}
+
         <dl className="mt-6 space-y-5 text-sm">
           <div>
             <dt className="text-xs font-bold uppercase tracking-[0.08em] text-ink-500">
@@ -227,10 +238,36 @@ export function ProviderModal({ entry, onClose }: ProviderModalProps) {
           </a>
         </div>
 
-        <p className="mt-5 text-xs leading-relaxed text-ink-500">
-          Die Angaben stammen aus der Marktübersicht (Stand: {siteConfig.edition}) und stellen
-          keine Bewertung oder Empfehlung dar.
-        </p>
+        <div className="mt-5 space-y-2 text-xs leading-relaxed text-ink-500">
+          <p>
+            Die Angaben stammen aus der Marktübersicht (Stand: {siteConfig.edition}) und stellen
+            keine Bewertung oder Empfehlung dar.
+            {provider.isInitiator ? '' : ` ${siteConfig.noAffiliationNotice}`}
+          </p>
+          {/*
+            Beim Initiator ergäbe der Entfernungs-Hinweis keinen Sinn – er
+            betreibt die Übersicht selbst.
+          */}
+          {provider.isInitiator ? null : (
+          <p>
+            Sie vertreten {provider.name}?{' '}
+            <a
+              href={mailtoLink(
+                `Logo entfernen lassen: ${provider.name}`,
+                [
+                  `Unternehmen: ${provider.name}`,
+                  'Ich bin berechtigt, für dieses Unternehmen zu handeln.',
+                  'Bitte entfernen: Logo / gesamter Eintrag',
+                  '',
+                ].join('\n'),
+              )}
+              className="underline underline-offset-2 hover:text-ink-700"
+            >
+              Eintrag entfernen lassen
+            </a>
+          </p>
+          )}
+        </div>
       </div>
     </div>,
     document.body,

@@ -1,4 +1,4 @@
-import { anchors, siteConfig } from '../config/site';
+import { anchors, mailtoLink, siteConfig } from '../config/site';
 
 /** Minimalistischer Footer. Der Initiator bleibt bewusst dezent. */
 export function Footer() {
@@ -48,10 +48,27 @@ export function Footer() {
         </nav>
       </div>
 
-      <p className="mt-8 text-xs leading-relaxed text-ink-300">
-        Alle genannten Marken- und Produktnamen sind Eigentum der jeweiligen Rechteinhaber. Die
-        Nennung erfolgt ausschließlich zu Informationszwecken.
-      </p>
+      <div className="mt-8 max-w-4xl space-y-2 text-xs leading-relaxed text-ink-500">
+        <p>{siteConfig.trademarkNotice}</p>
+        <p>{siteConfig.noAffiliationNotice}</p>
+        <p>
+          {siteConfig.removalNotice}{' '}
+          <a
+            href={mailtoLink(
+              'Logo entfernen lassen',
+              [
+                'Unternehmen:',
+                'Ich bin berechtigt, für dieses Unternehmen zu handeln.',
+                'Bitte entfernen: Logo / gesamter Eintrag',
+                '',
+              ].join('\n'),
+            )}
+            className="underline underline-offset-2 hover:text-ink-700"
+          >
+            Eintrag entfernen lassen
+          </a>
+        </p>
+      </div>
     </footer>
   );
 }

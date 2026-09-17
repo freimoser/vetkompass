@@ -161,13 +161,16 @@ Darunter werden alle Karten gestapelt; `placement` wird dann ignoriert.
 
 `src/config/site.ts` enthält alles, was ohne Code-Änderung anpassbar sein soll:
 
-| Feld             | Bedeutung                                              |
-| ---------------- | ------------------------------------------------------ |
-| `edition`        | Sichtbarer Redaktionsstand, z. B. „September 2026“      |
-| `contactEmail`   | Empfänger der „Anbieter vorschlagen“-Mails              |
-| `legal`          | Links zu Impressum und Datenschutz                      |
-| `downloadImage`  | Pfad zur Original-Grafik unter `public/`                |
-| `initiator`      | Name und Link des Initiators (dezent im Footer)         |
+| Feld                  | Bedeutung                                                    |
+| --------------------- | ------------------------------------------------------------ |
+| `edition`             | Sichtbarer Redaktionsstand, z. B. „September 2026“            |
+| `contactEmail`        | Empfänger aller Hinweis-, Korrektur- und Entfernungs-Mails    |
+| `legal`               | Links zu Impressum und Datenschutz                            |
+| `downloadImage`       | Pfad zur Original-Grafik unter `public/`                      |
+| `initiator`           | Name, Link und Transparenzhinweis des Initiators              |
+| `trademarkNotice`     | Hinweis zu fremden Marken und Logos                           |
+| `noAffiliationNotice` | Klarstellung, dass keine Geschäftsbeziehung besteht           |
+| `removalNotice`       | Hinweis für Rechteinhaber auf den Entfernungs-Weg             |
 
 > **Vor dem Livegang prüfen:** `contactEmail` zeigt derzeit auf eine
 > Platzhalter-Adresse und muss durch ein real existierendes Postfach ersetzt
@@ -224,6 +227,32 @@ Diese Übersicht ist bewusst neutral angelegt:
 - „Kein Anspruch auf Vollständigkeit“ wird sichtbar kommuniziert
 
 Petleo ist Initiator der Übersicht und erhält keine Sonderplatzierung.
+
+### Rechtliche Vorkehrungen
+
+Die Seite nennt fremde Marken und zeigt fremde Logos. Das ist als referierende
+Markennutzung im Rahmen einer Marktübersicht grundsätzlich zulässig (§ 23
+MarkenG), setzt aber voraus, dass kein Eindruck einer Geschäftsbeziehung
+entsteht. Dafür sind eingebaut:
+
+- **Markenhinweis** und **Klarstellung ohne Geschäftsbeziehung** im Footer sowie
+  im Detaildialog jedes Anbieters
+- **Entfernungs-Weg für Rechteinhaber** – als eigener Button im CTA-Abschnitt,
+  als Link im Footer und im Detaildialog jedes Anbieters. Alle drei erzeugen
+  eine vorausgefüllte Mail an `contactEmail`.
+- **Offenlegung der Doppelrolle des Initiators** – direkt im Kopfbereich, im
+  Methodik-Abschnitt und im Detaildialog. Letzteres läuft über das Datenfeld
+  `isInitiator` am Anbieter, damit die UI keinen Anbieter hardcodiert.
+- Bewusst **„anbieterübergreifend" statt „unabhängig"**: Der Initiator ist
+  selbst Marktteilnehmer und in mehreren Kategorien vertreten. Eine
+  Unabhängigkeitsbehauptung wäre in dieser Konstellation wettbewerbsrechtlich
+  angreifbar (§ 5 UWG).
+
+Da die Übersicht von einem Marktteilnehmer herausgegeben wird, handelt es sich
+um geschäftlichen Verkehr – auch ohne Einnahmen. Die genannten Texte liegen
+zentral in `src/config/site.ts` und lassen sich nach anwaltlicher Prüfung ohne
+Code-Änderung anpassen. Eine solche Prüfung wird vor dem Livegang empfohlen;
+dieses Repository ersetzt sie nicht.
 
 ### Offene Datenpflege
 

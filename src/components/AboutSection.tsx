@@ -29,6 +29,30 @@ export function AboutSection() {
             Die Darstellung innerhalb einer Kategorie erfolgt alphabetisch. Es gibt keine
             Rangfolge, keine Bewertung und keine bezahlten Platzierungen.
           </p>
+
+          {/* Offenlegung: Der Initiator ist selbst Marktteilnehmer. */}
+          <div className="rounded-xl border border-brand-200 bg-brand-50/50 p-5">
+            <h3 className="text-xs font-bold uppercase tracking-[0.08em] text-ink-700">
+              Wer diese Übersicht erstellt
+            </h3>
+            <p className="mt-2 text-ink-700">
+              Die Übersicht wird von{' '}
+              <a
+                href={siteConfig.initiator.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-brand-700"
+              >
+                {siteConfig.initiator.name}
+              </a>{' '}
+              initiiert und gepflegt. {siteConfig.initiator.name} ist selbst Anbieter und in
+              mehreren Kategorien vertreten. Daraus entsteht keine Sonderplatzierung: Die
+              Sortierung ist in allen Kategorien rein alphabetisch, und die Aufnahme folgt für
+              alle Anbieter denselben Kriterien.
+            </p>
+          </div>
+
+          <p className="text-ink-500">{siteConfig.noAffiliationNotice}</p>
         </div>
 
         <dl className="grid grid-cols-2 gap-x-10 gap-y-6 self-start text-sm lg:grid-cols-1">

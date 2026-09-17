@@ -8,8 +8,13 @@ import type { Country } from '../types/market';
 export const siteConfig = {
   title: 'Die digitale Tierarztpraxis – Marktübersicht 2026',
   subtitle: 'Digitale Lösungen für Tierarztpraxen im DACH-Markt',
+  /*
+    Bewusst "anbieterübergreifend" statt "unabhängig": Der Initiator ist selbst
+    Marktteilnehmer und in mehreren Kategorien vertreten. Eine
+    Unabhängigkeitsbehauptung wäre in dieser Konstellation angreifbar.
+  */
   intro:
-    'Eine unabhängige Übersicht digitaler Lösungen entlang der modernen Tierarztpraxis.',
+    'Eine anbieterübergreifende Übersicht digitaler Lösungen entlang der modernen Tierarztpraxis.',
   metaDescription:
     'Marktübersicht digitaler Lösungen für Tierarztpraxen in Deutschland, Österreich und der Schweiz – von Praxissoftware und Online-Terminbuchung bis KI und Telemedizin.',
 
@@ -23,11 +28,28 @@ export const siteConfig = {
    */
   contactEmail: 'marktuebersicht@petleo.net',
 
-  /** Initiator der Übersicht – bewusst dezent im Footer platziert. */
+  /** Initiator der Übersicht – dezent dargestellt, aber offen benannt. */
   initiator: {
     name: 'Petleo',
     url: 'https://www.petleo.net',
+    /** Transparenzhinweis, direkt im Kopfbereich sichtbar. */
+    disclosure:
+      'Initiiert von Petleo. Petleo ist selbst Anbieter und in mehreren Kategorien vertreten – ohne Sonderplatzierung.',
   },
+
+  /*
+    Rechtliche Hinweise zur Nennung fremder Marken und Logos.
+    Die Nutzung erfolgt als referierende Markennutzung im Rahmen einer
+    Marktübersicht. Wichtig ist, dass daraus kein Eindruck einer
+    Geschäftsbeziehung entsteht und Rechteinhaber einen einfachen Weg zur
+    Entfernung haben.
+  */
+  trademarkNotice:
+    'Alle genannten Marken-, Produkt- und Unternehmensnamen sowie die abgebildeten Logos sind Eigentum der jeweiligen Rechteinhaber. Ihre Verwendung erfolgt ausschließlich zu Informationszwecken im Rahmen dieser Marktübersicht.',
+  noAffiliationNotice:
+    'Aus der Aufnahme in diese Übersicht folgt keine geschäftliche Verbindung, Partnerschaft, Zusammenarbeit oder Empfehlung.',
+  removalNotice:
+    'Rechteinhaber, die eine Darstellung ihres Logos oder ihres Unternehmens hier nicht wünschen, melden sich bitte – wir entfernen den Eintrag kurzfristig.',
 
   /** Download der Original-Grafik. Pfade relativ zu /public. */
   downloadImage: 'downloads/digitale-tierarztpraxis-marktuebersicht-2026.png',
