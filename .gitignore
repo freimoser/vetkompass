@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Aus src/config/legal.ts bzw. VITE_SITE_URL erzeugt (npm run gen)
+public/impressum.html
+public/datenschutz.html
+public/haftungsausschluss.html
+public/robots.txt
+public/sitemap.xml
+public/llms.txt

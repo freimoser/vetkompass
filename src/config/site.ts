@@ -1,4 +1,19 @@
 import type { Country } from '../types/market';
+import { LEGAL } from './legal';
+
+export { LEGAL } from './legal';
+export type { LegalConfig } from './legal';
+
+/**
+ * Optionale Bausteine. Alles, was hier leer bleibt, erscheint nicht auf der
+ * Seite – es gibt keinen Zustand "wird gerade eingerichtet".
+ */
+export const FEATURES = {
+  /** Absolute Seiten-URL inkl. "/" am Ende. Leer = noch keine Domain. */
+  siteUrl: import.meta.env.VITE_SITE_URL || '',
+  /** Token für Cloudflare Web Analytics. Leer = keine Messung. */
+  cloudflareAnalyticsToken: import.meta.env.VITE_CF_ANALYTICS_TOKEN || '',
+} as const;
 
 /**
  * Zentrale Seitenkonfiguration. Alles, was sich ohne Code-Änderung anpassen
@@ -23,12 +38,10 @@ export const siteConfig = {
 
   /**
    * Kontaktadresse für Anbieter-Hinweise, Korrekturen und Entfernungswünsche.
-   *
-   * TODO: Vor dem Livegang durch ein real existierendes Postfach ersetzen.
-   * example.com ist von der IANA für Platzhalter reserviert, es kann also
-   * niemand versehentlich Post bekommen – es kommt aber auch nichts an.
+   * Kommt aus `LEGAL` – die Adresse steht nur an einer Stelle im Projekt.
+   * Ist sie leer, erscheinen die Kontakt-Schaltflächen gar nicht erst.
    */
-  contactEmail: 'kontakt@example.com',
+  contactEmail: LEGAL.email,
 
   /** Herausgeber der Übersicht. Privat betrieben, nicht von einem Anbieter. */
   publisher: {
@@ -73,15 +86,14 @@ export const siteConfig = {
   ogImage: 'og/marktuebersicht-2026.png',
 
   /*
-    Rechtliche Seiten. Liegen als statische Dateien unter public/ – so
-    funktionieren sie auf GitHub Pages ohne Routing.
-
-    TODO: Beide Seiten sind Entwürfe und müssen vor dem Livegang ausgefüllt
-    werden. Das Impressum braucht eine ladungsfähige Anschrift (§ 5 DDG).
+    Rechtliche Seiten. Werden von `scripts/gen-legal.mjs` aus `LEGAL` erzeugt
+    und als statische Dateien ausgeliefert – so funktionieren sie auf
+    GitHub Pages ohne Routing. Alle drei tragen `noindex, follow`.
   */
   legal: {
     imprintUrl: 'impressum.html',
     privacyUrl: 'datenschutz.html',
+    disclaimerUrl: 'haftungsausschluss.html',
   },
 } as const;
 
@@ -124,8 +136,14 @@ export function isExternalLink(url: string): boolean {
   return /^https?:\/\//.test(url);
 }
 
-/** Erzeugt einen vorausgefüllten mailto-Link. */
-export function mailtoLink(subject: string, body: string): string {
+/**
+ * Erzeugt einen vorausgefüllten mailto-Link – oder `null`, wenn keine
+ * Kontaktadresse konfiguriert ist. Ein toter Link wäre schlechter als keiner:
+ * Die Entfernungs-Schaltflächen sind eine Zusage an Rechteinhaber und nur so
+ * viel wert wie das Postfach dahinter.
+ */
+export function mailtoLink(subject: string, body: string): string | null {
+  if (!siteConfig.contactEmail) return null;
   const params = new URLSearchParams({ subject, body });
   // URLSearchParams kodiert Leerzeichen als "+", mailto erwartet %20.
   return `mailto:${siteConfig.contactEmail}?${params.toString().replace(/\+/g, '%20')}`;

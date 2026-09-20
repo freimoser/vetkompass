@@ -2,12 +2,23 @@ import { anchors, isExternalLink, mailtoLink, resolveLink, siteConfig } from '..
 
 /** Minimalistischer Footer mit Herausgeber-, Marken- und Rechtshinweisen. */
 export function Footer() {
+  const removal = mailtoLink(
+    'Logo entfernen lassen',
+    [
+      'Unternehmen:',
+      'Ich bin berechtigt, für dieses Unternehmen zu handeln.',
+      'Bitte entfernen: Logo / gesamter Eintrag',
+      '',
+    ].join('\n'),
+  );
+
   const links = [
     { label: 'Über die Marktübersicht', href: `#${anchors.methodology}` },
     { label: 'Transparenz', href: `#${anchors.transparency}` },
     { label: 'Anbieter ergänzen', href: `#${anchors.submit}` },
     { label: 'Impressum', href: resolveLink(siteConfig.legal.imprintUrl) },
     { label: 'Datenschutz', href: resolveLink(siteConfig.legal.privacyUrl) },
+    { label: 'Haftungsausschluss', href: resolveLink(siteConfig.legal.disclaimerUrl) },
   ];
 
   return (
@@ -51,23 +62,14 @@ export function Footer() {
       <div className="mt-8 max-w-4xl space-y-2 text-xs leading-relaxed text-ink-500">
         <p>{siteConfig.trademarkNotice}</p>
         <p>{siteConfig.noAffiliationNotice}</p>
-        <p>
-          {siteConfig.removalNotice}{' '}
-          <a
-            href={mailtoLink(
-              'Logo entfernen lassen',
-              [
-                'Unternehmen:',
-                'Ich bin berechtigt, für dieses Unternehmen zu handeln.',
-                'Bitte entfernen: Logo / gesamter Eintrag',
-                '',
-              ].join('\n'),
-            )}
-            className="underline underline-offset-2 hover:text-ink-700"
-          >
-            Eintrag entfernen lassen
-          </a>
-        </p>
+        {removal ? (
+          <p>
+            {siteConfig.removalNotice}{' '}
+            <a href={removal} className="underline underline-offset-2 hover:text-ink-700">
+              Eintrag entfernen lassen
+            </a>
+          </p>
+        ) : null}
       </div>
     </footer>
   );

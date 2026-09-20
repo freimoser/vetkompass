@@ -64,7 +64,15 @@ jobs:
         env:
           VITE_BASE: ${{ steps.paths.outputs.base }}
           VITE_SITE_URL: ${{ steps.paths.outputs.site_url }}
+          VITE_CF_ANALYTICS_TOKEN: ${{ vars.VITE_CF_ANALYTICS_TOKEN }}
+          VITE_SEARCH_CONSOLE: ${{ vars.VITE_SEARCH_CONSOLE }}
         run: npm run build
+
+      # Bricht den Deploy ab, wenn Pflichtangaben fehlen oder das Canonical
+      # nicht auf die Live-Domain zeigt. Läuft gegen dist/, nicht gegen den
+      # Quelltext – geprüft wird, was ausgeliefert wird.
+      - name: Livegang-Prüfung
+        run: npm run check:launch
 
       - uses: actions/configure-pages@v5
 

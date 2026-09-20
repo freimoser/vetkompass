@@ -79,6 +79,21 @@ export function ProviderModal({ entry, onClose }: ProviderModalProps) {
   const countries = countryOrder.filter((country) => provider.countries.includes(country));
   const isFullDach = countries.length === countryOrder.length;
 
+  // Ohne konfigurierte Kontaktadresse entfallen beide Links, statt tot zu sein.
+  const correctionLink = mailtoLink(
+    `Korrektur: ${provider.name}`,
+    `Anbieter: ${provider.name}\nWas sollte korrigiert werden?\n\n`,
+  );
+  const removalLink = mailtoLink(
+    `Logo entfernen lassen: ${provider.name}`,
+    [
+      `Unternehmen: ${provider.name}`,
+      'Ich bin berechtigt, für dieses Unternehmen zu handeln.',
+      'Bitte entfernen: Logo / gesamter Eintrag',
+      '',
+    ].join('\n'),
+  );
+
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
       <button
@@ -224,15 +239,11 @@ export function ProviderModal({ entry, onClose }: ProviderModalProps) {
               <ExternalLink aria-hidden="true" className="h-4 w-4" />
             </a>
           ) : null}
-          <a
-            href={mailtoLink(
-              `Korrektur: ${provider.name}`,
-              `Anbieter: ${provider.name}\nWas sollte korrigiert werden?\n\n`,
-            )}
-            className="btn-secondary"
-          >
-            Angaben korrigieren
-          </a>
+          {correctionLink ? (
+            <a href={correctionLink} className="btn-secondary">
+              Angaben korrigieren
+            </a>
+          ) : null}
         </div>
 
         <div className="mt-5 space-y-2 text-xs leading-relaxed text-ink-500">
@@ -245,19 +256,11 @@ export function ProviderModal({ entry, onClose }: ProviderModalProps) {
             Bei einem verbundenen Anbieter ergäbe der Entfernungs-Hinweis keinen
             Sinn – dort läuft die Abstimmung ohnehin direkt.
           */}
-          {provider.disclosureNote ? null : (
+          {provider.disclosureNote || !removalLink ? null : (
           <p>
             Sie vertreten {provider.name}?{' '}
             <a
-              href={mailtoLink(
-                `Logo entfernen lassen: ${provider.name}`,
-                [
-                  `Unternehmen: ${provider.name}`,
-                  'Ich bin berechtigt, für dieses Unternehmen zu handeln.',
-                  'Bitte entfernen: Logo / gesamter Eintrag',
-                  '',
-                ].join('\n'),
-              )}
+              href={removalLink}
               className="underline underline-offset-2 hover:text-ink-700"
             >
               Eintrag entfernen lassen

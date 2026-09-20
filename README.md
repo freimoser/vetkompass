@@ -45,14 +45,26 @@ Linting:
 npm run lint
 ```
 
+Alles zusammen vor einem Release:
+
+```bash
+npm run verify
+```
+
 ---
 
 ## Projektstruktur
 
 ```
+scripts/
+  gen-legal.mjs    erzeugt Impressum, Datenschutz, Haftungsausschluss aus LEGAL
+  gen-seo.mjs      erzeugt robots.txt, sitemap.xml, llms.txt
+  gen-icons.mjs    erzeugt alle Favicon-Größen aus favicon.svg
+  check-launch.mjs Livegang-Prüfung gegen dist/
 src/
   components/      UI-Bausteine (Header, MarketMap, CategoryCard, …)
-  config/site.ts   Titel, Herausgeber, Kontakt, Rechtstexte, Downloads
+  config/legal.ts  einzige Quelle für Anschrift und Kontaktangaben
+  config/site.ts   Titel, Herausgeber, Texte, LEGAL- und FEATURES-Re-Export
   data/
     categories.ts  Die 9 Kategorien inkl. Desktop-Platzierung
     providers.ts   Zentrale Anbieterliste – die einzige Quelle für Anbieterdaten
@@ -62,9 +74,14 @@ public/
   logos/           Anbieterlogos
   downloads/       Original-Grafik zum Download
   og/              Social-Preview-Bild
-  impressum.html   Rechtsseite (Entwurf, statisch – kein Routing nötig)
-  datenschutz.html Rechtsseite (Entwurf)
+  favicon.*        aus favicon.svg erzeugt (npm run icons)
+  impressum.html   erzeugt – nicht von Hand bearbeiten
+  datenschutz.html erzeugt – nicht von Hand bearbeiten
+  haftungsausschluss.html  erzeugt – nicht von Hand bearbeiten
 ```
+
+Die erzeugten Dateien stehen in `.gitignore`. `npm run dev` und `npm run build`
+erzeugen sie vorab neu, sie können also nicht veralten.
 
 Grundregel: **Anbieterdaten stehen niemals in Komponenten.** Die UI rendert
 ausschließlich, was aus `src/data/` kommt.
@@ -175,30 +192,81 @@ Darunter werden alle Karten gestapelt; `placement` wird dann ignoriert.
 | `noAffiliationNotice` | Klarstellung, dass keine Geschäftsbeziehung besteht           |
 | `removalNotice`       | Hinweis für Rechteinhaber auf den Entfernungs-Weg             |
 
-> **Vor dem Livegang erledigen:**
->
-> 1. `contactEmail` steht auf `kontakt@example.com` – einer von der IANA für
->    Platzhalter reservierten Domain. Dort kommt nichts an. Alle drei
->    Hinweis-Schaltflächen sind nur so viel wert wie das Postfach dahinter.
-> 2. `public/impressum.html` und `public/datenschutz.html` sind Entwürfe. Das
->    Impressum braucht eine **ladungsfähige Anschrift** (§ 5 DDG) – ein Postfach
->    genügt nicht. Bei privatem Betrieb ohne Geschäftsadresse ist das die
->    Privatanschrift.
-> 3. Die Datenschutzerklärung beschreibt Hosting über GitHub Pages (US-Anbieter).
->    Wer das vermeiden will, wechselt auf einen Hoster in der EU und passt den
->    Abschnitt an.
+Die Kontaktadresse kommt aus `src/config/legal.ts`, nicht aus `site.ts` – sie
+steht nur an einer Stelle im Projekt. Ist sie leer, erscheinen die
+Kontakt-Schaltflächen gar nicht erst, statt als toter Link zu enden.
 
 ### Umgebungsvariablen
 
-`.env` (Vorlage: `.env.example`):
+`.env` (Vorlage: `.env.example`). Alles Optionale gilt: **Was nicht gesetzt ist,
+erscheint nicht.** Es gibt keinen Zustand „wird gerade eingerichtet".
 
-| Variable         | Bedeutung                                                     |
-| ---------------- | ------------------------------------------------------------- |
-| `VITE_BASE`      | Basispfad des Deployments. `/` lokal, `/<repo>/` für Pages.    |
-| `VITE_SITE_URL`  | Absolute Seiten-URL inkl. `/` am Ende, für canonical und OG.   |
+| Variable                  | Wirkung, wenn leer                                          |
+| ------------------------- | ----------------------------------------------------------- |
+| `VITE_BASE`               | `/` – lokal richtig, im Workflow automatisch gesetzt         |
+| `VITE_SITE_URL`           | keine Sitemap, keine `llms.txt`, kein Canonical → Blocker     |
+| `VITE_CF_ANALYTICS_TOKEN` | keine Messung, kein Skript, Datenschutz sagt das ausdrücklich |
+| `VITE_SEARCH_CONSOLE`     | Search-Console-Abschnitt entfällt                            |
 
-Beide werden im Deploy-Workflow automatisch gesetzt; lokal reichen die
-Standardwerte.
+---
+
+## Livegang
+
+```bash
+npm run verify     # lint + build + Livegang-Prüfung
+```
+
+`check:launch` läuft **gegen `dist/`**, nicht gegen den Quelltext – geprüft
+wird, was ausgeliefert wird. Die Prüfung trennt Blocker (Exit 1) von Hinweisen
+und ist im Deploy-Workflow vorgeschaltet: Sind Pflichtangaben offen, wird nicht
+deployt.
+
+### Blocker
+
+- Pflichtangaben nach § 5 DDG fehlen in `src/config/legal.ts`
+- Firmenname ohne Rechtsform
+- unausgefüllte Stellen in den Rechtsseiten
+- Rechtsseite ohne `noindex`
+- Startseite ohne Canonical, oder Canonical auf `localhost` / `.pages.dev` / `example.*`
+- `noindex`-Seite in der Sitemap, oder indexierbare Seite fehlt darin
+- Messung eingebunden, aber in der Datenschutzerklärung nicht beschrieben — und umgekehrt
+
+### Entscheidungen, die dahinterstehen
+
+**Kein Einwilligungsbanner.** Cloudflare Web Analytics setzt keine Cookies und
+liest nichts aus dem Endgerät, fällt also nicht unter § 25 Abs. 1 TDDDG.
+Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Ein Banner für eine
+Verarbeitung, die keine Einwilligung braucht, hat keine Schutzwirkung und
+gewöhnt Besucher daran, ungelesen zuzustimmen.
+
+**`noindex, follow` auf den Rechtsseiten.** Nicht wegen SEO: Im Impressum steht
+eine ladungsfähige Anschrift, bei privatem Betrieb die Privatadresse. Ohne
+`noindex` wird sie ein eigenständiges Google-Ergebnis. § 5 DDG verlangt
+Erreichbarkeit, nicht Auffindbarkeit über eine Suchmaschine. `follow`, damit die
+Seiten weiter gecrawlt werden und Links weitergeben. In `robots.txt` sind sie
+bewusst **nicht** gesperrt – sonst könnten Crawler das `noindex` nicht lesen.
+
+**Keine AGB.** AGB sind nie gesetzlich vorgeschrieben, sondern vorformulierte
+Vertragsbedingungen. Diese Seite verkauft nichts und schließt keine Verträge –
+AGB für ein Angebot, das es nicht gibt, wären toter Text.
+
+**Favicon in 96 und 48.** Google verwendet ein Favicon in den Suchergebnissen
+nur bei einer Kantenlänge, die ein Vielfaches von 48 ist; ein 32×32-Favicon wird
+ignoriert. `favicon.ico` liegt zusätzlich im Wurzelverzeichnis, weil Browser
+diesen Pfad unaufgefordert abfragen.
+
+### Nach dem Deploy auf der echten Domain prüfen
+
+```bash
+curl -s -o /dev/null -w '%{http_code} -> %{redirect_url}\n' https://DOMAIN/
+curl -s https://DOMAIN/ | grep -o '<link rel="canonical"[^>]*>'
+curl -s -o /dev/null -w '%{http_code}\n' \
+  -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
+  https://DOMAIN/
+```
+
+Beim Nachmessen immer ein Browser-Kennzeichen mitgeben – sonst meldet man sich
+selbst einen Ausfall, den es nicht gibt.
 
 ---
 

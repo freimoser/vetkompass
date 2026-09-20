@@ -30,6 +30,12 @@ const REMOVAL_BODY = [
 
 /** Hinweis-CTA: Der Markt verändert sich schneller als eine statische Grafik. */
 export function SubmitProviderSection() {
+  // Ohne Kontaktadresse gibt es keine Schaltflächen – kein toter mailto-Link.
+  const suggest = mailtoLink('Anbieter vorschlagen', SUGGEST_BODY);
+  const correction = mailtoLink('Korrektur melden', CORRECTION_BODY);
+  const removal = mailtoLink('Logo entfernen lassen', REMOVAL_BODY);
+  const hasContact = Boolean(suggest && correction && removal);
+
   return (
     <section id={anchors.submit} className="border-t border-brand-100 py-14">
       <div className="map-card bg-brand-50/50 p-6 sm:p-10">
@@ -41,20 +47,22 @@ export function SubmitProviderSection() {
           nicht mehr aktuell ist, freuen wir uns über einen Hinweis.
         </p>
 
-        <div className="no-print mt-7 flex flex-wrap gap-3">
-          <a href={mailtoLink('Anbieter vorschlagen', SUGGEST_BODY)} className="btn-primary">
-            <Mail aria-hidden="true" className="h-4 w-4" />
-            Anbieter vorschlagen
-          </a>
-          <a href={mailtoLink('Korrektur melden', CORRECTION_BODY)} className="btn-secondary">
-            <PencilLine aria-hidden="true" className="h-4 w-4" />
-            Korrektur melden
-          </a>
-          <a href={mailtoLink('Logo entfernen lassen', REMOVAL_BODY)} className="btn-secondary">
-            <Trash2 aria-hidden="true" className="h-4 w-4" />
-            Logo entfernen lassen
-          </a>
-        </div>
+        {hasContact ? (
+          <div className="no-print mt-7 flex flex-wrap gap-3">
+            <a href={suggest as string} className="btn-primary">
+              <Mail aria-hidden="true" className="h-4 w-4" />
+              Anbieter vorschlagen
+            </a>
+            <a href={correction as string} className="btn-secondary">
+              <PencilLine aria-hidden="true" className="h-4 w-4" />
+              Korrektur melden
+            </a>
+            <a href={removal as string} className="btn-secondary">
+              <Trash2 aria-hidden="true" className="h-4 w-4" />
+              Logo entfernen lassen
+            </a>
+          </div>
+        ) : null}
 
         <div className="mt-6 max-w-2xl space-y-2 text-xs leading-relaxed text-ink-500">
           <p>
@@ -67,7 +75,7 @@ export function SubmitProviderSection() {
               Mehr zur Methodik
             </a>
           </p>
-          <p>{siteConfig.removalNotice}</p>
+          {hasContact ? <p>{siteConfig.removalNotice}</p> : null}
         </div>
       </div>
     </section>
