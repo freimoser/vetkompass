@@ -30,6 +30,16 @@ const DACH = ['DE', 'AT', 'CH'] as const;
 
 export const providers: Provider[] = [
   {
+    id: 'animalchat',
+    name: 'AnimalChat',
+    website: 'https://animalchat.net',
+    countries: [...DACH],
+    categories: [8],
+    description:
+      'Kommunikationslösung für Tierarztpraxen mit Nachrichten und Videosprechstunde, nach Anbieterangabe auf deutschen Servern gehostet.',
+    tags: ['Videosprechstunde', 'Kommunikation', 'Praxis'],
+  },
+  {
     id: 'anidata',
     name: 'ANIDATA',
     logo: 'logos/anidata.png',
@@ -39,6 +49,16 @@ export const providers: Provider[] = [
     description:
       'Praxismanagementsystem für die Organisation von Patientendaten, Terminen, Dokumentation und Abrechnung in der Tierarztpraxis.',
     tags: ['PIMS', 'Praxissoftware', 'Patientenakte'],
+  },
+  {
+    id: 'debevet',
+    name: 'debevet',
+    website: 'https://www.debevet.de',
+    countries: [...DACH],
+    categories: [6],
+    description:
+      'Cloudbasiertes Praxismanagementsystem für Kleintier-, Nutztier- und Pferdepraxen sowie Tiertherapie.',
+    tags: ['PIMS', 'Praxissoftware', 'Cloud'],
   },
   {
     id: 'digitail',
@@ -94,6 +114,16 @@ export const providers: Provider[] = [
     description:
       'Praxismanagementsystem für Patientenakte, Terminplanung, Dokumentation und Abrechnung.',
     tags: ['PIMS', 'Praxissoftware', 'Patientenakte'],
+  },
+  {
+    id: 'evovell',
+    name: 'Evovell',
+    website: 'https://www.evovell.com',
+    countries: [...DACH],
+    categories: [9],
+    description:
+      'App für Tierhalter, die Gesundheitsdaten, Termine und tierärztliche Unterlagen für Hund, Katze und Pferd bündelt.',
+    tags: ['Tierhalter-App', 'Patientenakte'],
   },
   {
     id: 'felmo',
@@ -171,6 +201,33 @@ export const providers: Provider[] = [
     description:
       'Informations- und Newsletter-Angebot für Tierärztinnen, Tierärzte und Praxisteams.',
     tags: ['Newsletter', 'Branchenmedien'],
+  },
+  {
+    id: 'katzenmedizin',
+    name: 'Katzenmedizin',
+    // TODO: Website ergänzen – katzenmedizin.de liefert ein fehlerhaftes
+    // TLS-Zertifikat und ist derzeit nicht abrufbar.
+    // TODO: Aufnahme bestätigen – Hinweis von Christian Salzmann (LinkedIn,
+    // 21.09.2026); Andreas Moll soll noch festlegen, wie er erscheinen möchte.
+    website: undefined,
+    countries: [...DACH],
+    categories: [5],
+    description:
+      'Fachportal und Informationsangebot zur Katzenmedizin für die deutschsprachige Veterinärbranche.',
+    tags: ['Newsletter', 'Fachmedien', 'Katzenmedizin'],
+  },
+  {
+    id: 'petla',
+    name: 'Petla',
+    // TODO: Name und Website bestätigen – Hinweis von Christian J. Gabrielse
+    // (LinkedIn, 21.09.2026) für die Kategorien 1 und 2. petla.de und
+    // petla.com sind geparkt, eine passende Seite war nicht auffindbar.
+    website: undefined,
+    countries: [...DACH],
+    categories: [1, 2],
+    description:
+      'Lösung für digitale Sichtbarkeit von Tierarztpraxen und Online-Terminvereinbarung.',
+    tags: ['Sichtbarkeit', 'Terminbuchung'],
   },
   {
     id: 'petleo',
@@ -271,6 +328,16 @@ export const providers: Provider[] = [
     tags: ['KI', 'Dokumentation', 'Spracherkennung'],
   },
   {
+    id: 'tierarzt-online',
+    name: 'tierarzt-online',
+    website: 'https://tierarzt-online.org',
+    countries: [...DACH],
+    categories: [7, 8],
+    description:
+      'Tierärztliche Beratung per Videochat – sowohl als Angebot für Tierhalter als auch für Praxen, die eigene Videotermine anbieten.',
+    tags: ['Telemedizin', 'Videosprechstunde'],
+  },
+  {
     id: 'tierarzt-plus-partner',
     name: 'Tierarzt Plus Partner',
     logo: 'logos/tierarzt-plus-partner.png',
@@ -313,6 +380,28 @@ export const providers: Provider[] = [
     description:
       'Online-Fachmagazin und Newsletter für die deutschsprachige Veterinärbranche.',
     tags: ['Newsletter', 'Fachmedien', 'Branchenmedien'],
+  },
+  {
+    id: 'vet7well',
+    name: 'Vet7Well',
+    // TODO: Name und Website bestätigen – Hinweis von Christian J. Gabrielse
+    // (LinkedIn, 21.09.2026) für Kategorie 6. Unter vet7well.de und
+    // vet7well.com existiert keine Seite; Schreibweise vermutlich abweichend.
+    website: undefined,
+    countries: [...DACH],
+    categories: [6],
+    description: 'Praxismanagementsystem für die tierärztliche Praxis.',
+    tags: ['PIMS', 'Praxissoftware'],
+  },
+  {
+    id: 'vetat-work',
+    name: 'vet@work',
+    website: 'https://vetat.work',
+    countries: [...DACH],
+    categories: [6],
+    description:
+      'Praxismanagementsystem der WDT Wirtschaftsgenossenschaft deutscher Tierärzte für Verwaltungsaufgaben und Praxisabläufe.',
+    tags: ['PIMS', 'Praxissoftware', 'Genossenschaft'],
   },
   {
     id: 'vetdream',
@@ -367,6 +456,16 @@ export const providers: Provider[] = [
     categories: [4],
     description:
       'KI-gestützter Assistent für Dokumentation und Unterstützung im tierärztlichen Praxisalltag.',
+    tags: ['KI', 'Dokumentation', 'Praxisassistent'],
+  },
+  {
+    id: 'vetnio',
+    name: 'Vetnio',
+    website: 'https://www.vetnio.com',
+    countries: [...DACH],
+    categories: [4],
+    description:
+      'KI-Assistent für die tierärztliche Dokumentation, der Notizen automatisiert und bei Anrufen und Nachrichten unterstützt.',
     tags: ['KI', 'Dokumentation', 'Praxisassistent'],
   },
   {
