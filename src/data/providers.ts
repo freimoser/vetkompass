@@ -383,11 +383,13 @@ export const providers: Provider[] = [
   },
   {
     id: 'vet7well',
-    name: 'Vet7Well',
-    // TODO: Name und Website bestätigen – Hinweis von Christian J. Gabrielse
-    // (LinkedIn, 21.09.2026) für Kategorie 6. Unter vet7well.de und
-    // vet7well.com existiert keine Seite; Schreibweise vermutlich abweichend.
-    website: undefined,
+    // Schreibweise und Adresse am 23.09.2026 geklärt: Die Seite unter vet7.net
+    // antwortet mit HTTP 200 und trägt den Titel "VET7.well | Tierarzt Software
+    // für Tierarztpraxis & Tierklinik". Der Hinweis kam von Christian J.
+    // Gabrielse (LinkedIn, 21.09.2026), die Domain aus der Suche – unter
+    // vet7well.de und vet7well.com gibt es weiterhin keine Seite.
+    name: 'VET7.well',
+    website: 'https://www.vet7.net',
     countries: [...DACH],
     categories: [6],
     description: 'Praxismanagementsystem für die tierärztliche Praxis.',

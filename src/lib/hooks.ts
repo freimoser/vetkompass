@@ -1,26 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useSyncExternalStore } from 'react';
 
-/** Reagiert auf eine CSS Media Query – z. B. um Desktop-Layout zu erkennen. */
+/**
+ * Reagiert auf eine CSS Media Query – z. B. um Desktop-Layout zu erkennen.
+ *
+ * Bewusst `useSyncExternalStore` statt `useState` + `useEffect`: Seit die
+ * Startseite zur Bauzeit vorgerendert wird (scripts/prerender.mjs), gibt es
+ * einen Server-Durchlauf ohne `window`. Läse der erste Client-Durchlauf schon
+ * `matchMedia`, käme er auf einem breiten Bildschirm zu `true`, während im
+ * vorgerenderten HTML `false` steht – React meldet das als
+ * Hydration-Konflikt und verwirft den betroffenen Teilbaum.
+ *
+ * `useSyncExternalStore` löst genau das: Der dritte Parameter liefert den Wert
+ * für Server und Hydration, danach gleicht React sofort auf den echten Wert ab.
+ * Kein Konflikt, und trotzdem kein sichtbares Nachrücken erst nach dem Malen.
+ */
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(() =>
-    typeof window === 'undefined' ? false : window.matchMedia(query).matches,
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const list = window.matchMedia(query);
+      list.addEventListener('change', onChange);
+      // Fallback: einzelne Umgebungen (u. a. Geräte-Emulation in DevTools)
+      // liefern kein "change"-Event, wohl aber ein resize.
+      window.addEventListener('resize', onChange);
+      return () => {
+        list.removeEventListener('change', onChange);
+        window.removeEventListener('resize', onChange);
+      };
+    },
+    [query],
   );
 
-  useEffect(() => {
-    const list = window.matchMedia(query);
-    const sync = () => setMatches(list.matches);
-    sync();
-    list.addEventListener('change', sync);
-    // Fallback: einzelne Umgebungen (u. a. Geräte-Emulation in DevTools)
-    // liefern kein "change"-Event, wohl aber ein resize.
-    window.addEventListener('resize', sync);
-    return () => {
-      list.removeEventListener('change', sync);
-      window.removeEventListener('resize', sync);
-    };
-  }, [query]);
-
-  return matches;
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
 }
 
 /** Breakpoint, ab dem die räumliche Map-Struktur der Grafik gezeigt wird. */

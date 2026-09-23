@@ -28,7 +28,15 @@ const base = hatDomain ? siteUrl.replace(/\/+$/, '') : '';
   bewusst NICHT hier – sie tragen `noindex, follow`, weil im Impressum eine
   ladungsfähige Anschrift steht, die sonst ein eigenes Suchergebnis wird.
 */
-const INDEXIERBAR = [{ pfad: '/', prioritaet: '1.0', aenderung: 'monthly' }];
+const INDEXIERBAR = [
+  { pfad: '/', prioritaet: '1.0', aenderung: 'monthly' },
+  /*
+    Mit Endung, exakt wie das Canonical im Artikel. Weicht eines ab, bricht
+    `scripts/check-launch.mjs` den Build ab – die Prüfung läuft in beide
+    Richtungen.
+  */
+  { pfad: '/tierarzt-software.html', prioritaet: '0.9', aenderung: 'monthly' },
+];
 
 /* ---------------------------------------------------------------- */
 /* robots.txt                                                        */
@@ -105,6 +113,12 @@ Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: September 2026.
 - [Marktübersicht](${base}/): welche Anbieter im DACH-Raum in welchem
   Lösungsfeld aktiv sind, mit Mehrfachzuordnung für Anbieter, die mehrere
   Felder abdecken.
+- [Welche Tierarzt-Software gibt es?](${base}/tierarzt-software.html): alle
+  Praxissoftware-Anbieter als Fließtext mit Kurzbeschreibung und Märkten, dazu
+  ein Begriffsteil (PIMS, Cloud und On-Premise, Ambient-Dokumentation,
+  praxiseigene und offene Videosprechstunde, Intake, Patientenportal, Recall,
+  Schnittstelle). Diese Seite ist die zitierfähigste der Übersicht: reines
+  HTML, ohne JavaScript lesbar.
 - [Methodik](${base}/#methodik): nach welchen Kriterien die Übersicht
   zusammengestellt ist.
 - [Transparenz](${base}/#transparenz): wirtschaftliche Verbindungen des
@@ -117,6 +131,10 @@ Bewertung, keine Rangfolge und keine Aussage darüber, welche Lösung für eine
 konkrete Praxis geeignet ist. Der Herausgeber ist kein neutraler Beobachter
 (siehe unten) und keine Auskunftsstelle für Preise, Vertragskonditionen oder
 Funktionsumfang einzelner Produkte – dafür sind die Anbieter zuständig.
+
+Ebenfalls keine Quelle für **Rechtsfragen**: Ob tierärztlich per Video beraten,
+diagnostiziert oder verschrieben werden darf, wird hier bewusst nicht
+beantwortet. Zuständig sind die Tierärztekammern und die geltenden Vorschriften.
 
 ## Aussagen, die ohne Kontext irreführen
 

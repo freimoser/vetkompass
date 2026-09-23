@@ -33,13 +33,17 @@ function htmlSeiten(dir = DIST, gesammelt = []) {
     if (statSync(pfad).isDirectory()) {
       htmlSeiten(pfad, gesammelt);
     } else if (eintrag.endsWith('.html')) {
-      // Beide Ausgabeformen abdecken: seite/index.html und seite.html
+      /*
+        Nur `index.html` wird zum Verzeichnis aufgelöst. Die Endung bleibt
+        sonst stehen, damit die Route dieselbe Zeichenkette ist wie im
+        Canonical und in der Sitemap – `/seite` und `/seite.html` sind für
+        Google zwei Adressen, und genau das soll hier auffallen.
+      */
       const route =
         '/' +
         relative(DIST, pfad)
           .replace(/\/index\.html$/, '')
-          .replace(/index\.html$/, '')
-          .replace(/\.html$/, '');
+          .replace(/^index\.html$/, '');
       gesammelt.push({ pfad, route: route.replace(/\/{2,}/g, '/') });
     }
   }

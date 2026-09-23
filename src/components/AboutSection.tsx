@@ -1,4 +1,4 @@
-import { anchors, siteConfig } from '../config/site';
+import { anchors, resolveLink, siteConfig } from '../config/site';
 import { categories } from '../data/categories';
 import { providers } from '../data/providers';
 
@@ -38,6 +38,24 @@ export function AboutSection() {
             >
               Zur Offenlegung des Herausgebers
             </a>
+          </p>
+
+          {/*
+            Verweis auf den Begleitartikel. Er steht hier und nicht nur im
+            Footer, weil er der einzige Fließtext des Projekts ist: Die Karte
+            zeigt Namen, der Artikel erklärt die Begriffe dahinter.
+          */}
+          <p>
+            <a
+              href={resolveLink(siteConfig.article.url)}
+              className="font-semibold text-brand-700 underline underline-offset-4 hover:text-brand-800"
+            >
+              {siteConfig.article.title}
+            </a>{' '}
+            <span className="text-ink-500">
+              – alle Praxissoftware-Anbieter als Liste mit Kurzbeschreibung, dazu die Begriffe der
+              digitalen Tierarztpraxis erklärt.
+            </span>
           </p>
         </div>
 

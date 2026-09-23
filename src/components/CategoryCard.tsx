@@ -52,25 +52,30 @@ export function CategoryCard({ group, onSelect, className = '' }: CategoryCardPr
             {isDesktop ? (
               category.title
             ) : (
+              /*
+                Der Name für Hilfsmittel steht als aria-label am Knopf, nicht
+                als zusätzlicher sr-only-Text. Sonst stünde die Zahl zweimal im
+                HTML, und wer den Text ohne CSS ausliest – jede Antwortmaschine
+                tut das – bekäme "1919 Anbieter" zu lesen. Den Auf-/Zu-Zustand
+                meldet aria-expanded ohnehin selbst.
+              */
               <button
                 type="button"
                 onClick={() => setCollapsed((value) => !value)}
                 aria-expanded={open}
                 aria-controls={contentId}
+                aria-label={`${category.title}, ${count} Anbieter`}
                 className={`flex w-full items-start justify-between gap-2 rounded-lg text-left ${titleClasses}`}
               >
                 <span className="min-w-0 flex-1">{category.title}</span>
                 <span className="flex shrink-0 items-center gap-1 text-xs font-medium normal-case tracking-normal text-ink-500">
-                  <span aria-hidden="true">{count}</span>
+                  <span>{count}</span>
                   <ChevronDown
                     aria-hidden="true"
                     className={`h-5 w-5 transition-transform duration-200 ${
                       open ? 'rotate-180' : ''
                     }`}
                   />
-                  <span className="sr-only">
-                    {count} Anbieter, {open ? 'einklappen' : 'ausklappen'}
-                  </span>
                 </span>
               </button>
             )}

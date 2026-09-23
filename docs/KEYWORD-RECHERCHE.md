@@ -1,6 +1,6 @@
 # Keyword-Recherche: Die digitale Tierarztpraxis
 
-**Stand:** 22.09.2026 · **Seite:** noch nicht live (kein Domain, keine Search Console)
+**Stand:** 23.09.2026 (Erstfassung 22.09.2026) · **Seite:** noch nicht live (keine Domain, keine Search Console)
 
 Diese Datei trennt **gemessen** von **nicht erhoben**. Wer sie in einem Jahr
 liest, muss sehen, worauf er sich verlassen darf. Es steht keine geschätzte Zahl
@@ -17,6 +17,8 @@ darin — wo keine Zahl erhoben wurde, steht „nicht erhoben".
 | Google Trends | ❌ **HTTP 429** | — | Marktrichtung. **Bot-Prüfungen werden nicht gelöst** → Übergabe, siehe Abschnitt 7 |
 | Search Console | ❌ nicht verfügbar | — | die einzigen echten Zahlen. Erst ab Livegang und Anmeldung, **nicht rückwirkend** |
 | Keyword-Planer / Ahrefs | ❌ nicht erhoben | — | Absolutvolumina |
+| Autocomplete-Sweep 2 (Begriffe) | ✅ 23.09.2026, 192 Anfragen, 0 Fehler, **17** eindeutige Vorschläge | dass nach Fachbegriffen **nicht** gesucht wird | siehe 3.5 |
+| Eigene Auslieferung (curl, ohne JS) | ✅ gemessen | was ein Crawler ohne JavaScript sieht | siehe 2.4 |
 
 **Konsequenz:** Diese Recherche kann Absicht und Wortwahl belegen, Größe nicht.
 Priorisiert wird deshalb nach Absicht und Gewinnbarkeit, nicht nach Volumen.
@@ -59,6 +61,42 @@ Die Marktübersicht bedient **ausschließlich B2B**. Die Masse der Anfragen lieg
 erkennbar bei B2C — zu erkennen an der Dichte der Städtevarianten, die
 Autocomplete nur bei häufigen Mustern ausspielt. **Diese Nachfrage wird bewusst
 nicht bedient** (Abschnitt 6).
+
+### 2.4 Die Seite war für Antwortmaschinen unsichtbar
+
+**Nachtrag 23.09.2026.** Vor allem anderen stand ein Befund, der jede weitere
+GEO-Überlegung erledigt hätte:
+
+```
+Sichtbarer Text im ausgelieferten dist/index.html: 0 Zeichen
+Anbietername im HTML: keiner
+```
+
+Die Startseite ist eine React-Anwendung und lieferte ein leeres
+`<div id="root">` aus. Googlebot rendert JavaScript nach und wäre damit
+zurechtgekommen. **GPTBot, ClaudeBot und PerplexityBot überwiegend nicht.**
+
+Das erklärte Ziel aus 2.1 lautet „zitiert werden". Eine `llms.txt` beschreibt
+die Seite – zitiert wird aber die Seite selbst. Solange dort nichts stand, war
+das Ziel unerreichbar, gleich wie gut die Datei formuliert war.
+
+**Behoben** durch Vorrendern zur Bauzeit (`scripts/prerender.mjs`). Gemessen
+nach der Änderung:
+
+| | vorher | nachher |
+|---|---|---|
+| Startseite, Wörter ohne JavaScript | 0 | 734 |
+| Artikel `/tierarzt-software.html` | existierte nicht | 1.295 |
+
+Zwei Nebenbefunde aus derselben Prüfung:
+
+- Die Kategorieüberschriften enthielten die Anbieterzahl zweimal – einmal
+  sichtbar, einmal als Text für Hilfsmittel. Wer den Text ohne CSS ausliest,
+  und das tut jede Antwortmaschine, las „**1919 Anbieter**". Behoben über
+  `aria-label` statt eines zweiten Textknotens.
+- Die Anbieterbeschreibungen stehen im Dialog und entstehen erst per Klick.
+  Sie sind auch vorgerendert nicht im HTML. Genau diese Lücke schließt der
+  neue Artikel.
 
 ### 2.3 Marktrichtung: nicht erhoben
 
@@ -149,6 +187,38 @@ Voraussetzung: die `countries`-Daten müssen belastbar werden (siehe
 Die Kategorie heißt in der Übersicht ohnehin „Tierhalter-App / Patientenportal" —
 der Zusatz rettet sie.
 
+### 3.5 Nach Fachbegriffen fragt niemand — Sweep 2 vom 23.09.2026
+
+Vor dem Schreiben des Begriffsteils wurde dessen Nachfrage geprüft: 22 Seeds
+aus dem geplanten Glossar, je mit sieben Fragevarianten, DE plus AT und CH.
+
+**192 Anfragen, 0 Fehler, 17 eindeutige Vorschläge.** Zum Vergleich: Sweep 1
+ergab bei 296 Anfragen 88 Vorschläge.
+
+Ohne jeden Vorschlag blieben: `pims tierarzt`, `praxismanagementsystem
+tierarzt`, `ki dokumentation tierarzt`, `spracherkennung tierarzt`,
+`gdt schnittstelle tierarzt`, `patientenportal tierarzt`,
+`telemedizin tierarzt erlaubt`, `videosprechstunde tierarzt rechtlich`.
+
+Und `was ist ein pims` führt zu:
+
+> was ist ein pims **getränk** · was ist pimm's für ein **getränk** · wie
+> funktioniert **pimsleur**
+
+**Der Fachbegriff gehört in der Suche einem Cocktail.**
+
+**Konsequenz, und sie ist unbequem:** Ein Begriffsteil lässt sich mit
+Suchnachfrage **nicht** begründen. Er wurde trotzdem gebaut — aber als
+GEO-Maßnahme, nicht als SEO-Maßnahme. Definitionen sind das, was
+Antwortmaschinen zitieren, auch wenn niemand sie eintippt. Wer diese
+Unterscheidung nicht macht, misst den Artikel später an Klicks und hält ihn
+für gescheitert.
+
+Der eine Cluster, der im Sweep kräftig feuerte, ist B2C und wird bewusst nicht
+bedient (Abschnitt 6): `tierarzt online rezept` in fünf Formulierungen, alle
+drei Länder. Die SERP dazu bestätigt es — Dr. SAM, Dr. Fressnapf, Pfotendoctor,
+Online-Apotheken, keine KI-Übersicht. Reine Tierhalter-Nachfrage.
+
 ---
 
 ## 4. Cluster, nach Nutzen sortiert
@@ -175,6 +245,31 @@ Wer auf diesen Begriff optimiert, verspricht etwas, das die Seite nicht liefert
 **Empfehlung:** Den Cluster bedienen, aber die Frage umdeuten statt sie zu
 beantworten. „Welche gibt es überhaupt?" ist eine legitime und ehrliche Antwort
 auf „Welche ist die beste?" — und es ist die einzige, die diese Seite geben darf.
+
+#### Nachtrag 23.09.2026: die SERP zu `welche tierarzt software gibt es`
+
+Geprüft, weil das die Formulierung ist, die der Artikel bedienen sollte.
+
+- **Keine KI-Übersicht.** Der Klick ist hier intakt — anders als bei
+  `digitalisierung tierarztpraxis` (2.1). Das ist der Grund, warum dieser
+  Begriff und nicht jener zur Überschrift wurde.
+- **Platz 1: Medizinio** mit Bewertungssternen im Ergebnis (4,5 aus 14). Ein
+  Verzeichnis, kein Anbieter.
+- **Weitere Fragen:** „Welche Software benutzen Arztpraxen?" · „Welche
+  Tierarzt-Apps gibt es?" · „Welche Arztsoftware ist die beste?" · „Gibt es
+  eine kostenlose Arztsoftware?"
+- **Anzeige** von vetpraxis.de — der Begriff ist kommerziell genug, dass Geld
+  darauf gesetzt wird.
+- **Wird auch oft gesucht:** neben den bekannten Varianten zweimal
+  **„Erfahrungen"** (`FreeVet erfahrungen`, `Vetpraxis Software Erfahrungen`).
+  Das ist ein eigener Bedarf, den die Übersicht nicht deckt und mangels
+  Erhebungsgrundlage auch nicht decken sollte.
+
+**Umgesetzt:** `/tierarzt-software.html` beantwortet die Frage wörtlich in H1
+und Titel, listet alle PIMS-Anbieter als Fließtext und beantwortet die vier
+Weitere-Fragen-Einträge sichtbar und als `FAQPage`. Die Frage nach „der besten"
+wird ausdrücklich nicht beantwortet, sondern begründet abgelehnt — mit Verweis
+auf die Beteiligung des Herausgebers.
 
 ### B. KI in der Tierarztpraxis — jung, unbesetzt, mit Produktnamen
 
@@ -237,6 +332,31 @@ Die VET-MAGAZIN-Liste stand unter `vet-magazin.de/software-tieraerzte` und
 liefert inzwischen **404** — die Namen stammen aus dem Google-Snippet. Die Seite
 ist offenbar umgezogen oder entfernt.
 
+#### Nachtrag 23.09.2026
+
+**VET-MAGAZIN ist wieder da**, unter
+`vet-magazin.de/firmennews-deutschland/software-tieraerzte.html`. Der Abruf
+antwortet allerdings mit **403 und einer Cloudflare-Bot-Prüfung**. Bot-Prüfungen
+werden nicht gelöst — die Seite ist im Browser zu öffnen und auszuwerten,
+Übergabe in Abschnitt 7.
+
+Vier weitere Kandidaten aus der SERP, ebenfalls **unbestätigt**:
+
+| Kandidat | Vermutete Kategorie | Quelle |
+|---|---|---|
+| vetpraxis.de | 6 PIMS | Anzeige und organisches Ergebnis |
+| tiermedicus | 6 PIMS | VET-MAGAZIN-Snippet |
+| TPV für Windows | 6 PIMS | VET-MAGAZIN-Snippet |
+| V-IUS Veterinär | 6 PIMS | VET-MAGAZIN-Snippet |
+
+Ausdrücklich **keine** Kandidaten, obwohl sie gut ranken: `medizinio.de`,
+`appvizer.de`, `unomed.ch`, `musterpraxis.de`, `capterra`. Das sind
+Vergleichsverzeichnisse, also Wettbewerber der Übersicht, keine Anbieter.
+
+**Erledigt:** `Vet7Well` hatte keine Adresse und stand als TODO. Die SERP löste
+es — die richtige Schreibweise ist **VET7.well**, die Seite liegt unter
+`vet7.net` und antwortet mit HTTP 200. In `src/data/providers.ts` nachgetragen.
+
 ### 5.2 Struktur-Lücken
 
 - **KI-Telefonassistenz** hat keine Heimat in den neun Kategorien (siehe 4B).
@@ -298,9 +418,15 @@ Das, was diese Erhebung **nicht** beantworten konnte, und wer es kann.
    Anmeldung, desto später die erste echte Zahl.
 3. **Steht bei `praxissoftware tierarzt` eine KI-Übersicht?** Nur zwei SERPs
    wurden geprüft. Bei den übrigen Cluster-A-Begriffen ist es offen.
-4. **Stimmen die zwölf Anbieter-Kandidaten aus 5.1?** Keiner ist gegen die
-   Anbieterseite geprüft.
-5. **Was fragen Praxen wirklich?** People Also Ask und Autocomplete zeigen, was
+4. **Stimmen die Anbieter-Kandidaten aus 5.1?** Inzwischen sind es sechzehn.
+   Geprüft ist keiner — außer VET7.well, das dabei herausfiel und bestätigt
+   wurde.
+5. **Wird der Artikel tatsächlich zitiert?** Die Wirkung einer GEO-Maßnahme
+   lässt sich nicht über Rankings messen. Prüfbar wird sie nur durch
+   Stichproben: dieselbe Frage in mehreren Antwortmaschinen stellen und
+   nachsehen, welche Quellen genannt werden. Vorher-Messung fehlt, nachholbar
+   ist sie nicht — ab jetzt vierteljährlich, mit Datum.
+6. **Was fragen Praxen wirklich?** People Also Ask und Autocomplete zeigen, was
    getippt wird. Die wertvollsten Fragen stehen erfahrungsgemäß woanders — in
    Fachgruppen, unter LinkedIn-Posts, in Praxisgesprächen. **Die Kommentare unter
    Post 1 haben bereits neun Anbieter geliefert, die keine Keyword-Liste gezeigt
@@ -311,12 +437,31 @@ Das, was diese Erhebung **nicht** beantworten konnte, und wer es kann.
 
 ## Nächster Schritt
 
-Nach Nutzen sortiert, nicht nach Aufwand:
+Stand 23.09.2026. Erledigt ist, was durchgestrichen wäre — hier stattdessen
+ausgewiesen:
 
-1. **Die zwölf Kandidaten aus 5.1 prüfen** — direkter Gewinn für die Übersicht,
-   unabhängig von jeder SEO-Frage.
+**Erledigt:**
+
+- ~~Begriffsteil anlegen~~ → `/tierarzt-software.html`, acht Begriffe als
+  `DefinedTermSet`, vier Fragen als `FAQPage`, Anbieterliste aus den Daten
+  erzeugt.
+- ~~Seite für Antwortmaschinen lesbar machen~~ → Vorrendern, 0 → 734 Wörter
+  (2.4). **Das war der eigentliche Hebel, nicht die Wortwahl.**
+- ~~Vet7Well-Adresse klären~~ → VET7.well, `vet7.net`.
+
+**Offen, nach Nutzen sortiert:**
+
+1. **Die sechzehn Kandidaten aus 5.1 prüfen** — direkter Gewinn für die
+   Übersicht, unabhängig von jeder SEO-Frage.
 2. **Versicherer-Segment und KI-Telefonassistenz einordnen** — entweder
    Kategoriebeschreibung erweitern oder bewusst ausschließen und begründen.
-3. **Begriffsteil anlegen** — der einzige Hebel, der bei vorhandener KI-Übersicht
-   noch wirkt, und er zahlt zugleich auf `llms.txt` ein.
-4. **Trends selbst abfragen** (Punkt 7.1) und das Ergebnis hier nachtragen.
+3. **Die `countries`-Daten belastbar machen.** In `providers.ts` steht bei fast
+   jedem Anbieter pauschal DACH. `tierarzt software österreich` und
+   `… schweiz` sind belegte eigene Anfragen (3.3) — solange die Länderangaben
+   geraten sind, ist der Filter Dekoration und die Länderdimension wertlos.
+4. **Domain entscheiden und Search Console anmelden.** Ohne Domain entstehen
+   Sitemap, `llms.txt` und alle Canonicals gar nicht erst, und die einzigen
+   echten Zahlen bleiben unerreichbar. Die Daten sind nicht rückwirkend.
+5. **Trends selbst abfragen** (Punkt 7.1) und das Ergebnis hier nachtragen.
+6. **VET-MAGAZIN im Browser auswerten** (5.1, Nachtrag) — hinter der
+   Bot-Prüfung liegt die vollständigste bekannte Anbieterliste des Marktes.
