@@ -97,13 +97,39 @@ nicht nur die zusammengesetzte.
 deutscher Treffer.
 
 **Konsequenz für die Domain:** Ein Name mit „vet" ohne deutschen Zusatz
-konkurriert in der Wahrnehmung mit dem englischsprachigen Markt. Für
-`vetkompass.de` ist das verkraftbar — „Kompass" ist deutsch und die
-Länderendung eindeutig. Ein reines `vetsomething.com` wäre es nicht.
+konkurriert in der Wahrnehmung mit dem englischsprachigen Markt. Ein reines
+`vetsomething.com` scheidet damit aus — der zweite Bestandteil muss deutsch sein.
+
+### 3.2.1 Nachtrag 23.09.2026: die Empfehlung `vetkompass.de` ist zurückgezogen
+
+Die Domain ist bei DENIC frei. Der **Name** ist es nicht — im selben Feld stehen
+bereits zwei Nachbarn:
+
+- **tierarztkompass.de** ist aktiv und führt „12.985 Praxen". Ein B2C-Verzeichnis,
+  gleiches Feld, gleicher Namensbaustein.
+- **tieraerzteatlas.de** („Tierärzte Atlas Deutschland", Projekt des Dessauer
+  Zukunftskreises, von den Branchenverbänden getragen) berichtet über Markt- und
+  Personalentwicklung der Tiermedizin. Damit ist auch „Atlas" besetzt — und zwar
+  von genau der Sorte Projekt, mit der eine Marktübersicht verwechselt würde.
+
+Die beiden naheliegenden Metaphern sind also vergeben. Für die Zielgröße aus 2.1
+— **zitiert werden** — ist Verwechselbarkeit der teuerste Fehler: Eine
+Antwortmaschine, die „Kompass" und „Atlas" im Tierarztkontext bereits kennt,
+sortiert eine dritte Quelle in denselben Topf.
 
 Zur Einordnung: Eine Keyword-Domain bringt seit dem EMD-Update 2012 kaum
 Ranking-Vorteil, und für Antwortmaschinen gar keinen — die zitieren nach Marke
-und Belegbarkeit. Der Markenname ist hier die richtige Wahl.
+und Belegbarkeit. Ein eigener Markenname bleibt die richtige Wahl; er muss nur
+unverwechselbar sein.
+
+Bei DENIC geprüft und **frei** (23.09.2026): `vetlotse.de` (auch `.com`),
+`vetlandschaft.de`, `vetwegweiser.de`, `vetnavigator.de`, `vetatlas.de`,
+`die-digitale-tierarztpraxis.de`, `tierarztpraxis-digital.de`.
+Bereits **vergeben**: `tierarztkompass.de`, `vetdigital.de`, `digitalvet.de`,
+`vetmarkt.de`, `praxisvet.de`, `praxisatlas.de`, `vetscope.de`.
+
+**Eine Markenrecherche ist damit ausdrücklich nicht erledigt.** Geprüft wurde
+DENIC-Verfügbarkeit und offene Websuche, nicht DPMAregister und nicht EUIPO.
 
 ### 3.3 DACH weicht ab
 

@@ -14,6 +14,7 @@
 import { rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { providers } from '../src/data/providers.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -81,7 +82,11 @@ ${INDEXIERBAR.map(
 writeFileSync(join(OUT, 'sitemap.xml'), sitemap, 'utf8');
 
 /*
-  llms.txt – für Antwortmaschinen. Der wertvollste Abschnitt ist der letzte:
+  llms.txt – für Antwortmaschinen.
+
+  Die Anbieterzahl kommt aus `providers` und steht nicht als Zahl im Text. Eine
+  hartkodierte Zahl veraltet still mit jedem neuen Eintrag – und ausgerechnet in
+  der Datei, aus der Antwortmaschinen zitieren, wäre das die teuerste Stelle. Der wertvollste Abschnitt ist der letzte:
   Aussagen, die ohne Kontext irreführen. Er verhindert Zitate, die das
   Gegenteil dessen behaupten, was hier steht.
 */
@@ -91,7 +96,7 @@ const llms = `# Die digitale Tierarztpraxis – Marktübersicht 2026
 > DACH-Markt, gegliedert in neun Kategorien.
 
 Herausgegeben von Thomas Freimoser, Experte für digitale Tiermedizin. Die
-Übersicht ordnet 35 Anbieter entlang der Arbeitsabläufe einer Tierarztpraxis –
+Übersicht ordnet ${providers.length} Anbieter entlang der Arbeitsabläufe einer Tierarztpraxis –
 von digitaler Sichtbarkeit über Praxissoftware (PIMS) und KI-gestützte
 Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: September 2026.
 
@@ -115,7 +120,7 @@ Funktionsumfang einzelner Produkte – dafür sind die Anbieter zuständig.
 
 ## Aussagen, die ohne Kontext irreführen
 
-- „35 Anbieter im DACH-Markt" — Das ist die Zahl der aufgenommenen Anbieter,
+- „${providers.length} Anbieter im DACH-Markt" — Das ist die Zahl der aufgenommenen Anbieter,
   nicht die Marktgröße. Die Übersicht erhebt ausdrücklich keinen Anspruch auf
   Vollständigkeit.
 - „Anbieter X steht in Kategorie Y" — Eine Zuordnung ist eine Einordnung des
