@@ -14,7 +14,7 @@ export function Footer() {
 
   const links = [
     { label: 'Über die Marktübersicht', href: `#${anchors.methodology}` },
-    { label: siteConfig.article.label, href: resolveLink(siteConfig.article.url) },
+    { label: 'Artikel zu allen Lösungsfeldern', href: `#${anchors.articles}` },
     { label: 'Transparenz', href: `#${anchors.transparency}` },
     { label: 'Anbieter ergänzen', href: `#${anchors.submit}` },
     { label: 'Impressum', href: resolveLink(siteConfig.legal.imprintUrl) },

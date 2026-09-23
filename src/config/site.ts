@@ -80,19 +80,6 @@ export const siteConfig = {
   removalNotice:
     'Rechteinhaber, die eine Darstellung ihres Logos oder ihres Unternehmens hier nicht wünschen, melden sich bitte – wir entfernen den Eintrag kurzfristig.',
 
-  /*
-    Begleitartikel zur Karte. Er wird von `scripts/gen-artikel.mjs` aus
-    denselben Daten erzeugt und liegt als statisches HTML vor – die Karte
-    selbst braucht JavaScript, der Artikel nicht. Die Endung .html steht hier
-    bewusst: Canonical, Sitemap und dieser Verweis müssen dieselbe Adresse
-    meinen.
-  */
-  article: {
-    url: 'tierarzt-software.html',
-    label: 'Anbieter und Begriffe als Text',
-    title: 'Welche Tierarzt-Software gibt es?',
-  },
-
   /** Download der Original-Grafik. Pfade relativ zu /public. */
   downloadImage: 'downloads/digitale-tierarztpraxis-marktuebersicht-2026.png',
   downloadFileName: 'digitale-tierarztpraxis-marktuebersicht-2026.png',
@@ -123,6 +110,7 @@ export const countryOrder: Country[] = ['DE', 'AT', 'CH'];
 export const anchors = {
   marketMap: 'marktuebersicht',
   methodology: 'methodik',
+  articles: 'artikel',
   transparency: 'transparenz',
   submit: 'anbieter-vorschlagen',
 } as const;

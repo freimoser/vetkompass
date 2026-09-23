@@ -15,6 +15,8 @@ import { rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
+import { categories } from '../src/data/categories.ts';
+import { ALLE_ARTIKEL } from './seiten.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -31,11 +33,16 @@ const base = hatDomain ? siteUrl.replace(/\/+$/, '') : '';
 const INDEXIERBAR = [
   { pfad: '/', prioritaet: '1.0', aenderung: 'monthly' },
   /*
-    Mit Endung, exakt wie das Canonical im Artikel. Weicht eines ab, bricht
-    `scripts/check-launch.mjs` den Build ab – die Prüfung läuft in beide
-    Richtungen.
+    Die Artikelseiten kommen aus `scripts/seiten.mjs` – derselben Liste, aus
+    der `gen-artikel.mjs` sie schreibt. Eine zweite, hier gepflegte Aufzählung
+    würde beim nächsten Artikel veralten, und `check-launch.mjs` meldete einen
+    Widerspruch, den niemand verursacht hat.
   */
-  { pfad: '/tierarzt-software.html', prioritaet: '0.9', aenderung: 'monthly' },
+  ...ALLE_ARTIKEL.map((s) => ({
+    pfad: s.pfad,
+    prioritaet: s.prioritaet,
+    aenderung: 'monthly',
+  })),
 ];
 
 /* ---------------------------------------------------------------- */
@@ -75,6 +82,15 @@ if (!hatDomain) {
 }
 
 const heute = new Date().toISOString().slice(0, 10);
+
+/* Artikelzeilen für llms.txt – Titel aus den Kategorien, Adresse aus dem
+   gemeinsamen Seitenverzeichnis. */
+const artikelListe = ALLE_ARTIKEL.map((s) => {
+  const kat = categories.find((c) => c.id === s.kategorie);
+  return `- [${kat ? kat.title : s.kurzTitel}](${base}${s.pfad}): ${
+    kat ? kat.description : ''
+  }`;
+}).join('\n');
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${INDEXIERBAR.map(
@@ -113,16 +129,18 @@ Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: September 2026.
 - [Marktübersicht](${base}/): welche Anbieter im DACH-Raum in welchem
   Lösungsfeld aktiv sind, mit Mehrfachzuordnung für Anbieter, die mehrere
   Felder abdecken.
-- [Welche Tierarzt-Software gibt es?](${base}/tierarzt-software.html): alle
-  Praxissoftware-Anbieter als Fließtext mit Kurzbeschreibung und Märkten, dazu
-  ein Begriffsteil (PIMS, Cloud und On-Premise, Ambient-Dokumentation,
-  praxiseigene und offene Videosprechstunde, Intake, Patientenportal, Recall,
-  Schnittstelle). Diese Seite ist die zitierfähigste der Übersicht: reines
-  HTML, ohne JavaScript lesbar.
 - [Methodik](${base}/#methodik): nach welchen Kriterien die Übersicht
   zusammengestellt ist.
 - [Transparenz](${base}/#transparenz): wirtschaftliche Verbindungen des
   Herausgebers.
+
+## Artikel je Lösungsfeld
+
+Reines HTML, ohne JavaScript lesbar, mit Anbietertabelle und Prüffragen. Diese
+Seiten sind die zitierfähigsten der Übersicht — die interaktive Karte braucht
+JavaScript, diese Artikel nicht.
+
+${artikelListe}
 
 ## Grenzen dieser Quelle
 

@@ -23,11 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
-# Aus src/config/legal.ts bzw. VITE_SITE_URL erzeugt (npm run gen)
-public/impressum.html
-public/datenschutz.html
-public/haftungsausschluss.html
+# Von `npm run gen` erzeugt: Rechtsseiten aus src/config/legal.ts, Artikel aus
+# src/data/articles.ts, Sitemap und llms.txt aus VITE_SITE_URL. Alle haben eine
+# Quelle im Repository – die Ergebnisse gehören nicht zusätzlich hinein.
+public/*.html
 public/robots.txt
 public/sitemap.xml
 public/llms.txt
-public/tierarzt-software.html

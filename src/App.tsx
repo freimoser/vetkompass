@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { FilterBar } from './components/FilterBar';
 import { MarketMap } from './components/MarketMap';
 import { ProviderModal } from './components/ProviderModal';
+import { ArticleSection } from './components/ArticleSection';
 import { AboutSection } from './components/AboutSection';
 import { TransparencySection } from './components/TransparencySection';
 import { SubmitProviderSection } from './components/SubmitProviderSection';
@@ -83,6 +84,7 @@ export default function App() {
             </div>
           </section>
 
+          <ArticleSection />
           <AboutSection />
           <TransparencySection />
           <SubmitProviderSection />
