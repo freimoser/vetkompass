@@ -41,28 +41,36 @@ export interface LegalConfig {
 }
 
 /*
-  TODO – BLOCKER VOR DEM LIVEGANG
-  --------------------------------
-  `street`, `zip`, `city` und `email` sind leer und müssen ausgefüllt werden.
+  Ausgefüllt am 24.09.2026, nach ausdrücklicher Freigabe.
 
-  Eine Anschrift wird NICHT erfunden und nicht durch einen Platzhalter ersetzt.
-  Solange die Felder leer sind, meldet `npm run check:launch` einen Blocker und
-  bricht ab. Das ist Absicht: § 5 DDG verlangt eine ladungsfähige Anschrift,
-  ein Postfach genügt nicht.
+  Es ist die Privatanschrift, denn das Angebot wird privat betrieben. Genau
+  deshalb tragen Impressum, Datenschutz und Haftungsausschluss `noindex,
+  follow`: § 5 DDG verlangt Erreichbarkeit, nicht Auffindbarkeit über Google.
+  Erreichbar ja, eigenes Suchergebnis nein.
 
-  Bei rein privatem Betrieb ohne Geschäftsadresse ist das die Privatanschrift.
-  Deshalb tragen Impressum, Datenschutz und Haftungsausschluss `noindex` –
-  erreichbar ja, über Google auffindbar nein.
+  Drei Felder bleiben bewusst leer:
+
+  - `companyName`: Das Angebot wird als Privatperson betrieben, nicht über eine
+    Firma. Ein Firmenname im Impressum nennt einen Betreiber, der nicht der
+    Betreiber ist, und nähme die Firma für etwas in Haftung, das ihr nicht
+    gehört. Aus demselben Grund steht hier eine private E-Mail-Adresse und
+    keine auf einer Firmendomain – die würde genau den Firmenbezug herstellen,
+    den es nicht gibt. Bei dieser Übersicht wiegt das besonders schwer, weil
+    der Herausgeber an einem der gelisteten Anbieter beteiligt ist.
+  - `phone`: Seit EuGH C-298/07 genügt ein zweiter schneller Kontaktweg; die
+    E-Mail-Adresse erfüllt das. Keine Nummer erfinden.
+  - `vatId`: Nur eintragen, wenn tatsächlich eine USt-IdNr. erteilt wurde. Eine
+    Steuernummer ist nicht dasselbe und gehört nicht ins Impressum.
 */
 export const LEGAL: LegalConfig = {
   operator: 'Thomas Freimoser',
   // Rein privates Angebot, kein Gewerbe – daher keine Firmierung.
   companyName: '',
-  street: '',
-  zip: '',
-  city: '',
+  street: 'Schinkelstraße 15',
+  zip: '80805',
+  city: 'München',
   country: 'Deutschland',
-  email: '',
+  email: '91Serdar@gmail.com',
   phone: '',
   vatId: '',
   smallBusiness: false,

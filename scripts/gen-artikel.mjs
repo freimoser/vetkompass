@@ -42,27 +42,28 @@ const ROLLE = 'Experte für digitale Tiermedizin';
 
 /*
   ------------------------------------------------------------------------
-  Verweise auf eigene und verbundene Angebote
+  Verweise nach außen
   ------------------------------------------------------------------------
 
-  `REL_VERBUNDEN` gilt für jeden Verweis auf ein Angebot, an dem der
-  Herausgeber wirtschaftlich beteiligt ist.
+  Entschieden am 24.09.2026: **Anbieterverweise folgen** – für alle Anbieter
+  gleich, Petleo eingeschlossen. Eine Marktübersicht, die auf die Anbieter
+  verweist, die sie beschreibt, ist ein redaktioneller Verweis und kein
+  Link-Schema. Ihn zu entwerten, hätte nur den Zweck gehabt, Vorsicht zu
+  demonstrieren.
 
-  Warum `nofollow` und nicht ein gewöhnlicher Verweis: Google zählt Links, die
-  jemand auf einer eigenen Seite zugunsten eines eigenen Angebots setzt, zu den
-  Link-Schemata, wenn sie nicht gekennzeichnet sind. Der Schaden träfe beide
-  Seiten – die Übersicht und das verlinkte Angebot.
+  Die Gleichbehandlung trägt das: Jeder Anbieter bekommt genau einen Verweis je
+  Kategorie, in der er steht, und die Sortierung ist alphabetisch. Es gibt
+  keinen Anbieter mit mehr Verweisen, als seine Einordnung hergibt.
 
-  Wichtiger noch ist der inhaltliche Grund: Das einzige Kapital dieser Seite
-  ist, dass sie keine Sonderbehandlung kennt. Ein ungekennzeichneter
-  Werbeverweis auf den Anbieter, an dem der Herausgeber beteiligt ist, wäre
-  genau die Sonderbehandlung, deren Abwesenheit die Seite behauptet.
-
-  Die Anbieterverweise in den Tabellen tragen aus demselben Grund `nofollow` –
-  für alle gleich, ohne Ausnahme.
+  **Eine Ausnahme bleibt, und sie ist der Grund, warum das trägt:** Der Verweis
+  im Offenlegungskasten steht auf *jeder* Artikelseite. Ein seitenweit
+  wiederholter Verweis auf das eigene Unternehmen ist genau das Muster, das
+  Google als Eigenwerbung erkennt – und er wäre eine Bevorzugung, die die
+  Tabellenverweise gerade nicht darstellen. Er trägt deshalb `nofollow`.
+  Petleo profitiert damit wie jeder andere Anbieter, aber nicht darüber hinaus.
 */
-const REL_VERBUNDEN = 'nofollow noopener';
-const REL_ANBIETER = 'nofollow noopener external';
+const REL_OFFENLEGUNG = 'nofollow noopener';
+const REL_ANBIETER = 'noopener external';
 
 /*
   Angebote des Herausgebers, auf die die Artikel im Offenlegungskasten
@@ -207,7 +208,7 @@ function offenlegung(kategorieId) {
   const angebote = VERBUNDENE_ANGEBOTE.map(
     (a) =>
       `          <li>
-            <a href="${esc(a.url)}" rel="${REL_VERBUNDEN}">${esc(a.name)}</a> —
+            <a href="${esc(a.url)}" rel="${REL_OFFENLEGUNG}">${esc(a.name)}</a> —
             ${esc(a.beschreibung)}
           </li>`,
   ).join('\n');
@@ -225,8 +226,8 @@ function offenlegung(kategorieId) {
         <p>
           Was dennoch gilt: Die Sortierung ist rein alphabetisch, es gibt keine Rangfolge,
           keine Bewertung und keine bezahlten Platzierungen. Die Aufnahme folgt für alle
-          Anbieter denselben Kriterien und ist kostenfrei. Alle Anbieterverweise auf dieser
-          Seite sind als <code>nofollow</code> gekennzeichnet – für jeden Anbieter gleich.
+          Anbieter denselben Kriterien und ist kostenfrei. Jeder Anbieter erhält genau einen
+          Verweis je Kategorie, in der er steht – auch der hier genannte.
         </p>
         <ul>
 ${angebote}
