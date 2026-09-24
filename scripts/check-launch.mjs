@@ -139,6 +139,58 @@ if (existsSync(sitemapPfad)) {
   );
 }
 
+/* -- 4b. Eigene Domain braucht eine CNAME-Datei im Build ---------------- */
+
+/*
+  Die teuerste Fehlerklasse beim Livegang mit eigener Domain, und sie faellt
+  lokal nie auf: GitHub Pages liest die Domain aus einer Datei im
+  ausgelieferten Verzeichnis. Fehlt sie, antwortet die Domain nicht – und der
+  Basispfad muss dazu passen, sonst sind live alle Skripte und Bilder 404.
+*/
+if (start) {
+  const canonical = lies(start.pfad).match(/<link rel="canonical" href="([^"]*)"/)?.[1] ?? '';
+  if (canonical) {
+    const host = (() => {
+      try {
+        return new URL(canonical).hostname;
+      } catch {
+        return '';
+      }
+    })();
+    const cnamePfad = join(DIST, 'CNAME');
+    const eigeneDomain = host && !host.endsWith('.github.io');
+
+    if (eigeneDomain) {
+      if (!existsSync(cnamePfad)) {
+        blocker.push(
+          `Canonical zeigt auf ${host}, im Build fehlt aber die Datei CNAME. ` +
+            'GitHub Pages liest die eigene Domain aus dieser Datei – ohne sie ' +
+            'antwortet die Domain nicht.',
+        );
+      } else if (lies(cnamePfad).trim() !== host) {
+        blocker.push(
+          `CNAME enthält "${lies(cnamePfad).trim()}", das Canonical zeigt aber auf ${host}.`,
+        );
+      }
+
+      // Bei eigener Domain liegt die Seite in der Wurzel.
+      const assetPfad = lies(start.pfad).match(/<script[^>]+src="([^"]+)"/)?.[1] ?? '';
+      if (assetPfad && !assetPfad.startsWith('/assets/') && assetPfad.startsWith('/')) {
+        blocker.push(
+          `Eigene Domain, aber die Skripte liegen unter "${assetPfad}". ` +
+            'VITE_BASE muss bei eigener Domain "/" sein – sonst sind live alle ' +
+            'Skripte, Stile und Logos 404.',
+        );
+      }
+    } else if (existsSync(cnamePfad)) {
+      hinweis.push(
+        'Es gibt eine CNAME-Datei, das Canonical zeigt aber auf github.io. ' +
+          'Eines von beidem ist veraltet.',
+      );
+    }
+  }
+}
+
 /* -- 5. Symbole --------------------------------------------------------- */
 
 for (const datei of ['favicon.svg', 'favicon.ico', 'favicon-96.png', 'apple-touch-icon.png']) {

@@ -160,6 +160,34 @@ Ranking-Vorteil, und für Antwortmaschinen gar keinen — die zitieren nach Mark
 und Belegbarkeit. Ein eigener Markenname bleibt die richtige Wahl; er muss nur
 unverwechselbar sein.
 
+### 3.2.2 Entschieden am 24.09.2026: `die-digitale-tierarztpraxis.de`
+
+Gegen die Markennamen und für den Titel der Übersicht. Die Abwägung, damit sie
+nachvollziehbar bleibt:
+
+**Dafür.** Die Domain ist exakt der Titel der Übersicht und exakt der Begriff,
+über dem in 2.1 die KI-Übersicht steht. Für eine Antwortmaschine fallen damit
+Quellenname, Seitentitel und Thema zusammen — das ist genau die Eindeutigkeit,
+die eine Zitierung braucht, und sie ist mehr wert als der Ranking-Effekt, den
+eine Keyword-Domain seit dem EMD-Update 2012 nicht mehr hat. Verwechslungsgefahr
+mit `tierarztkompass.de` oder `tieraerzteatlas.de` besteht nicht.
+
+**Dagegen, und das bleibt bestehen.** 28 Zeichen, und der Name klingt eher nach
+dem Blog einer einzelnen Praxis als nach einer Marktinstanz. Er lässt sich
+schlecht mündlich weitergeben — auf einer Messe ist das ein Nachteil.
+
+**Praktische Folge:** Weil es eine eigene Domain ist, muss `VITE_BASE` auf `/`
+stehen, nicht auf `/<repo>/`, und im Build muss eine `CNAME`-Datei liegen.
+Beides leitet der Workflow jetzt aus `VITE_SITE_URL` ab, und beide Fehler hat
+`check-launch.mjs` als eigene Prüfung — sie fallen lokal nie auf, sondern erst
+live, und dort als vollständig defekte Seite.
+
+Bei DENIC weiterhin **frei**, falls die Entscheidung noch kippt (24.09.2026):
+`vetlandschaft.de` (auch `.com`), `vetwegweiser.de`, `vetnavigator.de`,
+`vetatlas.de`, `tierarztpraxis-digital.de`.
+
+---
+
 Bei DENIC geprüft und **frei** (23.09.2026): `vetlotse.de` (auch `.com`),
 `vetlandschaft.de`, `vetwegweiser.de`, `vetnavigator.de`, `vetatlas.de`,
 `die-digitale-tierarztpraxis.de`, `tierarztpraxis-digital.de`.

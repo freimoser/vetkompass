@@ -70,7 +70,7 @@ writeFileSync(join(OUT, 'robots.txt'), robots, 'utf8');
 
 if (!hatDomain) {
   // Alte Stände entfernen, damit keine Datei mit falscher Domain liegenbleibt.
-  for (const datei of ['sitemap.xml', 'llms.txt']) {
+  for (const datei of ['sitemap.xml', 'llms.txt', 'CNAME']) {
     rmSync(join(OUT, datei), { force: true });
   }
   console.log(
@@ -79,6 +79,20 @@ if (!hatDomain) {
       'Das ist Absicht – absolute Adressen ohne bekannte Domain wären falsch.',
   );
   process.exit(0);
+}
+
+/*
+  CNAME fuer GitHub Pages. Ohne diese Datei beantwortet Pages die eigene Domain
+  nicht – sie liegt im ausgelieferten Verzeichnis, nicht in den Einstellungen,
+  und verschwindet bei jedem Deploy, der sie nicht mitliefert.
+
+  Nur bei einer eigenen Domain: Bei *.github.io waere sie falsch.
+*/
+const host = new URL(base).hostname;
+if (host.endsWith('.github.io')) {
+  rmSync(join(OUT, 'CNAME'), { force: true });
+} else {
+  writeFileSync(join(OUT, 'CNAME'), `${host}\n`, 'utf8');
 }
 
 const heute = new Date().toISOString().slice(0, 10);
