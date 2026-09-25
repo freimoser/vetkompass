@@ -277,19 +277,51 @@ selbst einen Ausfall, den es nicht gibt.
    **GitHub Actions** wählen.
 3. Fertig: Jeder Push auf `main` löst `.github/workflows/deploy.yml` aus.
 
-Der Workflow bestimmt den Basispfad selbst:
+### Die einzige Variable, die gesetzt werden muss
 
-- Repository `marktuebersicht` → `VITE_BASE=/marktuebersicht/`
-- Repository `<user>.github.io` → `VITE_BASE=/`
+**Settings → Secrets and variables → Actions → Variables:**
 
-Abweichende Fälle – etwa eine eigene Domain – lassen sich über
-Repository-Variablen überschreiben
-(**Settings → Secrets and variables → Actions → Variables**):
+```
+VITE_SITE_URL = https://die-digitale-tierarztpraxis.de/
+```
 
-- `VITE_BASE`, z. B. `/`
-- `VITE_SITE_URL`, z. B. `https://marktuebersicht.example.de/`
+Alles Weitere leitet der Workflow daraus ab – **mit Absicht**, weil hier zwei
+Fehler lauern, die lokal nie auffallen und live die ganze Seite zerlegen:
 
-Bei eigener Domain zusätzlich eine Datei `public/CNAME` mit der Domain anlegen.
+- **Der Basispfad.** Bei eigener Domain muss `VITE_BASE` auf `/` stehen. Stünde
+  dort weiterhin `/<repo>/`, wären live sämtliche Skripte, Stile und Logos 404
+  und die Seite bliebe weiß.
+- **Die CNAME-Datei.** GitHub Pages liest die eigene Domain aus einer Datei im
+  ausgelieferten Verzeichnis, nicht aus den Einstellungen. `npm run gen` erzeugt
+  sie aus `VITE_SITE_URL`. **Nicht von Hand anlegen** – `public/` ist für
+  erzeugte Dateien gesperrt, eine handgeschriebene Datei wäre beim nächsten Lauf
+  weg.
+
+`scripts/check-launch.mjs` prüft beides und bricht den Deploy ab, wenn es nicht
+zusammenpasst. Ohne gesetzte Variable entstehen Sitemap, `llms.txt` und CNAME
+gar nicht erst und der Check meldet das fehlende Canonical als Blocker.
+
+`VITE_BASE` lässt sich im Ausnahmefall trotzdem überschreiben.
+
+### DNS für die eigene Domain
+
+Beim Domain-Anbieter eintragen:
+
+| Typ | Name | Wert |
+|---|---|---|
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| CNAME | `www` | `freimoser.github.io.` |
+
+Der CNAME-Wert ist **der GitHub-Benutzername**, nicht das Repository. Wird das
+Konto umbenannt, ist das der einzige Eintrag, der nachgezogen werden muss – im
+Repository selbst steht der Kontoname nirgends, und der Workflow liest ihn zur
+Laufzeit aus `github.repository_owner`.
+
+Danach unter **Settings → Pages → Custom domain** die Domain eintragen und
+*Enforce HTTPS* aktivieren, sobald das Zertifikat ausgestellt ist.
 
 ---
 
