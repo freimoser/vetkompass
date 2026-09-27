@@ -9,7 +9,7 @@
 export type Country = 'DE' | 'AT' | 'CH';
 
 /** Kategorie-Nummern wie in der Original-Grafik (1–9). */
-export type CategoryId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type CategoryId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 /**
  * Spalte im Desktop-Layout. Bildet die räumliche Struktur der Original-Grafik

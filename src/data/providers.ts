@@ -24,8 +24,11 @@ import type { Provider } from '../types/market';
  *   (siehe docs/KEYWORD-RECHERCHE.md, 3.3), die Länderdimension ist also
  *   real nachgefragt. Das ehrlich zu machen lohnt sich.
  * - Mit `// TODO: Website` markierte Anbieter haben noch keine hinterlegte URL.
- * - Die Logos unter `public/logos/` wurden aus der Original-Grafik
- *   ausgeschnitten und sind daher nur in Bildschirmauflösung vorhanden.
+ * - Die Logos unter `public/logos/` stammen aus zwei Quellen: die älteren
+ *   wurden aus der Original-Grafik ausgeschnitten und liegen daher nur in
+ *   Bildschirmauflösung vor; die am 27.09.2026 ergänzten zwölf stammen direkt
+ *   von den Anbieterseiten (SVG, wo vorhanden) und sind dadurch schärfer.
+ *   Alle SVG-Dateien wurden vor der Aufnahme auf eingebettete Skripte geprüft.
  *   Für Druck und große Darstellungen sollten sie durch die Originaldateien
  *   der Anbieter (bevorzugt SVG) ersetzt werden – siehe README.
  */
@@ -37,6 +40,7 @@ export const providers: Provider[] = [
   {
     id: 'animalchat',
     name: 'AnimalChat',
+    logo: 'logos/animalchat.webp',
     website: 'https://animalchat.net',
     countries: [...DACH],
     categories: [8],
@@ -56,8 +60,26 @@ export const providers: Provider[] = [
     tags: ['PIMS', 'Praxissoftware', 'Patientenakte'],
   },
   {
+    /*
+      Verbandsangebot, kein Marktangebot – steht trotzdem hier. Die Kategorie
+      fragt, wo Tierhalter nach einer Praxis suchen, nicht, wer damit Geld
+      verdient. Für die Schweiz und in Teilen für Deutschland sind die
+      Verbandssuchen die meistgenutzten Einstiege.
+    */
+    id: 'bpt-tierarztsuche',
+    name: 'bpt-Tierarztsuche',
+    logo: 'logos/bpt-tierarztsuche.svg',
+    website: 'https://www.tieraerzteverband.de/bpt/ueber-den-bpt/tierarztsuche/',
+    countries: ['DE'],
+    categories: [10],
+    description:
+      'Praxissuche des Bundesverbands Praktizierender Tierärzte e.V. Gelistet werden Mitgliedspraxen.',
+    tags: ['Suchmaschine', 'Berufsverband'],
+  },
+  {
     id: 'debevet',
     name: 'debevet',
+    logo: 'logos/debevet.svg',
     website: 'https://www.debevet.de',
     countries: [...DACH],
     categories: [6],
@@ -123,6 +145,7 @@ export const providers: Provider[] = [
   {
     id: 'evovell',
     name: 'Evovell',
+    logo: 'logos/evovell.png',
     website: 'https://www.evovell.com',
     countries: [...DACH],
     categories: [9],
@@ -151,6 +174,19 @@ export const providers: Provider[] = [
     description:
       'Online-Videosprechstunde, über die Tierhalter direkt eine veterinärmedizinische Beratung erreichen können.',
     tags: ['Telemedizin', 'Videosprechstunde', 'Tierhalter'],
+  },
+  {
+    id: 'gst-tierarzt-finder',
+    // Ohne Logo: Auf gstsvs.ch war nur das App-Symbol auffindbar, nicht die
+    // Wortmarke des Verbands. Ein blaues „V" ohne Namen hilft nicht weiter –
+    // die Text-Wortmarke ist hier die bessere Darstellung.
+    name: 'GST Tierarzt-Finder',
+    website: 'https://www.gstsvs.ch/de/tierarzt-finder/praxissuche',
+    countries: ['CH'],
+    categories: [10],
+    description:
+      'Praxissuche der Gesellschaft Schweizer Tierärztinnen und Tierärzte (GST). Gelistet werden Mitgliedspraxen und -kliniken.',
+    tags: ['Suchmaschine', 'Berufsverband'],
   },
   {
     id: 'haustierdocs',
@@ -337,26 +373,63 @@ export const providers: Provider[] = [
   },
   {
     /*
-      Aufnahmekriterium für Verzeichnisse in Kategorie 1, geprüft am 27.09.2026:
-      Eine Praxis muss sich aktiv eintragen oder ihren Eintrag pflegen können.
-      Sonst ist es eine Liste, in der eine Praxis zufällig vorkommt, und keine
-      Lösung, mit der sie sichtbar wird.
+      Alle Einträge dieser Kategorie am 27.09.2026 gegen die Live-Seite geprüft
+      (HTTP 200). Die Mengenangaben sind die der Anbieter selbst, aus Titel oder
+      Startseite übernommen – nicht nachgezählt.
 
-      Hier erfüllt: /tierarztpraxis-eintragen samt Anmeldung, HTTP 200.
-      Nur Deutschland – das Verzeichnis führt keine Praxen aus AT oder CH.
+      Länderangaben sind hier belegt, nicht pauschal: Die deutschen Portale
+      führen keine Praxen aus AT oder CH.
     */
     id: 'tierarzt-im-netz',
     name: 'Tierarzt-im-Netz.de',
+    logo: 'logos/tierarzt-im-netz.png',
     website: 'https://tierarzt-im-netz.de',
     countries: ['DE'],
-    categories: [1],
+    categories: [10],
     description:
-      'Verzeichnis für Tierarztpraxen und Tierkliniken in Deutschland. Praxen können ihren Eintrag selbst anlegen und pflegen.',
-    tags: ['Verzeichnis', 'Sichtbarkeit'],
+      'Suchportal für Tierarztpraxen und Tierkliniken, nach eigener Angabe mit über 12.000 Einträgen. Praxen können ihren Eintrag selbst anlegen und pflegen.',
+    tags: ['Suchmaschine', 'Verzeichnis'],
+  },
+  {
+    id: 'tierarztkompass',
+    // Bewusst ohne Logo: Die Seite setzt ihre Wortmarke aus HTML-Text plus
+    // favicon.svg zusammen, eine Logodatei gibt es nicht. Das Symbol allein –
+    // eine Pfote im grünen Quadrat – sagt niemandem, wer das ist. Die
+    // Text-Wortmarke, auf die die Karte dann zurückfällt, ist aussagekräftiger.
+    name: 'Tierarztkompass',
+    website: 'https://tierarztkompass.de',
+    countries: ['DE'],
+    categories: [10],
+    description:
+      'Suchportal für Tierarztpraxen nach Ort und Bundesland, nach eigener Angabe mit 12.985 Praxen.',
+    tags: ['Suchmaschine', 'Verzeichnis'],
+  },
+  {
+    id: 'tierarztliste',
+    name: 'TierarztListe',
+    logo: 'logos/tierarztliste.svg',
+    website: 'https://tierarztliste.online',
+    countries: ['DE'],
+    categories: [10],
+    description:
+      'Suchportal für Tierarztpraxen mit Adressen, Öffnungszeiten und Bewertungen, nach eigener Angabe mit über 9.000 Einträgen.',
+    tags: ['Suchmaschine', 'Verzeichnis', 'Bewertungen'],
+  },
+  {
+    id: 'tierarzt-onlineverzeichnis',
+    name: 'Tierarzt Onlineverzeichnis',
+    logo: 'logos/tierarzt-onlineverzeichnis.svg',
+    website: 'https://www.tierarzt-onlineverzeichnis.de',
+    countries: ['DE'],
+    categories: [10],
+    description:
+      'Suchportal für Tierärzte und Tierkliniken mit Sprechzeiten und Notdiensten, nach eigener Angabe mit 11.000 Einträgen.',
+    tags: ['Suchmaschine', 'Verzeichnis', 'Notdienst'],
   },
   {
     id: 'tierarzt-online',
     name: 'tierarzt-online',
+    logo: 'logos/tierarzt-online.svg',
     website: 'https://tierarzt-online.org',
     countries: [...DACH],
     categories: [7, 8],
@@ -416,6 +489,7 @@ export const providers: Provider[] = [
     // Gabrielse (LinkedIn, 21.09.2026), die Domain aus der Suche – unter
     // vet7well.de und vet7well.com gibt es weiterhin keine Seite.
     name: 'VET7.well',
+    logo: 'logos/vet7well.jpg',
     website: 'https://www.vet7.net',
     countries: [...DACH],
     categories: [6],
@@ -423,25 +497,20 @@ export const providers: Provider[] = [
     tags: ['PIMS', 'Praxissoftware'],
   },
   {
-    /*
-      Zweites Verzeichnis nach demselben Kriterium: „Für Ärzte – Praxiseintrag
-      melden" ist vorhanden, HTTP 200 am 27.09.2026.
-
-      Nur Österreich, und das ist hier ein Gewinn: Es ist der erste Eintrag der
-      Übersicht mit einer belegten statt einer pauschalen Länderangabe.
-    */
     id: 'veterinaere-at',
     name: 'Veterinäre.at',
+    logo: 'logos/veterinaere-at.jpg',
     website: 'https://www.veterinaere.at',
     countries: ['AT'],
-    categories: [1],
+    categories: [10],
     description:
-      'Verzeichnis österreichischer Tierarztpraxen und Kliniken mit Notdienstübersicht. Praxen können ihren Eintrag melden.',
-    tags: ['Verzeichnis', 'Sichtbarkeit'],
+      'Suchportal für österreichische Tierarztpraxen und Kliniken mit Notfalldienst-Übersicht, nach eigener Angabe mit über 900 Einträgen.',
+    tags: ['Suchmaschine', 'Verzeichnis', 'Notdienst'],
   },
   {
     id: 'vetat-work',
     name: 'vet@work',
+    logo: 'logos/vetat-work.png',
     website: 'https://vetat.work',
     countries: [...DACH],
     categories: [6],
@@ -507,6 +576,7 @@ export const providers: Provider[] = [
   {
     id: 'vetnio',
     name: 'Vetnio',
+    logo: 'logos/vetnio.png',
     website: 'https://www.vetnio.com',
     countries: [...DACH],
     categories: [4],

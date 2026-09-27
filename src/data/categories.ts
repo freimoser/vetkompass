@@ -1,12 +1,15 @@
 import type { Category, CategoryId } from '../types/market';
 
 /**
- * Die neun Kategorien der Marktübersicht.
+ * Die Kategorien der Marktübersicht.
  *
  * `placement` bildet die räumliche Struktur der Original-Grafik ab:
- *  - left:   Kategorien 1–5 (breiter Block links)
+ *  - left:   Kategorien 1–5 und 10 (breiter Block links, zweispaltig)
  *  - center: Kategorie 6 (hohe Spalte in der Mitte)
  *  - right:  Kategorien 7–9 (gestapelt rechts)
+ *
+ * Die Reihenfolge in diesem Array ist die Darstellungsreihenfolge. Kategorie 10
+ * steht deshalb am Ende und füllt im linken Block die Zeile neben Kategorie 5.
  *
  * Auf Tablet und Mobile wird `placement` ignoriert und alles gestapelt.
  */
@@ -18,7 +21,9 @@ export const categories: Category[] = [
     shortTitle: 'Sichtbarkeit',
     description:
       'Plattformen und Lösungen, über die Tierarztpraxen digital sichtbar werden und neue Tierhalter erreichen können.',
-    placement: { column: 'left', width: 'full' },
+    // Halbe Breite, seit die Verzeichnisse in Kategorie 10 stehen: Zwei Anbieter
+    // füllen keine volle Zeile. So paaren sich im linken Block 1|2, 3|4, 5|10.
+    placement: { column: 'left', width: 'half' },
     logoColumns: 2,
   },
   {
@@ -107,6 +112,23 @@ export const categories: Category[] = [
       'Digitale Schnittstellen zwischen Tierarztpraxis und Tierhalter für Kommunikation, Termine, Dokumente und weitere Services.',
     placement: { column: 'right', width: 'full' },
     logoColumns: 3,
+  },
+  {
+    /*
+      Nachgetragen am 27.09.2026. Vorher standen die Verzeichnisse in
+      Kategorie 1 – dort passten sie nicht: Kategorie 1 sammelt Lösungen, die
+      eine Praxis einsetzt, um sichtbar zu werden. Eine Suchmaschine ist
+      dagegen der Ort, an dem gesucht wird. Für die Praxis ist das ein Kanal,
+      den sie pflegt, kein Werkzeug, das sie kauft.
+    */
+    id: 10,
+    slug: 'tieraerzte-suchmaschinen',
+    title: 'Tierärzte-Suchmaschinen',
+    shortTitle: 'Suchmaschinen',
+    description:
+      'Portale und Verzeichnisse, über die Tierhalter gezielt nach einer Tierarztpraxis oder Tierklinik suchen – kommerziell betrieben oder von Berufsverbänden.',
+    placement: { column: 'left', width: 'half' },
+    logoColumns: 2,
   },
 ];
 

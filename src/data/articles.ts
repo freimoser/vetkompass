@@ -128,6 +128,12 @@ export const artikel: Artikel[] = [
     ],
     abgrenzung: [
       {
+        kategorie: 10,
+        grund:
+          'Der Ort, an dem tatsächlich gesucht wird. Sichtbarkeit ist das, was eine Praxis tut – ' +
+          'eine Suchmaschine ist der Kanal, in dem es ankommt.',
+      },
+      {
         kategorie: 2,
         grund:
           'Sichtbarkeit endet an dem Punkt, an dem jemand einen Termin will. Ob daraus ein Termin ' +
@@ -745,5 +751,106 @@ export const artikel: Artikel[] = [
     grenzen:
       'Keine Nutzungszahlen, keine Preise und keine Aussage darüber, ab welcher Praxisgröße sich ' +
       'ein Portal rechnet. Das hängt an Kundenstamm und Anrufaufkommen.',
+  },
+
+  /* ----------------------------------------------------------------- 10 */
+  {
+    kategorie: 10,
+    slug: 'tieraerzte-suchmaschinen',
+    h1: 'Tierärzte-Suchmaschinen: Wo Tierhalter nach einer Praxis suchen',
+    titleTag: 'Tierarzt-Suchmaschinen und Verzeichnisse im DACH-Raum',
+    description:
+      'Welche Portale und Verzeichnisse es im deutschsprachigen Raum gibt, über die Tierhalter ' +
+      'eine Tierarztpraxis suchen – und was eine Praxis mit ihren Einträgen tun sollte.',
+    lead: [
+      'Sieben Portale, keines davon DACH-weit. Der deutschsprachige Raum hat vier größere ' +
+        'kommerzielle Suchportale für Deutschland, je eines für Österreich und die Schweiz, dazu ' +
+        'die Suchen der Berufsverbände. Ein gemeinsames Verzeichnis gibt es nicht.',
+      'Für eine Praxis heißt das: Sie steht in mehreren dieser Portale, ob sie will oder nicht. ' +
+        'Die Einträge stammen meist aus öffentlichen Quellen und wurden nie von der Praxis ' +
+        'geprüft – und genau dort liegt die Arbeit.',
+    ],
+    abschnitte: [
+      {
+        h2: 'Warum die Kategorie von der Sichtbarkeit getrennt ist',
+        absaetze: [
+          'Eine Sichtbarkeitslösung ist etwas, das eine Praxis einsetzt. Eine Suchmaschine ist ' +
+            'der Ort, an dem gesucht wird – sie existiert unabhängig davon, ob die Praxis sie ' +
+            'kennt. Das ist ein Unterschied in der Richtung, nicht im Thema.',
+          'Praktisch folgt daraus die wichtigste Erkenntnis dieser Kategorie: Hier gibt es nichts ' +
+            'zu kaufen und nichts einzuführen. Es gibt etwas zu korrigieren.',
+        ],
+      },
+      {
+        h2: 'Die Einträge sind da – und oft falsch',
+        absaetze: [
+          'Die Portale tragen zwischen 900 und knapp 13.000 Praxen. Diese Mengen entstehen nicht ' +
+            'dadurch, dass sich alle angemeldet haben, sondern durch Übernahme aus öffentlichen ' +
+            'Quellen. Entsprechend häufig stehen dort alte Öffnungszeiten, überholte ' +
+            'Telefonnummern, Vorgängernamen nach einer Übernahme oder Adressen, die seit einem ' +
+            'Umzug nicht mehr stimmen.',
+          'Das trifft ausgerechnet den Moment, in dem es am meisten zählt: Wer nachts nach einem ' +
+            'Notdienst sucht, ruft die Nummer an, die dort steht. Ein falscher Eintrag ist in dem ' +
+            'Moment schlimmer als kein Eintrag.',
+        ],
+      },
+      {
+        h2: 'Einheitliche Angaben schlagen viele Einträge',
+        absaetze: [
+          'Name, Adresse und Telefonnummer sollten in allen Portalen exakt gleich geschrieben ' +
+            'sein – bis zur Rechtsform und zur Schreibweise der Straße. Suchmaschinen gleichen ' +
+            'diese Angaben untereinander ab; uneinheitliche Varianten werden als verschiedene ' +
+            'Betriebe behandelt und schwächen sich gegenseitig.',
+          'Der lohnendste Arbeitsschritt ist deshalb unspektakulär: einmal eine verbindliche ' +
+            'Schreibweise festlegen, aufschreiben, und dann alle Einträge darauf ziehen. Das ist ' +
+            'in ein bis zwei Stunden erledigt und wirkt länger als jede Kampagne.',
+        ],
+      },
+      {
+        h2: 'Kommerziell oder vom Verband',
+        absaetze: [
+          'Die Verbandssuchen von bpt und GST listen Mitgliedspraxen. Ihre Daten sind in der ' +
+            'Regel gepflegter, weil sie aus der Mitgliederverwaltung stammen, dafür ist die ' +
+            'Abdeckung auf Mitglieder beschränkt. Die kommerziellen Portale decken mehr ab, ' +
+            'finanzieren sich aber über Werbung oder hervorgehobene Einträge.',
+          'Beides hat seine Berechtigung, und für die Praxis ist die Frage nicht, welches Modell ' +
+            'besser ist, sondern in welchen Portalen die eigenen Tierhalter tatsächlich suchen. ' +
+            'Das lässt sich am einfachsten herausfinden, indem man am Empfang danach fragt.',
+        ],
+      },
+    ],
+    worauf: [
+      'In welchen der Portale steht die eigene Praxis schon? Einmal alle sieben durchgehen und nachsehen.',
+      'Stimmen Name, Adresse und Telefonnummer überall exakt – und exakt gleich?',
+      'Sind Öffnungszeiten und Notdienstregelung aktuell? Das ist die Angabe, auf die es nachts ankommt.',
+      'Lässt sich der Eintrag übernehmen oder korrigieren, und wie lange dauert das?',
+      'Was kostet ein hervorgehobener Eintrag, und was bringt er nachweislich? Ohne Nachweis: erst die kostenlosen Einträge in Ordnung bringen.',
+      'Steht dort eine veraltete Bewertung oder ein Vorgängername nach einer Übernahme?',
+    ],
+    abgrenzung: [
+      {
+        kategorie: 1,
+        grund:
+          'Die Gegenrichtung: Lösungen, die eine Praxis aktiv einsetzt, um sichtbar zu werden, ' +
+          'statt Kanäle, in denen sie ohnehin vorkommt.',
+      },
+      {
+        kategorie: 2,
+        grund:
+          'Ein gefundener Eintrag ist wertlos, wenn er nur zu einer Telefonnummer führt. Der Weg ' +
+          'vom Fund zum Termin entscheidet.',
+      },
+      {
+        kategorie: 9,
+        grund:
+          'Eine Suchmaschine bringt einen Tierhalter einmal. Gehalten wird er über einen eigenen ' +
+          'Zugang zur Praxis.',
+      },
+    ],
+    begriffe: [],
+    grenzen:
+      'Keine Reichweitenzahlen und keine Aussage darüber, welches Portal für eine bestimmte Praxis ' +
+      'etwas bringt. Die genannten Mengen sind die Eigenangaben der Portale aus Titel oder ' +
+      'Startseite – nicht nachgezählt und kein Qualitätsmerkmal.',
   },
 ];
