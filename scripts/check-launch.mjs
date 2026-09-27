@@ -266,7 +266,8 @@ for (const datei of [
 */
 const TITEL_MAX = 60;
 const DESCRIPTION_MAX = 160;
-const DESCRIPTION_MIN = 70;
+// 50 wie im Build-Audit der Pflege-Skill; die frühere 70 hatte keine Quelle.
+const DESCRIPTION_MIN = 50;
 const entities = (t) =>
   t.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 
@@ -321,6 +322,51 @@ for (const pfad of textDateien) {
       blocker.push(
         `${relative(DIST, pfad)}: „${m[1]} ${m[2]}“, die Daten führen ${categories.length}. ` +
           'Die Zahl aus categories.length ableiten (src/lib/zahlwort.ts), nicht von Hand schreiben.',
+      );
+    }
+  }
+}
+
+/* -- 4f. Datumsangaben: belegt, nicht Build-Datum ---------------------- */
+
+/*
+  Vorher war `lastmod` in der Sitemap bei jedem Build das heutige Datum, und
+  alle Artikel trugen fest den 23.09.2026 – auch der, den es erst ab dem 27.09.
+  gab. Jetzt führt scripts/seitenstand.mjs je Seite ein Register über
+  sichtbare Textänderungen. Geprüft wird, dass Build und Register
+  übereinstimmen und kein Datum unmöglich ist.
+*/
+const registerPfad = join(ROOT, 'scripts', 'seitenstand.json');
+const stand = existsSync(registerPfad) ? JSON.parse(readFileSync(registerPfad, 'utf8')) : null;
+if (!stand) {
+  blocker.push('scripts/seitenstand.json fehlt – ohne Register ist jedes Datum im Build geraten.');
+} else {
+  const lastmod = new Map();
+  if (existsSync(sitemapPfad)) {
+    for (const [, loc, datum] of lies(sitemapPfad).matchAll(
+      /<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g,
+    )) {
+      lastmod.set(new URL(loc).pathname, datum);
+    }
+  }
+  for (const seite of seiten) {
+    const html = lies(seite.pfad);
+    if (/<meta\s+name="robots"\s+content="[^"]*noindex/.test(html)) continue;
+    const eintrag = stand[seite.route];
+    if (!eintrag) {
+      blocker.push(`${seite.route} fehlt in scripts/seitenstand.json.`);
+      continue;
+    }
+    if (eintrag.geaendert < eintrag.veroeffentlicht) {
+      blocker.push(`${seite.route}: geändert (${eintrag.geaendert}) vor veröffentlicht (${eintrag.veroeffentlicht}).`);
+    }
+    const imSchema = html.match(/"dateModified":\s*"([^"]+)"/)?.[1];
+    if (imSchema && imSchema !== eintrag.geaendert) {
+      blocker.push(`${seite.route}: dateModified ${imSchema} weicht vom Register (${eintrag.geaendert}) ab.`);
+    }
+    if (lastmod.size && lastmod.get(seite.route) !== eintrag.geaendert) {
+      blocker.push(
+        `${seite.route}: lastmod ${lastmod.get(seite.route) ?? 'fehlt'} weicht vom Register (${eintrag.geaendert}) ab.`,
       );
     }
   }

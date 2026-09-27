@@ -6,12 +6,13 @@
   "scripts": {
     "gen": "node scripts/gen-legal.mjs && node scripts/gen-grafik.mjs && node scripts/gen-artikel.mjs && node scripts/gen-seo.mjs",
     "dev": "npm run gen && vite",
-    "build": "npm run gen && tsc -b && vite build && node scripts/prerender.mjs",
+    "build": "npm run gen && tsc -b && vite build && node scripts/prerender.mjs && node scripts/seitenstand.mjs",
     "preview": "vite preview",
     "lint": "oxlint",
     "icons": "node scripts/gen-icons.mjs",
     "check:launch": "node scripts/check-launch.mjs",
-    "verify": "npm run lint && npm run build && npm run check:launch"
+    "verify": "npm run lint && npm run build && npm run check:launch",
+    "check:anbieter": "node scripts/check-anbieter.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.46.0",

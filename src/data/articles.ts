@@ -73,10 +73,10 @@ export const artikel: Artikel[] = [
     titleTag: 'Sichtbarkeit für Tierarztpraxen – Kanäle und Anbieter',
     description:
       'Wie Tierarztpraxen im DACH-Raum digital sichtbar werden – Kartendienst, Bewertungen, ' +
-      'Portale. Mit allen Anbietern der Marktübersicht, ohne Rangfolge.',
+      'Communitys. Mit allen Anbietern der Marktübersicht, ohne Rangfolge.',
     lead: [
       'Sichtbarkeit entsteht heute an drei Stellen: im Kartendienst, in Bewertungen und in ' +
-        'Portalen oder Communitys, in denen Tierhalter unterwegs sind. Eine eigene Website ist ' +
+        'Communitys, in denen Tierhalter unterwegs sind. Eine eigene Website ist ' +
         'die Grundlage, aber selten der Ort, an dem die Suche beginnt.',
       'Vorweg eine unbequeme Frage: Viele Praxen im DACH-Raum sind ausgelastet und nehmen keine ' +
         'neuen Patienten an. Für sie ist Sichtbarkeit kein Wachstumsthema, sondern ein ' +
@@ -86,9 +86,11 @@ export const artikel: Artikel[] = [
       {
         h2: 'Was in dieser Kategorie zusammengefasst ist',
         absaetze: [
-          'Plattformen und Dienste, über die eine Praxis für Tierhalter auffindbar wird, die sie ' +
-            'noch nicht kennen. Das reicht von Verzeichnissen und Bewertungsportalen über ' +
-            'Community-Plattformen bis zu Angeboten, die Praxisprofile bündeln.',
+          'Plattformen und Dienste, die eine Praxis selbst einsetzt, um für Tierhalter auffindbar ' +
+            'zu werden, die sie noch nicht kennen – etwa Community-Plattformen oder Angebote, die ' +
+            'Praxisprofile bündeln. Reine Suchportale und Verzeichnisse stehen in einer eigenen ' +
+            'Kategorie, den Tierärzte-Suchmaschinen: Dort kommt eine Praxis vor, ob sie will oder ' +
+            'nicht, hier entscheidet sie sich dafür.',
           'Nicht in dieser Kategorie: Werkzeuge, die sich an bestehende Kundinnen und Kunden ' +
             'richten. Wer schon in der Kartei steht, wird nicht neu gewonnen, sondern gehalten – ' +
             'dafür sind Terminbuchung, Portal und Recall zuständig.',
@@ -102,7 +104,8 @@ export const artikel: Artikel[] = [
             'ein Termin zu bekommen ist. Diese Angaben stehen selten auf der Website – sie stehen ' +
             'im Kartendienst, im Verzeichnis oder im Portal.',
           'Praktische Folge: Ein gepflegter Eintrag mit korrekten Zeiten und einem funktionierenden ' +
-            'Terminweg wirkt fast immer stärker als ein Website-Relaunch. Er kostet auch weniger.',
+            'Terminweg wirkt erfahrungsgemäß meist stärker als ein Website-Relaunch und kostet ' +
+            'weniger. Das ist eine Einschätzung aus der Praxis, keine gemessene Wirkung.',
         ],
       },
       {
@@ -763,11 +766,12 @@ export const artikel: Artikel[] = [
       'Welche Tierarzt-Suchportale es in Deutschland, Österreich und der Schweiz gibt – und was ' +
       'eine Praxis mit ihren oft veralteten Einträgen tun sollte.',
     lead: [
-      'Sieben Portale, keines davon DACH-weit. Der deutschsprachige Raum hat vier größere ' +
-        'kommerzielle Suchportale für Deutschland, je eines für Österreich und die Schweiz, dazu ' +
-        'die Suchen der Berufsverbände. Ein gemeinsames Verzeichnis gibt es nicht.',
+      '{Anzahl} Portale, keines davon DACH-weit. Deutschland hat mehrere kommerzielle ' +
+        'Suchportale, Österreich eines, die Schweiz keines – dort ist die Suche des ' +
+        'Berufsverbands GST der einzige Eintrag. Dazu kommt für Deutschland die Suche des bpt. ' +
+        'Ein gemeinsames Verzeichnis für den ganzen Raum gibt es nicht.',
       'Für eine Praxis heißt das: Sie steht in mehreren dieser Portale, ob sie will oder nicht. ' +
-        'Die Einträge stammen meist aus öffentlichen Quellen und wurden nie von der Praxis ' +
+        'Die Einträge stammen meist aus öffentlichen Quellen und wurden oft nie von der Praxis ' +
         'geprüft – und genau dort liegt die Arbeit.',
     ],
     abschnitte: [
@@ -784,7 +788,8 @@ export const artikel: Artikel[] = [
       {
         h2: 'Die Einträge sind da – und oft falsch',
         absaetze: [
-          'Die Portale tragen zwischen 900 und knapp 13.000 Praxen. Diese Mengen entstehen nicht ' +
+          'Die Portale nennen nach eigener Angabe teils fünfstellige Praxiszahlen, die Tabelle unten ' +
+            'führt sie einzeln auf. Mengen dieser Größe entstehen erkennbar nicht ' +
             'dadurch, dass sich alle angemeldet haben, sondern durch Übernahme aus öffentlichen ' +
             'Quellen. Entsprechend häufig stehen dort alte Öffnungszeiten, überholte ' +
             'Telefonnummern, Vorgängernamen nach einer Übernahme oder Adressen, die seit einem ' +
@@ -820,7 +825,7 @@ export const artikel: Artikel[] = [
       },
     ],
     worauf: [
-      'In welchen der Portale steht die eigene Praxis schon? Einmal alle sieben durchgehen und nachsehen.',
+      'In welchen der Portale steht die eigene Praxis schon? Einmal alle {anzahl} durchgehen und nachsehen.',
       'Stimmen Name, Adresse und Telefonnummer überall exakt – und exakt gleich?',
       'Sind Öffnungszeiten und Notdienstregelung aktuell? Das ist die Angabe, auf die es nachts ankommt.',
       'Lässt sich der Eintrag übernehmen oder korrigieren, und wie lange dauert das?',
