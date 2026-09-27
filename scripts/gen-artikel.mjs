@@ -21,12 +21,13 @@
  *
  * Aufruf: node scripts/gen-artikel.mjs
  */
-import { writeFileSync } from 'node:fs';
+import { rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, HAUPTARTIKEL } from './seiten.mjs';
+import { zahlwort } from '../src/lib/zahlwort.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -142,7 +143,7 @@ function abgrenzungsBlock(eintraege) {
 
   return `      <h2 id="abgrenzung">Wo die Kategorie aufhört</h2>
       <p>
-        Die Übersicht trennt neun Lösungsfelder. Die Grenzen dazwischen sind der
+        Die Übersicht trennt ${zahlwort(categories.length)} Lösungsfelder. Die Grenzen dazwischen sind der
         eigentliche Inhalt – hier verlaufen sie:
       </p>
       <ul class="verweise">
@@ -184,7 +185,7 @@ function weiterlesen(aktuellerPfad) {
       : `        <li>${nr} <a href="${esc(s.datei)}">${esc(kat?.title ?? s.kurzTitel)}</a></li>`;
   }).join('\n');
 
-  return `      <h2 id="weiterlesen">Alle neun Lösungsfelder</h2>
+  return `      <h2 id="weiterlesen">Alle ${zahlwort(categories.length)} Lösungsfelder</h2>
       <p>
         Die <a href="./">interaktive Marktübersicht</a> zeigt alle Anbieter auf einen Blick.
         Diese Artikel erklären die einzelnen Felder:
@@ -350,8 +351,25 @@ const STIL = `      :root {
         th, td { border: 0; padding: 0.15rem 0; }
       }`;
 
-function seite({ pfad, titleTag, description, schema, koerper }) {
-  const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': schema }, null, 2)
+function seite({ pfad, titleTag, description, schema, koerper, krume }) {
+  /*
+    BreadcrumbList auf jeder Artikelseite: Marktübersicht → Artikel. Sie ordnet
+    die Seite für Suchmaschinen ins Themenfeld ein und ersetzt in den
+    Ergebnissen die nackte Adresse durch einen lesbaren Pfad. Nur mit Domain –
+    die Einträge brauchen absolute Adressen, genau wie das Canonical.
+  */
+  const krumen = hatDomain
+    ? [
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Marktübersicht', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 2, name: krume ?? titleTag, item: absolut(pfad) },
+          ],
+        },
+      ]
+    : [];
+  const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': [...schema, ...krumen] }, null, 2)
     .split('\n')
     .map((l) => `      ${l}`)
     .join('\n');
@@ -563,8 +581,7 @@ function hauptartikel() {
   const titel = 'Welche Tierarzt-Software gibt es?';
   const beschreibung =
     'Alle Praxissoftware-Anbieter für Tierarztpraxen in Deutschland, Österreich und der ' +
-    'Schweiz – alphabetisch, ohne Rangfolge, ohne Preise. Dazu die Begriffe der digitalen ' +
-    'Tierarztpraxis erklärt: PIMS, Cloud, Ambient-Dokumentation, Videosprechstunde.';
+    'Schweiz – alphabetisch, ohne Rangfolge. Dazu PIMS & Co. erklärt.';
 
   const koerper = `
       <h1>${esc(titel)}</h1>
@@ -667,6 +684,7 @@ ${offenlegung(6)}`;
 
   return seite({
     pfad: HAUPTARTIKEL.pfad,
+    krume: 'Praxissoftware (PIMS)',
     titleTag: `${titel} ${kernPims.length} Anbieter im DACH-Markt`,
     description: beschreibung,
     schema: [
@@ -759,6 +777,7 @@ ${offenlegung(a.kategorie)}`;
 
   return seite({
     pfad: seiteInfo.pfad,
+    krume: kat.title,
     titleTag: a.titleTag,
     description: a.description,
     schema: [
@@ -807,6 +826,77 @@ for (const s of ALLE_ARTIKEL) {
   writeFileSync(join(OUT, s.datei), html, 'utf8');
   gesamt += woerter(html);
   zeilen.push(`  ${s.datei.padEnd(36)} ${woerter(html)} Wörter`);
+}
+
+/* ================================================================== */
+/* llms-full.txt                                                      */
+/* ================================================================== */
+
+/*
+  Der Volltext aller Artikel für Antwortmaschinen. `llms.txt` sagt, wofür die
+  Seite eine Quelle ist; diese Datei liefert den Text selbst, ohne HTML und
+  ohne dass jemand zehn Seiten abrufen muss.
+
+  Sie entsteht hier und nicht in gen-seo.mjs, weil nur hier alle Inhalte
+  beisammen sind – Begriffsteil und Fragen des Hauptartikels eingeschlossen.
+  Nur mit Domain: Jeder Abschnitt nennt seine Quelladresse absolut, und eine
+  falsche Adresse wäre schlechter als keine.
+*/
+const md = (t) => String(t).replace(/\s+/g, ' ').trim();
+const anbieterZeilen = (liste) =>
+  liste
+    .map((p) => `- ${p.name}: ${md(p.description)} (${p.countries.map((c) => LAND[c]).join(', ')})`)
+    .join('\n');
+
+function volltext() {
+  const teile = [
+    '# Die digitale Tierarztpraxis – Marktübersicht: Volltext',
+    '',
+    `> Volltext aller Artikel der Marktübersicht, Stand ${EDITION}. ${providers.length} Anbieter ` +
+      `in ${zahlwort(categories.length)} Lösungsfeldern für Tierarztpraxen in Deutschland, ` +
+      'Österreich und der Schweiz. Alphabetisch sortiert, ohne Rangfolge, ohne Bewertung, ' +
+      'ohne Preise, kein Anspruch auf Vollständigkeit.',
+    '',
+    `Herausgeber: ${AUTOR}, ${ROLLE}. Offenlegung: Der Herausgeber arbeitet für die Petleo GmbH ` +
+      'und ist als Late Co-Founder an ihr beteiligt; Petleo ist in mehreren Kategorien vertreten. ' +
+      'Eine im strengen Sinne neutrale Übersicht ist das deshalb nicht.',
+    '',
+    `Interaktive Übersicht: ${siteUrl}/`,
+    '',
+  ];
+
+  for (const s of ALLE_ARTIKEL) {
+    const kat = kategorieVon(s.kategorie);
+    teile.push('---', '', `## ${s.kategorie}. ${kat.title}`, '', `Quelle: ${absolut(s.pfad)}`, '');
+
+    if (!s.inhalt) {
+      // Hauptartikel: Praxissoftware, Begriffe, Fragen
+      teile.push(md(kat.description), '', '### Praxissoftware-Anbieter', '', anbieterZeilen(kernPims), '');
+      teile.push(`### ${kategorie6.subgroups[0].title}`, '', anbieterZeilen(addOns), '');
+      teile.push('### Begriffe', '');
+      for (const b of BEGRIFFE) teile.push(`**${b.term}** (${b.kurz}): ${md(b.text)}`, '');
+      teile.push('### Häufig gestellte Fragen', '');
+      for (const f of FRAGEN) teile.push(`**${f.frage}** ${md(f.antwort)}`, '');
+      continue;
+    }
+
+    const a = s.inhalt;
+    for (const p of a.lead) teile.push(md(p), '');
+    for (const ab of a.abschnitte) {
+      teile.push(`### ${ab.h2}`, '');
+      for (const p of ab.absaetze) teile.push(md(p), '');
+    }
+    teile.push('### Worauf Praxen bei der Auswahl achten', '', a.worauf.map((w) => `- ${md(w)}`).join('\n'), '');
+    teile.push('### Anbieter', '', anbieterZeilen(anbieterVon(a.kategorie)), '');
+    teile.push('### Was dieser Artikel nicht leistet', '', md(a.grenzen), '');
+  }
+  return teile.join('\n') + '\n';
+}
+
+if (hatDomain) {
+  writeFileSync(join(OUT, 'llms-full.txt'), volltext(), 'utf8');
+} else {
+  rmSync(join(OUT, 'llms-full.txt'), { force: true });
 }
 
 console.log(

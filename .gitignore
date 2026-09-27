@@ -30,5 +30,7 @@ public/*.html
 public/robots.txt
 public/sitemap.xml
 public/llms.txt
+public/llms-full.txt
+public/CNAME
 public/downloads/
 public/og/

@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { anchors, resolveLink } from '../config/site';
 import { artikel, artikelPfad, HAUPTARTIKEL } from '../data/articles';
 import { categories } from '../data/categories';
+import { zahlwort } from '../lib/zahlwort';
 
 /**
  * Verweise auf die Artikelseiten.
@@ -27,7 +28,7 @@ export function ArticleSection() {
   return (
     <section id={anchors.articles} className="border-t border-brand-100 py-14">
       <h2 className="text-xl font-bold tracking-tight text-ink-900 sm:text-2xl">
-        Die neun Lösungsfelder im Detail
+        Die {zahlwort(categories.length)} Lösungsfelder im Detail
       </h2>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-700">
         Zu jeder Kategorie der Übersicht gibt es einen Artikel: was das Lösungsfeld umfasst,

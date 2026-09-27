@@ -16,6 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { LEGAL, missingLegalFields } from '../src/config/legal.ts';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
+import { ZAHLWOERTER } from '../src/lib/zahlwort.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -75,7 +76,7 @@ if (LEGAL.companyName && !/\b(GmbH|UG|AG|KG|OHG|e\.K\.|mbH|GbR)\b/i.test(LEGAL.c
 
 /* -- 2. Pflichtseiten vorhanden und ohne Lücken ------------------------ */
 
-const PFLICHTSEITEN = ['impressum.html', 'datenschutz.html', 'haftungsausschluss.html'];
+const PFLICHTSEITEN = ['impressum.html', 'datenschutz.html', 'haftungsausschluss.html', '404.html'];
 for (const datei of PFLICHTSEITEN) {
   const pfad = join(DIST, datei);
   if (!existsSync(pfad)) {
@@ -241,6 +242,87 @@ for (const datei of [
         `${treffer[2]} Kategorien, die Daten führen ${providers.length} in ` +
         `${categories.length}. \`npm run gen\` erzeugt sie neu.`,
     );
+  }
+}
+
+/* -- 4d. Titel und Description, gemessen an Google --------------------- */
+
+/*
+  Die Grenzen stammen aus Googles Darstellung, nicht aus diesem Projekt: Titel
+  werden bei etwa 580 px gekürzt, das sind rund 60 Zeichen; Descriptions bei
+  etwa 920 px, rund 160 Zeichen.
+
+  Warum das hier steht: In einem anderen Projekt erlaubten Erzeuger und Prüfer
+  beide 70 Zeichen – derselbe Fehler an beiden Stellen, also fiel er nie auf,
+  und 13 Titel waren in den Suchergebnissen abgeschnitten. In diesem Projekt
+  lagen beim Audit am 27.09.2026 sechs Titel über 60 und acht Descriptions
+  über 160 Zeichen, eine davon bei 246.
+
+  Titel sind ein Blocker, weil man sie immer selbst bestimmt. Descriptions
+  sind ein Hinweis: Google schreibt sie ohnehin oft um.
+
+  Die Muster lesen mehrzeilige Meta-Tags mit – das erste Audit meldete die
+  Startseiten-Description als fehlend, weil sie über drei Zeilen stand.
+*/
+const TITEL_MAX = 60;
+const DESCRIPTION_MAX = 160;
+const DESCRIPTION_MIN = 70;
+const entities = (t) =>
+  t.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
+for (const seite of seiten) {
+  const html = lies(seite.pfad);
+  if (/<meta\s+name="robots"\s+content="[^"]*noindex/.test(html)) continue;
+
+  const titel = entities(html.match(/<title>([\s\S]*?)<\/title>/)?.[1]?.trim() ?? '');
+  if (!titel) blocker.push(`${seite.route} hat keinen <title>.`);
+  else if (titel.length > TITEL_MAX) {
+    blocker.push(
+      `${seite.route}: Titel hat ${titel.length} Zeichen, Google kürzt bei etwa ${TITEL_MAX} – „${titel}“`,
+    );
+  }
+
+  const beschr = entities(
+    html.match(/<meta\s+name="description"\s+content="([^"]*)"/)?.[1]?.replace(/\s+/g, ' ').trim() ?? '',
+  );
+  if (!beschr) blocker.push(`${seite.route} hat keine Meta-Description.`);
+  else if (beschr.length > DESCRIPTION_MAX) {
+    hinweis.push(`${seite.route}: Description hat ${beschr.length} Zeichen, Google kürzt bei etwa ${DESCRIPTION_MAX}.`);
+  } else if (beschr.length < DESCRIPTION_MIN) {
+    hinweis.push(`${seite.route}: Description hat nur ${beschr.length} Zeichen – Google ersetzt so kurze meist.`);
+  }
+
+  if (seite.route !== '/' && !/"BreadcrumbList"/.test(html)) {
+    hinweis.push(`${seite.route} hat keine BreadcrumbList.`);
+  }
+}
+
+/* -- 4e. Von Hand geschriebene Kategorienzahlen ------------------------- */
+
+/*
+  Nach der Aufnahme von Kategorie 10 stand an sieben Stellen noch „neun
+  Kategorien“ oder „neun Lösungsfelder“ – in der llms.txt, in den Meta-Tags,
+  auf allen Artikelseiten. Jede dieser Zahlen war von Hand geschrieben.
+
+  Geprüft wird jede Zahl direkt vor „Kategorien“ oder „Lösungsfelder“, als
+  Wort oder Ziffer, in allem, was ausgeliefert wird. Sie muss der Zahl der
+  Kategorien entsprechen.
+*/
+const zahlAus = (wort) => {
+  const i = ZAHLWOERTER.indexOf(wort.toLowerCase());
+  return i >= 0 ? i : /^\d+$/.test(wort) ? Number(wort) : null;
+};
+const textDateien = [...seiten.map((s) => s.pfad), join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt')].filter(existsSync);
+for (const pfad of textDateien) {
+  const text = lies(pfad).replace(/<[^>]+>/g, ' ');
+  for (const m of text.matchAll(/(\S+)\s+(Kategorien|Lösungsfelder(?:n)?)\b/g)) {
+    const zahl = zahlAus(m[1]);
+    if (zahl !== null && zahl !== categories.length) {
+      blocker.push(
+        `${relative(DIST, pfad)}: „${m[1]} ${m[2]}“, die Daten führen ${categories.length}. ` +
+          'Die Zahl aus categories.length ableiten (src/lib/zahlwort.ts), nicht von Hand schreiben.',
+      );
+    }
   }
 }
 

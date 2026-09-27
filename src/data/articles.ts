@@ -70,10 +70,10 @@ export const artikel: Artikel[] = [
     kategorie: 1,
     slug: 'digitale-sichtbarkeit',
     h1: 'Digitale Sichtbarkeit: Wie Tierhalter eine Tierarztpraxis finden',
-    titleTag: 'Digitale Sichtbarkeit für Tierarztpraxen – Anbieter und Kanäle',
+    titleTag: 'Sichtbarkeit für Tierarztpraxen – Kanäle und Anbieter',
     description:
-      'Über welche digitalen Kanäle Tierarztpraxen im DACH-Raum sichtbar werden und neue ' +
-      'Tierhalter erreichen – Anbieter der Marktübersicht, ohne Rangfolge und ohne Bewertung.',
+      'Wie Tierarztpraxen im DACH-Raum digital sichtbar werden – Kartendienst, Bewertungen, ' +
+      'Portale. Mit allen Anbietern der Marktübersicht, ohne Rangfolge.',
     lead: [
       'Sichtbarkeit entsteht heute an drei Stellen: im Kartendienst, in Bewertungen und in ' +
         'Portalen oder Communitys, in denen Tierhalter unterwegs sind. Eine eigene Website ist ' +
@@ -164,7 +164,7 @@ export const artikel: Artikel[] = [
     kategorie: 2,
     slug: 'online-terminvereinbarung',
     h1: 'Online-Terminvereinbarung in der Tierarztpraxis',
-    titleTag: 'Online-Terminbuchung für Tierarztpraxen – Anbieter im DACH-Markt',
+    titleTag: 'Online-Terminbuchung für Tierarztpraxen – alle Anbieter',
     description:
       'Wie Online-Terminbuchung in Tierarztpraxen funktioniert, welche Anbieter es im DACH-Raum ' +
       'gibt und woran die Einführung in der Praxis meistens scheitert.',
@@ -256,10 +256,10 @@ export const artikel: Artikel[] = [
     kategorie: 3,
     slug: 'intake-self-checkin',
     h1: 'Intake und Self-Check-in: die Patientenaufnahme vor dem Termin',
-    titleTag: 'Digitale Patientenaufnahme in der Tierarztpraxis – Intake und Check-in',
+    titleTag: 'Digitale Patientenaufnahme in der Tierarztpraxis',
     description:
-      'Digitale Anamnesebögen, Stammdatenerfassung und Self-Check-in für Tierarztpraxen: was ' +
-      'diese Lösungen leisten, woran sie scheitern und welche Anbieter es im DACH-Raum gibt.',
+      'Digitale Anamnesebögen und Self-Check-in für Tierarztpraxen: was sie leisten, woran sie ' +
+      'scheitern und welche Anbieter es im DACH-Raum gibt.',
     lead: [
       'Intake verlagert das Ausfüllen nach vorne: Stammdaten, Vorgeschichte und Einwilligungen ' +
         'kommen vor dem Besuch, per Link oder am Tablet im Wartebereich. Der Empfang tippt ' +
@@ -344,10 +344,10 @@ export const artikel: Artikel[] = [
     kategorie: 4,
     slug: 'ki-dokumentation',
     h1: 'KI in der Tierarztpraxis: Dokumentation und Praxisassistenten',
-    titleTag: 'KI-Dokumentation für Tierarztpraxen – Anbieter und Funktionsweise',
+    titleTag: 'KI-Dokumentation für Tierarztpraxen – Anbieter im DACH-Raum',
     description:
-      'Wie KI-gestützte Dokumentation in der Tierarztpraxis funktioniert, wo die Grenzen liegen ' +
-      'und welche Anbieter es im deutschsprachigen Raum gibt. Ohne Rangfolge, ohne Bewertung.',
+      'Wie KI-Dokumentation in der Tierarztpraxis funktioniert, wo ihre Grenzen liegen und ' +
+      'welche Anbieter es gibt – ohne Rangfolge, ohne Bewertung.',
     lead: [
       'Ein Assistent hört das Gespräch mit und erzeugt daraus einen Entwurf des ' +
         'Behandlungseintrags. Die Tierärztin prüft und gibt frei. Das ist der Kern – alles andere ' +
@@ -511,10 +511,10 @@ export const artikel: Artikel[] = [
     kategorie: 7,
     slug: 'online-videosprechstunde',
     h1: 'Online-Tierarzt: offene Videosprechstunden für Tierhalter',
-    titleTag: 'Online-Videosprechstunde für Tierhalter – Anbieter im DACH-Raum',
+    titleTag: 'Online-Videosprechstunde für Tierhalter – alle Anbieter',
     description:
-      'Plattformen, über die Tierhalter direkt einen Tierarzt per Video erreichen – wie sie sich ' +
-      'von praxiseigenen Angeboten unterscheiden und was das für Praxen bedeutet.',
+      'Plattformen, über die Tierhalter direkt einen Tierarzt per Video erreichen – was sie von ' +
+      'praxiseigenen Angeboten trennt und was das für Praxen heißt.',
     lead: [
       'Hier geht es um Plattformen mit eigenem Tierärzteteam, an die sich Tierhalter direkt ' +
         'wenden – ohne ihre Praxis. Das ist ein anderes Geschäftsmodell als eine Videosprechstunde, ' +
@@ -587,10 +587,10 @@ export const artikel: Artikel[] = [
     kategorie: 8,
     slug: 'praxiseigene-videosprechstunde',
     h1: 'Praxiseigene Videosprechstunde: eigene Patienten per Video betreuen',
-    titleTag: 'Videosprechstunde für die eigene Tierarztpraxis – Anbieter und Kriterien',
+    titleTag: 'Videosprechstunde für die eigene Tierarztpraxis',
     description:
-      'Lösungen, mit denen eine Tierarztpraxis ihren eigenen Kunden Videotermine anbietet – ' +
-      'Abgrenzung zu offenen Plattformen, Auswahlkriterien und Anbieter im DACH-Raum.',
+      'Wie eine Tierarztpraxis ihren eigenen Kunden Videotermine anbietet: Abgrenzung zu ' +
+      'offenen Plattformen, Auswahlkriterien und Anbieter im DACH-Raum.',
     lead: [
       'Die Praxis berät ihre eigenen Patienten per Video, unter ihrem Namen und auf Basis der ' +
         'vorhandenen Akte. Das ist der entscheidende Unterschied zu offenen Plattformen: Hier ' +
@@ -760,8 +760,8 @@ export const artikel: Artikel[] = [
     h1: 'Tierärzte-Suchmaschinen: Wo Tierhalter nach einer Praxis suchen',
     titleTag: 'Tierarzt-Suchmaschinen und Verzeichnisse im DACH-Raum',
     description:
-      'Welche Portale und Verzeichnisse es im deutschsprachigen Raum gibt, über die Tierhalter ' +
-      'eine Tierarztpraxis suchen – und was eine Praxis mit ihren Einträgen tun sollte.',
+      'Welche Tierarzt-Suchportale es in Deutschland, Österreich und der Schweiz gibt – und was ' +
+      'eine Praxis mit ihren oft veralteten Einträgen tun sollte.',
     lead: [
       'Sieben Portale, keines davon DACH-weit. Der deutschsprachige Raum hat vier größere ' +
         'kommerzielle Suchportale für Deutschland, je eines für Österreich und die Schweiz, dazu ' +

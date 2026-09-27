@@ -23,7 +23,7 @@ export const HAUPTARTIKEL = {
   prioritaet: '0.9',
 };
 
-/** Die neun Kategorie-Artikel, abgeleitet aus den redaktionellen Inhalten. */
+/** Die Kategorie-Artikel, abgeleitet aus den redaktionellen Inhalten. */
 export const KATEGORIE_ARTIKEL = artikel.map((a) => ({
   kategorie: a.kategorie,
   datei: artikelPfad(a.slug),

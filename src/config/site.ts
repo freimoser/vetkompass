@@ -30,8 +30,6 @@ export const siteConfig = {
   */
   intro:
     'Eine anbieterübergreifende Übersicht digitaler Lösungen entlang der modernen Tierarztpraxis.',
-  metaDescription:
-    'Marktübersicht digitaler Lösungen für Tierarztpraxen in Deutschland, Österreich und der Schweiz – von Praxissoftware und Online-Terminbuchung bis KI und Telemedizin.',
 
   /** Sichtbarer Redaktionsstand der Übersicht. */
   edition: 'September 2026',

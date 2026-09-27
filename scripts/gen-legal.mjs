@@ -48,11 +48,11 @@ const mailLink = LEGAL.email
   : gap('E-Mail-Adresse');
 
 /** Gemeinsames Seitengerüst. Alle Rechtsseiten tragen `noindex, follow`. */
-function page({ title, intro, body }) {
+function page({ title, intro, body, basis }) {
   return `<!doctype html>
 <html lang="de">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" />${basis ? `\n    <base href="${esc(basis)}" />` : ''}
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--
       noindex, follow: § 5 DDG verlangt Erreichbarkeit, nicht Auffindbarkeit
@@ -350,11 +350,25 @@ ${h2('logfiles', 'Server-Protokolle und Hosting')}
       </ul>
       <p>
         Ohne diese Verarbeitung lässt sich eine Website technisch nicht
-        ausliefern. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Die
-        Verarbeitung umfasst eine Übermittlung in die USA; Einzelheiten zur
-        Datenverarbeitung durch ${esc(HOSTER.company)} finden Sie in deren
-        Datenschutzerklärung. Ich selbst habe auf diese Protokolle keinen
-        Zugriff.
+        ausliefern. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Ich selbst
+        habe auf diese Protokolle keinen Zugriff.
+      </p>
+      <p>
+        <!--
+          Geprüft am 27.09.2026 in GitHubs eigener Datenschutzerklärung
+          (docs.github.com, General Privacy Statement): Zertifizierung nach dem
+          EU-U.S. Data Privacy Framework, zusätzlich Standardvertragsklauseln
+          nach Durchführungsbeschluss 2021/914. Vorher stand hier nur, dass in
+          die USA übermittelt wird – ohne Rechtsgrundlage für die Übermittlung.
+        -->
+        <strong>Übermittlung in die USA.</strong> ${esc(HOSTER.company)} hat
+        sich nach dem EU-U.S. Data Privacy Framework zertifiziert. Die
+        Übermittlung stützt sich damit auf den Angemessenheitsbeschluss der
+        Europäischen Kommission vom 10. Juli 2023 (Art. 45 DSGVO). Ergänzend
+        verwendet ${esc(HOSTER.company)} die Standardvertragsklauseln der
+        Kommission nach Durchführungsbeschluss (EU) 2021/914 (Art. 46 Abs. 2
+        lit. c DSGVO). Einzelheiten stehen in der Datenschutzerklärung von
+        ${esc(HOSTER.company)}.
       </p>
 
 ${messAbschnitt}
@@ -477,11 +491,44 @@ const haftung = page({
 
 /* ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ */
+/* 404                                                                 */
+/* ------------------------------------------------------------------ */
+
+/*
+  Ohne diese Datei zeigt GitHub Pages bei jeder unbekannten Adresse seine eigene
+  Fehlerseite – ohne Weg zurück zur Übersicht, ohne Impressum. Wer einem alten
+  oder vertippten Link folgt, landet dann im Nichts.
+
+  Zwei Eigenheiten:
+  - `noindex, follow` wie die Rechtsseiten: Eine Fehlerseite gehört in kein
+    Suchergebnis.
+  - `<base>`: GitHub Pages liefert diese Datei unter der angefragten Adresse aus,
+    also etwa unter /alt/pfad/seite. Relative Verweise zeigten dann ins Leere.
+    Mit <base> lösen sie sich immer vom Seitenstamm aus auf.
+*/
+const BASIS = process.env.VITE_BASE || '/';
+const fehlerseite = page({
+  title: 'Seite nicht gefunden',
+  basis: BASIS,
+  intro: `        <p>
+          <strong>Diese Adresse gibt es nicht (mehr).</strong> Vielleicht wurde eine
+          Seite umbenannt, oder der Link war fehlerhaft.
+        </p>`,
+  body: `      <h2>Weiter geht es hier</h2>
+      <ul>
+        <li><a href="./">Zur Marktübersicht</a> – alle Anbieter auf einen Blick</li>
+        <li><a href="./#artikel">Artikel zu allen Lösungsfeldern</a></li>
+        <li><a href="tierarzt-software.html">Welche Tierarzt-Software gibt es?</a></li>
+      </ul>`,
+});
+
 mkdirSync(OUT, { recursive: true });
 const dateien = [
   ['impressum.html', impressum],
   ['datenschutz.html', datenschutz],
   ['haftungsausschluss.html', haftung],
+  ['404.html', fehlerseite],
 ];
 for (const [name, html] of dateien) {
   writeFileSync(join(OUT, name), html, 'utf8');

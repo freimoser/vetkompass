@@ -19,7 +19,7 @@
     <title>Die digitale Tierarztpraxis – Marktübersicht 2026 | DACH</title>
     <meta
       name="description"
-      content="Marktübersicht digitaler Lösungen für Tierarztpraxen in Deutschland, Österreich und der Schweiz – von Praxissoftware und Online-Terminbuchung bis KI und Telemedizin."
+      content="Marktübersicht digitaler Lösungen für Tierarztpraxen in Deutschland, Österreich und der Schweiz – von Praxissoftware über KI bis Telemedizin."
     />
     <!--
       VITE_SITE_URL wird aus .env gelesen und muss mit "/" enden.
@@ -33,7 +33,7 @@
     <meta property="og:title" content="Die digitale Tierarztpraxis – Marktübersicht 2026" />
     <meta
       property="og:description"
-      content="Marktübersicht digitaler Lösungen für Tierarztpraxen in Deutschland, Österreich und der Schweiz – von Praxissoftware und Online-Terminbuchung bis KI und Telemedizin."
+      content="Marktübersicht digitaler Lösungen für Tierarztpraxen in Deutschland, Österreich und der Schweiz – von Praxissoftware über KI bis Telemedizin."
     />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:url" content="%VITE_SITE_URL%" />
@@ -42,34 +42,58 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Marktübersicht: digitale Lösungen für Tierarztpraxen im DACH-Markt, gegliedert in neun Kategorien."
+      content="Marktübersicht: digitale Lösungen für Tierarztpraxen im DACH-Markt, gegliedert nach Lösungsfeldern."
     />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Die digitale Tierarztpraxis – Marktübersicht 2026" />
     <meta
       name="twitter:description"
-      content="Digitale Lösungen für Tierarztpraxen im DACH-Markt – neun Kategorien von Praxissoftware bis Telemedizin."
+      content="Digitale Lösungen für Tierarztpraxen im DACH-Markt – von Praxissoftware bis Telemedizin, ohne Rangfolge."
     />
     <meta name="twitter:image" content="%VITE_SITE_URL%og/marktuebersicht.png" />
 
+    <!--
+      Keine Anzahl in den statischen Texten dieser Datei: Hier lässt sich nichts
+      aus den Daten ableiten, und eine von Hand geschriebene Zahl veraltet still.
+      Genau das ist passiert – nach Kategorie 10 stand hier noch „neun Kategorien“.
+
+      WebSite und Person stehen neben der CollectionPage, damit Herausgeber und
+      Angebot für Antwortmaschinen als eigene Einheiten erkennbar sind. Bewusst
+      ohne hasCredential und ohne sameAs: Eine Qualifikation oder ein Profil, das
+      nicht belegt ist, wäre schlechter als keine Angabe.
+    -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "Die digitale Tierarztpraxis – Marktübersicht 2026",
-        "description": "Marktübersicht digitaler Lösungen für Tierarztpraxen in Deutschland, Österreich und der Schweiz.",
-        "inLanguage": "de",
-        "datePublished": "2026-09-01",
-        "author": {
-          "@type": "Person",
-          "name": "Thomas Freimoser",
-          "jobTitle": "Experte für digitale Tiermedizin"
-        },
-        "about": {
-          "@type": "Thing",
-          "name": "Digitalisierung der Tierarztpraxis im DACH-Markt"
-        }
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "%VITE_SITE_URL%#website",
+            "url": "%VITE_SITE_URL%",
+            "name": "Die digitale Tierarztpraxis – Marktübersicht",
+            "inLanguage": "de",
+            "publisher": { "@id": "%VITE_SITE_URL%#herausgeber" }
+          },
+          {
+            "@type": "Person",
+            "@id": "%VITE_SITE_URL%#herausgeber",
+            "name": "Thomas Freimoser",
+            "jobTitle": "Experte für digitale Tiermedizin"
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "%VITE_SITE_URL%#marktuebersicht",
+            "url": "%VITE_SITE_URL%",
+            "name": "Die digitale Tierarztpraxis – Marktübersicht 2026",
+            "description": "Marktübersicht digitaler Lösungen für Tierarztpraxen in Deutschland, Österreich und der Schweiz.",
+            "inLanguage": "de",
+            "datePublished": "2026-09-01",
+            "isPartOf": { "@id": "%VITE_SITE_URL%#website" },
+            "author": { "@id": "%VITE_SITE_URL%#herausgeber" },
+            "about": { "@type": "Thing", "name": "Digitalisierung der Tierarztpraxis im DACH-Markt" }
+          }
+        ]
       }
     </script>
   </head>

@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL } from './seiten.mjs';
+import { zahlwort } from '../src/lib/zahlwort.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -131,7 +132,7 @@ writeFileSync(join(OUT, 'sitemap.xml'), sitemap, 'utf8');
 const llms = `# Die digitale Tierarztpraxis – Marktübersicht 2026
 
 > Anbieterübergreifende Übersicht digitaler Lösungen für Tierarztpraxen im
-> DACH-Markt, gegliedert in neun Kategorien.
+> DACH-Markt, gegliedert in ${zahlwort(categories.length)} Kategorien.
 
 Herausgegeben von Thomas Freimoser, Experte für digitale Tiermedizin. Die
 Übersicht ordnet ${providers.length} Anbieter entlang der Arbeitsabläufe einer Tierarztpraxis –
@@ -147,6 +148,11 @@ Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: September 2026.
   zusammengestellt ist.
 - [Transparenz](${base}/#transparenz): wirtschaftliche Verbindungen des
   Herausgebers.
+
+## Volltext
+
+- [llms-full.txt](${base}/llms-full.txt): alle Artikel als ein Text, mit
+  Anbieterlisten, Begriffen und Quelladresse je Abschnitt.
 
 ## Artikel je Lösungsfeld
 
