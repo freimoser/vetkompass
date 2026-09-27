@@ -69,6 +69,13 @@ jobs:
           echo "Basispfad: $BASE"
           echo "Seiten-URL: $SITE_URL"
 
+      # Der Rasterer für die Download-Grafik braucht eine Schrift, sonst
+      # entsteht ein PNG mit Kästen statt Buchstaben – und das faellt erst auf,
+      # wenn jemand das Bild oeffnet. Auf ubuntu-latest ist DejaVu meist schon
+      # da; der Schritt macht es verbindlich und kostet wenige Sekunden.
+      - name: Schriften für die Bild-Erzeugung
+        run: sudo apt-get install -y --no-install-recommends fonts-dejavu-core
+
       - run: npm ci
 
       - name: Build

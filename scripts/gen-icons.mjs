@@ -11,10 +11,10 @@
  * Warum favicon.ico: Browser fragen diesen Pfad unaufgefordert ab. Ohne die
  * Datei erzeugt jeder Seitenaufruf einen 404 im Server-Protokoll.
  *
- * `sharp` ist bewusst keine Projekt-Abhängigkeit – das Skript läuft selten und
- * die Ergebnisse liegen im Repository. Zum Neuerzeugen:
- *
- *     npm i -D sharp && node scripts/gen-icons.mjs && npm un sharp
+ * `sharp` steht seit dem 27.09.2026 in den devDependencies – nicht wegen
+ * dieses Skripts, sondern weil `gen-grafik.mjs` die Download-Grafik bei jedem
+ * Build rastert. Dieses Skript profitiert davon mit und läuft ohne weitere
+ * Vorbereitung.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';

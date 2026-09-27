@@ -80,10 +80,20 @@ export const siteConfig = {
   removalNotice:
     'Rechteinhaber, die eine Darstellung ihres Logos oder ihres Unternehmens hier nicht wünschen, melden sich bitte – wir entfernen den Eintrag kurzfristig.',
 
-  /** Download der Original-Grafik. Pfade relativ zu /public. */
-  downloadImage: 'downloads/digitale-tierarztpraxis-marktuebersicht-2026.png',
-  downloadFileName: 'digitale-tierarztpraxis-marktuebersicht-2026.png',
-  ogImage: 'og/marktuebersicht-2026.png',
+  /*
+    Download-Grafik und Social-Vorschau. Beide werden von
+    `scripts/gen-grafik.mjs` bei jedem Build aus denselben Daten erzeugt wie
+    die Karte.
+
+    Vorher lag hier eine von Hand gebaute Datei. Sie blieb beim Stand von 35
+    Anbietern stehen, während die Seite längst 51 führte – und ein Bild, das
+    jemand herunterlädt und weitergibt, ist die Fassung, die im Umlauf bleibt.
+    `check:launch` bricht jetzt ab, wenn die Anbieterzahl im Bild nicht zu den
+    Daten passt.
+  */
+  downloadImage: 'downloads/digitale-tierarztpraxis-marktuebersicht.png',
+  downloadFileName: 'digitale-tierarztpraxis-marktuebersicht.png',
+  ogImage: 'og/marktuebersicht.png',
 
   /*
     Rechtliche Seiten. Werden von `scripts/gen-legal.mjs` aus `LEGAL` erzeugt

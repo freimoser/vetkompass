@@ -14,6 +14,8 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LEGAL, missingLegalFields } from '../src/config/legal.ts';
+import { providers } from '../src/data/providers.ts';
+import { categories } from '../src/data/categories.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -188,6 +190,57 @@ if (start) {
           'Eines von beidem ist veraltet.',
       );
     }
+  }
+}
+
+/* -- 4c. Die Download-Grafik muss zu den Daten passen ------------------- */
+
+/*
+  Diese Prüfung gibt es, weil genau das schiefging: Die Grafik lag als von Hand
+  gebaute Datei im Repository und blieb bei 35 Anbietern stehen, während die
+  Seite 51 führte. Wer sie herunterlädt und weitergibt, verbreitet den alten
+  Stand – und merkt es nicht.
+
+  Geprüft wird gegen die Zeile, die die Grafik selbst trägt. Damit kann sie
+  nicht mehr still veralten, ohne dass der Build abbricht.
+*/
+for (const datei of [
+  'downloads/digitale-tierarztpraxis-marktuebersicht.svg',
+  'downloads/digitale-tierarztpraxis-marktuebersicht.png',
+]) {
+  const pfad = join(DIST, datei);
+  if (!existsSync(pfad)) {
+    /*
+      Auch das PNG ist ein Blocker, obwohl es `sharp` braucht: Der
+      Download-Knopf auf der Startseite zeigt genau darauf. Fehlt es, liefert
+      die Seite einen toten Link aus – schlimmer als ein abgebrochener Build.
+    */
+    blocker.push(
+      `Die Download-Grafik ${datei} fehlt im Build. ` +
+        (datei.endsWith('.png')
+          ? 'Das PNG entsteht über sharp – ist es nicht installiert, `npm ci` prüfen.'
+          : '`npm run gen` erzeugt sie.'),
+    );
+    continue;
+  }
+  if (!datei.endsWith('.svg')) continue;
+
+  const svg = lies(pfad);
+  const treffer = svg.match(/(\d+)\s+Anbieter in\s+(\d+)\s+Kategorien/);
+  if (!treffer) {
+    blocker.push(
+      `${datei} nennt die Anbieterzahl nicht. Ohne sie lässt sich nicht prüfen, ` +
+        'ob die Grafik zum aktuellen Datenstand gehört.',
+    );
+  } else if (
+    Number(treffer[1]) !== providers.length ||
+    Number(treffer[2]) !== categories.length
+  ) {
+    blocker.push(
+      `Die Download-Grafik ist veraltet: Sie nennt ${treffer[1]} Anbieter in ` +
+        `${treffer[2]} Kategorien, die Daten führen ${providers.length} in ` +
+        `${categories.length}. \`npm run gen\` erzeugt sie neu.`,
+    );
   }
 }
 

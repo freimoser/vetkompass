@@ -72,7 +72,7 @@ src/
   types/market.ts  Provider, Category, Country
 public/
   logos/           Anbieterlogos
-  downloads/       Original-Grafik zum Download
+  downloads/       Marktübersicht als Bild – erzeugt, nicht versioniert
   og/              Social-Preview-Bild
   favicon.*        aus favicon.svg erzeugt (npm run icons)
   impressum.html   erzeugt – nicht von Hand bearbeiten
@@ -185,7 +185,7 @@ Darunter werden alle Karten gestapelt; `placement` wird dann ignoriert.
 | `edition`             | Sichtbarer Redaktionsstand, z. B. „September 2026“            |
 | `contactEmail`        | Empfänger aller Hinweis-, Korrektur- und Entfernungs-Mails    |
 | `legal`               | Links zu Impressum und Datenschutz                            |
-| `downloadImage`       | Pfad zur Original-Grafik unter `public/`                      |
+| `downloadImage`       | Pfad zur erzeugten Download-Grafik unter `public/`            |
 | `publisher`           | Herausgeber der Seite (Name und Rolle, erscheint als Byline)   |
 | `transparency`        | Offenlegung wirtschaftlicher Verbindungen des Herausgebers     |
 | `trademarkNotice`     | Hinweis zu fremden Marken und Logos                           |
