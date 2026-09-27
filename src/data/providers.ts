@@ -220,14 +220,17 @@ export const providers: Provider[] = [
     id: 'petla',
     name: 'Petla',
     // TODO: Name und Website bestätigen – Hinweis von Christian J. Gabrielse
-    // (LinkedIn, 21.09.2026) für die Kategorien 1 und 2. petla.de und
-    // petla.com sind geparkt, eine passende Seite war nicht auffindbar.
+    // (LinkedIn, 21.09.2026). petla.de und petla.com sind geparkt, eine
+    // passende Seite war nicht auffindbar.
+    //
+    // Kategorie 1 am 27.09.2026 entfernt: Der Hinweis nannte beide Kategorien,
+    // die Einordnung unter "Digitale Sichtbarkeit & Neukundengewinnung" trägt
+    // aber nicht. Bleibt in Kategorie 2.
     website: undefined,
     countries: [...DACH],
-    categories: [1, 2],
-    description:
-      'Lösung für digitale Sichtbarkeit von Tierarztpraxen und Online-Terminvereinbarung.',
-    tags: ['Sichtbarkeit', 'Terminbuchung'],
+    categories: [2],
+    description: 'Lösung für die Online-Terminvereinbarung in Tierarztpraxen.',
+    tags: ['Terminbuchung'],
   },
   {
     id: 'petleo',
