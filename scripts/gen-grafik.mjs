@@ -10,7 +10,7 @@
  *
  * Ausgabe:
  *  - `public/downloads/<name>.svg`  – die Quelle, scharf in jeder Größe
- *  - `public/downloads/<name>.png`  – 1920 px breit, nur wenn `sharp` vorhanden
+ *  - `public/downloads/<name>.png`  – 3840 px breit (doppelt), zum Hineinzoomen
  *  - `public/og/marktuebersicht.png` – dasselbe Bild als Social-Vorschau
  *
  * Ohne `sharp` entsteht nur das SVG, und der Download verweist darauf. Das ist
@@ -55,7 +55,6 @@ const SPALTEN = {
 const SUB_GAP = 24;
 const KARTEN_GAP = 24;
 const KARTEN_PAD = 18;
-const KACHEL_H = 52;
 const KACHEL_GAP = 10;
 
 const FARBE = {
@@ -138,150 +137,376 @@ function datenUri(pfad) {
 }
 
 /* ================================================================== */
-/* Karten aufbauen                                                    */
+/* Formate, die der Rasterer nicht einbetten kann                     */
 /* ================================================================== */
+
+/*
+  Der SVG-Rasterer von sharp stellt eingebettetes WebP und GIF nicht dar – die
+  Kachel bleibt dann einfach leer, ohne Fehlermeldung. So fehlte AnimalChat in
+  zwei Fassungen der Grafik, bevor es jemand bemerkte.
+
+  Deshalb werden diese Formate vorab in PNG umgewandelt und im Zwischenspeicher
+  hinterlegt. Die Website behält ihre Originaldateien; Browser können WebP.
+*/
+let sharpModul = null;
+try {
+  sharpModul = (await import('sharp')).default;
+} catch {
+  // Ohne sharp entsteht nur das SVG – und im Browser funktioniert WebP.
+}
+
+const alleLogos = new Set(
+  providers.flatMap((p) => [p.logo, ...Object.values(p.variants ?? {}).map((v) => v.logo)]).filter(Boolean),
+);
+const umgewandelt = [];
+for (const pfad of alleLogos) {
+  if (!/\.(webp|gif)$/i.test(pfad) || !sharpModul) continue;
+  const voll = join(PUBLIC, pfad);
+  if (!existsSync(voll)) continue;
+  const png = await sharpModul(voll).png().toBuffer();
+  cache.set(pfad, `data:image/png;base64,${png.toString('base64')}`);
+  umgewandelt.push(pfad);
+}
+
+/* ================================================================== */
+/* Layout-Engine                                                      */
+/* ================================================================== */
+
+/*
+  Wie die Engine vorgeht – und warum in dieser Reihenfolge.
+
+  Die erste Fassung übernahm die Spaltenzuordnung der Website stur. Das ergab
+  einen schmalen, überlangen Turm links (Kategorie 10 unter 1, 3 und 5), neben
+  dem rechts ein Drittel der Fläche leer blieb. Beim Reinzoomen waren die
+  Logos zu klein, weil der Platz nicht dort war, wo die Logos standen.
+
+  Jetzt in vier Schritten:
+
+   1. Messen    – jede Kategorie weiß, wie hoch sie bei gegebener Breite und
+                  Kachelhöhe wird.
+   2. Packen    – Kategorien in ihre Bahnen: links zwei, Mitte eine, rechts
+                  eine. Links reihum, damit die Reihenfolge der Website gilt.
+   3. Bänder    – Solange eine Bahn deutlich länger ist als die übrigen, prüft
+                  die Engine, ob ihre unterste Karte als Band über die volle
+                  Breite kürzer wird. Ein Band legt die Logos nebeneinander
+                  statt übereinander – bei sieben Logos eine Reihe statt vier.
+                  Übernommen wird der Schritt nur, wenn das Gesamtbild dadurch
+                  kürzer wird. Kein fest verdrahteter Sonderfall: Kommt eine
+                  elfte Kategorie dazu, entscheidet die Engine neu.
+   4. Angleichen – Kürzere Bahnen wachsen, bis alle auf derselben Linie enden.
+                  Der Zuwachs geht in die Kachelhöhe, also in die Logos, nicht
+                  in Leerraum. Gedeckelt, damit kein Logo aufgebläht wirkt; was
+                  darüber hinaus fehlt, streckt die letzte Karte der Bahn.
+*/
+
+const KACHEL_H_BASIS = 60;
+const KACHEL_H_MAX = 96;
+const BAND_KACHEL_H = 78;
+const BAND_KOPF_B = 400;
+const BAND_KACHEL_MIN_B = 150;
+const UNTERGRUPPE_KOPF = 30;
+const GRUPPEN_ABSTAND = 16;
 
 const alphabetisch = (a, b) => a.name.localeCompare(b.name, 'de', { sensitivity: 'base' });
 const labelFor = (p, id) => p.variants?.[id]?.label ?? p.name;
 const logoFor = (p, id) => p.variants?.[id]?.logo ?? p.logo;
 
-/** Bereitet eine Kategorie zur Ausgabe vor und berechnet ihre Höhe. */
-function karte(kategorie, breite) {
-  const eintraege = providers
-    .filter((p) => p.categories.includes(kategorie.id))
-    .sort(alphabetisch)
-    .map((p) => ({
-      label: labelFor(p, kategorie.id),
-      uri: datenUri(logoFor(p, kategorie.id)),
-    }));
+/**
+ * Die Einträge einer Kategorie, aufgeteilt in Hauptgruppe und Untergruppen.
+ *
+ * Gleiche Regel wie auf der Website (`src/lib/market.ts`): Ein Anbieter, der
+ * einer Untergruppe der Kategorie angehört, erscheint nur dort, nicht
+ * zusätzlich in der Hauptgruppe. Die erste Fassung der Grafik hat das
+ * ignoriert und die PIMS-Add-ons unter die Praxissoftware gemischt.
+ */
+function gruppenVon(kategorie) {
+  const eintrag = (p) => ({
+    label: labelFor(p, kategorie.id),
+    uri: datenUri(logoFor(p, kategorie.id)),
+  });
+  const alle = providers.filter((p) => p.categories.includes(kategorie.id)).sort(alphabetisch);
+  const untergruppen = kategorie.subgroups ?? [];
+  const ids = new Set(untergruppen.map((u) => u.id));
 
-  const innen = breite - 2 * KARTEN_PAD;
-  const spalten = kategorie.logoColumns ?? 2;
-  const kachelB = (innen - KACHEL_GAP * (spalten - 1)) / spalten;
+  const gruppen = [
+    { titel: null, eintraege: alle.filter((p) => !p.subgroups?.some((s) => ids.has(s))).map(eintrag) },
+  ];
+  for (const u of untergruppen) {
+    const drin = alle.filter((p) => p.subgroups?.includes(u.id)).map(eintrag);
+    if (drin.length > 0) gruppen.push({ titel: u.title, eintraege: drin });
+  }
+  return gruppen.filter((g) => g.eintraege.length > 0);
+}
 
-  // Der Titel steht rechts neben der großen Ziffer.
-  const titelBreite = innen - 44;
-  const titelZeilen = umbruch(kategorie.title.toUpperCase(), titelBreite, 12, 0.72);
+/** Titel- und Beschreibungszeilen samt ihrer Y-Positionen. */
+function kopfVon(kategorie, innenBreite) {
+  const titelZeilen = umbruch(kategorie.title.toUpperCase(), innenBreite - 44, 12, 0.72);
   /*
     Vier Zeilen, und wenn es dann immer noch nicht reicht, ein Auslassungs-
     zeichen. Ein Satz, der mitten im Wort endet, sieht aus wie ein Fehler –
     ein gekürzter Satz sieht aus wie eine Kürzung.
   */
-  const alleBeschrZeilen = umbruch(kategorie.description, innen, 10.5);
-  const beschrZeilen = alleBeschrZeilen.slice(0, 4);
-  if (alleBeschrZeilen.length > 4) {
-    beschrZeilen[3] = `${beschrZeilen[3].replace(/[\s–-]+$/, '')} …`;
-  }
+  const alle = umbruch(kategorie.description, innenBreite, 10.5);
+  const beschrZeilen = alle.slice(0, 4);
+  if (alle.length > 4) beschrZeilen[3] = `${beschrZeilen[3].replace(/[\s–-]+$/, '')} …`;
 
-  /*
-    Die Y-Werte einmal hier ausrechnen und weiterreichen, statt sie beim
-    Zeichnen noch einmal herzuleiten. Bei der ersten Fassung liefen beide
-    Rechnungen auseinander, und zweizeilige Titel schoben sich in die
-    Beschreibung.
-  */
   const titelY = KARTEN_PAD + 14;
-  const titelEndeY = titelY + (titelZeilen.length - 1) * 15;
-  const beschrY = Math.max(titelEndeY + 20, KARTEN_PAD + 48);
-  const kopfH = beschrY + (beschrZeilen.length - 1) * 13 + 20;
-
-  const reihen = Math.ceil(eintraege.length / spalten);
-  const hoehe = kopfH + reihen * (KACHEL_H + KACHEL_GAP) - KACHEL_GAP + KARTEN_PAD;
-
-  return {
-    kategorie, eintraege, breite, spalten, kachelB,
-    titelZeilen, beschrZeilen, titelY, beschrY, kopfH, hoehe,
-  };
+  const beschrY = Math.max(titelY + (titelZeilen.length - 1) * 15 + 20, KARTEN_PAD + 48);
+  const hoehe = beschrY + (beschrZeilen.length - 1) * 13 + 20;
+  return { titelZeilen, beschrZeilen, titelY, beschrY, hoehe };
 }
 
-/** Zeichnet eine vorbereitete Karte an Position (x, y). */
-function zeichneKarte(k, x, y) {
-  const { kategorie, eintraege, breite, spalten, kachelB } = k;
-  const { titelZeilen, beschrZeilen, titelY, beschrY, kopfH } = k;
-  const teile = [
-    `<rect x="${x}" y="${y}" width="${breite}" height="${k.hoehe}" rx="14" fill="#ffffff" stroke="${FARBE.kartenRand}" stroke-width="1"/>`,
-    `<text x="${x + KARTEN_PAD}" y="${y + KARTEN_PAD + 27}" font-family="${SCHRIFT}" font-size="32" font-weight="700" fill="${FARBE.brandHell}">${kategorie.id}</text>`,
-  ];
-
-  titelZeilen.forEach((zeile, i) => {
-    teile.push(
-      `<text x="${x + KARTEN_PAD + 44}" y="${y + titelY + i * 15}" font-family="${SCHRIFT}" font-size="12" font-weight="700" letter-spacing="1.1" fill="${FARBE.ink}">${esc(zeile)}</text>`,
-    );
+/** Höhe eines Kachelrasters mit Untergruppen. */
+function rasterHoehe(gruppen, spalten, kachelH) {
+  let h = 0;
+  gruppen.forEach((g, i) => {
+    if (i > 0) h += GRUPPEN_ABSTAND;
+    if (g.titel) h += UNTERGRUPPE_KOPF;
+    const reihen = Math.ceil(g.eintraege.length / spalten);
+    h += reihen * (kachelH + KACHEL_GAP) - KACHEL_GAP;
   });
+  return h;
+}
 
-  beschrZeilen.forEach((zeile, i) => {
-    teile.push(
-      `<text x="${x + KARTEN_PAD}" y="${y + beschrY + i * 13}" font-family="${SCHRIFT}" font-size="10.5" fill="${FARBE.muted}">${esc(zeile)}</text>`,
-    );
-  });
+/** Anzahl Kachelreihen – dorthin fließt beim Angleichen der Zuwachs. */
+const reihenVon = (gruppen, spalten) =>
+  gruppen.reduce((n, g) => n + Math.ceil(g.eintraege.length / spalten), 0);
 
-  eintraege.forEach((e, i) => {
-    const sp = i % spalten;
-    const reihe = Math.floor(i / spalten);
-    const kx = x + KARTEN_PAD + sp * (kachelB + KACHEL_GAP);
-    const ky = y + kopfH + reihe * (KACHEL_H + KACHEL_GAP);
+/* ---- 1. Messen ------------------------------------------------------ */
 
-    if (e.uri) {
-      // 8 px Luft ringsum, damit die Marken nicht aneinanderstoßen.
-      teile.push(
-        `<image x="${kx + 6}" y="${ky + 6}" width="${kachelB - 12}" height="${KACHEL_H - 12}" preserveAspectRatio="xMidYMid meet" href="${e.uri}"/>`,
-      );
-    } else {
-      // Ohne Logodatei die Wortmarke setzen – genau wie auf der Seite.
-      const zeilen = umbruch(e.label, kachelB - 10, 11.5).slice(0, 2);
-      const start = ky + KACHEL_H / 2 - ((zeilen.length - 1) * 13) / 2 + 4;
-      zeilen.forEach((zeile, z) => {
-        teile.push(
-          `<text x="${kx + kachelB / 2}" y="${start + z * 13}" text-anchor="middle" font-family="${SCHRIFT}" font-size="11.5" font-weight="600" fill="${FARBE.soft}">${esc(zeile)}</text>`,
-        );
-      });
+function messeKarte(kategorie, breite, kachelH = KACHEL_H_BASIS) {
+  const innen = breite - 2 * KARTEN_PAD;
+  const spalten = kategorie.logoColumns ?? 2;
+  const gruppen = gruppenVon(kategorie);
+  const kopf = kopfVon(kategorie, innen);
+  const hoehe = kopf.hoehe + rasterHoehe(gruppen, spalten, kachelH) + KARTEN_PAD;
+  return { art: 'karte', kategorie, breite, spalten, gruppen, kopf, kachelH, hoehe };
+}
+
+function messeBand(kategorie) {
+  const breite = W - 2 * PAD;
+  const gruppen = gruppenVon(kategorie);
+  const kopf = kopfVon(kategorie, BAND_KOPF_B - 2 * KARTEN_PAD);
+
+  // So viele Kacheln nebeneinander, wie bei Mindestbreite passen.
+  const logoBreite = breite - BAND_KOPF_B - KARTEN_PAD;
+  const meiste = Math.max(...gruppen.map((g) => g.eintraege.length));
+  const spalten = Math.max(1, Math.min(meiste, Math.floor(logoBreite / BAND_KACHEL_MIN_B)));
+
+  const raster = rasterHoehe(gruppen, spalten, BAND_KACHEL_H);
+  const hoehe = Math.max(kopf.hoehe, raster + KARTEN_PAD) + KARTEN_PAD;
+  return { art: 'band', kategorie, breite, spalten, gruppen, kopf, kachelH: BAND_KACHEL_H, hoehe, logoBreite };
+}
+
+/* ---- 2. Packen ------------------------------------------------------ */
+
+const LINKS_B = (SPALTEN.left.w - SUB_GAP) / 2;
+const BAHNEN = [
+  { name: 'links-1', spalte: 'left', x: SPALTEN.left.x, breite: LINKS_B },
+  { name: 'links-2', spalte: 'left', x: SPALTEN.left.x + LINKS_B + SUB_GAP, breite: LINKS_B },
+  { name: 'mitte', spalte: 'center', x: SPALTEN.center.x, breite: SPALTEN.center.w },
+  { name: 'rechts', spalte: 'right', x: SPALTEN.right.x, breite: SPALTEN.right.w },
+];
+
+const bahnHoehe = (karten) =>
+  karten.reduce((h, k, i) => h + k.hoehe + (i > 0 ? KARTEN_GAP : 0), 0);
+
+function packe(ausgenommen) {
+  const bahnen = BAHNEN.map((b) => ({ ...b, karten: [] }));
+  for (const kategorie of categories) {
+    if (ausgenommen.has(kategorie.id)) continue;
+    const kandidaten = bahnen.filter((b) => b.spalte === kategorie.placement.column);
+    /*
+      Links zwei Bahnen, reihum belegt – 1|2, 3|4, 5 – genau wie das Raster
+      der Website. Die erste Fassung legte jede Karte in die gerade kürzere
+      Bahn. Das balanciert minimal besser, stellte aber Kategorie 2 in die
+      linke obere Ecke und 1 daneben. Den Ausgleich übernimmt ohnehin
+      Schritt 4, die Reihenfolge nicht.
+    */
+    const bisher = kandidaten.reduce((n, b) => n + b.karten.length, 0);
+    const ziel = kandidaten[bisher % kandidaten.length];
+    ziel.karten.push(messeKarte(kategorie, ziel.breite));
+  }
+  for (const b of bahnen) b.hoehe = bahnHoehe(b.karten);
+  return bahnen;
+}
+
+const blockHoehe = (bahnen) => Math.max(...bahnen.map((b) => b.hoehe));
+const baenderHoehe = (baender) => baender.reduce((h, b) => h + b.hoehe + KARTEN_GAP, 0);
+
+/* ---- 3. Bänder ------------------------------------------------------ */
+
+function waehleBaender() {
+  const ausgenommen = new Set();
+  const baender = [];
+  let bahnen = packe(ausgenommen);
+
+  for (let versuch = 0; versuch < 3; versuch++) {
+    const sortiert = [...bahnen].sort((a, b) => b.hoehe - a.hoehe);
+    const laengste = sortiert[0];
+    const zweite = sortiert[1];
+
+    // Ausgeglichen genug: Die längste Bahn überragt die zweite um weniger als 12 %.
+    if (laengste.hoehe <= zweite.hoehe * 1.12 || laengste.karten.length < 2) break;
+
+    const kandidat = laengste.karten[laengste.karten.length - 1].kategorie;
+    const band = messeBand(kandidat);
+    const neuAusgenommen = new Set([...ausgenommen, kandidat.id]);
+    const neueBahnen = packe(neuAusgenommen);
+
+    const vorher = blockHoehe(bahnen) + baenderHoehe(baender);
+    const nachher = blockHoehe(neueBahnen) + baenderHoehe([...baender, band]);
+    if (nachher >= vorher) break;
+
+    ausgenommen.add(kandidat.id);
+    baender.push(band);
+    bahnen = neueBahnen;
+  }
+  // Bänder in Kategoriereihenfolge, nicht in der Reihenfolge, in der sie fielen.
+  baender.sort((a, b) => a.kategorie.id - b.kategorie.id);
+  return { bahnen, baender };
+}
+
+/* ---- 4. Angleichen -------------------------------------------------- */
+
+function gleicheAn(bahnen) {
+  const ziel = blockHoehe(bahnen);
+  for (const bahn of bahnen) {
+    const fehlt = ziel - bahn.hoehe;
+    if (fehlt <= 0) continue;
+
+    const reihen = bahn.karten.reduce((n, k) => n + reihenVon(k.gruppen, k.spalten), 0);
+    const proReihe = Math.min(fehlt / reihen, KACHEL_H_MAX - KACHEL_H_BASIS);
+
+    bahn.karten = bahn.karten.map((k) => messeKarte(k.kategorie, k.breite, KACHEL_H_BASIS + proReihe));
+    bahn.hoehe = bahnHoehe(bahn.karten);
+
+    // Was die Deckelung übrig lässt, streckt die letzte Karte bis zur Linie.
+    const rest = ziel - bahn.hoehe;
+    if (rest > 0.5) {
+      const letzte = bahn.karten[bahn.karten.length - 1];
+      letzte.gestreckt = letzte.hoehe + rest;
+      bahn.hoehe = ziel;
     }
-  });
+  }
+  return ziel;
+}
 
-  return teile.join('\n  ');
+/* ================================================================== */
+/* Zeichnen                                                           */
+/* ================================================================== */
+
+function zeichneKopf(k, x, y) {
+  const teile = [
+    `<text x="${x + KARTEN_PAD}" y="${y + KARTEN_PAD + 27}" font-size="32" font-weight="700" fill="${FARBE.brandHell}">${k.kategorie.id}</text>`,
+  ];
+  k.kopf.titelZeilen.forEach((zeile, i) =>
+    teile.push(
+      `<text x="${x + KARTEN_PAD + 44}" y="${y + k.kopf.titelY + i * 15}" font-size="12" font-weight="700" letter-spacing="1.1" fill="${FARBE.ink}">${esc(zeile)}</text>`,
+    ),
+  );
+  k.kopf.beschrZeilen.forEach((zeile, i) =>
+    teile.push(
+      `<text x="${x + KARTEN_PAD}" y="${y + k.kopf.beschrY + i * 13}" font-size="10.5" fill="${FARBE.muted}">${esc(zeile)}</text>`,
+    ),
+  );
+  return teile;
+}
+
+function zeichneRaster(gruppen, x, y, breite, spalten, kachelH) {
+  const kachelB = (breite - KACHEL_GAP * (spalten - 1)) / spalten;
+  const teile = [];
+  let cy = y;
+
+  gruppen.forEach((g, gi) => {
+    if (gi > 0) cy += GRUPPEN_ABSTAND;
+    if (g.titel) {
+      teile.push(
+        `<line x1="${x}" y1="${cy}" x2="${x + breite}" y2="${cy}" stroke="${FARBE.linie}" stroke-width="1.5"/>`,
+        `<text x="${x}" y="${cy + 20}" font-size="10.5" font-weight="700" letter-spacing="0.9" fill="${FARBE.soft}">${esc(g.titel.toUpperCase())}</text>`,
+      );
+      cy += UNTERGRUPPE_KOPF;
+    }
+
+    g.eintraege.forEach((e, i) => {
+      const kx = x + (i % spalten) * (kachelB + KACHEL_GAP);
+      const ky = cy + Math.floor(i / spalten) * (kachelH + KACHEL_GAP);
+      // Luft ringsum wächst mit der Kachel, damit große Logos nicht anstoßen.
+      const luft = Math.round(kachelH * 0.12);
+      if (e.uri) {
+        teile.push(
+          `<image x="${kx + luft}" y="${ky + luft}" width="${kachelB - 2 * luft}" height="${kachelH - 2 * luft}" preserveAspectRatio="xMidYMid meet" href="${e.uri}"/>`,
+        );
+      } else {
+        // Ohne Logodatei die Wortmarke setzen – genau wie auf der Seite.
+        const groesse = Math.min(15, 11 + (kachelH - KACHEL_H_BASIS) / 10);
+        const zeilen = umbruch(e.label, kachelB - 12, groesse).slice(0, 2);
+        const start = ky + kachelH / 2 - ((zeilen.length - 1) * (groesse + 2)) / 2 + groesse * 0.35;
+        zeilen.forEach((zeile, z) =>
+          teile.push(
+            `<text x="${kx + kachelB / 2}" y="${start + z * (groesse + 2)}" text-anchor="middle" font-size="${groesse.toFixed(1)}" font-weight="600" fill="${FARBE.soft}">${esc(zeile)}</text>`,
+          ),
+        );
+      }
+    });
+    cy += Math.ceil(g.eintraege.length / spalten) * (kachelH + KACHEL_GAP) - KACHEL_GAP;
+  });
+  return teile;
+}
+
+function zeichneKarte(k, x, y) {
+  const h = k.gestreckt ?? k.hoehe;
+  return [
+    `<rect x="${x}" y="${y}" width="${k.breite}" height="${h}" rx="14" fill="#ffffff" stroke="${FARBE.kartenRand}" stroke-width="1"/>`,
+    ...zeichneKopf(k, x, y),
+    ...zeichneRaster(k.gruppen, x + KARTEN_PAD, y + k.kopf.hoehe, k.breite - 2 * KARTEN_PAD, k.spalten, k.kachelH),
+  ].join('\n  ');
+}
+
+function zeichneBand(b, x, y) {
+  const rasterH = rasterHoehe(b.gruppen, b.spalten, b.kachelH);
+  // Logos senkrecht mittig zum Kopfbereich, wenn der höher ist.
+  const rasterY = y + Math.max(KARTEN_PAD, (b.hoehe - rasterH) / 2);
+  const trennX = x + BAND_KOPF_B;
+  return [
+    `<rect x="${x}" y="${y}" width="${b.breite}" height="${b.hoehe}" rx="14" fill="#ffffff" stroke="${FARBE.kartenRand}" stroke-width="1"/>`,
+    ...zeichneKopf(b, x, y),
+    `<line x1="${trennX}" y1="${y + KARTEN_PAD}" x2="${trennX}" y2="${y + b.hoehe - KARTEN_PAD}" stroke="${FARBE.linie}" stroke-width="1.5"/>`,
+    ...zeichneRaster(b.gruppen, trennX + KARTEN_PAD, rasterY, b.logoBreite - KARTEN_PAD, b.spalten, b.kachelH),
+  ].join('\n  ');
 }
 
 /* ================================================================== */
 /* Seite setzen                                                       */
 /* ================================================================== */
 
+const { bahnen, baender } = waehleBaender();
+const inhaltsHoehe = gleicheAn(bahnen);
+
+const kartenSvg = bahnen
+  .flatMap((bahn) => {
+    let y = KOPF;
+    return bahn.karten.map((k) => {
+      const teil = zeichneKarte(k, bahn.x, y);
+      y += (k.gestreckt ?? k.hoehe) + KARTEN_GAP;
+      return teil;
+    });
+  })
+  .join('\n  ');
+
+let bandY = KOPF + inhaltsHoehe + KARTEN_GAP;
+const baenderSvg = baender
+  .map((b) => {
+    const teil = zeichneBand(b, PAD, bandY);
+    bandY += b.hoehe + KARTEN_GAP;
+    return teil;
+  })
+  .join('\n  ');
+
+const H = Math.round(bandY - KARTEN_GAP + FUSS);
+
 const heute = new Date();
 const datumDe = heute.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
-
-const nachSpalte = (name) => categories.filter((c) => c.placement.column === name);
-
-/* Linke Spalte: zwei Unterspalten, Karten wandern immer in die kürzere. */
-function setzeLinks(x, gesamtBreite) {
-  const breite = (gesamtBreite - SUB_GAP) / SPALTEN.left.sub;
-  const hoehen = new Array(SPALTEN.left.sub).fill(0);
-  const stuecke = [];
-  for (const kategorie of nachSpalte('left')) {
-    const k = karte(kategorie, breite);
-    const ziel = hoehen.indexOf(Math.min(...hoehen));
-    const kx = x + ziel * (breite + SUB_GAP);
-    stuecke.push(zeichneKarte(k, kx, KOPF + hoehen[ziel]));
-    hoehen[ziel] += k.hoehe + KARTEN_GAP;
-  }
-  return { svg: stuecke.join('\n  '), hoehe: Math.max(...hoehen) };
-}
-
-function setzeGestapelt(spalte, x, breite) {
-  let y = 0;
-  const stuecke = [];
-  for (const kategorie of nachSpalte(spalte)) {
-    const k = karte(kategorie, breite);
-    stuecke.push(zeichneKarte(k, x, KOPF + y));
-    y += k.hoehe + KARTEN_GAP;
-  }
-  return { svg: stuecke.join('\n  '), hoehe: y };
-}
-
-const links = setzeLinks(SPALTEN.left.x, SPALTEN.left.w);
-const mitte = setzeGestapelt('center', SPALTEN.center.x, SPALTEN.center.w);
-const rechts = setzeGestapelt('right', SPALTEN.right.x, SPALTEN.right.w);
-
-const inhaltsHoehe = Math.max(links.hoehe, mitte.hoehe, rechts.hoehe);
-const H = Math.round(KOPF + inhaltsHoehe + FUSS);
-
 const anzahl = providers.length;
 const kategorienAnzahl = categories.length;
 
@@ -312,17 +537,21 @@ ${kopfRechts
 
   <line x1="${PAD}" y1="${KOPF - 22}" x2="${W - PAD}" y2="${KOPF - 22}" stroke="${FARBE.linie}" stroke-width="2"/>
 
-  ${links.svg}
+  ${kartenSvg}
 
-  ${mitte.svg}
-
-  ${rechts.svg}
+  ${baenderSvg}
 
   <line x1="${PAD}" y1="${H - FUSS + 16}" x2="${W - PAD}" y2="${H - FUSS + 16}" stroke="${FARBE.linie}" stroke-width="2"/>
   <text x="${PAD}" y="${H - FUSS + 42}" font-size="12" fill="${FARBE.muted}">Alle Marken-, Produkt- und Unternehmensnamen sowie Logos sind Eigentum der jeweiligen Rechteinhaber. Nennung ausschließlich zu Informationszwecken; eine geschäftliche Verbindung entsteht daraus nicht.</text>
   <text x="${PAD}" y="${H - FUSS + 60}" font-size="12" fill="${FARBE.muted}">Sortierung innerhalb jeder Kategorie rein alphabetisch. Der Herausgeber ist an einem der genannten Anbieter beteiligt – Offenlegung im Abschnitt „Zur Transparenz“ der Website.</text>
 </svg>
 `;
+
+/** Für die Ausgabe: was die Engine entschieden hat. */
+const entscheidung = {
+  baender: baender.map((b) => b.kategorie.id),
+  kachelHoehen: bahnen.map((b) => `${b.name} ${Math.round(b.karten[0]?.kachelH ?? 0)}px`),
+};
 
 /* ================================================================== */
 /* Schreiben                                                          */
@@ -337,8 +566,14 @@ writeFileSync(svgPfad, svg, 'utf8');
 let png = false;
 try {
   const sharp = (await import('sharp')).default;
-  const puffer = await sharp(Buffer.from(svg), { density: 96 })
-    .resize({ width: W })
+  /*
+    Doppelte Auflösung, damit man hineinzoomen kann. Die Dichte liegt bewusst
+    über dem Nötigen und wird dann auf 3840 px verkleinert – je nach
+    Rasterer-Version gilt 72 oder 96 dpi als 1:1, und ein zu klein gerastertes
+    Bild würde beim Hochskalieren unscharf.
+  */
+  const puffer = await sharp(Buffer.from(svg), { density: 220 })
+    .resize({ width: W * 2 })
     .png({ compressionLevel: 9 })
     .toBuffer();
   writeFileSync(join(PUBLIC, 'downloads', `${BASISNAME}.png`), puffer);
@@ -363,6 +598,9 @@ try {
 }
 
 console.log(
-  `Marktübersicht erzeugt: ${W}×${H} px, ${anzahl} Anbieter in ${kategorienAnzahl} Kategorien, Stand ${datumDe}.\n` +
+  `Marktübersicht erzeugt: ${W}×${H} (PNG ${W * 2}×${H * 2}), ${anzahl} Anbieter in ${kategorienAnzahl} Kategorien, Stand ${datumDe}.\n` +
+    `  Bänder: ${entscheidung.baender.length ? entscheidung.baender.map((id) => `Kategorie ${id}`).join(', ') : 'keine'}\n` +
+    `  Kachelhöhen: ${entscheidung.kachelHoehen.join(' · ')}\n` +
+    (umgewandelt.length ? `  Für den Rasterer in PNG gewandelt: ${umgewandelt.join(', ')}\n` : '') +
     `  downloads/${BASISNAME}.svg${png ? `\n  downloads/${BASISNAME}.png\n  og/marktuebersicht.png` : ''}`,
 );
