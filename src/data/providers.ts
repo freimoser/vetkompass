@@ -15,9 +15,14 @@ import type { Provider } from '../types/market';
  *
  * TODO (Datenpflege)
  * ------------------
- * - `countries` ist aktuell durchgängig auf den gesamten DACH-Raum gesetzt.
- *   Die länderspezifische Verfügbarkeit einzelner Anbieter ist nicht
- *   individuell verifiziert und sollte vor der Veröffentlichung geprüft werden.
+ * - `countries` steht bei fast allen Anbietern pauschal auf dem gesamten
+ *   DACH-Raum und ist damit **geraten, nicht geprüft**. Solange das so ist,
+ *   ist der Länderfilter der Seite Dekoration. Belegt sind bisher nur
+ *   `tierarzt-im-netz` (DE) und `veterinaere-at` (AT) – beide Verzeichnisse
+ *   führen nachweislich nur Praxen ihres eigenen Landes.
+ *   `tierarzt software österreich` und `… schweiz` sind eigene Suchanfragen
+ *   (siehe docs/KEYWORD-RECHERCHE.md, 3.3), die Länderdimension ist also
+ *   real nachgefragt. Das ehrlich zu machen lohnt sich.
  * - Mit `// TODO: Website` markierte Anbieter haben noch keine hinterlegte URL.
  * - Die Logos unter `public/logos/` wurden aus der Original-Grafik
  *   ausgeschnitten und sind daher nur in Bildschirmauflösung vorhanden.
@@ -331,6 +336,25 @@ export const providers: Provider[] = [
     tags: ['KI', 'Dokumentation', 'Spracherkennung'],
   },
   {
+    /*
+      Aufnahmekriterium für Verzeichnisse in Kategorie 1, geprüft am 27.09.2026:
+      Eine Praxis muss sich aktiv eintragen oder ihren Eintrag pflegen können.
+      Sonst ist es eine Liste, in der eine Praxis zufällig vorkommt, und keine
+      Lösung, mit der sie sichtbar wird.
+
+      Hier erfüllt: /tierarztpraxis-eintragen samt Anmeldung, HTTP 200.
+      Nur Deutschland – das Verzeichnis führt keine Praxen aus AT oder CH.
+    */
+    id: 'tierarzt-im-netz',
+    name: 'Tierarzt-im-Netz.de',
+    website: 'https://tierarzt-im-netz.de',
+    countries: ['DE'],
+    categories: [1],
+    description:
+      'Verzeichnis für Tierarztpraxen und Tierkliniken in Deutschland. Praxen können ihren Eintrag selbst anlegen und pflegen.',
+    tags: ['Verzeichnis', 'Sichtbarkeit'],
+  },
+  {
     id: 'tierarzt-online',
     name: 'tierarzt-online',
     website: 'https://tierarzt-online.org',
@@ -397,6 +421,23 @@ export const providers: Provider[] = [
     categories: [6],
     description: 'Praxismanagementsystem für die tierärztliche Praxis.',
     tags: ['PIMS', 'Praxissoftware'],
+  },
+  {
+    /*
+      Zweites Verzeichnis nach demselben Kriterium: „Für Ärzte – Praxiseintrag
+      melden" ist vorhanden, HTTP 200 am 27.09.2026.
+
+      Nur Österreich, und das ist hier ein Gewinn: Es ist der erste Eintrag der
+      Übersicht mit einer belegten statt einer pauschalen Länderangabe.
+    */
+    id: 'veterinaere-at',
+    name: 'Veterinäre.at',
+    website: 'https://www.veterinaere.at',
+    countries: ['AT'],
+    categories: [1],
+    description:
+      'Verzeichnis österreichischer Tierarztpraxen und Kliniken mit Notdienstübersicht. Praxen können ihren Eintrag melden.',
+    tags: ['Verzeichnis', 'Sichtbarkeit'],
   },
   {
     id: 'vetat-work',
