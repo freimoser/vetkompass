@@ -34,3 +34,7 @@ public/llms-full.txt
 public/CNAME
 public/downloads/
 public/og/
+
+# Lokale Werte, z. B. ein Analytics-Token. Vorlage: .env.example.
+# Das Repository ist öffentlich – was hier landet, wäre es auch.
+.env
