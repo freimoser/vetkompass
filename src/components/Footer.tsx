@@ -1,4 +1,5 @@
 import { anchors, isExternalLink, mailtoLink, resolveLink, siteConfig } from '../config/site';
+import { SCHWESTER } from '../config/verbund';
 
 /** Minimalistischer Footer mit Herausgeber-, Marken- und Rechtshinweisen. */
 export function Footer() {
@@ -38,6 +39,16 @@ export function Footer() {
             >
               Zur Transparenz
             </a>
+          </p>
+          <p className="mt-2 text-xs text-ink-500">
+            Schwesterseite vom selben Herausgeber:{' '}
+            <a
+              href={SCHWESTER.url}
+              className="font-medium text-ink-700 underline underline-offset-2 hover:text-brand-700"
+            >
+              {SCHWESTER.name}
+            </a>{' '}
+            – {SCHWESTER.beschreibung}
           </p>
         </div>
 

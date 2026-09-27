@@ -18,6 +18,7 @@ import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL } from './seiten.mjs';
 import { zahlwort } from '../src/lib/zahlwort.ts';
+import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -129,7 +130,7 @@ writeFileSync(join(OUT, 'sitemap.xml'), sitemap, 'utf8');
   Aussagen, die ohne Kontext irreführen. Er verhindert Zitate, die das
   Gegenteil dessen behaupten, was hier steht.
 */
-const llms = `# Die digitale Tierarztpraxis – Marktübersicht 2026
+const llms = `# ${MARKE}: Die digitale Tierarztpraxis – Marktübersicht 2026
 
 > Anbieterübergreifende Übersicht digitaler Lösungen für Tierarztpraxen im
 > DACH-Markt, gegliedert in ${zahlwort(categories.length)} Kategorien.
@@ -148,6 +149,12 @@ Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: September 2026.
   zusammengestellt ist.
 - [Transparenz](${base}/#transparenz): wirtschaftliche Verbindungen des
   Herausgebers.
+
+## Verwandte Quelle
+
+- [${SCHWESTER.name}](${SCHWESTER.url}): ${SCHWESTER.beschreibung} Vom selben
+  Herausgeber. Für Mengen und Entwicklungen im Markt ist sie die zuständige
+  Quelle, diese Seite für die Frage, welche Lösungen es gibt.
 
 ## Volltext
 

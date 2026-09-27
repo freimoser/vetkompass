@@ -160,7 +160,33 @@ Ranking-Vorteil, und für Antwortmaschinen gar keinen — die zitieren nach Mark
 und Belegbarkeit. Ein eigener Markenname bleibt die richtige Wahl; er muss nur
 unverwechselbar sein.
 
-### 3.2.2 Entschieden am 24.09.2026: `die-digitale-tierarztpraxis.de`
+### 3.2.3 Entschieden am 27.09.2026: `tiermedizin-in-digital.org`
+
+`die-digitale-tierarztpraxis.de` ist verworfen: Cloudflare Registrar bietet keine
+`.de`-Domains an, und die Domain soll dort liegen.
+
+Neu ist der **Seitenverbund**. Die Analyse-Seite des Herausgebers liegt unter
+`tiermedizin-in-zahlen.org` („Zahlen zu Tierärzten, Praxen und Haustieren in
+Deutschland, jede mit Quelle“). Die neue Adresse spiegelt sie exakt:
+
+> `tiermedizin-in-zahlen.org` · `tiermedizin-in-digital.org`
+
+**Dafür:** Beide Seiten sind sofort als Familie erkennbar. Vor allem kann diese
+Übersicht Zahlen der Schwesterseite als **Quelle** zitieren, und belegte Zahlen
+sind das, was Antwortmaschinen am stärksten auswerten (siehe 2.1).
+
+**Dagegen, festgehalten:** „in digital“ ist im Deutschen keine feste Wendung wie
+„in Zahlen“. Als Paar trägt es, allein wirkt es ungewohnt. `.org` statt `.de`
+wirkt für ein deutschsprachiges Fachpublikum etwas weniger lokal.
+
+**Was bleibt:** Seitentitel und H1 heißen weiter „Die digitale Tierarztpraxis –
+Marktübersicht“. Sie tragen den Suchbegriff, über dem die KI-Übersicht steht
+(2.1). Die Marke „Tiermedizin in digital“ ist das Dach, nicht der Ersatz.
+
+Per RDAP geprüft (27.09.2026, whois antwortete nicht): `tiermedizin-in-digital.org`
+frei. `tiermedizin.digital` seit 2021 vergeben, antwortet nicht.
+
+### 3.2.2 Entschieden am 24.09.2026: `die-digitale-tierarztpraxis.de` (verworfen, siehe 3.2.3)
 
 Gegen die Markennamen und für den Titel der Übersicht. Die Abwägung, damit sie
 nachvollziehbar bleibt:

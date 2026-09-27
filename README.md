@@ -282,7 +282,7 @@ selbst einen Ausfall, den es nicht gibt.
 **Settings → Secrets and variables → Actions → Variables:**
 
 ```
-VITE_SITE_URL = https://die-digitale-tierarztpraxis.de/
+VITE_SITE_URL = https://tiermedizin-in-digital.org/
 ```
 
 Alles Weitere leitet der Workflow daraus ab – **mit Absicht**, weil hier zwei

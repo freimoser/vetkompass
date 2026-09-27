@@ -21,6 +21,7 @@
  *  - 404, 410, DNS- oder TLS-Fehler: echt
  */
 import { providers } from '../src/data/providers.ts';
+import { SCHWESTER } from '../src/config/verbund.ts';
 
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
@@ -106,7 +107,11 @@ async function versuch(p) {
   }
 }
 
-const mitAdresse = providers.filter((p) => p.website);
+// Die Schwesterseite wird mitgeprüft: Sie steht auf jeder Seite im Footer.
+const mitAdresse = [
+  ...providers.filter((p) => p.website),
+  { id: 'schwester', name: SCHWESTER.name, website: SCHWESTER.url },
+];
 const ohne = providers.filter((p) => !p.website);
 
 // Sechs gleichzeitig: schnell genug, ohne einen Anbieter mit Anfragen zu fluten.

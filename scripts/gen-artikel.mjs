@@ -28,6 +28,7 @@ import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, HAUPTARTIKEL } from './seiten.mjs';
 import { zahlwort } from '../src/lib/zahlwort.ts';
+import { SCHWESTER } from '../src/config/verbund.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -423,6 +424,11 @@ ${koerper}
           <a href="impressum.html">Impressum</a> ·
           <a href="datenschutz.html">Datenschutz</a> ·
           <a href="haftungsausschluss.html">Haftungsausschluss</a>
+        </p>
+        <p>
+          Schwesterseite vom selben Herausgeber:
+          <a href="${esc(SCHWESTER.url)}">${esc(SCHWESTER.name)}</a> –
+          ${esc(SCHWESTER.beschreibung)}
         </p>
       </footer>
     </main>
