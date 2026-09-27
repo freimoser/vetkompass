@@ -54,6 +54,24 @@ function htmlSeiten(dir = DIST, gesammelt = []) {
 }
 
 const seiten = htmlSeiten();
+
+/*
+  Basispfad der Auslieferung, aus dem Canonical der Startseite: „/“ bei eigener
+  Domain, „/vetkompass/“ bei einer GitHub-Projektseite. Sitemap-Adressen tragen
+  ihn, die Routen oben nicht. Ohne diese Umrechnung meldete der erste CI-Lauf
+  unter freimoser.github.io/vetkompass/ jede Seite als „fehlt in der Sitemap“ –
+  22 Blocker aus einer einzigen Ursache.
+*/
+const BASISPFAD = (() => {
+  const index = seiten.find((s) => s.route === '/');
+  const can = index && readFileSync(index.pfad, 'utf8').match(/<link rel="canonical" href="([^"]*)"/)?.[1];
+  try {
+    return can ? new URL(can).pathname.replace(/\/?$/, '/') : '/';
+  } catch {
+    return '/';
+  }
+})();
+const ohneBasis = (pfad) => (pfad.startsWith(BASISPFAD) ? `/${pfad.slice(BASISPFAD.length)}` : pfad);
 const lies = (p) => readFileSync(p, 'utf8');
 const start = seiten.find((s) => s.route === '/');
 
@@ -121,7 +139,7 @@ if (existsSync(sitemapPfad)) {
   // Pfad sauber aus der URL ziehen, nicht am "//" in https:// raten.
   const inSitemap = new Set(
     [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
-      (m) => new URL(m[1]).pathname.replace(/\/$/, '') || '/',
+      (m) => ohneBasis(new URL(m[1]).pathname).replace(/\/$/, '') || '/',
     ),
   );
 
@@ -346,7 +364,7 @@ if (!stand) {
     for (const [, loc, datum] of lies(sitemapPfad).matchAll(
       /<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g,
     )) {
-      lastmod.set(new URL(loc).pathname, datum);
+      lastmod.set(ohneBasis(new URL(loc).pathname), datum);
     }
   }
   for (const seite of seiten) {

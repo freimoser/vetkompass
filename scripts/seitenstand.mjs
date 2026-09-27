@@ -101,7 +101,11 @@ if (existsSync(sitemapPfad)) {
   const xml = readFileSync(sitemapPfad, 'utf8').replace(
     /<loc>([^<]+)<\/loc>(\s*)<lastmod>[^<]*<\/lastmod>/g,
     (ganz, loc, raum) => {
-      const route = new URL(loc).pathname;
+      // Basispfad (z. B. /vetkompass/ auf einer GitHub-Projektseite) abziehen –
+      // das Register führt Routen ab dem Seitenstamm.
+      const basis = (process.env.VITE_BASE || '/').replace(/\/?$/, '/');
+      const pfad = new URL(loc).pathname;
+      const route = pfad.startsWith(basis) ? `/${pfad.slice(basis.length)}` : pfad;
       const eintrag = register[route];
       return eintrag ? `<loc>${loc}</loc>${raum}<lastmod>${eintrag.geaendert}</lastmod>` : ganz;
     },
