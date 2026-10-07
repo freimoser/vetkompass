@@ -160,13 +160,41 @@ const alleLogos = new Set(
   providers.flatMap((p) => [p.logo, ...Object.values(p.variants ?? {}).map((v) => v.logo)]).filter(Boolean),
 );
 const umgewandelt = [];
+
+/*
+  Seitenverhältnis je Logo – für den Flächenausgleich beim Zeichnen.
+  Rasterlogos werden außerdem auf ihren Inhalt zugeschnitten: Die meisten
+  Dateien tragen 10–25 % Rand, manche (Vetnio) über die Hälfte. Mit Rand
+  wirkt dasselbe Logo in derselben Kachel kleiner als sein Nachbar ohne.
+  Die Website behält die Originale.
+*/
+const seitenverh = new Map();
 for (const pfad of alleLogos) {
-  if (!/\.(webp|gif)$/i.test(pfad) || !sharpModul) continue;
   const voll = join(PUBLIC, pfad);
   if (!existsSync(voll)) continue;
-  const png = await sharpModul(voll).png().toBuffer();
-  cache.set(pfad, `data:image/png;base64,${png.toString('base64')}`);
-  umgewandelt.push(pfad);
+  if (/\.svg$/i.test(pfad)) {
+    const kopf = readFileSync(voll, 'utf8').match(/<svg[^>]*>/)?.[0] ?? '';
+    const vb = kopf.match(/viewBox="\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)/);
+    const b = vb ? +vb[1] : parseFloat(kopf.match(/\swidth="([\d.]+)/)?.[1]);
+    const h = vb ? +vb[2] : parseFloat(kopf.match(/\sheight="([\d.]+)/)?.[1]);
+    if (b > 0 && h > 0) seitenverh.set(pfad, b / h);
+    continue;
+  }
+  if (!sharpModul) continue;
+  /*
+    Nur weißen oder transparenten Rand abschneiden. Bei einem Logo auf einer
+    Farbfläche (Vetnio: grüne Kachel) ist die Fläche Teil des Logos – der
+    Zuschnitt nahm ihr den Innenabstand, und die Schrift stieß an die Kante.
+  */
+  const ecke = await sharpModul(voll).ensureAlpha().extract({ left: 0, top: 0, width: 1, height: 1 }).raw().toBuffer();
+  const randLeer = ecke[3] < 20 || (ecke[0] > 235 && ecke[1] > 235 && ecke[2] > 235);
+  const { data, info } = await (randLeer ? sharpModul(voll).trim({ threshold: 10 }) : sharpModul(voll))
+    .png()
+    .toBuffer({ resolveWithObject: true })
+    .catch(() => sharpModul(voll).png().toBuffer({ resolveWithObject: true }));
+  cache.set(pfad, `data:image/png;base64,${data.toString('base64')}`);
+  seitenverh.set(pfad, info.width / info.height);
+  if (/\.(webp|gif)$/i.test(pfad)) umgewandelt.push(pfad);
 }
 
 /* ================================================================== */
@@ -224,6 +252,7 @@ function gruppenVon(kategorie) {
   const eintrag = (p) => ({
     label: labelFor(p, kategorie.id),
     uri: datenUri(logoFor(p, kategorie.id)),
+    verh: seitenverh.get(logoFor(p, kategorie.id)),
   });
   const alle = providers.filter((p) => p.categories.includes(kategorie.id)).sort(alphabetisch);
   const untergruppen = kategorie.subgroups ?? [];
@@ -435,8 +464,28 @@ function zeichneRaster(gruppen, x, y, breite, spalten, kachelH) {
       // Luft ringsum wächst mit der Kachel, damit große Logos nicht anstoßen.
       const luft = Math.round(kachelH * 0.12);
       if (e.uri) {
+        /*
+          Flächenausgleich: Jedes Logo bekommt etwa dieselbe Fläche, nicht
+          dieselbe Breite. Mit reinem „passt in die Kachel“ füllt eine lange
+          Wortmarke die ganze Breite, ein quadratisches Symbol daneben nur ein
+          Viertel davon – es wirkt unwichtiger, obwohl es das nicht ist.
+          Höchstens so groß wie die Kachel; ohne bekanntes Seitenverhältnis
+          wie bisher einpassen.
+        */
+        const boxB = kachelB - 2 * luft;
+        const boxH = kachelH - 2 * luft;
+        let w = boxB;
+        let h = boxH;
+        if (e.verh) {
+          const flaeche = 2.6 * boxH * boxH;
+          w = Math.sqrt(flaeche * e.verh);
+          h = w / e.verh;
+          const zuGross = Math.max(w / boxB, h / boxH, 1);
+          w /= zuGross;
+          h /= zuGross;
+        }
         teile.push(
-          `<image x="${kx + luft}" y="${ky + luft}" width="${kachelB - 2 * luft}" height="${kachelH - 2 * luft}" preserveAspectRatio="xMidYMid meet" href="${e.uri}"/>`,
+          `<image x="${(kx + luft + (boxB - w) / 2).toFixed(1)}" y="${(ky + luft + (boxH - h) / 2).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" preserveAspectRatio="xMidYMid meet" href="${e.uri}"/>`,
         );
       } else {
         // Ohne Logodatei die Wortmarke setzen – genau wie auf der Seite.
@@ -568,12 +617,14 @@ let png = false;
 try {
   const sharp = (await import('sharp')).default;
   /*
-    Doppelte Auflösung, damit man hineinzoomen kann. Die Dichte liegt bewusst
-    über dem Nötigen und wird dann auf 3840 px verkleinert – je nach
-    Rasterer-Version gilt 72 oder 96 dpi als 1:1, und ein zu klein gerastertes
-    Bild würde beim Hochskalieren unscharf.
+    Doppelte Auflösung, damit man hineinzoomen kann. Welche Dichte 1:1
+    bedeutet (72 oder 96 dpi), hängt von der Rasterer-Version ab – deshalb
+    wird sie gemessen statt geraten. Die frühere feste Dichte 220 rasterte auf
+    fast 5900 px und verkleinerte dann: über eine Minute pro Build für nichts.
   */
-  const puffer = await sharp(Buffer.from(svg), { density: 220 })
+  const breiteBei72 = (await sharp(Buffer.from(svg), { density: 72 }).metadata()).width;
+  const dichte = Math.ceil((72 * W * 2) / breiteBei72);
+  const puffer = await sharp(Buffer.from(svg), { density: dichte })
     .resize({ width: W * 2 })
     .png({ compressionLevel: 9 })
     .toBuffer();
