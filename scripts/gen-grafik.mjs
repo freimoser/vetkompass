@@ -488,13 +488,19 @@ function zeichneRaster(gruppen, x, y, breite, spalten, kachelH) {
           `<image x="${(kx + luft + (boxB - w) / 2).toFixed(1)}" y="${(ky + luft + (boxH - h) / 2).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" preserveAspectRatio="xMidYMid meet" href="${e.uri}"/>`,
         );
       } else {
-        // Ohne Logodatei die Wortmarke setzen – genau wie auf der Seite.
-        const groesse = Math.min(15, 11 + (kachelH - KACHEL_H_BASIS) / 10);
-        const zeilen = umbruch(e.label, kachelB - 12, groesse).slice(0, 2);
-        const start = ky + kachelH / 2 - ((zeilen.length - 1) * (groesse + 2)) / 2 + groesse * 0.35;
+        /*
+          Ohne Logodatei eine Wortmarke setzen. Früher dünner grauer Text in
+          Fließtextgröße – zwischen farbigen Logos sah das aus wie eine
+          Lücke oder ein fehlgeschlagenes Bild. Jetzt kräftig und so groß,
+          dass der Name optisch mit den Logos daneben mithält.
+        */
+        const groesse = Math.min(20, 15 + (kachelH - KACHEL_H_BASIS) / 8);
+        const zeilen = umbruch(e.label, kachelB - 2 * luft, groesse, 0.6).slice(0, 2);
+        const zeilenH = groesse * 1.15;
+        const start = ky + kachelH / 2 - ((zeilen.length - 1) * zeilenH) / 2 + groesse * 0.35;
         zeilen.forEach((zeile, z) =>
           teile.push(
-            `<text x="${kx + kachelB / 2}" y="${start + z * (groesse + 2)}" text-anchor="middle" font-size="${groesse.toFixed(1)}" font-weight="600" fill="${FARBE.soft}">${esc(zeile)}</text>`,
+            `<text x="${kx + kachelB / 2}" y="${(start + z * zeilenH).toFixed(1)}" text-anchor="middle" font-size="${groesse.toFixed(1)}" font-weight="700" letter-spacing="-0.2" fill="${FARBE.soft}">${esc(zeile)}</text>`,
           ),
         );
       }
