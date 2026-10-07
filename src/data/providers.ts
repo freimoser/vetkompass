@@ -499,7 +499,7 @@ export const providers: Provider[] = [
   {
     id: 'veterinaere-at',
     name: 'Veterinäre.at',
-    logo: 'logos/veterinaere-at.jpg',
+    logo: 'logos/veterinaere-at.png',
     website: 'https://www.veterinaere.at',
     countries: ['AT'],
     categories: [10],
