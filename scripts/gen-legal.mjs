@@ -73,7 +73,7 @@ function page({ title, intro, body, basis }) {
         --ink: #0f1419;
         --ink-soft: #333c45;
         --muted: #5b6874;
-        --brand: #1a7eb8;
+        --brand: #176595;
         --line: #bfe2f6;
         --line-soft: #dceffa;
       }
@@ -141,6 +141,12 @@ function page({ title, intro, body, basis }) {
 ${intro ? `      <div class="lead">\n${intro}\n      </div>` : ''}
 ${body}
       <footer>
+        <p class="muted">
+          <a href="./">Marktübersicht</a> ·
+          <a href="impressum.html">Impressum</a> ·
+          <a href="datenschutz.html">Datenschutz</a> ·
+          <a href="haftungsausschluss.html">Haftungsausschluss</a>
+        </p>
         <p class="muted">Stand: ${esc(EDITION)}</p>
       </footer>
     </main>
@@ -517,7 +523,7 @@ const fehlerseite = page({
         </p>`,
   body: `      <h2>Weiter geht es hier</h2>
       <ul>
-        <li><a href="./">Zur Marktübersicht</a> – alle Anbieter auf einen Blick</li>
+        <li><a href="./">Zur Marktübersicht</a> – alle aufgenommenen Anbieter auf einen Blick</li>
         <li><a href="./#artikel">Artikel zu allen Lösungsfeldern</a></li>
         <li><a href="tierarzt-software.html">Welche Tierarzt-Software gibt es?</a></li>
       </ul>`,

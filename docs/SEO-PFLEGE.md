@@ -139,3 +139,31 @@ nächste Hebel, sind aber kein Befund.
 2. VET-MAGAZIN-Liste im Browser auswerten (dort liegen die 16 Anbieter-Kandidaten
    aus `KEYWORD-RECHERCHE.md`, 5.1).
 3. Verweise im Fließtext erwägen.
+
+---
+
+## Runde 2 – 08.10.2026: Prüfung auf Abstrafungsrisiken
+
+Vollprüfung nach 23 Punkten (dünne Seiten, Dubletten, Kannibalisierung,
+Belege, Technik, Darstellung, Vertrauen) gegen den Produktions-Build.
+Ergebnis: geringes Risiko, Schwerpunkt Ehrlichkeit.
+
+| Befund | Behebung | Prüfung |
+|---|---|---|
+| **Länder bei 44 von 51 Anbietern geraten**, als Tatsache angezeigt; Länderfilter darauf | leer = „nicht geprüft“, Filter ausgeblendet bis belegt | Kommentar im Kopf von `providers.ts` |
+| Zwei Titles mit „alle Anbieter“, Seite sagt „kein Anspruch auf Vollständigkeit“ | Titles umformuliert | `check-launch` 4d: Vollständigkeitsversprechen in Titel/Description ist Blocker (Gegentest: schlägt an) |
+| Fünf Pauschalaussagen ohne Beleg („die meisten Anrufe …“) | als Einschätzung gekennzeichnet oder abgeschwächt | – (redaktionell) |
+| Eigenangaben der Portale ohne Datum | „laut eigener Website (Stand 27.09.2026)“ | – |
+| Vorlagentext: eigener Anteil der Artikel 49–81 % | Petleo je Kategorie beschrieben (`variants[].description`), Vorlagensätze gekürzt → 57–83 % | – |
+| Kannibalisierung „Videosprechstunde“ | Tierhalter-Artikel führt mit „Online-Tierarzt“ | – |
+| Rechtsseiten untereinander nicht verlinkt | gemeinsame Fußzeile | `check-launch` 4h: jede Seite verlinkt Impressum und Datenschutz (Gegentest: schlägt an) |
+| Description 160 > 155 | gekürzt | Grenze in `check-launch` auf 155 |
+| Startseite: erster Satz allgemein | Satz mit Anbieterzahl und Feldern aus den Daten | – |
+| Lighthouse Barrierefreiheit 95–97 (Kontrast, Name-Abweichung) | dunklere Markenfarbe für Text, sr-only statt aria-label | Lighthouse: 100 auf allen drei Seiten |
+
+Lighthouse mobil nach der Runde: Startseite 95/100/100/100, Tierarzt-Software
+und KI-Dokumentation 100/100/100/100 (Performance/Barrierefreiheit/Best
+Practices/SEO).
+
+Erst live prüfbar: Weiterleitungen www/http, `/seite` neben `/seite.html`
+(GitHub Pages liefert beide; Canonical fängt es ab).

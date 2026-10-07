@@ -64,6 +64,12 @@ export interface ProviderVariant {
   label?: string;
   /** Abweichende Logodatei in dieser Kategorie (Pfad relativ zu /public). */
   logo?: string;
+  /**
+   * Abweichende Kurzbeschreibung in dieser Kategorie. Für Anbieter, die in
+   * vielen Kategorien stehen: Sonst trägt jeder Kategorie-Artikel denselben
+   * Satz, und die Artikel ähneln sich mehr, als ihr Inhalt es tut.
+   */
+  description?: string;
 }
 
 export interface Provider {

@@ -28,8 +28,15 @@ export const siteConfig = {
     einem der gelisteten Anbieter beteiligt. Eine Unabhängigkeitsbehauptung
     wäre in dieser Konstellation angreifbar – siehe `transparency`.
   */
-  intro:
-    'Eine anbieterübergreifende Übersicht digitaler Lösungen entlang der modernen Tierarztpraxis.',
+  /*
+    Der erste Satz der Startseite beantwortet die Frage, mit der man kommt:
+    Was gibt es? Mit Zahl und Beispielen statt allgemeiner Umschreibung. Die
+    Zahlen kommen aus den Daten, nie von Hand.
+  */
+  intro: (anbieter: number, felder: string) =>
+    `${anbieter} Anbieter digitaler Lösungen für Tierarztpraxen in ${felder} Lösungsfeldern – ` +
+    'von der Praxissoftware über Online-Termine und KI-Dokumentation bis zur Videosprechstunde. ' +
+    'Anbieterübergreifend, alphabetisch, ohne Rangfolge.',
 
   /** Sichtbarer Redaktionsstand der Übersicht. */
   edition: 'September 2026',

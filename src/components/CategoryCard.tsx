@@ -41,7 +41,7 @@ export function CategoryCard({ group, onSelect, className = '' }: CategoryCardPr
       <header className="flex items-start gap-3">
         <span
           aria-hidden="true"
-          className="shrink-0 text-[2.5rem] font-bold leading-[0.78] text-brand-400 tabular-nums"
+          className="shrink-0 text-[2.5rem] font-bold leading-[0.78] text-brand-500 tabular-nums"
         >
           {category.id}
         </span>
@@ -53,23 +53,26 @@ export function CategoryCard({ group, onSelect, className = '' }: CategoryCardPr
               category.title
             ) : (
               /*
-                Der Name für Hilfsmittel steht als aria-label am Knopf, nicht
-                als zusätzlicher sr-only-Text. Sonst stünde die Zahl zweimal im
-                HTML, und wer den Text ohne CSS ausliest – jede Antwortmaschine
-                tut das – bekäme "1919 Anbieter" zu lesen. Den Auf-/Zu-Zustand
-                meldet aria-expanded ohnehin selbst.
+                Die Zahl steht genau einmal im HTML, nur das Wort „Anbieter“
+                ist sr-only. Eine frühere Fassung doppelte die Zahl als
+                sr-only-Text – wer ohne CSS ausliest, und jede Antwortmaschine
+                tut das, las „1919 Anbieter“. Ein aria-label stattdessen wich
+                vom sichtbaren Text ab (Lighthouse: label-content-name-mismatch).
+                Den Auf-/Zu-Zustand meldet aria-expanded selbst.
               */
               <button
                 type="button"
                 onClick={() => setCollapsed((value) => !value)}
                 aria-expanded={open}
                 aria-controls={contentId}
-                aria-label={`${category.title}, ${count} Anbieter`}
                 className={`flex w-full items-start justify-between gap-2 rounded-lg text-left ${titleClasses}`}
               >
                 <span className="min-w-0 flex-1">{category.title}</span>
                 <span className="flex shrink-0 items-center gap-1 text-xs font-medium normal-case tracking-normal text-ink-500">
-                  <span>{count}</span>
+                  <span>
+                    {count}
+                    <span className="sr-only"> Anbieter</span>
+                  </span>
                   <ChevronDown
                     aria-hidden="true"
                     className={`h-5 w-5 transition-transform duration-200 ${

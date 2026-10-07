@@ -99,7 +99,7 @@ export const artikel: Artikel[] = [
       {
         h2: 'Warum der Kartendienst meist wichtiger ist als die Website',
         absaetze: [
-          'Die häufigste Suche ist lokal und dringend: ein Tier, ein Symptom, ein Ort. Was in ' +
+          'Viele Suchen sind lokal und dringend: ein Tier, ein Symptom, ein Ort. Was in ' +
             'diesem Moment zählt, sind Öffnungszeiten, Entfernung, Telefonnummer und ob überhaupt ' +
             'ein Termin zu bekommen ist. Diese Angaben stehen selten auf der Website – sie stehen ' +
             'im Kartendienst, im Verzeichnis oder im Portal.',
@@ -167,10 +167,10 @@ export const artikel: Artikel[] = [
     kategorie: 2,
     slug: 'online-terminvereinbarung',
     h1: 'Online-Terminvereinbarung in der Tierarztpraxis',
-    titleTag: 'Online-Terminbuchung für Tierarztpraxen – alle Anbieter',
+    titleTag: 'Online-Terminbuchung in der Tierarztpraxis – Anbieter',
     description:
       'Wie Online-Terminbuchung in Tierarztpraxen funktioniert, welche Anbieter es im DACH-Raum ' +
-      'gibt und woran die Einführung in der Praxis meistens scheitert.',
+      'gibt und woran die Einführung in der Praxis scheitern kann.',
     lead: [
       'Online-Terminvereinbarung nimmt Anrufe vom Empfang und macht die Praxis außerhalb der ' +
         'Öffnungszeiten buchbar. Die eigentliche Entscheidung ist aber nicht das Buchungsfenster, ' +
@@ -298,7 +298,7 @@ export const artikel: Artikel[] = [
       {
         h2: 'Formulare, die niemand ausfüllt',
         absaetze: [
-          'Der häufigste Fehler ist Länge. Ein Bogen mit vierzig Feldern wird abgebrochen, und ' +
+          'Ein typischer Fehler ist Länge. Ein Bogen mit vierzig Feldern wird abgebrochen, und ' +
             'dann steht der Empfang schlechter da als vorher, weil er nun mit halb ausgefüllten ' +
             'Datensätzen arbeitet. Wenige Pflichtfelder, alles andere optional – das ist ' +
             'unspektakulär und wirkt.',
@@ -451,7 +451,7 @@ export const artikel: Artikel[] = [
     titleTag: 'Fachmedien und Newsletter für Tierärzte im DACH-Raum',
     description:
       'Welche Newsletter und Fachmedien die deutschsprachige Veterinärbranche informieren – und ' +
-      'warum diese Kategorie in einer Marktübersicht digitaler Lösungen steht.',
+      'warum sie in eine Marktübersicht digitaler Lösungen gehören.',
     lead: [
       'Diese Kategorie fällt aus dem Rahmen: Sie enthält keine Software, sondern Medien. Sie ' +
         'steht trotzdem in der Übersicht, weil sie erklärt, wie der Markt überhaupt von neuen ' +
@@ -464,10 +464,11 @@ export const artikel: Artikel[] = [
       {
         h2: 'Warum Medien in einer Software-Übersicht stehen',
         absaetze: [
-          'Die Digitalisierung der Tierarztpraxis verbreitet sich nicht über Suchmaschinen, ' +
-            'sondern über Empfehlungen, Fachmedien und Messen. Eine Praxis erfährt von einem ' +
-            'Dokumentationsassistenten typischerweise nicht, weil sie danach gesucht hat, sondern ' +
-            'weil jemand darüber geschrieben oder gesprochen hat.',
+          'Die Digitalisierung der Tierarztpraxis verbreitet sich zu einem guten Teil nicht über ' +
+            'Suchmaschinen, sondern über Empfehlungen, Fachmedien und Messen. Von einem ' +
+            'Dokumentationsassistenten erfährt eine Praxis erfahrungsgemäß oft nicht, weil sie danach ' +
+            'gesucht hat, sondern weil jemand darüber geschrieben oder gesprochen hat – eine ' +
+            'Einschätzung aus dem Markt, keine Erhebung.',
           'Wer die Kanäle nicht kennt, über die dieser Markt redet, versteht seine Bewegungen ' +
             'nicht. Deshalb gehören sie in eine Marktübersicht.',
         ],
@@ -514,7 +515,7 @@ export const artikel: Artikel[] = [
     kategorie: 7,
     slug: 'online-videosprechstunde',
     h1: 'Online-Tierarzt: offene Videosprechstunden für Tierhalter',
-    titleTag: 'Online-Videosprechstunde für Tierhalter – alle Anbieter',
+    titleTag: 'Online-Tierarzt per Video – Anbieter für Tierhalter',
     description:
       'Plattformen, über die Tierhalter direkt einen Tierarzt per Video erreichen – was sie von ' +
       'praxiseigenen Angeboten trennt und was das für Praxen heißt.',
@@ -683,7 +684,8 @@ export const artikel: Artikel[] = [
     lead: [
       'Ein Portal oder eine App gibt dem Tierhalter einen eigenen Zugang: Impfungen, Befunde, ' +
         'Rechnungen, Termine, Nachrichten. Für die Praxis ist es vor allem eine Entlastung des ' +
-        'Telefons – die meisten Anrufe sind Auskünfte, keine Beratung.',
+        'Telefons: Viele Anrufe sind Auskünfte, keine Beratung – eine Erfahrung aus dem ' +
+        'Praxisalltag, keine gemessene Zahl.',
       'Das Wort „App" ist in diesem Markt allerdings unbrauchbar geworden: Es bezeichnet ebenso ' +
         'Endkundenangebote ohne jeden Praxisbezug. Die Kategorie meint ausdrücklich den Kanal ' +
         'zwischen Praxis und Tierhalter.',

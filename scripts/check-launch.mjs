@@ -283,7 +283,9 @@ for (const datei of [
   Startseiten-Description als fehlend, weil sie über drei Zeilen stand.
 */
 const TITEL_MAX = 60;
-const DESCRIPTION_MAX = 160;
+// 155 statt 160: Googles Kürzung schwankt mit der Pixelbreite, 155 ist die
+// sichere Seite (Vorgabe der SEO-Prüfung vom 08.10.2026).
+const DESCRIPTION_MAX = 155;
 // 50 wie im Build-Audit der Pflege-Skill; die frühere 70 hatte keine Quelle.
 const DESCRIPTION_MIN = 50;
 const entities = (t) =>
@@ -309,6 +311,18 @@ for (const seite of seiten) {
     hinweis.push(`${seite.route}: Description hat ${beschr.length} Zeichen, Google kürzt bei etwa ${DESCRIPTION_MAX}.`);
   } else if (beschr.length < DESCRIPTION_MIN) {
     hinweis.push(`${seite.route}: Description hat nur ${beschr.length} Zeichen – Google ersetzt so kurze meist.`);
+  }
+
+  /*
+    Vollständigkeitsversprechen im Suchergebnis. Zwei Titles warben mit „alle
+    Anbieter“, während die Seite selbst „kein Anspruch auf Vollständigkeit“
+    sagt – ein Versprechen, das die Seite nicht hält, ist irreführend.
+  */
+  const versprechen = /\balle\s+(\S+\s+)?Anbieter\b/i;
+  for (const [was, text] of [['Titel', titel], ['Description', beschr]]) {
+    if (versprechen.test(text)) {
+      blocker.push(`${seite.route}: ${was} verspricht Vollständigkeit („${text.match(versprechen)[0]}“) – die Übersicht erhebt keinen Anspruch darauf.`);
+    }
   }
 
   if (seite.route !== '/' && !/"BreadcrumbList"/.test(html)) {
@@ -415,6 +429,23 @@ for (const s of seiten) {
     }
     if (!existsSync(join(DIST, decodeURIComponent(pfad)))) {
       blocker.push(`${s.route}: Vorschaubild ${pfad} fehlt im Build.`);
+    }
+  }
+}
+
+/* -- 4h. Impressum und Datenschutz von jeder Seite erreichbar ---------- */
+
+/*
+  Die Rechtsseiten verlinkten sich nicht gegenseitig: Vom Impressum aus kam
+  man nicht zur Datenschutzerklärung, von der 404-Seite zu keiner von beiden.
+  § 5 DDG verlangt „leicht erkennbar, unmittelbar erreichbar“ – von jeder
+  Seite aus.
+*/
+for (const s of seiten) {
+  const html = lies(s.pfad);
+  for (const ziel of ['impressum.html', 'datenschutz.html']) {
+    if (!new RegExp(`href="[^"]*${ziel.replace('.', '\\.')}"`).test(html)) {
+      blocker.push(`${s.route}: kein Link auf ${ziel}.`);
     }
   }
 }

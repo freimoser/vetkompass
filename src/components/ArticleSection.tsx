@@ -32,8 +32,8 @@ export function ArticleSection() {
       </h2>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-700">
         Zu jeder Kategorie der Übersicht gibt es einen Artikel: was das Lösungsfeld umfasst,
-        woran die Einführung in der Praxis üblicherweise scheitert, welche Fragen vor einer
-        Entscheidung zu klären sind – und alle Anbieter als Liste mit Kurzbeschreibung.
+        woran die Einführung in der Praxis scheitern kann, welche Fragen vor einer
+        Entscheidung zu klären sind – und alle aufgenommenen Anbieter als Liste mit Kurzbeschreibung.
       </p>
 
       <ul className="mt-8 grid list-none gap-x-6 gap-y-px p-0 sm:grid-cols-2 lg:grid-cols-3">
@@ -48,7 +48,7 @@ export function ArticleSection() {
               >
                 <span
                   aria-hidden="true"
-                  className="mt-px shrink-0 text-base font-bold tabular-nums text-brand-400"
+                  className="mt-px shrink-0 text-base font-bold tabular-nums text-brand-700"
                 >
                   {seite.kategorie}
                 </span>

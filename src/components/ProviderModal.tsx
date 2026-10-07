@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { ExternalLink, Info, X } from 'lucide-react';
 import { asset, countryLabels, countryOrder, mailtoLink, siteConfig } from '../config/site';
 import { categoriesById } from '../data/categories';
-import { labelFor } from '../lib/market';
+import { descriptionFor, labelFor } from '../lib/market';
 import { useBodyScrollLock } from '../lib/hooks';
 import type { ProviderEntry } from '../types/market';
 
@@ -151,7 +151,7 @@ export function ProviderModal({ entry, onClose }: ProviderModalProps) {
           <p className="mt-1 text-sm text-ink-500">In dieser Kategorie als „{entry.label}“</p>
         ) : null}
 
-        <p className="mt-3 text-sm leading-relaxed text-ink-700">{provider.description}</p>
+        <p className="mt-3 text-sm leading-relaxed text-ink-700">{descriptionFor(provider, entry.categoryId)}</p>
 
         {/* Wirtschaftliche Verbindung offenlegen – Text kommt aus den Daten. */}
         {provider.disclosureNote ? (
@@ -201,7 +201,7 @@ export function ProviderModal({ entry, onClose }: ProviderModalProps) {
             </dt>
             <dd className="mt-2 text-ink-700">
               {countries.length === 0
-                ? 'Keine Angabe'
+                ? 'Noch nicht geprüft'
                 : `${countries.map((country) => countryLabels[country]).join(', ')}${
                     isFullDach ? ' (DACH)' : ''
                   }`}

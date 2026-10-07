@@ -94,29 +94,34 @@ const esc = (v) =>
 /* ================================================================== */
 
 const LAND = { DE: 'Deutschland', AT: 'Österreich', CH: 'Schweiz' };
+/* Leere Länderliste heißt „nicht geprüft“ – nie einen Markt behaupten, der nicht belegt ist. */
+const maerkte = (p) => (p.countries.length ? p.countries.map((c) => LAND[c]).join(', ') : 'nicht geprüft');
 const alphabetisch = (a, b) => a.name.localeCompare(b.name, 'de', { sensitivity: 'base' });
 
 const kategorieVon = (id) => categories.find((c) => c.id === id);
 const anbieterVon = (id) => providers.filter((p) => p.categories.includes(id)).sort(alphabetisch);
 
 /** Eine Anbieterzeile. Der Name ist immer Text – ein Logo ist kein Name. */
-function zeile(p) {
+/** Kurzbeschreibung in einer Kategorie – wie `descriptionFor` in src/lib/market.ts. */
+const beschreibung = (p, id) => p.variants?.[id]?.description ?? p.description;
+
+function zeile(p, id) {
   const name = p.website
     ? `<a href="${esc(p.website)}" rel="${REL_ANBIETER}">${esc(p.name)}</a>`
     : esc(p.name);
   return `        <tr>
           <th scope="row">${name}</th>
-          <td>${esc(p.description)}</td>
-          <td class="nowrap">${esc(p.countries.map((c) => LAND[c]).join(', '))}</td>
+          <td>${esc(beschreibung(p, id))}</td>
+          <td class="nowrap">${esc(maerkte(p))}</td>
         </tr>`;
 }
 
-const tabelle = (liste) => `      <table>
+const tabelle = (liste, id) => `      <table>
         <thead>
           <tr><th scope="col">Anbieter</th><th scope="col">Kurzbeschreibung</th><th scope="col">Märkte</th></tr>
         </thead>
         <tbody>
-${liste.map(zeile).join('\n')}
+${liste.map((p) => zeile(p, id)).join('\n')}
         </tbody>
       </table>`;
 
@@ -188,7 +193,7 @@ function weiterlesen(aktuellerPfad) {
 
   return `      <h2 id="weiterlesen">Alle ${zahlwort(categories.length)} Lösungsfelder</h2>
       <p>
-        Die <a href="./">interaktive Marktübersicht</a> zeigt alle Anbieter auf einen Blick.
+        Die <a href="./">interaktive Marktübersicht</a> zeigt alle aufgenommenen Anbieter auf einen Blick.
         Diese Artikel erklären die einzelnen Felder:
       </p>
       <ol class="artikelliste">
@@ -250,7 +255,7 @@ const STIL = `      :root {
         --ink: #0f1419;
         --ink-soft: #333c45;
         --muted: #5b6874;
-        --brand: #1a7eb8;
+        --brand: #176595;
         --line: #bfe2f6;
         --line-soft: #dceffa;
       }
@@ -587,8 +592,8 @@ const FRAGEN = [
 function hauptartikel() {
   const titel = 'Welche Tierarzt-Software gibt es?';
   const beschreibung =
-    'Alle Praxissoftware-Anbieter für Tierarztpraxen in Deutschland, Österreich und der ' +
-    'Schweiz – alphabetisch, ohne Rangfolge. Dazu PIMS & Co. erklärt.';
+    'Praxissoftware-Anbieter für Tierarztpraxen im deutschsprachigen Raum – alphabetisch, ' +
+    'ohne Rangfolge. Dazu PIMS, Add-ons und Auswahlfragen erklärt.';
 
   const koerper = `
       <h1>${esc(titel)}</h1>
@@ -614,11 +619,11 @@ function hauptartikel() {
         über Größe, Verbreitung oder Eignung aus, und die Aufnahme ist für alle Anbieter
         kostenfrei.
       </p>
-${tabelle(kernPims)}
+${tabelle(kernPims, 6)}
 
       <h3>${esc(kategorie6.subgroups[0].title)}</h3>
       <p>${esc(kategorie6.subgroups[0].description)}</p>
-${tabelle(addOns)}
+${tabelle(addOns, 6)}
 
       <p class="muted">
         Diese Liste erhebt keinen Anspruch auf Vollständigkeit. Fehlt ein Anbieter, ist das fast
@@ -748,24 +753,17 @@ ${s.absaetze.map((p) => `      <p>${esc(p)}</p>`).join('\n')}`,
   .join('\n\n')}
 
       <h2 id="worauf">Worauf Praxen bei der Auswahl achten</h2>
-      <p>
-        Fragen, die sich vor einer Entscheidung klären lassen – und die im Verkaufsgespräch
-        selten von allein gestellt werden:
-      </p>
       <ul class="pruefliste">
 ${a.worauf.map((f) => `        <li>${esc(f)}</li>`).join('\n')}
       </ul>
 
       <h2 id="anbieter">${esc(kat.title)}: die Anbieter</h2>
       <p>
-        ${esc(kat.description)} Sortiert ist rein alphabetisch; die Reihenfolge sagt nichts über
-        Größe, Verbreitung oder Eignung aus. Anbieter, die mehrere Lösungsfelder abdecken,
-        erscheinen in mehreren Kategorien.
+        ${esc(kat.description)} Alphabetisch sortiert, ohne Rangfolge.
       </p>
-${tabelle(liste)}
+${tabelle(liste, kat.id)}
       <p class="muted">
-        Kein Anspruch auf Vollständigkeit. Fehlt ein Anbieter, ist das fast immer eine Lücke in
-        der Recherche – <a href="./#anbieter-vorschlagen">Hinweise sind erwünscht</a>.
+        Kein Anspruch auf Vollständigkeit. Fehlt ein Anbieter? <a href="./#anbieter-vorschlagen">Hinweise sind erwünscht</a>.
       </p>
 
 ${abgrenzungsBlock(a.abgrenzung)}
@@ -850,9 +848,9 @@ for (const s of ALLE_ARTIKEL) {
   falsche Adresse wäre schlechter als keine.
 */
 const md = (t) => String(t).replace(/\s+/g, ' ').trim();
-const anbieterZeilen = (liste) =>
+const anbieterZeilen = (liste, id) =>
   liste
-    .map((p) => `- ${p.name}: ${md(p.description)} (${p.countries.map((c) => LAND[c]).join(', ')})`)
+    .map((p) => `- ${p.name}: ${md(beschreibung(p, id))} (Märkte: ${maerkte(p)})`)
     .join('\n');
 
 function volltext() {
@@ -878,8 +876,8 @@ function volltext() {
 
     if (!s.inhalt) {
       // Hauptartikel: Praxissoftware, Begriffe, Fragen
-      teile.push(md(kat.description), '', '### Praxissoftware-Anbieter', '', anbieterZeilen(kernPims), '');
-      teile.push(`### ${kategorie6.subgroups[0].title}`, '', anbieterZeilen(addOns), '');
+      teile.push(md(kat.description), '', '### Praxissoftware-Anbieter', '', anbieterZeilen(kernPims, 6), '');
+      teile.push(`### ${kategorie6.subgroups[0].title}`, '', anbieterZeilen(addOns, 6), '');
       teile.push('### Begriffe', '');
       for (const b of BEGRIFFE) teile.push(`**${b.term}** (${b.kurz}): ${md(b.text)}`, '');
       teile.push('### Häufig gestellte Fragen', '');
@@ -894,7 +892,7 @@ function volltext() {
       for (const p of ab.absaetze) teile.push(md(p), '');
     }
     teile.push('### Worauf Praxen bei der Auswahl achten', '', a.worauf.map((w) => `- ${md(w)}`).join('\n'), '');
-    teile.push('### Anbieter', '', anbieterZeilen(anbieterVon(a.kategorie)), '');
+    teile.push('### Anbieter', '', anbieterZeilen(anbieterVon(a.kategorie), a.kategorie), '');
     teile.push('### Was dieser Artikel nicht leistet', '', md(a.grenzen), '');
   }
   return teile.join('\n') + '\n';

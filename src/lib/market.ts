@@ -33,6 +33,11 @@ function normalize(value: string): string {
     .trim();
 }
 
+/** Kurzbeschreibung in einer Kategorie – Variante, sonst die allgemeine. */
+export function descriptionFor(provider: Provider, categoryId: CategoryId): string {
+  return provider.variants?.[categoryId]?.description ?? provider.description;
+}
+
 /** Anzeigename eines Anbieters in einer konkreten Kategorie. */
 export function labelFor(provider: Provider, categoryId: CategoryId): string {
   return provider.variants?.[categoryId]?.label ?? provider.name;

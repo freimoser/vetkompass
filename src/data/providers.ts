@@ -15,14 +15,13 @@ import type { Provider } from '../types/market';
  *
  * TODO (Datenpflege)
  * ------------------
- * - `countries` steht bei fast allen Anbietern pauschal auf dem gesamten
- *   DACH-Raum und ist damit **geraten, nicht geprüft**. Solange das so ist,
- *   ist der Länderfilter der Seite Dekoration. Belegt sind bisher nur
- *   `tierarzt-im-netz` (DE) und `veterinaere-at` (AT) – beide Verzeichnisse
- *   führen nachweislich nur Praxen ihres eigenen Landes.
+ * - `countries` ist nur dort gefüllt, wo die Länder belegt sind. Bis zum
+ *   08.10.2026 stand bei fast allen Anbietern pauschal der ganze DACH-Raum –
+ *   geraten, aber auf der Seite als Tatsache angezeigt, und der Länderfilter
+ *   tat so, als wüsste er es. Leer heißt jetzt „noch nicht geprüft“, und der
+ *   Länderfilter bleibt ausgeblendet, bis die Angaben belegt sind.
  *   `tierarzt software österreich` und `… schweiz` sind eigene Suchanfragen
- *   (siehe docs/KEYWORD-RECHERCHE.md, 3.3), die Länderdimension ist also
- *   real nachgefragt. Das ehrlich zu machen lohnt sich.
+ *   (siehe docs/KEYWORD-RECHERCHE.md, 3.3), die Prüfung lohnt sich also.
  * - Mit `// TODO: Website` markierte Anbieter haben noch keine hinterlegte URL.
  * - Die Logos unter `public/logos/` stammen aus zwei Quellen: die älteren
  *   wurden aus der Original-Grafik ausgeschnitten und liegen daher nur in
@@ -33,16 +32,13 @@ import type { Provider } from '../types/market';
  *   der Anbieter (bevorzugt SVG) ersetzt werden – siehe README.
  */
 
-/** Standard-Footprint, solange die Länderverfügbarkeit nicht geprüft ist. */
-const DACH = ['DE', 'AT', 'CH'] as const;
-
 export const providers: Provider[] = [
   {
     id: 'animalchat',
     name: 'AnimalChat',
     logo: 'logos/animalchat.webp',
     website: 'https://animalchat.net',
-    countries: [...DACH],
+    countries: [],
     categories: [8],
     description:
       'Kommunikationslösung für Tierarztpraxen mit Nachrichten und Videosprechstunde, nach Anbieterangabe auf deutschen Servern gehostet.',
@@ -53,7 +49,7 @@ export const providers: Provider[] = [
     name: 'ANIDATA',
     logo: 'logos/anidata.png',
     website: 'https://www.anidata.de',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Praxismanagementsystem für die Organisation von Patientendaten, Terminen, Dokumentation und Abrechnung in der Tierarztpraxis.',
@@ -81,7 +77,7 @@ export const providers: Provider[] = [
     name: 'debevet',
     logo: 'logos/debevet.svg',
     website: 'https://www.debevet.de',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Cloudbasiertes Praxismanagementsystem für Kleintier-, Nutztier- und Pferdepraxen sowie Tiertherapie.',
@@ -92,7 +88,7 @@ export const providers: Provider[] = [
     name: 'Digitail',
     logo: 'logos/digitail.png',
     website: 'https://www.digitail.com',
-    countries: [...DACH],
+    countries: [],
     categories: [4],
     description:
       'Digitale Lösung mit KI-gestützten Funktionen für Dokumentation und Unterstützung im Praxisalltag.',
@@ -103,7 +99,7 @@ export const providers: Provider[] = [
     name: 'Doktor Fressnapf',
     logo: 'logos/doktor-fressnapf.png',
     website: 'https://dr.fressnapf.de',
-    countries: [...DACH],
+    countries: [],
     categories: [7],
     description:
       'Angebot für Tierhalter, über das eine veterinärmedizinische Online-Beratung per Video erreichbar ist.',
@@ -114,7 +110,7 @@ export const providers: Provider[] = [
     name: 'DOGORAMA',
     logo: 'logos/dogorama.png',
     website: 'https://www.dogorama.app',
-    countries: [...DACH],
+    countries: [],
     categories: [1],
     description:
       'Plattform rund um Hunde und Hundehalter, über die Tierarztpraxen digital sichtbar werden können.',
@@ -125,7 +121,7 @@ export const providers: Provider[] = [
     name: 'Dr. SAM',
     logo: 'logos/dr-sam.png',
     website: 'https://drsam.de',
-    countries: [...DACH],
+    countries: [],
     categories: [7],
     description:
       'Online-Tierarztangebot, über das Tierhalter eine veterinärmedizinische Beratung digital in Anspruch nehmen können.',
@@ -136,7 +132,7 @@ export const providers: Provider[] = [
     name: 'easyVET',
     logo: 'logos/easyvet.png',
     website: 'https://www.vetz.de',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Praxismanagementsystem für Patientenakte, Terminplanung, Dokumentation und Abrechnung.',
@@ -147,7 +143,7 @@ export const providers: Provider[] = [
     name: 'Evovell',
     logo: 'logos/evovell.png',
     website: 'https://www.evovell.com',
-    countries: [...DACH],
+    countries: [],
     categories: [9],
     description:
       'App für Tierhalter, die Gesundheitsdaten, Termine und tierärztliche Unterlagen für Hund, Katze und Pferd bündelt.',
@@ -158,7 +154,7 @@ export const providers: Provider[] = [
     name: 'felmo',
     logo: 'logos/felmo.png',
     website: 'https://www.felmo.de',
-    countries: [...DACH],
+    countries: [],
     categories: [7, 9],
     description:
       'Tierärztliches Angebot mit digitalen Services für Tierhalter, unter anderem Online-Beratung und App-Zugang zu Terminen und Dokumenten.',
@@ -169,7 +165,7 @@ export const providers: Provider[] = [
     name: 'FirstVet',
     logo: 'logos/firstvet.png',
     website: 'https://firstvet.com/de',
-    countries: [...DACH],
+    countries: [],
     categories: [7],
     description:
       'Online-Videosprechstunde, über die Tierhalter direkt eine veterinärmedizinische Beratung erreichen können.',
@@ -193,7 +189,7 @@ export const providers: Provider[] = [
     name: 'HaustierDocs',
     logo: 'logos/haustierdocs.png',
     website: 'https://www.haustierdocs.de',
-    countries: [...DACH],
+    countries: [],
     categories: [7],
     description:
       'Online-Angebot, über das Tierhalter tierärztliche Beratung digital in Anspruch nehmen können.',
@@ -204,7 +200,7 @@ export const providers: Provider[] = [
     name: 'Hunderunde',
     logo: 'logos/hunderunde.png',
     website: undefined, // TODO: Website ergänzen
-    countries: [...DACH],
+    countries: [],
     categories: [5],
     description:
       'Digitales Informationsangebot mit Newsletter-Format für die deutschsprachige Tier- und Veterinärbranche.',
@@ -215,7 +211,7 @@ export const providers: Provider[] = [
     name: 'IDEXX Animana',
     logo: 'logos/idexx-animana.png',
     website: 'https://software.idexx.de',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Cloudbasiertes Praxismanagementsystem für Patientendaten, Termine, Dokumentation und Abrechnung.',
@@ -226,7 +222,7 @@ export const providers: Provider[] = [
     name: 'inBehandlung',
     logo: 'logos/inbehandlung.png',
     website: 'https://www.inbehandlung.de',
-    countries: [...DACH],
+    countries: [],
     categories: [2, 6, 8],
     description:
       'Praxissoftware mit zusätzlichen digitalen Services wie Online-Terminvereinbarung und praxiseigener Videosprechstunde.',
@@ -237,7 +233,7 @@ export const providers: Provider[] = [
     name: 'JUST4VETS',
     logo: 'logos/just4vets.png',
     website: undefined, // TODO: Website ergänzen
-    countries: [...DACH],
+    countries: [],
     categories: [5],
     description:
       'Informations- und Newsletter-Angebot für Tierärztinnen, Tierärzte und Praxisteams.',
@@ -251,7 +247,7 @@ export const providers: Provider[] = [
     // TODO: Aufnahme bestätigen – Hinweis von Christian Salzmann (LinkedIn,
     // 21.09.2026); Andreas Moll soll noch festlegen, wie er erscheinen möchte.
     website: undefined,
-    countries: [...DACH],
+    countries: [],
     categories: [5],
     description:
       'Fachportal und Informationsangebot zur Katzenmedizin für die deutschsprachige Veterinärbranche.',
@@ -268,7 +264,7 @@ export const providers: Provider[] = [
     // die Einordnung unter "Digitale Sichtbarkeit & Neukundengewinnung" trägt
     // aber nicht. Bleibt in Kategorie 2.
     website: undefined,
-    countries: [...DACH],
+    countries: [],
     categories: [2],
     description: 'Lösung für die Online-Terminvereinbarung in Tierarztpraxen.',
     tags: ['Terminbuchung'],
@@ -278,7 +274,7 @@ export const providers: Provider[] = [
     name: 'Petleo',
     logo: 'logos/petleo.png',
     website: 'https://www.petleo.net',
-    countries: [...DACH],
+    countries: [],
     // Ein Datensatz, viele Kategorien – bewusst keine Kopien je Kategorie.
     categories: [1, 2, 3, 4, 5, 6, 8, 9],
     subgroups: ['pims-addons'],
@@ -296,10 +292,28 @@ export const providers: Provider[] = [
       'Newsletter',
     ],
     // Produktmarken, unter denen der Anbieter in einzelnen Kategorien auftritt.
+    // Je Kategorie beschrieben wird nur der Baustein, um den es dort geht –
+    // abgeleitet aus der allgemeinen Beschreibung, ohne neue Behauptungen.
     variants: {
-      4: { label: 'Petleo.ai', logo: 'logos/petleo-ai.png' },
-      5: { label: 'Petleo – News for Vets', logo: 'logos/petleo-news.png' },
-      6: { logo: 'logos/petleo-pims.png' },
+      1: { description: 'Baustein der Petleo-Plattform, mit dem Tierarztpraxen online sichtbar werden und neue Tierhalter erreichen.' },
+      2: { description: 'Online-Terminvereinbarung als Baustein der Petleo-Plattform für Tierarztpraxen.' },
+      3: { description: 'Digitale Patientenaufnahme vor dem Termin als Baustein der Petleo-Plattform.' },
+      4: {
+        label: 'Petleo.ai',
+        logo: 'logos/petleo-ai.png',
+        description: 'KI-Unterstützung für Tierarztpraxen als Baustein der Petleo-Plattform.',
+      },
+      5: {
+        label: 'Petleo – News for Vets',
+        logo: 'logos/petleo-news.png',
+        description: 'Newsletter von Petleo für Tierärztinnen und Tierärzte.',
+      },
+      6: {
+        logo: 'logos/petleo-pims.png',
+        description: 'Bausteine der Petleo-Plattform, die eine bestehende Praxissoftware um digitale Services ergänzen.',
+      },
+      8: { description: 'Videosprechstunde für die eigenen Patienten einer Praxis als Baustein der Petleo-Plattform.' },
+      9: { description: 'Tierhalter-App als Baustein der Petleo-Plattform – der direkte Kanal zwischen Praxis und Tierhalter.' },
     },
   },
   {
@@ -307,7 +321,7 @@ export const providers: Provider[] = [
     name: 'Petleo DICOM',
     logo: 'logos/petleo-dicom.png',
     website: 'https://www.petleo.net',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     subgroups: ['pims-addons'],
     disclosureNote:
@@ -321,7 +335,7 @@ export const providers: Provider[] = [
     name: 'PetsApp',
     logo: 'logos/petsapp.png',
     website: 'https://www.petsapp.com',
-    countries: [...DACH],
+    countries: [],
     categories: [2, 9],
     description:
       'Kommunikations- und App-Lösung für die Interaktion zwischen Tierarztpraxis und Tierhalter, inklusive Terminfunktionen.',
@@ -332,7 +346,7 @@ export const providers: Provider[] = [
     name: 'petsXL',
     logo: 'logos/petsxl.png',
     website: 'https://www.petsxl.com',
-    countries: [...DACH],
+    countries: [],
     categories: [2, 3, 9],
     description:
       'Digitale Services für Tierarztpraxen mit Online-Terminvereinbarung, digitaler Patientenaufnahme und Tierhalter-Portal.',
@@ -343,7 +357,7 @@ export const providers: Provider[] = [
     name: 'Provet Cloud',
     logo: 'logos/provet-cloud.png',
     website: 'https://www.provet.com',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Cloudbasiertes Praxismanagementsystem für Tierarztpraxen und Kliniken.',
@@ -354,7 +368,7 @@ export const providers: Provider[] = [
     name: 'ReportAssistant',
     logo: 'logos/reportassistant.png',
     website: 'https://www.reportassistant.de',
-    countries: [...DACH],
+    countries: [],
     categories: [4],
     description:
       'KI-gestützte Unterstützung beim Erstellen tiermedizinischer Berichte und Dokumentation.',
@@ -365,7 +379,7 @@ export const providers: Provider[] = [
     name: 'ScribbleVet',
     logo: 'logos/scribblevet.png',
     website: 'https://www.scribblevet.com',
-    countries: [...DACH],
+    countries: [],
     categories: [4],
     description:
       'KI-Assistent für die Dokumentation, der Gespräche in strukturierte Notizen überführt.',
@@ -387,7 +401,7 @@ export const providers: Provider[] = [
     countries: ['DE'],
     categories: [10],
     description:
-      'Suchportal für Tierarztpraxen und Tierkliniken, nach eigener Angabe mit über 12.000 Einträgen. Praxen können ihren Eintrag selbst anlegen und pflegen.',
+      'Suchportal für Tierarztpraxen und Tierkliniken, laut eigener Website (Stand 27.09.2026) mit über 12.000 Einträgen. Praxen können ihren Eintrag selbst anlegen und pflegen.',
     tags: ['Suchmaschine', 'Verzeichnis'],
   },
   {
@@ -401,7 +415,7 @@ export const providers: Provider[] = [
     countries: ['DE'],
     categories: [10],
     description:
-      'Suchportal für Tierarztpraxen nach Ort und Bundesland, nach eigener Angabe mit 12.985 Praxen.',
+      'Suchportal für Tierarztpraxen nach Ort und Bundesland, laut eigener Website (Stand 27.09.2026) mit 12.985 Praxen.',
     tags: ['Suchmaschine', 'Verzeichnis'],
   },
   {
@@ -412,7 +426,7 @@ export const providers: Provider[] = [
     countries: ['DE'],
     categories: [10],
     description:
-      'Suchportal für Tierarztpraxen mit Adressen, Öffnungszeiten und Bewertungen, nach eigener Angabe mit über 9.000 Einträgen.',
+      'Suchportal für Tierarztpraxen mit Adressen, Öffnungszeiten und Bewertungen, laut eigener Website (Stand 27.09.2026) mit über 9.000 Einträgen.',
     tags: ['Suchmaschine', 'Verzeichnis', 'Bewertungen'],
   },
   {
@@ -423,7 +437,7 @@ export const providers: Provider[] = [
     countries: ['DE'],
     categories: [10],
     description:
-      'Suchportal für Tierärzte und Tierkliniken mit Sprechzeiten und Notdiensten, nach eigener Angabe mit 11.000 Einträgen.',
+      'Suchportal für Tierärzte und Tierkliniken mit Sprechzeiten und Notdiensten, laut eigener Website (Stand 27.09.2026) mit 11.000 Einträgen.',
     tags: ['Suchmaschine', 'Verzeichnis', 'Notdienst'],
   },
   {
@@ -431,7 +445,7 @@ export const providers: Provider[] = [
     name: 'tierarzt-online',
     logo: 'logos/tierarzt-online.svg',
     website: 'https://tierarzt-online.org',
-    countries: [...DACH],
+    countries: [],
     categories: [7, 8],
     description:
       'Tierärztliche Beratung per Videochat – sowohl als Angebot für Tierhalter als auch für Praxen, die eigene Videotermine anbieten.',
@@ -442,7 +456,7 @@ export const providers: Provider[] = [
     name: 'Tierarzt Plus Partner',
     logo: 'logos/tierarzt-plus-partner.png',
     website: 'https://www.tierarztpluspartner.de',
-    countries: [...DACH],
+    countries: [],
     categories: [7],
     description:
       'Angebot mit veterinärmedizinischer Online-Beratung für Tierhalter.',
@@ -453,7 +467,7 @@ export const providers: Provider[] = [
     name: 'TPV-Systeme',
     logo: 'logos/tpv-systeme.png',
     website: 'https://www.tpv-systeme.de',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Praxissoftware für die Verwaltung von Patientendaten, Terminen und Abrechnung in der Tierarztpraxis.',
@@ -464,7 +478,7 @@ export const providers: Provider[] = [
     name: 'Vemed',
     logo: 'logos/vemed.png',
     website: undefined, // TODO: Website ergänzen
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Praxismanagementsystem für die tierärztliche Praxisorganisation und Dokumentation.',
@@ -475,7 +489,7 @@ export const providers: Provider[] = [
     name: 'VET-MAGAZIN.de',
     logo: 'logos/vet-magazin.png',
     website: 'https://www.vet-magazin.de',
-    countries: [...DACH],
+    countries: [],
     categories: [5],
     description:
       'Online-Fachmagazin und Newsletter für die deutschsprachige Veterinärbranche.',
@@ -491,7 +505,7 @@ export const providers: Provider[] = [
     name: 'VET7.well',
     logo: 'logos/vet7well.jpg',
     website: 'https://www.vet7.net',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description: 'Praxismanagementsystem für die tierärztliche Praxis.',
     tags: ['PIMS', 'Praxissoftware'],
@@ -512,7 +526,7 @@ export const providers: Provider[] = [
     name: 'vet@work',
     logo: 'logos/vetat-work.png',
     website: 'https://vetat.work',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Praxismanagementsystem der WDT Wirtschaftsgenossenschaft deutscher Tierärzte für Verwaltungsaufgaben und Praxisabläufe.',
@@ -523,7 +537,7 @@ export const providers: Provider[] = [
     name: 'VetDream',
     logo: 'logos/vetdream.png',
     website: 'https://www.vetdream.de',
-    countries: [...DACH],
+    countries: [],
     categories: [2, 6],
     description:
       'Praxissoftware mit digitalen Zusatzfunktionen, unter anderem für die Online-Terminvereinbarung.',
@@ -534,7 +548,7 @@ export const providers: Provider[] = [
     name: 'Vetera',
     logo: 'logos/vetera.png',
     website: 'https://www.vetera.net',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Praxismanagementsystem für Patientenakte, Terminplanung, Dokumentation und Abrechnung.',
@@ -545,7 +559,7 @@ export const providers: Provider[] = [
     name: 'VetGuru',
     logo: 'logos/vetguru.png',
     website: 'https://www.vetguru.de',
-    countries: [...DACH],
+    countries: [],
     categories: [8],
     description:
       'Lösung, mit der Tierarztpraxen ihren eigenen Kunden Video- und Telemedizin-Termine anbieten können.',
@@ -556,7 +570,7 @@ export const providers: Provider[] = [
     name: 'VETINF',
     logo: 'logos/vetinf.png',
     website: 'https://www.vetinf.de',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Praxissoftware für die tierärztliche Praxisverwaltung, Dokumentation und Abrechnung.',
@@ -567,7 +581,7 @@ export const providers: Provider[] = [
     name: 'VetMeta',
     logo: 'logos/vetmeta.png',
     website: undefined, // TODO: Website ergänzen
-    countries: [...DACH],
+    countries: [],
     categories: [4],
     description:
       'KI-gestützter Assistent für Dokumentation und Unterstützung im tierärztlichen Praxisalltag.',
@@ -578,7 +592,7 @@ export const providers: Provider[] = [
     name: 'Vetnio',
     logo: 'logos/vetnio.png',
     website: 'https://www.vetnio.com',
-    countries: [...DACH],
+    countries: [],
     categories: [4],
     description:
       'KI-Assistent für die tierärztliche Dokumentation, der Notizen automatisiert und bei Anrufen und Nachrichten unterstützt.',
@@ -589,7 +603,7 @@ export const providers: Provider[] = [
     name: 'VETOffice Plus',
     logo: 'logos/vetoffice-plus.png',
     website: 'https://www.vetoffice.de',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Software für die tierärztliche Praxis und Klinik mit Funktionen für Patientenakte, Termine und Abrechnung.',
@@ -600,7 +614,7 @@ export const providers: Provider[] = [
     name: 'vetpraxis.de',
     logo: 'logos/vetpraxis-de.png',
     website: 'https://www.vetpraxis.de',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Praxissoftware für Organisation, Dokumentation und Abrechnung in der Tierarztpraxis.',
@@ -611,7 +625,7 @@ export const providers: Provider[] = [
     name: 'VetSOAP',
     logo: 'logos/vetsoap.png',
     website: undefined, // TODO: Website ergänzen
-    countries: [...DACH],
+    countries: [],
     categories: [4],
     description:
       'KI-Assistent, der tierärztliche Gespräche in strukturierte Dokumentation im SOAP-Format überführt.',
@@ -622,7 +636,7 @@ export const providers: Provider[] = [
     name: 'vetsXL.com',
     logo: 'logos/vetsxl.png',
     website: 'https://www.vetsxl.com',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     subgroups: ['pims-addons'],
     description:
@@ -634,7 +648,7 @@ export const providers: Provider[] = [
     name: 'VetStar',
     logo: 'logos/vetstar.png',
     website: 'https://www.vetstar.de',
-    countries: [...DACH],
+    countries: [],
     categories: [6],
     description:
       'Praxismanagementsystem für die Verwaltung von Patientendaten, Terminen und Abrechnung.',
@@ -645,7 +659,7 @@ export const providers: Provider[] = [
     name: 'Vetstoria',
     logo: 'logos/vetstoria.png',
     website: 'https://www.vetstoria.com',
-    countries: [...DACH],
+    countries: [],
     categories: [2],
     description:
       'Lösung für die Online-Terminvereinbarung, die sich in bestehende Praxissoftware integrieren lässt.',

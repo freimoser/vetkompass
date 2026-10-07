@@ -1,5 +1,8 @@
 import { Download, Stethoscope } from 'lucide-react';
 import { anchors, asset, siteConfig } from '../config/site';
+import { providers } from '../data/providers';
+import { categories } from '../data/categories';
+import { zahlwort } from '../lib/zahlwort';
 
 /**
  * Kopfbereich der Seite. Bewusst kein Marketing-Hero – die Marktübersicht
@@ -29,7 +32,7 @@ export function Header() {
         <span className="text-ink-500"> · {siteConfig.publisher.role}</span>
       </p>
 
-      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-500">{siteConfig.intro}</p>
+      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-500">{siteConfig.intro(providers.length, zahlwort(categories.length))}</p>
 
       <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-800">
         Stand: {siteConfig.edition}

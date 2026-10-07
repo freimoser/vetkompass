@@ -1,8 +1,7 @@
-import { Globe, RotateCcw } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 import { SearchBar } from './SearchBar';
 import { categories } from '../data/categories';
-import { countryLabels, countryOrder } from '../config/site';
-import type { CategoryId, Country, MarketFilters } from '../types/market';
+import type { CategoryId, MarketFilters } from '../types/market';
 
 interface FilterBarProps {
   filters: MarketFilters;
@@ -14,7 +13,7 @@ interface FilterBarProps {
 const emptyFilters: MarketFilters = { query: '', category: 'all', country: 'all' };
 
 /**
- * Toolbar über der Marktübersicht: Suche, Kategorienfilter, Länderfilter.
+ * Toolbar über der Marktübersicht: Suche und Kategorienfilter.
  * Klebt am oberen Rand, damit Filter auch beim Scrollen erreichbar bleiben.
  */
 export function FilterBar({ filters, onChange, resultSummary }: FilterBarProps) {
@@ -32,32 +31,11 @@ export function FilterBar({ filters, onChange, resultSummary }: FilterBarProps) 
             onChange={(query) => onChange({ ...filters, query })}
           />
 
-          <div className="relative flex items-center">
-            <Globe
-              aria-hidden="true"
-              className="pointer-events-none absolute left-3 h-4 w-4 text-ink-300"
-            />
-            <label htmlFor="land-filter" className="sr-only">
-              Land filtern
-            </label>
-            <select
-              id="land-filter"
-              value={filters.country}
-              onChange={(event) =>
-                onChange({ ...filters, country: event.target.value as Country | 'all' })
-              }
-              className="appearance-none rounded-lg border border-brand-200 bg-white py-2 pl-9 pr-8
-                         text-sm font-medium text-ink-900 hover:border-brand-300
-                         focus:border-brand-500 focus:outline-none"
-            >
-              <option value="all">DACH (alle)</option>
-              {countryOrder.map((country) => (
-                <option key={country} value={country}>
-                  {countryLabels[country]}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/*
+            Länderfilter ausgeblendet, solange die Länder nur bei wenigen
+            Anbietern belegt sind (siehe Kopf von src/data/providers.ts). Ein
+            Filter auf geratene Daten zeigt Ergebnisse, die nicht stimmen.
+          */}
 
           {hasActiveFilters ? (
             <button
@@ -104,7 +82,7 @@ export function FilterBar({ filters, onChange, resultSummary }: FilterBarProps) 
                 aria-pressed={active}
                 className={`chip shrink-0 ${active ? 'chip-active' : 'chip-idle'}`}
               >
-                <span aria-hidden="true" className="font-bold opacity-60">
+                <span aria-hidden="true" className="font-bold opacity-80">
                   {category.id}
                 </span>
                 {category.shortTitle}
