@@ -390,6 +390,35 @@ if (!stand) {
   }
 }
 
+/* -- 4g. Vorschaubilder müssen existieren ------------------------------ */
+
+/*
+  Alle Artikel verwiesen auf /og/marktuebersicht-2026.png – eine Datei, die es
+  nie gab. Geteilt auf LinkedIn hätte jeder Artikel ein leeres Vorschaufeld
+  gezeigt, und kein Build hätte es bemerkt. Geprüft wird deshalb jede
+  og:image- und twitter:image-Adresse gegen eine Datei im Build.
+*/
+for (const s of seiten) {
+  const html = lies(s.pfad);
+  if (/<meta name="robots" content="noindex/.test(html)) continue;
+  const bilder = [...html.matchAll(/<meta (?:property|name)="(?:og|twitter):image" content="([^"]+)"/g)].map((m) => m[1]);
+  if (bilder.length === 0 && html.includes('rel="canonical"')) {
+    blocker.push(`${s.route}: kein og:image – geteilt erscheint die Seite ohne Vorschaubild.`);
+  }
+  for (const adresse of bilder) {
+    let pfad;
+    try {
+      pfad = ohneBasis(new URL(adresse).pathname);
+    } catch {
+      blocker.push(`${s.route}: og:image ist keine absolute Adresse (${adresse}).`);
+      continue;
+    }
+    if (!existsSync(join(DIST, decodeURIComponent(pfad)))) {
+      blocker.push(`${s.route}: Vorschaubild ${pfad} fehlt im Build.`);
+    }
+  }
+}
+
 /* -- 5. Symbole --------------------------------------------------------- */
 
 for (const datei of ['favicon.svg', 'favicon.ico', 'favicon-96.png', 'apple-touch-icon.png']) {

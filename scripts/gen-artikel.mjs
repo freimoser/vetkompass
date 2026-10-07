@@ -28,7 +28,7 @@ import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, HAUPTARTIKEL } from './seiten.mjs';
 import { zahlwort } from '../src/lib/zahlwort.ts';
-import { SCHWESTER } from '../src/config/verbund.ts';
+import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -393,9 +393,10 @@ ${hatDomain ? `    <link rel="canonical" href="${esc(absolut(pfad))}" />\n` : ''
     <meta property="og:title" content="${esc(titleTag)}" />
     <meta property="og:description" content="${esc(description)}" />
     <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="${esc(MARKE)}" />
 ${
   hatDomain
-    ? `    <meta property="og:url" content="${esc(absolut(pfad))}" />\n    <meta property="og:image" content="${esc(absolut('/og/marktuebersicht-2026.png'))}" />\n`
+    ? `    <meta property="og:url" content="${esc(absolut(pfad))}" />\n    <meta property="og:image" content="${esc(absolut('/og/marktuebersicht.png'))}" />\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />\n    <meta property="og:image:alt" content="Marktübersicht: digitale Lösungen für Tierarztpraxen im DACH-Markt, gegliedert nach Lösungsfeldern." />\n    <meta name="twitter:image" content="${esc(absolut('/og/marktuebersicht.png'))}" />\n`
     : ''
 }    <meta name="twitter:card" content="summary_large_image" />
 

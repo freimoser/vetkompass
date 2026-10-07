@@ -25,6 +25,7 @@ import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
+import { MARKE } from '../src/config/verbund.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = join(ROOT, 'public');
@@ -579,13 +580,43 @@ try {
   writeFileSync(join(PUBLIC, 'downloads', `${BASISNAME}.png`), puffer);
 
   /*
-    Die Social-Vorschau muss 1200×630 sein und beschnitten werden – ein
-    3000 px hohes Bild zeigt LinkedIn als briefmarkengroßen Streifen. Deshalb
-    der obere Ausschnitt mit Titel, Datum und den ersten Kategorien.
+    Die Social-Vorschau ist eine eigene Komposition, kein Ausschnitt. Der
+    frühere obere Ausschnitt schnitt die Karten mitten durch und ließ
+    Kategorie 10 ganz weg – geteilt sah die Übersicht unvollständig aus.
+    Jetzt: links groß lesbar, worum es geht (LinkedIn zeigt das Bild mit rund
+    550 px Breite, kleine Schrift verschwindet), rechts die ganze Karte.
   */
-  await sharp(Buffer.from(svg), { density: 96 })
-    .resize({ width: 1200 })
-    .extract({ left: 0, top: 0, width: 1200, height: Math.min(630, Math.round((H * 1200) / W)) })
+  const OG_W = 1200;
+  const OG_H = 630;
+  const KARTE_B = 744;
+  const KARTE_H = Math.round((H * KARTE_B) / W);
+  const KARTE_X = OG_W - 40 - KARTE_B;
+  const KARTE_Y = Math.round((OG_H - KARTE_H) / 2);
+  const karte = await sharp(puffer).resize({ width: KARTE_B * 2 }).png().toBuffer();
+  const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_W * 2}" height="${OG_H * 2}" viewBox="0 0 ${OG_W} ${OG_H}" font-family="${SCHRIFT}">
+  <defs><filter id="schatten" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="10"/></filter></defs>
+  <rect width="${OG_W}" height="${OG_H}" fill="${FARBE.hintergrund}"/>
+  <rect x="0" y="0" width="10" height="${OG_H}" fill="${FARBE.brand}"/>
+  <text x="52" y="92" font-size="17" font-weight="700" letter-spacing="2.5" fill="${FARBE.brand}">${esc(MARKE.toUpperCase())}</text>
+  <text x="52" y="160" font-size="46" font-weight="700" fill="${FARBE.ink}">Die digitale</text>
+  <text x="52" y="214" font-size="46" font-weight="700" fill="${FARBE.ink}">Tierarztpraxis</text>
+  <text x="52" y="258" font-size="25" fill="${FARBE.soft}">Marktübersicht ${EDITION.split(' ')[1]} · DACH</text>
+  <text x="52" y="372" font-size="64" font-weight="700" fill="${FARBE.brand}">${anzahl}</text>
+  <text x="52" y="404" font-size="20" fill="${FARBE.soft}">Anbieter</text>
+  <text x="206" y="372" font-size="64" font-weight="700" fill="${FARBE.brand}">${kategorienAnzahl}</text>
+  <text x="206" y="404" font-size="20" fill="${FARBE.soft}">Lösungsfelder</text>
+  <text x="52" y="500" font-size="17" fill="${FARBE.muted}">Ohne Rangfolge, alphabetisch</text>
+  <text x="52" y="526" font-size="17" fill="${FARBE.muted}">Stand ${EDITION} · Bild vom ${datumDe}</text>
+  <rect x="${KARTE_X}" y="${KARTE_Y + 6}" width="${KARTE_B}" height="${KARTE_H}" rx="6" fill="#0f4c75" opacity="0.18" filter="url(#schatten)"/>
+  <rect x="${KARTE_X - 1}" y="${KARTE_Y - 1}" width="${KARTE_B + 2}" height="${KARTE_H + 2}" rx="6" fill="#ffffff" stroke="${FARBE.kartenRand}"/>
+</svg>`;
+  // Zwei Schritte: sharp skaliert sonst vor dem Einsetzen, nicht danach.
+  const ogGross = await sharp(Buffer.from(ogSvg))
+    .composite([{ input: karte, left: KARTE_X * 2, top: KARTE_Y * 2 }])
+    .png()
+    .toBuffer();
+  await sharp(ogGross)
+    .resize({ width: OG_W, height: OG_H })
     .png({ compressionLevel: 9 })
     .toFile(join(PUBLIC, 'og', 'marktuebersicht.png'));
 
