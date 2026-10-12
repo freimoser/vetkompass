@@ -26,12 +26,13 @@ import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
 import { MARKE } from '../src/config/verbund.ts';
+import { EDITION } from '../src/config/edition.ts';
+import { BILDSTEMPEL } from '../src/config/bildstempel.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = join(ROOT, 'public');
 const BASISNAME = 'digitale-tierarztpraxis-marktuebersicht';
 
-const EDITION = 'September 2026';
 const AUTOR = 'Thomas Freimoser';
 const ROLLE = 'Experte für digitale Tiermedizin';
 
@@ -571,6 +572,15 @@ const kategorienAnzahl = categories.length;
   Grund, warum diese Datei existiert – wer das Bild weitergibt, soll sehen
   können, wie alt es ist.
 */
+/*
+  Unter diesen drei Zeilen setzt der Browser beim Herunterladen eine Plakette
+  „Heruntergeladen am …“ (src/lib/bildstempel.ts). Ihre Lage steht in
+  src/config/bildstempel.ts – stimmt sie nicht mehr mit diesem Kopf überein,
+  bricht der Build ab, statt dass der Stempel über einer Zeile landet.
+*/
+if (BILDSTEMPEL.breite !== W || BILDSTEMPEL.rechts !== W - PAD || BILDSTEMPEL.oben < 52 + 2 * 22 + 6 || BILDSTEMPEL.oben + BILDSTEMPEL.hoehe > KOPF - 22 - 6) {
+  throw new Error('src/config/bildstempel.ts passt nicht mehr zum Kopf des Bildes.');
+}
 const kopfRechts = [
   { text: `Stand der Übersicht: ${EDITION}`, groesse: 15, gewicht: 700, farbe: FARBE.ink },
   { text: `Bild erstellt am ${datumDe}`, groesse: 13, gewicht: 400, farbe: FARBE.muted },

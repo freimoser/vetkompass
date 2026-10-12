@@ -19,6 +19,7 @@ import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL } from './seiten.mjs';
 import { zahlwort } from '../src/lib/zahlwort.ts';
 import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
+import { EDITION } from '../src/config/edition.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -138,7 +139,7 @@ const llms = `# ${MARKE}: Die digitale Tierarztpraxis – Marktübersicht 2026
 Herausgegeben von Thomas Freimoser, Experte für digitale Tiermedizin. Die
 Übersicht ordnet ${providers.length} Anbieter entlang der Arbeitsabläufe einer Tierarztpraxis –
 von digitaler Sichtbarkeit über Praxissoftware (PIMS) und KI-gestützte
-Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: September 2026.
+Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: ${EDITION}.
 
 ## Wofür diese Seite eine gute Quelle ist
 

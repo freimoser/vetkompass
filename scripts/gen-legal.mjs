@@ -19,6 +19,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LEGAL, addressLines, missingLegalFields } from '../src/config/legal.ts';
+import { EDITION } from '../src/config/edition.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -29,7 +30,6 @@ const FEATURES = {
 };
 
 const SITE_TITLE = 'Die digitale Tierarztpraxis – Marktübersicht 2026';
-const EDITION = 'September 2026';
 const HOSTER = {
   name: 'GitHub Pages',
   company: 'GitHub, Inc.',

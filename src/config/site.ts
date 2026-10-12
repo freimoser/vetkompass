@@ -1,5 +1,6 @@
 import type { Country } from '../types/market';
 import { LEGAL } from './legal';
+import { EDITION } from './edition';
 
 export { LEGAL } from './legal';
 export type { LegalConfig } from './legal';
@@ -39,7 +40,7 @@ export const siteConfig = {
     'Anbieterübergreifend, alphabetisch, ohne Rangfolge.',
 
   /** Sichtbarer Redaktionsstand der Übersicht. */
-  edition: 'September 2026',
+  edition: EDITION,
 
   /**
    * Kontaktadresse für Anbieter-Hinweise, Korrekturen und Entfernungswünsche.

@@ -29,6 +29,7 @@ import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, HAUPTARTIKEL } from './seiten.mjs';
 import { zahlwort } from '../src/lib/zahlwort.ts';
 import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
+import { EDITION } from '../src/config/edition.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
@@ -37,7 +38,6 @@ const siteUrl = (process.env.VITE_SITE_URL || '').trim().replace(/\/+$/, '');
 const hatDomain = /^https?:\/\//.test(siteUrl);
 const absolut = (pfad) => (hatDomain ? `${siteUrl}${pfad}` : '');
 
-const EDITION = 'September 2026';
 const STAND_ISO = '2026-09-23';
 const AUTOR = 'Thomas Freimoser';
 const ROLLE = 'Experte für digitale Tiermedizin';
