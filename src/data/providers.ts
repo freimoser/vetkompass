@@ -256,14 +256,16 @@ export const providers: Provider[] = [
   {
     id: 'petla',
     name: 'Petla',
-    // TODO: Name und Website bestätigen – Hinweis von Christian J. Gabrielse
-    // (LinkedIn, 21.09.2026). petla.de und petla.com sind geparkt, eine
-    // passende Seite war nicht auffindbar.
+    // Hinweis von Christian J. Gabrielse (LinkedIn, 21.09.2026). Die Seite
+    // liegt unter petla.app (Berlin), nicht unter petla.de oder petla.com –
+    // beide geparkt. Logo am 12.10.2026 von petla.app übernommen
+    // (Petla_Logo_blue.svg, auf Skripte und externe Verweise geprüft).
     //
     // Kategorie 1 am 27.09.2026 entfernt: Der Hinweis nannte beide Kategorien,
     // die Einordnung unter "Digitale Sichtbarkeit & Neukundengewinnung" trägt
     // aber nicht. Bleibt in Kategorie 2.
-    website: undefined,
+    logo: 'logos/petla.svg',
+    website: 'https://petla.app',
     countries: [],
     categories: [2],
     description: 'Lösung für die Online-Terminvereinbarung in Tierarztpraxen.',
