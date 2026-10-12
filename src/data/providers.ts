@@ -73,6 +73,23 @@ export const providers: Provider[] = [
     tags: ['Suchmaschine', 'Berufsverband'],
   },
   {
+    // Hinweis von Cosima L. L. Kronzucker (CoVet, LinkedIn, Anfang Oktober
+    // 2026) mit der Bitte um Kategorie 4 und die PIMS-Add-ons. Add-on belegt:
+    // co.vet/de/integrations nennt Provet Cloud als Integration und Animana
+    // für den Import per Browser-Erweiterung (geprüft 12.10.2026). Logo:
+    // co.vet/assets/brand/Covet-Logo-H-Color.svg, auf Skripte geprüft.
+    id: 'covet',
+    name: 'CoVet',
+    logo: 'logos/covet.svg',
+    website: 'https://www.co.vet/de',
+    countries: [],
+    categories: [4, 6],
+    subgroups: ['pims-addons'],
+    description:
+      'KI-Assistent, der aus dem Behandlungsgespräch Patientenakte und SOAP-Bericht erstellt, mit Anbindung an bestehende Praxissoftware.',
+    tags: ['KI', 'Dokumentation', 'SOAP', 'Add-on'],
+  },
+  {
     id: 'debevet',
     name: 'debevet',
     logo: 'logos/debevet.svg',
