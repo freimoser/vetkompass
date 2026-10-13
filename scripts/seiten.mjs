@@ -83,3 +83,15 @@ export const ALLE_ARTIKEL = [HAUPTARTIKEL, ...KATEGORIE_ARTIKEL].sort(
 
 /** Nachschlagen für Querverweise: Kategorie-Nummer → Artikelseite. */
 export const ARTIKEL_NACH_KATEGORIE = new Map(ALLE_ARTIKEL.map((s) => [s.kategorie, s]));
+
+/**
+ * Seiten außerhalb der Kategorie-Artikel. Sie stehen in der Sitemap und in
+ * llms.txt, aber nicht in der Liste der Lösungsfelder.
+ */
+export const ENTWICKLUNG = {
+  datei: 'entwicklung.html',
+  pfad: '/entwicklung.html',
+  kurzTitel: 'Wie die Marktübersicht gewachsen ist',
+  prioritaet: '0.6',
+};
+export const ZUSATZSEITEN = [ENTWICKLUNG];

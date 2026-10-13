@@ -1,57 +1,62 @@
 {
   "/": {
-    "hash": "26b113c192e4ea47",
+    "hash": "5cb71aa801ce075c",
     "veroeffentlicht": "2026-09-01",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   },
   "/branchen-newsletter.html": {
-    "hash": "a2c9482fe5862b5b",
+    "hash": "38fb2cf2fef5915a",
     "veroeffentlicht": "2026-09-24",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   },
   "/digitale-sichtbarkeit.html": {
-    "hash": "6483ca326a4e0ee2",
+    "hash": "d9e3bd2836ac0bc0",
     "veroeffentlicht": "2026-09-24",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
+  },
+  "/entwicklung.html": {
+    "hash": "72252bc266a9e2bd",
+    "veroeffentlicht": "2026-10-14",
+    "geaendert": "2026-10-14"
   },
   "/intake-self-checkin.html": {
-    "hash": "12b56a7d3435fa10",
+    "hash": "0ad84e1f402220e6",
     "veroeffentlicht": "2026-09-24",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   },
   "/ki-dokumentation.html": {
-    "hash": "b533e5a1c34208a6",
+    "hash": "a6fd7953442a3af4",
     "veroeffentlicht": "2026-09-24",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   },
   "/online-terminvereinbarung.html": {
-    "hash": "002bc1647ab840df",
+    "hash": "4e926adbbf3b0c5d",
     "veroeffentlicht": "2026-09-24",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   },
   "/online-videosprechstunde.html": {
-    "hash": "e63f265cbe8a834a",
+    "hash": "1af12932b71099bc",
     "veroeffentlicht": "2026-09-24",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   },
   "/praxiseigene-videosprechstunde.html": {
-    "hash": "50e0d4369a0b971f",
+    "hash": "b96916d04aca75c1",
     "veroeffentlicht": "2026-09-24",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   },
   "/tieraerzte-suchmaschinen.html": {
-    "hash": "498222982773f58a",
+    "hash": "a3524eecdb334a2b",
     "veroeffentlicht": "2026-09-27",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   },
   "/tierarzt-software.html": {
-    "hash": "4950c9de8240b7a9",
+    "hash": "18524811421588fb",
     "veroeffentlicht": "2026-09-23",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   },
   "/tierhalter-app.html": {
-    "hash": "ff1feccfe31b554b",
+    "hash": "f48458fb16f7e1fe",
     "veroeffentlicht": "2026-09-24",
-    "geaendert": "2026-10-12"
+    "geaendert": "2026-10-14"
   }
 }

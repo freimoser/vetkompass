@@ -1,6 +1,6 @@
 import { useState, type MouseEvent } from 'react';
 import { Download, Stethoscope } from 'lucide-react';
-import { anchors, asset, siteConfig } from '../config/site';
+import { anchors, asset, resolveLink, siteConfig } from '../config/site';
 import { providers } from '../data/providers';
 import { categories } from '../data/categories';
 import { zahlwort } from '../lib/zahlwort';
@@ -73,6 +73,10 @@ export function Header() {
 
       <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-800">
         Stand: {siteConfig.edition}
+        <span aria-hidden="true">·</span>
+        <a href={resolveLink('entwicklung.html')} className="underline underline-offset-2 hover:text-brand-900">
+          Entwicklung & alle Fassungen
+        </a>
       </p>
 
       <div className="no-print mt-7 flex flex-wrap items-center gap-3">

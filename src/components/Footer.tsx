@@ -17,6 +17,7 @@ export function Footer() {
     { label: 'Über die Marktübersicht', href: `#${anchors.methodology}` },
     { label: 'Artikel zu allen Lösungsfeldern', href: `#${anchors.articles}` },
     { label: 'Transparenz', href: `#${anchors.transparency}` },
+    { label: 'Entwicklung & alle Fassungen', href: resolveLink('entwicklung.html') },
     { label: 'Anbieter ergänzen', href: `#${anchors.submit}` },
     { label: 'Impressum', href: resolveLink(siteConfig.legal.imprintUrl) },
     { label: 'Datenschutz', href: resolveLink(siteConfig.legal.privacyUrl) },

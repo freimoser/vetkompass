@@ -16,7 +16,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
-import { ALLE_ARTIKEL } from './seiten.mjs';
+import { ALLE_ARTIKEL, ZUSATZSEITEN } from './seiten.mjs';
 import { zahlwort } from '../src/lib/zahlwort.ts';
 import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
 import { EDITION } from '../src/config/edition.ts';
@@ -46,6 +46,7 @@ const INDEXIERBAR = [
     prioritaet: s.prioritaet,
     aenderung: 'monthly',
   })),
+  ...ZUSATZSEITEN.map((s) => ({ pfad: s.pfad, prioritaet: s.prioritaet, aenderung: 'monthly' })),
 ];
 
 /* ---------------------------------------------------------------- */
@@ -150,6 +151,9 @@ Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: ${EDITION}.
   zusammengestellt ist.
 - [Transparenz](${base}/#transparenz): wirtschaftliche Verbindungen des
   Herausgebers.
+- [Entwicklung](${base}/entwicklung.html): alle Fassungen der Übersicht mit
+  Datum, wie sie gewachsen ist und nach welchen Regeln Hinweise aufgenommen
+  werden.
 
 ## Verwandte Quelle
 

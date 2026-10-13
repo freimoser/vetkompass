@@ -26,7 +26,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
-import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, HAUPTARTIKEL } from './seiten.mjs';
+import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL } from './seiten.mjs';
+import { AUS_HINWEISEN, BETEILIGUNG, FASSUNGEN, MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
 import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
 import { EDITION } from '../src/config/edition.ts';
@@ -342,6 +343,59 @@ const STIL = `      :root {
       }
       .offenlegung h2 { margin: 0 0 0.75rem; border: 0; padding: 0; font-size: 1rem; }
       .offenlegung p:last-of-type { margin-bottom: 0; }
+      .kennzahlen {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+        gap: 0.75rem;
+        margin: 0 0 2.5rem;
+        padding: 0;
+        list-style: none;
+      }
+      .kennzahlen li {
+        margin: 0;
+        border: 1px solid var(--line);
+        border-radius: 0.75rem;
+        padding: 0.8rem 0.85rem;
+        background: #fbfdff;
+      }
+      .kennzahlen strong {
+        display: block;
+        font-size: 1.6rem;
+        line-height: 1.15;
+        color: var(--brand);
+        font-variant-numeric: tabular-nums;
+      }
+      .kennzahlen span { display: block; margin-top: 0.3rem; font-size: 0.8125rem; line-height: 1.35; color: var(--muted); }
+      figure { margin: 0 0 2.5rem; }
+      figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 0.5rem; }
+      figcaption { font-size: 0.9375rem; color: var(--ink-soft); margin-top: 0.75rem; }
+      figcaption strong { color: var(--ink); }
+      .diagramm svg { width: 100%; height: auto; display: block; }
+      .chronik { list-style: none; padding: 0; border-left: 2px solid var(--line); }
+      .chronik li { position: relative; padding: 0 0 1.1rem 1.25rem; margin: 0; }
+      .chronik li::before {
+        content: '';
+        position: absolute;
+        left: -0.4rem;
+        top: 0.5rem;
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        background: var(--brand);
+      }
+      .chronik time { display: block; font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+      .chronik strong { color: var(--ink); }
+      .ueberleitung {
+        margin: 3rem 0 0;
+        border-radius: 0.75rem;
+        background: #0f4c5c;
+        color: #fff;
+        padding: 1.5rem 1.6rem;
+      }
+      .ueberleitung h2 { margin: 0 0 0.6rem; border: 0; padding: 0; color: #fff; font-size: 1.15rem; }
+      .ueberleitung p { color: #e6f0f2; }
+      .ueberleitung p:last-child { margin-bottom: 0; }
+      .ueberleitung a { color: #fff; font-weight: 600; }
       footer {
         margin-top: 3.5rem;
         padding-top: 1.5rem;
@@ -427,6 +481,7 @@ ${koerper}
         <p>
           <a href="./">Marktübersicht</a> ·
           <a href="./#transparenz">Transparenz</a> ·
+          <a href="entwicklung.html">Entwicklung</a> ·
           <a href="impressum.html">Impressum</a> ·
           <a href="datenschutz.html">Datenschutz</a> ·
           <a href="haftungsausschluss.html">Haftungsausschluss</a>
@@ -809,6 +864,248 @@ ${offenlegung(a.kategorie)}`;
 /* Schreiben                                                          */
 /* ================================================================== */
 
+/* ================================================================== */
+/* Entwicklung: Fassungen, Wachstum, Beteiligung                      */
+/* ================================================================== */
+
+/*
+  Diese Seite zeigt, wie die Übersicht entstanden ist. Zwei Gründe: Wer sie
+  zitiert, soll sehen können, welche Fassung er vor sich hat – und die
+  Entwicklung selbst ist eine Aussage über den Markt, der sich gerade
+  sortiert. Alle Zahlen kommen aus src/data/historie.ts (aus der
+  Git-Historie gezählt) oder, für heute, aus den Daten selbst.
+
+  Historische Mengen stehen bewusst nicht als „neun Kategorien“ im Text:
+  check-launch prüft jede Zahl vor „Kategorien“ gegen den heutigen Stand.
+  Für frühere Stände heißt es deshalb „Felder“ oder die Zahl steht in einer
+  Tabellenzelle.
+*/
+const datumDe = (iso) => iso.split('-').reverse().join('.');
+const tausender = (n) => n.toLocaleString('de-DE');
+const HEUTE = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Berlin' }).format(new Date());
+
+for (const [beitrag, ids] of Object.entries(AUS_HINWEISEN)) {
+  for (const id of ids) {
+    if (!providers.some((p) => p.id === id)) {
+      throw new Error(`historie.ts: „${id}“ (${beitrag}) gibt es in providers.ts nicht.`);
+    }
+  }
+}
+
+function wachstumsDiagramm() {
+  const punkte = [];
+  for (const m of MEILENSTEINE) {
+    const letzter = punkte[punkte.length - 1];
+    if (letzter && letzter.datum === m.datum) letzter.anbieter = m.anbieter;
+    else punkte.push({ datum: m.datum, anbieter: m.anbieter });
+  }
+  if (punkte[punkte.length - 1].datum !== HEUTE) punkte.push({ datum: HEUTE, anbieter: providers.length });
+  else punkte[punkte.length - 1].anbieter = providers.length;
+
+  const B = 720, H = 300, L = 46, R = 24, O = 22, U = 40;
+  const tag = (iso) => Date.parse(`${iso}T12:00:00Z`) / 864e5;
+  const x0 = tag(punkte[0].datum) - 3;
+  const x1 = tag(HEUTE) + 3;
+  const yMax = Math.ceil((Math.max(...punkte.map((p) => p.anbieter)) + 8) / 10) * 10;
+  const x = (iso) => L + ((tag(iso) - x0) / (x1 - x0)) * (B - L - R);
+  const y = (n) => O + (1 - n / yMax) * (H - O - U);
+
+  let pfad = `M${x(punkte[0].datum).toFixed(1)},${y(punkte[0].anbieter).toFixed(1)}`;
+  for (let i = 1; i < punkte.length; i++) {
+    pfad += ` H${x(punkte[i].datum).toFixed(1)} V${y(punkte[i].anbieter).toFixed(1)}`;
+  }
+  const flaeche = `${pfad} V${y(0).toFixed(1)} H${x(punkte[0].datum).toFixed(1)} Z`;
+
+  const yTicks = [];
+  for (let n = 0; n <= yMax; n += 20) yTicks.push(n);
+  const xTicks = [];
+  for (let t = Math.ceil(x0); t <= x1; t++) {
+    const d = new Date(t * 864e5).toISOString().slice(0, 10);
+    if (d.endsWith('-01') || d.endsWith('-15')) xTicks.push(d);
+  }
+
+  const marken = [
+    ...FASSUNGEN.map((f, i) => ({ datum: f.datum, anbieter: f.anbieter, text: `${i === 0 ? '1. Fassung' : f.titel.split(' ')[0]} · ${f.anbieter}` })),
+    { datum: HEUTE, anbieter: providers.length, text: `Heute · ${providers.length}` },
+  ];
+
+  const svg = `<svg viewBox="0 0 ${B} ${H}" role="img" aria-labelledby="diagramm-titel diagramm-text" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Roboto, Arial, sans-serif">
+          <title id="diagramm-titel">Anbieter in der Marktübersicht im Zeitverlauf</title>
+          <desc id="diagramm-text">Von ${punkte[0].anbieter} Anbietern am ${datumDe(punkte[0].datum)} auf ${providers.length} am ${datumDe(HEUTE)}. Die Werte stehen auch in der Chronik unten.</desc>
+${yTicks
+  .map(
+    (n) =>
+      `          <line x1="${L}" x2="${B - R}" y1="${y(n).toFixed(1)}" y2="${y(n).toFixed(1)}" stroke="#dceffa"/>
+          <text x="${L - 8}" y="${(y(n) + 4).toFixed(1)}" text-anchor="end" font-size="12" fill="#5b6874">${n}</text>`,
+  )
+  .join('\n')}
+${xTicks
+  .map(
+    (d) =>
+      `          <text x="${x(d).toFixed(1)}" y="${H - U + 22}" text-anchor="middle" font-size="12" fill="#5b6874">${datumDe(d).slice(0, 6)}</text>`,
+  )
+  .join('\n')}
+          <path d="${flaeche}" fill="#176595" opacity="0.08"/>
+          <path d="${pfad}" fill="none" stroke="#176595" stroke-width="2.5" stroke-linejoin="round"/>
+${marken
+  .map((m, i) => {
+    const mx = x(m.datum);
+    const my = y(m.anbieter);
+    const rechtsbuendig = mx > B - 160;
+    // Liegt die Marke dicht neben der vorigen, steht ihre Beschriftung unter der Linie.
+    const unten = i > 0 && mx - x(marken[i - 1].datum) < 110;
+    return `          <circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="5" fill="${i === marken.length - 1 ? '#e36414' : '#176595'}" stroke="#fff" stroke-width="2"/>
+          <text x="${(rechtsbuendig ? mx + 4 : mx + 9).toFixed(1)}" y="${(unten ? my + 24 : my - 11).toFixed(1)}" text-anchor="${rechtsbuendig ? 'end' : 'start'}" font-size="13" font-weight="600" fill="${i === marken.length - 1 ? '#b4470b' : '#0f1419'}">${esc(m.text)}</text>`;
+  })
+  .join('\n')}
+        </svg>`;
+  return svg;
+}
+
+function entwicklungsSeite() {
+  const erste = FASSUNGEN[0];
+  const personen = BETEILIGUNG.reduce((a, b) => a + b.personen, 0);
+  const ausHinweisen = Object.values(AUS_HINWEISEN).reduce((a, ids) => a + ids.length, 0);
+  const mitLinkedIn = FASSUNGEN.filter((f) => f.linkedin?.impressionen);
+  const letzteKennzahl = mitLinkedIn[mitLinkedIn.length - 1];
+  const titleTag = `Entwicklung der Marktübersicht – von ${erste.anbieter} auf ${providers.length} Anbieter`;
+  const description =
+    `Alle Fassungen der Marktübersicht digitale Tierarztpraxis seit dem ${datumDe(erste.datum)}: ` +
+    'wie sie gewachsen ist und wie Hinweise aufgenommen werden.';
+
+  const fassungen = FASSUNGEN.map((f) => {
+    const vorschau = f.bild.replace(/\.png$/, '-vorschau.webp');
+    const k = f.linkedin;
+    const zahlen = k?.impressionen
+      ? ` LinkedIn${k.stand ? ` (Stand ${datumDe(k.stand)})` : ''}: ${tausender(k.impressionen)} Impressionen, ` +
+        `${k.reaktionen} Reaktionen, ${k.kommentare} Kommentare.`
+      : '';
+    return `      <figure>
+        <a href="${esc(f.bild)}"><img src="${esc(vorschau)}" width="1600" height="${Math.round((1600 * f.bildHoehe) / f.bildBreite)}" loading="lazy" decoding="async" alt="${esc(`Marktübersicht vom ${datumDe(f.datum)}: ${f.anbieter} Anbieter`)}" /></a>
+        <figcaption>
+          <strong>${esc(f.titel)}, ${datumDe(f.datum)}</strong> – ${f.anbieter} Anbieter in ${f.kategorien} Feldern.
+          ${esc(f.text)}${esc(zahlen)}
+          <br /><a href="${esc(f.bild)}">Bild in voller Auflösung</a>${
+            k ? ` · <a href="${esc(k.url)}" rel="noopener">Beitrag auf LinkedIn</a>` : ''
+          }
+        </figcaption>
+      </figure>`;
+  }).join('\n');
+
+  const chronik = MEILENSTEINE.map(
+    (m) => `        <li>
+          <time datetime="${m.datum}">${datumDe(m.datum)} · ${m.anbieter} Anbieter</time>
+          <strong>${esc(m.titel)}.</strong> ${esc(m.text)}
+        </li>`,
+  ).join('\n');
+
+  const beteiligung = BETEILIGUNG.map((b) => {
+    const n = (AUS_HINWEISEN[b.beitrag] ?? []).length;
+    return `          <tr>
+            <th scope="row">${esc(b.beitrag)}</th>
+            <td>${datumDe(b.datum)}</td>
+            <td>${b.personen}</td>
+            <td>${b.mitAnbieterhinweis}</td>
+            <td>${n === 0 && b.beitrag !== FASSUNGEN[0].titel ? 'wird geprüft' : n}</td>
+          </tr>`;
+  }).join('\n');
+
+  const koerper = `
+      <h1>Wie die Marktübersicht gewachsen ist</h1>
+      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}</p>
+
+      <div class="lead">
+        <p>
+          <strong>Am ${datumDe(erste.datum)} erschien die erste Fassung mit ${erste.anbieter} Anbietern.
+          Heute führt die Übersicht ${providers.length} Anbieter in ${zahlwort(categories.length)} Lösungsfeldern.</strong>
+          Der größte Teil des Zuwachses kam aus Hinweisen von Tierärztinnen, Tierärzten und
+          Anbietern unter den LinkedIn-Beiträgen. Diese Seite hält jede Fassung fest, damit
+          nachvollziehbar bleibt, welcher Stand wann galt.
+        </p>
+      </div>
+
+      <ul class="kennzahlen">
+        <li><strong>${erste.anbieter} → ${providers.length}</strong><span>Anbieter seit der ersten Fassung</span></li>
+        <li><strong>${erste.kategorien} → ${categories.length}</strong><span>Lösungsfelder</span></li>
+        <li><strong>${personen}</strong><span>Mitwirkende in den Kommentaren</span></li>
+        <li><strong>${ausHinweisen}</strong><span>Anbieter über Hinweise aufgenommen</span></li>${
+          letzteKennzahl
+            ? `\n        <li><strong>${tausender(letzteKennzahl.linkedin.impressionen)}</strong><span>Impressionen des ${esc(letzteKennzahl.titel === 'Update nach dem Feedback' ? 'Update-Beitrags' : 'Beitrags')}</span></li>`
+            : ''
+        }
+      </ul>
+
+      <h2 id="wachstum">Wachstum</h2>
+      <div class="diagramm">
+        ${wachstumsDiagramm()}
+      </div>
+      <p class="muted">
+        Anbieter in der Übersicht je Tag. Ein Anbieter in mehreren Lösungsfeldern zählt einmal.
+        Die Werte vor heute sind aus der Versionsgeschichte der Daten gezählt.
+      </p>
+
+      <h2 id="fassungen">Alle Fassungen</h2>
+      <p>
+        Jede veröffentlichte Fassung bleibt hier abrufbar, so wie sie damals geteilt wurde. Die
+        aktuelle Karte steht immer auf der <a href="./">Startseite</a> und lässt sich dort mit
+        Datumsstempel herunterladen.
+      </p>
+${fassungen}
+
+      <h2 id="chronik">Was sich verbessert hat</h2>
+      <ol class="chronik">
+${chronik}
+      </ol>
+
+      <h2 id="aufnahme">So kommen Anbieter in die Übersicht</h2>
+      <p>Für jeden Hinweis gilt dieselbe Regel, auch für den Anbieter, an dem der Herausgeber beteiligt ist:</p>
+      <ul class="pruefliste">
+        <li><strong>Ein digitales Produkt</strong> für Tierarztpraxen – oder für Tierhalter auf dem Weg zur Praxis. Dienstleistungen wie Steuerberatung gehören nicht hinein.</li>
+        <li><strong>Angeboten im DACH-Raum.</strong> Länder stehen erst dann beim Anbieter, wenn sie belegt sind.</li>
+        <li><strong>Eingeordnet wird nach der Website des Anbieters,</strong> nicht nach dem Hinweis. Eine Funktion, die dort nicht beschrieben ist, führt zu keiner zusätzlichen Kategorie.</li>
+        <li><strong>Neue Lösungsfelder</strong> entstehen erst, wenn mehrere Anbieter sie belegen – sonst zerfasert die Karte.</li>
+        <li><strong>Kostenfrei und ohne Rangfolge.</strong> Sortiert wird alphabetisch.</li>
+      </ul>
+      <p>
+        Hinweise nimmt die <a href="./#anbieter-vorschlagen">Marktübersicht</a> jederzeit entgegen.
+      </p>
+
+      <h2 id="beteiligung">Beteiligung</h2>
+      <table>
+        <thead>
+          <tr><th scope="col">Beitrag</th><th scope="col">Datum</th><th scope="col">Kommentierende</th><th scope="col">mit Anbieterhinweis</th><th scope="col">daraus aufgenommen</th></tr>
+        </thead>
+        <tbody>
+${beteiligung}
+        </tbody>
+      </table>
+      <p class="muted">
+        Gezählt sind verschiedene Personen und Unternehmensseiten, ohne den Herausgeber. Namen
+        stehen hier bewusst nicht: Ein Kommentar auf LinkedIn ist keine Einwilligung, auf einer
+        anderen Seite genannt zu werden.
+      </p>
+
+      <aside class="ueberleitung" aria-labelledby="zahlen-titel">
+        <h2 id="zahlen-titel">Wie groß ist der Markt, den diese Karte ordnet?</h2>
+        <p>
+          Wie viele Tierärztinnen und Tierärzte es gibt, wie viele Praxen und wie viele Haustiere
+          sie versorgen: Diese Zahlen stehen auf der Schwesterseite
+          <a href="${esc(SCHWESTER.url)}">${esc(SCHWESTER.name)}</a> – jede mit Quelle.
+        </p>
+        <p>Diese Übersicht zeigt, welche Lösungen es gibt. ${esc(SCHWESTER.name)} zeigt, für wen.</p>
+      </aside>
+${offenlegung(null)}`;
+
+  return seite({
+    pfad: ENTWICKLUNG.pfad,
+    titleTag,
+    description,
+    krume: 'Entwicklung',
+    schema: [artikelSchema(ENTWICKLUNG.pfad, 'Wie die Marktübersicht gewachsen ist', description)],
+    koerper,
+  });
+}
+
 const woerter = (html) =>
   html
     .replace(/<script[\s\S]*?<\/script>/g, '')
@@ -824,6 +1121,11 @@ const haupt = hauptartikel();
 writeFileSync(join(OUT, HAUPTARTIKEL.datei), haupt, 'utf8');
 gesamt += woerter(haupt);
 zeilen.push(`  ${HAUPTARTIKEL.datei.padEnd(36)} ${woerter(haupt)} Wörter`);
+
+const entwicklung = entwicklungsSeite();
+writeFileSync(join(OUT, ENTWICKLUNG.datei), entwicklung, 'utf8');
+gesamt += woerter(entwicklung);
+zeilen.push(`  ${ENTWICKLUNG.datei.padEnd(36)} ${woerter(entwicklung)} Wörter`);
 
 for (const s of ALLE_ARTIKEL) {
   if (!s.inhalt) continue;
