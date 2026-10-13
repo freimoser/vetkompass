@@ -34,12 +34,16 @@ import type { Provider } from '../types/market';
 
 export const providers: Provider[] = [
   {
+    // Kategorie 9 am 13.10.2026 ergänzt (Hinweis Dr. Heinrich Wilkes,
+    // Mitgründer, LinkedIn): animalchat.net beschreibt neben der
+    // Video-Beratung die Chat-Beratung zwischen Praxis und Tierhalter.
+    // Weitere Kategorien, sobald die Funktion auf der Website steht.
     id: 'animalchat',
     name: 'AnimalChat',
     logo: 'logos/animalchat.webp',
     website: 'https://animalchat.net',
     countries: [],
-    categories: [8],
+    categories: [8, 9],
     description:
       'Kommunikationslösung für Tierarztpraxen mit Nachrichten und Videosprechstunde, nach Anbieterangabe auf deutschen Servern gehostet.',
     tags: ['Videosprechstunde', 'Kommunikation', 'Praxis'],
