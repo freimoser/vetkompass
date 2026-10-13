@@ -860,4 +860,178 @@ export const artikel: Artikel[] = [
       'etwas bringt. Die genannten Mengen sind die Eigenangaben der Portale aus Titel oder ' +
       'Startseite – nicht nachgezählt und kein Qualitätsmerkmal.',
   },
+
+  /* ----------------------------------------------------------------- 11 */
+  {
+    kategorie: 11,
+    slug: 'klinisches-wissen',
+    h1: 'Klinisches Wissen und Arzneimittelinformation für die Tierarztpraxis',
+    titleTag: 'Tierarzneimittel-Info und klinisches Wissen für Tierärzte',
+    description:
+      'Digitale Nachschlagewerke für Tierärzte im DACH-Raum zu Arzneimitteln und klinischen ' +
+      'Fragen – und woran man eine belastbare Auskunft erkennt.',
+    lead: [
+      '{Anzahl} Angebote mit sehr unterschiedlicher Herkunft: VETIDATA ist ein Informationsdienst ' +
+        'der Universität Leipzig, das Tierarzneimittel-Kompendium der Schweiz kommt aus der ' +
+        'Universität Zürich, PrimVeterinary ist eine englischsprachige Plattform aus den USA, die ' +
+        'Antworten mit Literaturangaben erzeugt.',
+      'Für die Praxis ist das selten ein Softwarekauf im üblichen Sinn. Es geht um die Frage, ' +
+        'woher im Behandlungsalltag schnell eine Antwort kommt, auf die man sich verlassen kann – ' +
+        'zur Zulassung, zur Dosierung, zur Anwendung bei einer Tierart, für die ein Präparat nicht ' +
+        'zugelassen ist.',
+    ],
+    abschnitte: [
+      {
+        h2: 'Warum Arzneimittelinformation in der Tiermedizin eigene Werkzeuge braucht',
+        absaetze: [
+          'Ein Präparat ist für bestimmte Tierarten zugelassen, nicht für alle. Wer ein Tier einer ' +
+            'anderen Art behandelt, braucht die Regeln für die Anwendung außerhalb der Zulassung – ' +
+            'in der EU festgelegt in der Tierarzneimittelverordnung (EU) 2019/6, in der Schweiz in ' +
+            'eigenem Recht. Bei Tieren, die Lebensmittel liefern, kommen Wartezeiten dazu.',
+          'Diese Fragen hängen am Land. Eine Auskunft, die für Deutschland stimmt, muss es für die ' +
+            'Schweiz nicht. Deshalb sind die nationalen Nachschlagewerke in dieser Kategorie so ' +
+            'wichtig wie die internationalen.',
+        ],
+      },
+      {
+        h2: 'Universitätsdienst oder KI-Plattform',
+        absaetze: [
+          'Die beiden Universitätsangebote sind kuratierte Nachschlagewerke: Menschen pflegen den ' +
+            'Bestand, und wer eine Frage hat, die dort nicht steht, findet bei beiden einen ' +
+            'Beratungsdienst. Ihre Stärke ist die nationale Rechtslage.',
+          'PrimVeterinary arbeitet anders. Die Plattform beantwortet Fragen in ganzen Sätzen und ' +
+            'nennt die Quellen, aus denen die Antwort stammt. Das ist schnell – und verlangt, dass ' +
+            'man die zitierten Stellen tatsächlich prüft, bevor eine Antwort in eine Behandlung ' +
+            'eingeht. Zur Zulassungslage im DACH-Raum sagt eine internationale Plattform nichts.',
+        ],
+      },
+      {
+        h2: 'Wo das im Praxisalltag hilft',
+        absaetze: [
+          'Am meisten bei seltenen Fragen: der exotische Patient, das Präparat, das man selten ' +
+            'einsetzt, die Vergiftung, bei der jede Minute zählt. Dort ersetzt ein gutes ' +
+            'Nachschlagewerk den Anruf bei einer Kollegin, die man um diese Uhrzeit nicht erreicht.',
+          'Und bei der Dokumentation: Wer festhält, auf welche Quelle sich eine Entscheidung stützt, ' +
+            'kann sie später begründen.',
+        ],
+      },
+    ],
+    worauf: [
+      'Bezieht sich die Auskunft auf die Zulassungslage im eigenen Land?',
+      'Wer pflegt die Inhalte, und wann wurden sie zuletzt aktualisiert?',
+      'Werden Quellen genannt, die sich nachprüfen lassen?',
+      'Bei KI-erzeugten Antworten: Lässt sich jede Aussage auf eine zitierte Stelle zurückführen?',
+      'Gibt es einen Beratungsdienst für Fälle, die das Nachschlagewerk nicht abdeckt?',
+      'Wie ist der Zugang geregelt – Berufsnachweis, Lizenz je Person oder je Praxis?',
+    ],
+    abgrenzung: [
+      {
+        kategorie: 4,
+        grund:
+          'Dieselbe Technik, eine andere Aufgabe: KI-Assistenten, die dokumentieren, statt ' +
+          'nachzuschlagen.',
+      },
+      {
+        kategorie: 5,
+        grund:
+          'Fachmedien berichten über Neues. Ein Nachschlagewerk beantwortet eine konkrete Frage am ' +
+          'Patienten.',
+      },
+      {
+        kategorie: 6,
+        grund:
+          'Arzneimittel und Lager laufen in der Praxissoftware zusammen – dort beginnt die Frage ' +
+          'nach der Schnittstelle zum Nachschlagewerk.',
+      },
+    ],
+    begriffe: [],
+    grenzen:
+      'Keine Bewertung der fachlichen Qualität der Inhalte und keine Empfehlung im Einzelfall. Ob ' +
+      'eine Auskunft eine Behandlung trägt, entscheidet die behandelnde Tierärztin oder der ' +
+      'behandelnde Tierarzt.',
+  },
+
+  /* ----------------------------------------------------------------- 12 */
+  {
+    kategorie: 12,
+    slug: 'heimtierregister',
+    h1: 'Heimtierregister: Wie ein Fundtier über den Chip nach Hause kommt',
+    titleTag: 'Heimtierregister in Deutschland, Österreich und der Schweiz',
+    description:
+      'Welche Register es für gechippte Hunde und Katzen im DACH-Raum gibt, was amtlich und was ' +
+      'freiwillig ist – und welche Rolle die Tierarztpraxis dabei spielt.',
+    lead: [
+      'Ein Chip allein bringt kein Tier nach Hause. Erst der Eintrag in einem Register verbindet ' +
+        'die Chipnummer mit einem Menschen. In Österreich und der Schweiz ist dieser Eintrag für ' +
+        'Hunde vorgeschrieben und läuft über amtliche Datenbanken; in Deutschland gibt es keine ' +
+        'bundesweite Pflicht, dafür kostenfreie Register von Tierschutzorganisationen.',
+      'Die Praxis ist der Ort, an dem beides zusammenkommt: Sie setzt den Chip, sie meldet ihn – ' +
+        'und sie liest ihn aus, wenn jemand ein Fundtier bringt.',
+    ],
+    abschnitte: [
+      {
+        h2: 'Amtlich oder freiwillig',
+        absaetze: [
+          'Österreich führt eine amtliche Heimtierdatenbank des Gesundheitsministeriums. In der ' +
+            'Schweiz werden Hunde in AMICUS registriert, im Auftrag der Kantone; für Katzen und ' +
+            'andere Heimtiere gibt es ANIS. Beide betreibt die Identitas AG.',
+          'In Deutschland sind die großen Register privat und für Halter kostenfrei: TASSO, ein ' +
+            'eingetragener Verein, und FINDEFIX, das Register des Deutschen Tierschutzbundes. ' +
+            'Ein gechipptes Tier ist dort erst dann auffindbar, wenn jemand es angemeldet hat.',
+        ],
+      },
+      {
+        h2: 'Was die Praxis damit zu tun hat',
+        absaetze: [
+          'Nach dem Chippen fehlt oft genau ein Schritt: die Registrierung. Manche Register lassen ' +
+            'sich direkt aus der Praxissoftware bedienen – FINDEFIX nennt Schnittstellen zu ' +
+            'easyVET, Vetera, VETINF und Animana, TASSO eine eigene Schnittstelle. Dann wird aus ' +
+            'der Patientenakte gemeldet, ohne dass jemand die Chipnummer abtippt.',
+          'Der zweite Moment ist das Fundtier. Die Praxis liest den Chip aus und fragt die Nummer ' +
+            'ab. Wer weiß, in welchen Registern er suchen muss, spart in diesem Moment die Zeit, ' +
+            'die für das Tier und seine Familie zählt.',
+        ],
+      },
+      {
+        h2: 'Warum das in eine Übersicht digitaler Praxislösungen gehört',
+        absaetze: [
+          'Die Kategorie kam aus einem Kommentar: Der Moment des entlaufenen oder gefundenen Tiers ' +
+            'kam in keinem Feld der Übersicht vor. Dabei ist er digital, er findet in der Praxis ' +
+            'statt, und ob er gut ausgeht, hängt an einem Datensatz, den die Praxis anlegt.',
+        ],
+      },
+    ],
+    worauf: [
+      'Gibt es aus der eigenen Praxissoftware eine Schnittstelle zu einem Register, damit nach dem Chippen nichts abgetippt werden muss?',
+      'Erfährt der Halter beim Chippen, dass die Registrierung ein eigener Schritt ist – und wer ihn übernimmt?',
+      'In welchem Register wird gemeldet, und wer aktualisiert den Eintrag nach Umzug oder Halterwechsel?',
+      'Wie fragt das Team eine Chipnummer bei einem Fundtier ab, und wer benachrichtigt den Halter?',
+      'Bei Tieren aus einem anderen Land: Welches Register führt diesen Chip?',
+    ],
+    abgrenzung: [
+      {
+        kategorie: 6,
+        grund:
+          'Ob aus der Patientenakte heraus registriert werden kann, entscheidet die Praxissoftware ' +
+          'mit ihren Schnittstellen.',
+      },
+      {
+        kategorie: 9,
+        grund:
+          'Ein Register verbindet Tier und Halter für den Notfall. Den laufenden Kontakt zwischen ' +
+          'Praxis und Halter tragen Apps und Portale.',
+      },
+      {
+        kategorie: 10,
+        grund:
+          'Die Gegenrichtung: Dort sucht der Halter die Praxis, hier sucht die Praxis den Halter. ' +
+          'TASSO betreibt beides.',
+      },
+    ],
+    begriffe: [],
+    grenzen:
+      'Keine Rechtsberatung zu Kennzeichnungs- und Meldepflichten. Die Regeln unterscheiden sich ' +
+      'nach Land und Tierart, in Deutschland teils nach Bundesland. Kosten stehen hier nur, wo die ' +
+      'Register sie selbst nennen.',
+  },
 ];

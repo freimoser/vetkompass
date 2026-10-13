@@ -688,6 +688,167 @@ export const providers: Provider[] = [
       'Lösung für die Online-Terminvereinbarung, die sich in bestehende Praxissoftware integrieren lässt.',
     tags: ['Terminbuchung', 'Online-Booking'],
   },
+
+  /*
+    Aufgenommen am 14.10.2026 aus den Kommentaren zum Update-Beitrag vom
+    12.10.2026 (dazu VETIDATA, Tierarzneimittel-Kompendium, Vetion und die
+    Heimtierregister aus eigener Recherche für die neuen Kategorien). Jede
+    Angabe ist auf der Website des Anbieters geprüft; Länder nur dort, wo die
+    Seite sie selbst nennt. Logos von den Anbieterseiten, SVGs auf Skripte
+    geprüft.
+  */
+  {
+    // agriatierversicherung.de/digitale-tierarztliche-beratung: „triff unsere
+    // Tierärzte live im Videocall“, „Für Versicherte bei Agria … inklusive“.
+    id: 'agria',
+    name: 'Agria Tierversicherung',
+    logo: 'logos/agria.svg',
+    website: 'https://www.agriatierversicherung.de/digitale-tierarztliche-beratung/',
+    countries: ['DE'],
+    categories: [7],
+    description:
+      'Tierversicherung mit digitaler tierärztlicher Beratung im Videocall über die Agria-App, für Versicherte inklusive; für Hund, Katze und Pferd.',
+    tags: ['Videosprechstunde', 'Versicherung', 'App'],
+  },
+  {
+    // amicus.ch: „die nationale Datenbank zur Registrierung von Hunden in der
+    // Schweiz“, betrieben von der Identitas AG im Auftrag der Kantone.
+    id: 'amicus',
+    name: 'AMICUS',
+    logo: 'logos/amicus.png',
+    website: 'https://www.amicus.ch',
+    countries: ['CH'],
+    categories: [12],
+    description:
+      'Nationale Datenbank zur Registrierung von Hunden in der Schweiz, im Auftrag der Kantone; registriert wird durch die Tierärztin oder den Tierarzt.',
+    tags: ['Heimtierregister', 'Hund', 'Chip'],
+  },
+  {
+    id: 'anis',
+    name: 'ANIS',
+    logo: 'logos/anis.png',
+    website: 'https://www.anis.ch',
+    countries: ['CH'],
+    categories: [12],
+    description:
+      'Schweizer Datenbank zur Registrierung von Heimtieren, vorwiegend Katzen; gechippt und gemeldet wird über die Tierarztpraxis.',
+    tags: ['Heimtierregister', 'Katze', 'Chip'],
+  },
+  {
+    // findefix.com/service/fuer-tieraerzte: Schnittstellen zu easyVET, Vetera,
+    // Vetinf und Animana – Registrierung „direkt aus der Patientenkarte heraus“.
+    id: 'findefix',
+    name: 'FINDEFIX',
+    logo: 'logos/findefix.svg',
+    website: 'https://www.findefix.com',
+    countries: [],
+    categories: [12],
+    description:
+      'Haustierregister des Deutschen Tierschutzbundes, kostenfrei; Praxen registrieren direkt aus der Praxissoftware, u. a. aus easyVET, Vetera, VETINF und Animana.',
+    tags: ['Heimtierregister', 'Fundtier', 'Chip', 'Schnittstelle'],
+  },
+  {
+    // Amtlich ist heimtierdatenbank.ehealth.gv.at („Eine Anwendung des
+    // GESUNDHEITSMINISTERIUMS“) – nicht heimtierdatenbank.at, das ein privater
+    // Dienst ist. Kein eigenes Produktlogo, deshalb die Wortmarke.
+    id: 'heimtierdatenbank-at',
+    name: 'Heimtierdatenbank Österreich',
+    website: 'https://heimtierdatenbank.ehealth.gv.at',
+    countries: ['AT'],
+    categories: [12],
+    description:
+      'Amtliche Heimtierdatenbank des österreichischen Gesundheitsministeriums; die Meldung kann der chippende Tierarzt im Auftrag des Halters übernehmen.',
+    tags: ['Heimtierregister', 'Hund', 'Chip', 'amtlich'],
+  },
+  {
+    // petsvetcheck.de/petsvetcheck-fuer-tierkliniken-und-kleintierpraxen:
+    // „Strukturierte digitale Voranamnese“, „Digitale Übermittlung des
+    // Gesprächsverlaufs an Praxis oder Klinik“. Hinweis Gisa Löwe (LinkedIn).
+    id: 'petsvetcheck',
+    name: 'PetsVetCheck',
+    logo: 'logos/petsvetcheck.svg',
+    website: 'https://petsvetcheck.de',
+    countries: [],
+    categories: [3],
+    description:
+      'Digitale Voranamnese mit Dringlichkeitseinschätzung für Tierhalter; der Gesprächsverlauf geht an Praxis oder Klinik, eingebunden über Website, QR-Code oder Schnittstelle.',
+    tags: ['Voranamnese', 'Triage', 'Intake'],
+  },
+  {
+    // primveterinary.com: „Evidence-based answers for veterinary
+    // professionals“, Quellen aus Fachverlagen. Englischsprachig, Betreiber in
+    // den USA. Hinweis Sarah Koll-Hampp (LinkedIn).
+    id: 'primveterinary',
+    name: 'PrimVeterinary',
+    logo: 'logos/primveterinary.png',
+    website: 'https://www.primveterinary.com',
+    countries: [],
+    categories: [11],
+    description:
+      'Englischsprachige Plattform mit evidenzbasierten Antworten für Tierärztinnen und Tierärzte, mit Quellenangaben aus der Fachliteratur; als Web und App.',
+    tags: ['Wissen', 'Evidenz', 'KI', 'Literatur'],
+  },
+  {
+    // tasso.net/…/Fuer-Tieraerzte: Registrierung per TASSO.Connect, Formular
+    // oder Antrag, Transponderabfrage, kostenloser Eintrag in die
+    // TASSO-Tierarztsuche. Länder laut dieser Seite: DE, AT, CH.
+    id: 'tasso',
+    name: 'TASSO',
+    logo: 'logos/tasso.svg',
+    website: 'https://www.tasso.net',
+    countries: ['DE', 'AT', 'CH'],
+    categories: [10, 12],
+    description:
+      'Kostenfreies Haustierregister; Praxen registrieren per Schnittstelle oder Formular und fragen Transpondernummern ab. Dazu eine Tierarztsuche mit kostenlosem Praxiseintrag.',
+    tags: ['Heimtierregister', 'Fundtier', 'Chip', 'Tierarztsuche'],
+  },
+  {
+    // tierarzneimittel.ch leitet auf das Kompendium des Instituts für
+    // Veterinärpharmakologie und -toxikologie der Universität Zürich.
+    id: 'tierarzneimittel-kompendium',
+    name: 'Tierarzneimittel-Kompendium der Schweiz',
+    website: 'https://www.tierarzneimittel.ch',
+    countries: ['CH'],
+    categories: [11],
+    description:
+      'Verzeichnis der Tierarzneimittel in der Schweiz, herausgegeben vom Institut für Veterinärpharmakologie und -toxikologie der Universität Zürich; Suche nach Wirkstoff, ATCvet-Code und Tierart.',
+    tags: ['Arzneimittel', 'Kompendium', 'Schweiz'],
+  },
+  {
+    id: 'vetidata',
+    name: 'VETIDATA',
+    logo: 'logos/vetidata.png',
+    website: 'https://vetidata.de',
+    countries: [],
+    categories: [11],
+    description:
+      'Veterinärmedizinischer Informationsdienst der Universität Leipzig zu Arzneimittelanwendung, Toxikologie und Arzneimittelrecht; Zugang mit Berufsnachweis.',
+    tags: ['Arzneimittel', 'Toxikologie', 'Arzneimittelrecht'],
+  },
+  {
+    id: 'vetion',
+    name: 'Vetion.de',
+    logo: 'logos/vetion.png',
+    website: 'https://www.vetion.de',
+    countries: [],
+    categories: [5],
+    description: 'Fachportal für die Tiermedizin mit News, Online-Fortbildungen, Jobs und Newsletter.',
+    tags: ['Fachmedien', 'Newsletter', 'Fortbildung'],
+  },
+  {
+    // vetstage.de/beitraege: „Fallbeispiele, Fachbeiträge und News“; dazu
+    // Jobs, Fortbildung und Personalverwaltung (vetstage.de/personalverwaltung).
+    // Hinweis Marie-Theres Mair (LinkedIn).
+    id: 'vetstage',
+    name: 'VetStage',
+    logo: 'logos/vetstage.svg',
+    website: 'https://www.vetstage.de',
+    countries: [],
+    categories: [5],
+    description:
+      'Plattform für die Tiermedizin mit Fachbeiträgen, Fallbeispielen und News, dazu Jobs, Fortbildungen und Personalsoftware für Praxen.',
+    tags: ['Fachmedien', 'Jobs', 'Fortbildung', 'Personal'],
+  },
 ];
 
 export const providersById = new Map(providers.map((provider) => [provider.id, provider]));

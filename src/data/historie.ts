@@ -139,6 +139,17 @@ export const MEILENSTEINE: Meilenstein[] = [
     titel: 'Update auf LinkedIn',
     text: 'CoVet aus den Kommentaren aufgenommen, Petla mit Website und Logo, Stand Oktober 2026.',
   },
+  {
+    datum: '2026-10-14',
+    anbieter: 64,
+    kategorien: 12,
+    titel: 'Zwei neue Lösungsfelder aus den Kommentaren',
+    text:
+      'Klinisches Wissen & Arzneimittel sowie Heimtierregister & Fundtiere, angeregt unter dem ' +
+      'Update-Beitrag. Dazu Agria, PetsVetCheck, PrimVeterinary und VetStage aus den Hinweisen, ' +
+      'jeweils auf der eigenen Website geprüft. Zwei Vorschläge passten nicht: eine Lösung für ' +
+      'Humanmedizin und eine reine Tierhalter-App.',
+  },
 ];
 
 /**
@@ -171,5 +182,5 @@ export const AUS_HINWEISEN: Record<string, string[]> = {
     'vetat-work',
     'vetnio',
   ],
-  Update: [],
+  Update: ['agria', 'petsvetcheck', 'primveterinary', 'vetstage'],
 };

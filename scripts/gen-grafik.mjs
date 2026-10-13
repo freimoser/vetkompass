@@ -93,16 +93,23 @@ const esc = (v) =>
 function umbruch(text, maxBreite, groesse, faktor = 0.55) {
   const proZeichen = groesse * faktor;
   const maxZeichen = Math.max(4, Math.floor(maxBreite / proZeichen));
-  const woerter = String(text).split(/\s+/);
+  /*
+    Getrennt wird an Leerzeichen und nach Bindestrichen. Ohne Letzteres blieb
+    „Tierarzneimittel-Kompendium“ ein Stück und lief über die Kachel hinaus.
+  */
+  const stuecke = [];
+  for (const wort of String(text).split(/\s+/)) {
+    wort.split(/(?<=-)/).forEach((teil, i) => stuecke.push({ teil, angehaengt: i > 0 }));
+  }
   const zeilen = [];
   let aktuell = '';
-  for (const wort of woerter) {
-    const versuch = aktuell ? `${aktuell} ${wort}` : wort;
+  for (const { teil, angehaengt } of stuecke) {
+    const versuch = aktuell ? (angehaengt ? `${aktuell}${teil}` : `${aktuell} ${teil}`) : teil;
     if (versuch.length <= maxZeichen) {
       aktuell = versuch;
     } else {
       if (aktuell) zeilen.push(aktuell);
-      aktuell = wort;
+      aktuell = teil;
     }
   }
   if (aktuell) zeilen.push(aktuell);
@@ -495,8 +502,22 @@ function zeichneRaster(gruppen, x, y, breite, spalten, kachelH) {
           Lücke oder ein fehlgeschlagenes Bild. Jetzt kräftig und so groß,
           dass der Name optisch mit den Logos daneben mithält.
         */
-        const groesse = Math.min(20, 15 + (kachelH - KACHEL_H_BASIS) / 8);
-        const zeilen = umbruch(e.label, kachelB - 2 * luft, groesse, 0.6).slice(0, 2);
+        /*
+          Die größte Schrift, bei der der Name in höchstens drei Zeilen in die
+          Kachel passt – auch die längste Zeile, auch in der Höhe.
+        */
+        const breiteFrei = kachelB - 2 * luft;
+        let groesse = Math.min(20, 15 + (kachelH - KACHEL_H_BASIS) / 8);
+        let zeilen = umbruch(e.label, breiteFrei, groesse, 0.6);
+        const passt = () =>
+          zeilen.length <= 3 &&
+          Math.max(...zeilen.map((z) => z.length)) * groesse * 0.6 <= breiteFrei &&
+          zeilen.length * groesse * 1.15 <= kachelH - luft;
+        while (!passt() && groesse > 9) {
+          groesse -= 0.5;
+          zeilen = umbruch(e.label, breiteFrei, groesse, 0.6);
+        }
+        zeilen = zeilen.slice(0, 3);
         const zeilenH = groesse * 1.15;
         const start = ky + kachelH / 2 - ((zeilen.length - 1) * zeilenH) / 2 + groesse * 0.35;
         zeilen.forEach((zeile, z) =>
@@ -655,7 +676,12 @@ try {
   */
   const OG_W = 1200;
   const OG_H = 630;
-  const KARTE_B = 744;
+  /*
+    Die Karte passt sich in Breite UND Höhe ein. Mit fester Breite brach die
+    Erzeugung ab, als die Karte mit Kategorie 11 und 12 höher wurde als die
+    Vorschau – das Bild war größer als die Fläche, in die es sollte.
+  */
+  const KARTE_B = Math.min(744, Math.floor(((OG_H - 48) * W) / H));
   const KARTE_H = Math.round((H * KARTE_B) / W);
   const KARTE_X = OG_W - 40 - KARTE_B;
   const KARTE_Y = Math.round((OG_H - KARTE_H) / 2);
@@ -689,10 +715,19 @@ try {
 
   png = true;
 } catch (fehler) {
-  console.log(
-    `Kein PNG erzeugt (${String(fehler.message).slice(0, 60)}).\n` +
-      'Das SVG steht bereit und der Download funktioniert. Für PNG: npm i -D sharp',
-  );
+  /*
+    Nur ein fehlendes sharp ist erlaubt. Jeder andere Fehler bricht ab: Am
+    14.10.2026 scheiterte die Social-Vorschau, der Build lief weiter, und das
+    alte Vorschaubild wäre unbemerkt live gegangen.
+  */
+  if (!sharpModul) {
+    console.log(
+      `Kein PNG erzeugt (${String(fehler.message).slice(0, 60)}).\n` +
+        'Das SVG steht bereit und der Download funktioniert. Für PNG: npm i -D sharp',
+    );
+  } else {
+    throw fehler;
+  }
 }
 
 console.log(

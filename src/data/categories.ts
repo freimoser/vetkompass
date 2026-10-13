@@ -6,7 +6,9 @@ import type { Category, CategoryId } from '../types/market';
  * `placement` bildet die räumliche Struktur der Original-Grafik ab:
  *  - left:   Kategorien 1–5 und 10 (breiter Block links, zweispaltig)
  *  - center: Kategorie 6 (hohe Spalte in der Mitte)
- *  - right:  Kategorien 7–9 (gestapelt rechts)
+ *  - right:  Kategorien 7–9, 11 und 12 (gestapelt rechts). 11 und 12 stehen
+ *            rechts, weil der linke Block sonst über 1000 px länger war als
+ *            die beiden anderen Spalten (gemessen am 14.10.2026 bei 1440 px).
  *
  * Die Reihenfolge in diesem Array ist die Darstellungsreihenfolge. Kategorie 10
  * steht deshalb am Ende und füllt im linken Block die Zeile neben Kategorie 5.
@@ -129,6 +131,38 @@ export const categories: Category[] = [
       'Portale und Verzeichnisse, über die Tierhalter gezielt nach einer Tierarztpraxis oder Tierklinik suchen – kommerziell betrieben oder von Berufsverbänden.',
     placement: { column: 'left', width: 'half' },
     logoColumns: 2,
+  },
+  {
+    /*
+      Nachgetragen am 14.10.2026 aus den Kommentaren zum Update-Beitrag
+      (Hinweis auf PrimVeterinary). Eigene Kategorie, weil Nachschlagen etwas
+      anderes ist als Dokumentieren (Kategorie 4) oder Informieren
+      (Kategorie 5): eine konkrete Frage am Patienten, meist zu Arzneimitteln.
+    */
+    id: 11,
+    slug: 'klinisches-wissen',
+    title: 'Klinisches Wissen & Arzneimittel',
+    shortTitle: 'Wissen & Arzneimittel',
+    description:
+      'Nachschlagewerke, Arzneimittelinformation und Entscheidungshilfen für Tierärztinnen und Tierärzte im Behandlungsalltag.',
+    placement: { column: 'right', width: 'full' },
+    logoColumns: 3,
+  },
+  {
+    /*
+      Nachgetragen am 14.10.2026 aus den Kommentaren zum Update-Beitrag: Der
+      Moment des entlaufenen oder gefundenen Tiers kam in keinem Feld vor. Die
+      Praxis chippt, meldet und liest aus – deshalb gehören die Register in
+      eine Übersicht digitaler Praxislösungen.
+    */
+    id: 12,
+    slug: 'heimtierregister',
+    title: 'Heimtierregister & Fundtiere',
+    shortTitle: 'Heimtierregister',
+    description:
+      'Register, in denen gechippte Tiere mit ihrem Halter verknüpft sind – damit ein Fundtier über die Chipnummer nach Hause findet.',
+    placement: { column: 'right', width: 'full' },
+    logoColumns: 3,
   },
 ];
 

@@ -1,61 +1,71 @@
 {
   "/": {
-    "hash": "5cb71aa801ce075c",
+    "hash": "ee9c0511ecb03081",
     "veroeffentlicht": "2026-09-01",
     "geaendert": "2026-10-14"
   },
   "/branchen-newsletter.html": {
-    "hash": "38fb2cf2fef5915a",
+    "hash": "9d977dc08a13e543",
     "veroeffentlicht": "2026-09-24",
     "geaendert": "2026-10-14"
   },
   "/digitale-sichtbarkeit.html": {
-    "hash": "d9e3bd2836ac0bc0",
+    "hash": "e6b36d69289fd28c",
     "veroeffentlicht": "2026-09-24",
     "geaendert": "2026-10-14"
   },
   "/entwicklung.html": {
-    "hash": "72252bc266a9e2bd",
+    "hash": "0897235ba3255e3e",
+    "veroeffentlicht": "2026-10-14",
+    "geaendert": "2026-10-14"
+  },
+  "/heimtierregister.html": {
+    "hash": "098677fd504a9b21",
     "veroeffentlicht": "2026-10-14",
     "geaendert": "2026-10-14"
   },
   "/intake-self-checkin.html": {
-    "hash": "0ad84e1f402220e6",
+    "hash": "13e4e712396abf9d",
     "veroeffentlicht": "2026-09-24",
     "geaendert": "2026-10-14"
   },
   "/ki-dokumentation.html": {
-    "hash": "a6fd7953442a3af4",
+    "hash": "ca0b149cc64e6381",
     "veroeffentlicht": "2026-09-24",
     "geaendert": "2026-10-14"
   },
+  "/klinisches-wissen.html": {
+    "hash": "f901918ca0e465b2",
+    "veroeffentlicht": "2026-10-14",
+    "geaendert": "2026-10-14"
+  },
   "/online-terminvereinbarung.html": {
-    "hash": "4e926adbbf3b0c5d",
+    "hash": "2a36585dce7ba12e",
     "veroeffentlicht": "2026-09-24",
     "geaendert": "2026-10-14"
   },
   "/online-videosprechstunde.html": {
-    "hash": "1af12932b71099bc",
+    "hash": "6f6ec50a46276928",
     "veroeffentlicht": "2026-09-24",
     "geaendert": "2026-10-14"
   },
   "/praxiseigene-videosprechstunde.html": {
-    "hash": "b96916d04aca75c1",
+    "hash": "5311a34103c29955",
     "veroeffentlicht": "2026-09-24",
     "geaendert": "2026-10-14"
   },
   "/tieraerzte-suchmaschinen.html": {
-    "hash": "a3524eecdb334a2b",
+    "hash": "1b823ea41d20d987",
     "veroeffentlicht": "2026-09-27",
     "geaendert": "2026-10-14"
   },
   "/tierarzt-software.html": {
-    "hash": "18524811421588fb",
+    "hash": "346c77cd2e0d9b4e",
     "veroeffentlicht": "2026-09-23",
     "geaendert": "2026-10-14"
   },
   "/tierhalter-app.html": {
-    "hash": "f48458fb16f7e1fe",
+    "hash": "f4e1b038df7d3882",
     "veroeffentlicht": "2026-09-24",
     "geaendert": "2026-10-14"
   }

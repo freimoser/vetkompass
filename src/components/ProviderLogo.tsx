@@ -39,8 +39,14 @@ export function ProviderLogo({ entry, onSelect }: ProviderLogoProps) {
         />
       ) : (
         <span
-          className="line-clamp-3 text-center text-[0.9375rem] font-semibold leading-tight
-                     text-ink-900 break-words hyphens-auto"
+          className={`line-clamp-3 text-center font-semibold leading-tight text-ink-900 break-words ${
+            /*
+              Lange Namen kleiner und nur am eigenen Bindestrich getrennt –
+              sonst zerlegt die Silbentrennung „Tierarzneimittel-Kompendium
+              der Schweiz“ in vier Bruchstücke und schneidet den Rest ab.
+            */
+            entry.label.length > 22 ? 'text-xs hyphens-manual' : 'text-[0.9375rem] hyphens-auto'
+          }`}
         >
           {entry.label}
         </span>
