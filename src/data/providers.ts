@@ -220,7 +220,7 @@ export const providers: Provider[] = [
     id: 'hunderunde',
     name: 'Hunderunde',
     logo: 'logos/hunderunde.png',
-    website: undefined, // TODO: Website ergänzen
+    website: 'https://hunderunden.de', // geprüft 14.10.2026: Mollmedia, „Hunderunden ist Teil von Just4Vets“
     countries: [],
     categories: [5],
     description:
@@ -253,7 +253,7 @@ export const providers: Provider[] = [
     id: 'just4vets',
     name: 'JUST4VETS',
     logo: 'logos/just4vets.png',
-    website: undefined, // TODO: Website ergänzen
+    website: 'https://just4vets.online', // geprüft 14.10.2026: „Fachportal für Tierärzt:innen“ (just4vets.com zeigt keinen Inhalt)
     countries: [],
     categories: [5],
     description:
@@ -263,11 +263,11 @@ export const providers: Provider[] = [
   {
     id: 'katzenmedizin',
     name: 'Katzenmedizin',
-    // TODO: Website ergänzen – katzenmedizin.de liefert ein fehlerhaftes
-    // TLS-Zertifikat und ist derzeit nicht abrufbar.
+    // katzenmedizin.de ist nicht abrufbar; die Katzenmedizin erscheint als
+    // Bereich von Just4Vets (geprüft 14.10.2026).
     // TODO: Aufnahme bestätigen – Hinweis von Christian Salzmann (LinkedIn,
     // 21.09.2026); Andreas Moll soll noch festlegen, wie er erscheinen möchte.
-    website: undefined,
+    website: 'https://just4vets.online/katzenmedizin',
     countries: [],
     categories: [5],
     description:
@@ -603,7 +603,7 @@ export const providers: Provider[] = [
     id: 'vetmeta',
     name: 'VetMeta',
     logo: 'logos/vetmeta.png',
-    website: undefined, // TODO: Website ergänzen
+    website: 'https://vetmeta.com', // geprüft 14.10.2026: VetMeta GmbH, Hamburg, KI-Behandlungsdokumentation
     countries: [],
     categories: [4],
     description:
@@ -647,7 +647,7 @@ export const providers: Provider[] = [
     id: 'vetsoap',
     name: 'VetSOAP',
     logo: 'logos/vetsoap.png',
-    website: undefined, // TODO: Website ergänzen
+    website: 'https://www.vetsoap.ai', // geprüft 14.10.2026: Logo identisch, schärfere Fassung von dort übernommen
     countries: [],
     categories: [4],
     description:
