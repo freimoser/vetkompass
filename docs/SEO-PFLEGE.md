@@ -167,3 +167,57 @@ Practices/SEO).
 
 Erst live prüfbar: Weiterleitungen www/http, `/seite` neben `/seite.html`
 (GitHub Pages liefert beide; Canonical fängt es ab).
+
+---
+
+## Runde 3 – 14.10.2026: erster Livegang, GEO-Ausgangswert
+
+Seit 14.10.2026 live unter https://tiermedizin-in-digital.org (GitHub Pages,
+HTTPS erzwungen; `www`, `http` und `freimoser.github.io/vetkompass/` leiten per
+301 um). Live geprüft: alle 14 Sitemap-Adressen 200 für Googlebot, ohne
+Weiterleitung, Canonical je auf sich selbst; `/seite` ohne `.html` liefert 200
+mit Canonical auf die `.html`-Fassung.
+
+### GEO-Audit (`geo-optimizer`, dieselben fünf Adressen vorher/nachher)
+
+| Seite | vorher | nachher |
+|---|---|---|
+| Startseite | 76 | 78 |
+| /tierarzt-software.html | 75 | 78 |
+| /ki-dokumentation.html | 71 | 74 |
+| /heimtierregister.html | 72 | 75 |
+| /entwicklung.html | 73 | 74 |
+
+Achtung beim Ablesen: Die erste „/100“-Zahl im Bericht ist „Chunk readiness“,
+nicht der Gesamtwert. Der steht unter **FINAL GEO SCORE**. In der Runde selbst
+wurde zunächst die falsche Zahl berichtet.
+
+### Befunde
+
+| Befund | Einordnung | Behandlung / Prüfung |
+|---|---|---|
+| „Prompt injection in HTML comments“ (kritisch) | **echt** – Entwicklernotizen im ausgeliefertem HTML | `scripts/html-bereinigen.mjs` als letzter Build-Schritt (React-Marker bleiben); check-launch 4i, Gegentest |
+| Keine Knowledge-Graph-Links | **echt** | Person mit `sameAs` (LinkedIn, Person auf Tiermedizin in Zahlen) aus `HERAUSGEBER`; check-launch 4j, Gegentest |
+| WebSite-Schema fehlt auf Artikeln, Marke uneinheitlich | **echt** | WebSite-Knoten „Tiermedizin in digital“ auf jeder Seite, `isPartOf` |
+| Datum nur im Schema | **echt** (Google-Empfehlung) | sichtbares `<time data-geaendert>` aus dem Seitenstand-Register, vom Fingerabdruck ausgenommen |
+| Kontakt fehlt | **echt** | Footer: Kontakt (Impressum#kontakt) und LinkedIn |
+| Definition opening | **Fehlalarm** – das Muster kennt nur englische Verben („is“, „are“) | trotzdem umgesetzt: jeder Artikel beginnt nach der H1 mit einer Definition (`definition` in articles.ts) |
+| ai.txt, summary.json, faq.json, RSS | **Werkzeugwunsch**, kein Standard | nicht gebaut |
+| Organization-Schema, About-Seite | **Fehlalarm** – Herausgeber ist eine Person | – |
+| FAQPage auf Kategorie-Artikeln | **Fehlalarm** – Prüffragen ohne Antworten sind kein FAQ | – |
+
+### Daten
+
+- Fünf fehlende Anbieteradressen gefunden und geprüft (Hunderunden, JUST4VETS,
+  Katzenmedizin, VetMeta, VetSOAP); Vemed bleibt ohne – `vemed.de` ist eine
+  andere Firma.
+- `check:anbieter`: 61 von 64 in Ordnung; Bot-Schutz Petla und VET-MAGAZIN,
+  Zertifikatskette VETINF – alle bekannt.
+
+### Offen – nur mit dem Betreiber lösbar
+
+- Search Console: Sitemap einreichen, Indexierung beantragen (Bestätigung per
+  DNS liegt).
+- Bing Webmaster Tools: Import aus der Search Console.
+- Link zu Post 1 (20.09.) für das Archiv auf /entwicklung.html.
+- Andreas Moll: Darstellung von Hunderunden und Katzenmedizin.
