@@ -807,7 +807,7 @@ export const providers: Provider[] = [
     // Veterinärpharmakologie und -toxikologie der Universität Zürich.
     id: 'tierarzneimittel-kompendium',
     name: 'Tierarzneimittel-Kompendium der Schweiz',
-    website: 'https://www.tierarzneimittel.ch',
+    website: 'https://www.vetpharm.uzh.ch/PERLDOCS/kompend3.htm',
     countries: ['CH'],
     categories: [11],
     description:

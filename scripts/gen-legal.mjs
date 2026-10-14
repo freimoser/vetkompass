@@ -191,7 +191,7 @@ const impressum = page({
   body: `      <h2>Anbieter</h2>
 ${anschriftHtml}
 
-      <h2>Kontakt</h2>
+      <h2 id="kontakt">Kontakt</h2>
       <p>E-Mail: ${mailLink}${
         LEGAL.phone ? `<br />Telefon: ${esc(LEGAL.phone)}` : ''
       }</p>

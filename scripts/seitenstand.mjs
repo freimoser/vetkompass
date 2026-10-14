@@ -43,8 +43,15 @@ const heute =
 
 const register = existsSync(REGISTER) ? JSON.parse(readFileSync(REGISTER, 'utf8')) : {};
 
+/*
+  Das sichtbare Änderungsdatum (<time data-geaendert>) zählt nicht zum Text:
+  Es wird aus diesem Register gesetzt und würde sonst bei jeder Änderung den
+  Fingerabdruck verschieben – das Datum löste sich selbst aus.
+*/
+const DATUM_ELEMENT = /<time data-geaendert[^>]*>[^<]*<\/time>/g;
+
 function sichtbarerText(html) {
-  const main = html.match(/<main[\s\S]*?<\/main>/)?.[0] ?? html;
+  const main = (html.match(/<main[\s\S]*?<\/main>/)?.[0] ?? html).replace(DATUM_ELEMENT, ' ');
   return main
     .replace(/<script[\s\S]*?<\/script>/g, ' ')
     .replace(/<style[\s\S]*?<\/style>/g, ' ')
@@ -83,7 +90,11 @@ for (const datei of readdirSync(DIST).filter((d) => d.endsWith('.html')).sort())
   // Schema im Build auf die belegten Daten setzen.
   html = html
     .replace(/"datePublished":\s*"[^"]*"/g, `"datePublished": "${eintrag.veroeffentlicht}"`)
-    .replace(/"dateModified":\s*"[^"]*"/g, `"dateModified": "${eintrag.geaendert}"`);
+    .replace(/"dateModified":\s*"[^"]*"/g, `"dateModified": "${eintrag.geaendert}"`)
+    .replace(
+      DATUM_ELEMENT,
+      `<time data-geaendert datetime="${eintrag.geaendert}">${eintrag.geaendert.split('-').reverse().join('.')}</time>`,
+    );
   writeFileSync(pfad, html, 'utf8');
 }
 

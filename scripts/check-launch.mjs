@@ -17,6 +17,7 @@ import { LEGAL, missingLegalFields } from '../src/config/legal.ts';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
 import { ZAHLWOERTER } from '../src/lib/zahlwort.ts';
+import { HERAUSGEBER } from '../src/config/verbund.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -447,6 +448,36 @@ for (const s of seiten) {
     if (!new RegExp(`href="[^"]*${ziel.replace('.', '\\.')}"`).test(html)) {
       blocker.push(`${s.route}: kein Link auf ${ziel}.`);
     }
+  }
+}
+
+/* -- 4i. Keine Entwickler-Kommentare im ausgelieferten HTML ----------- */
+
+/*
+  Antwortmaschinen lesen HTML-Kommentare mit. Das GEO-Audit vom 14.10.2026
+  wertete unsere Entwicklernotizen als mögliche Prompt-Injection.
+  scripts/html-bereinigen.mjs entfernt sie; diese Prüfung stellt sicher,
+  dass der Schritt nicht aus dem Build fällt. Leere React-Marker bleiben.
+*/
+for (const s of seiten) {
+  const n = [...lies(s.pfad).matchAll(/<!--([\s\S]*?)-->/g)].filter(
+    ([, inhalt]) => /[A-Za-zÄÖÜäöüß]/.test(inhalt) && !/^\s*\/?\$/.test(inhalt),
+  ).length;
+  if (n) blocker.push(`${s.route}: ${n} Entwickler-Kommentar(e) im ausgelieferten HTML.`);
+}
+
+/* -- 4j. Herausgeber mit belegten Profilen ----------------------------- */
+
+/*
+  Jede indexierbare Seite nennt den Herausgeber als Person mit denselben
+  sameAs-Profilen wie src/config/verbund.ts. Die Startseite trägt sie von Hand
+  in index.html – diese Prüfung hält beide Stellen beisammen.
+*/
+for (const s of seiten) {
+  const html = lies(s.pfad);
+  if (/<meta name="robots" content="noindex/.test(html) || !html.includes('rel="canonical"')) continue;
+  for (const profil of HERAUSGEBER.sameAs) {
+    if (!html.includes(`"${profil}"`)) blocker.push(`${s.route}: Herausgeber-Profil ${profil} fehlt im Schema.`);
   }
 }
 

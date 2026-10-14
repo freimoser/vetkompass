@@ -59,9 +59,10 @@
       Genau das ist passiert – nach Kategorie 10 stand hier noch „neun Kategorien“.
 
       WebSite und Person stehen neben der CollectionPage, damit Herausgeber und
-      Angebot für Antwortmaschinen als eigene Einheiten erkennbar sind. Bewusst
-      ohne hasCredential und ohne sameAs: Eine Qualifikation oder ein Profil, das
-      nicht belegt ist, wäre schlechter als keine Angabe.
+      Angebot für Antwortmaschinen als eigene Einheiten erkennbar sind. sameAs
+      deckt sich mit HERAUSGEBER in src/config/verbund.ts (check-launch prüft
+      das). Bewusst ohne hasCredential: Eine Qualifikation, die nicht belegt
+      ist, wäre schlechter als keine Angabe.
     -->
     <script type="application/ld+json">
       {
@@ -80,7 +81,12 @@
             "@type": "Person",
             "@id": "%VITE_SITE_URL%#herausgeber",
             "name": "Thomas Freimoser",
-            "jobTitle": "Experte für digitale Tiermedizin"
+            "jobTitle": "Experte für digitale Tiermedizin",
+            "url": "https://tiermedizin-in-zahlen.org/ueber-das-projekt.html",
+            "sameAs": [
+              "https://www.linkedin.com/in/thomas-freimoser",
+              "https://tiermedizin-in-zahlen.org/ueber-das-projekt.html#thomas-freimoser"
+            ]
           },
           {
             "@type": "CollectionPage",

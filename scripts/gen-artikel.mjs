@@ -21,7 +21,7 @@
  *
  * Aufruf: node scripts/gen-artikel.mjs
  */
-import { rmSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
@@ -29,7 +29,7 @@ import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL } from './seiten.mjs';
 import { AUS_HINWEISEN, BETEILIGUNG, FASSUNGEN, MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
-import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
+import { HERAUSGEBER, MARKE, SCHWESTER } from '../src/config/verbund.ts';
 import { EDITION } from '../src/config/edition.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -429,7 +429,16 @@ function seite({ pfad, titleTag, description, schema, koerper, krume }) {
         },
       ]
     : [];
-  const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': [...schema, ...krumen] }, null, 2)
+  /*
+    Die Website als eigene Einheit auf jeder Seite, nicht nur auf der
+    Startseite: Das GEO-Audit vom 14.10.2026 fand auf den Artikeln keine
+    Marke im Schema – dort stand nur „Die digitale Tierarztpraxis“ im Titel,
+    „Tiermedizin in digital“ nur im og:site_name.
+  */
+  const website = hatDomain
+    ? [{ '@type': 'WebSite', '@id': `${siteUrl}/#website`, url: `${siteUrl}/`, name: MARKE, inLanguage: 'de' }]
+    : [];
+  const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': [...website, ...schema, ...krumen] }, null, 2)
     .split('\n')
     .map((l) => `      ${l}`)
     .join('\n');
@@ -469,7 +478,7 @@ ${STIL}
   </head>
   <body>
     <main>
-      <a class="back" href="./">← Zur Marktübersicht</a>
+      <a class="back" href="./">← ${esc(MARKE)} · Zur Marktübersicht</a>
 ${koerper}
 
       <footer>
@@ -482,11 +491,13 @@ ${koerper}
           <a href="./">Marktübersicht</a> ·
           <a href="./#transparenz">Transparenz</a> ·
           <a href="entwicklung.html">Entwicklung</a> ·
+          <a href="impressum.html#kontakt">Kontakt</a> ·
           <a href="impressum.html">Impressum</a> ·
           <a href="datenschutz.html">Datenschutz</a> ·
           <a href="haftungsausschluss.html">Haftungsausschluss</a>
         </p>
         <p>
+          Herausgeber: <a href="${esc(HERAUSGEBER.sameAs[0])}" rel="me noopener">${esc(HERAUSGEBER.name)} auf LinkedIn</a>.
           Schwesterseite vom selben Herausgeber:
           <a href="${esc(SCHWESTER.url)}">${esc(SCHWESTER.name)}</a> –
           ${esc(SCHWESTER.beschreibung)}
@@ -498,6 +509,32 @@ ${koerper}
 `;
 }
 
+/*
+  Sichtbares Änderungsdatum. Google rät, das Datum auch auf der Seite zu zeigen,
+  nicht nur im Schema (GEO-Audit vom 14.10.2026). Den endgültigen Wert setzt
+  scripts/seitenstand.mjs nach dem Build aus dem Register – und lässt das
+  Element beim Fingerabdruck außen vor, sonst würde das Datum sich selbst
+  auslösen. Hier steht vorab der letzte bekannte Wert, damit auch die
+  Entwicklungsvorschau ein Datum zeigt.
+*/
+const REGISTER_DATEI = join(ROOT, 'scripts', 'seitenstand.json');
+const register = existsSync(REGISTER_DATEI) ? JSON.parse(readFileSync(REGISTER_DATEI, 'utf8')) : {};
+const datumKurz = (iso) => iso.split('-').reverse().join('.');
+const geaendertAm = (pfad) => {
+  const iso = register[pfad]?.geaendert ?? STAND_ISO;
+  return `aktualisiert am <time data-geaendert datetime="${iso}">${datumKurz(iso)}</time>`;
+};
+
+/** Der Herausgeber – dieselbe Person wie auf der Startseite und auf Tiermedizin in Zahlen. */
+const PERSON = {
+  '@type': 'Person',
+  ...(hatDomain ? { '@id': `${siteUrl}/#herausgeber` } : {}),
+  name: HERAUSGEBER.name,
+  jobTitle: HERAUSGEBER.rolle,
+  url: HERAUSGEBER.url,
+  sameAs: [...HERAUSGEBER.sameAs],
+};
+
 /** Article-Schema, für alle Seiten gleich aufgebaut. */
 const artikelSchema = (pfad, headline, description) => ({
   '@type': 'Article',
@@ -506,8 +543,9 @@ const artikelSchema = (pfad, headline, description) => ({
   inLanguage: 'de',
   datePublished: STAND_ISO,
   dateModified: STAND_ISO,
-  author: { '@type': 'Person', name: AUTOR, jobTitle: ROLLE },
-  publisher: { '@type': 'Person', name: AUTOR },
+  author: PERSON,
+  publisher: PERSON,
+  ...(hatDomain ? { isPartOf: { '@id': `${siteUrl}/#website` } } : {}),
   ...(hatDomain ? { mainEntityOfPage: absolut(pfad) } : {}),
   isAccessibleForFree: true,
 });
@@ -652,7 +690,7 @@ function hauptartikel() {
 
   const koerper = `
       <h1>${esc(titel)}</h1>
-      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}</p>
+      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(HAUPTARTIKEL.pfad)}</p>
 
       <div class="lead">
         <p>
@@ -791,7 +829,7 @@ function kategorieArtikel(seiteInfo) {
 
   const koerper = `
       <h1>${esc(a.h1)}</h1>
-      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)} ·
+      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(seiteInfo.pfad)} ·
         Kategorie ${a.kategorie} der <a href="./#kategorie-${esc(kat.slug)}">Marktübersicht</a></p>
 
       <div class="lead">
@@ -1012,7 +1050,7 @@ function entwicklungsSeite() {
 
   const koerper = `
       <h1>Wie die Marktübersicht gewachsen ist</h1>
-      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}</p>
+      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(ENTWICKLUNG.pfad)}</p>
 
       <div class="lead">
         <p>
