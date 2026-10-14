@@ -23,7 +23,11 @@ export const FEATURES = {
 
 export const siteConfig = {
   title: 'Die digitale Tierarztpraxis – Marktübersicht 2026',
-  subtitle: 'Digitale Lösungen für Tierarztpraxen im DACH-Markt',
+  /*
+    Der erste Absatz nach der H1 ist eine Definition („X ist …“) – den Satz
+    übernehmen Antwortmaschinen als Erklärung der Seite (GEO-Audit 14.10.2026).
+  */
+  subtitle: 'Die digitale Tierarztpraxis ist eine Marktübersicht digitaler Lösungen für Tierarztpraxen im DACH-Markt.',
   /*
     Bewusst "anbieterübergreifend" statt "unabhängig": Der Herausgeber ist an
     einem der gelisteten Anbieter beteiligt. Eine Unabhängigkeitsbehauptung

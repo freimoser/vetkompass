@@ -691,7 +691,6 @@ function hauptartikel() {
 
   const koerper = `
       <h1>${esc(titel)}</h1>
-      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(HAUPTARTIKEL.pfad)}</p>
 
       <div class="lead">
         <p class="definition">
@@ -711,6 +710,7 @@ function hauptartikel() {
           sie sind eine Grundentscheidung, keine Lücke.
         </p>
       </div>
+      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(HAUPTARTIKEL.pfad)}</p>
 
       <h2 id="anbieter">Praxissoftware für Tierarztpraxen: die Anbieter</h2>
       <p>
@@ -835,13 +835,13 @@ function kategorieArtikel(seiteInfo) {
 
   const koerper = `
       <h1>${esc(a.h1)}</h1>
-      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(seiteInfo.pfad)} ·
-        Kategorie ${a.kategorie} der <a href="./#kategorie-${esc(kat.slug)}">Marktübersicht</a></p>
 
       <div class="lead">
         <p class="definition">${esc(a.definition)}</p>
 ${a.lead.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
       </div>
+      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(seiteInfo.pfad)} ·
+        Kategorie ${a.kategorie} der <a href="./#kategorie-${esc(kat.slug)}">Marktübersicht</a></p>
 
 ${begriffsBlock(a.begriffe, seiteInfo.datei)}
 
@@ -1057,7 +1057,6 @@ function entwicklungsSeite() {
 
   const koerper = `
       <h1>Wie die Marktübersicht gewachsen ist</h1>
-      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(ENTWICKLUNG.pfad)}</p>
 
       <div class="lead">
         <p class="definition">
@@ -1073,6 +1072,7 @@ function entwicklungsSeite() {
           nachvollziehbar bleibt, welcher Stand wann galt.
         </p>
       </div>
+      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(ENTWICKLUNG.pfad)}</p>
 
       <ul class="kennzahlen">
         <li><strong>${erste.anbieter} → ${providers.length}</strong><span>Anbieter seit der ersten Fassung</span></li>
