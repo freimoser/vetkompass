@@ -40,6 +40,12 @@ export interface Artikel {
   h1: string;
   titleTag: string;
   description: string;
+  /**
+   * Ein Satz nach dem Muster „X ist …“, ganz oben im Kasten. Antwortmaschinen
+   * übernehmen bevorzugt solche Sätze als Begriffserklärung; das GEO-Audit vom
+   * 14.10.2026 fand auf keinem Artikel einen Einstieg mit Definition.
+   */
+  definition: string;
   /** Der Kasten oben: die Antwort in zwei Sätzen, bevor irgendetwas erklärt wird. */
   lead: string[];
   abschnitte: ArtikelAbschnitt[];
@@ -74,6 +80,8 @@ export const artikel: Artikel[] = [
     description:
       'Wie Tierarztpraxen im DACH-Raum digital sichtbar werden – Kartendienst, Bewertungen, ' +
       'Communitys. Mit allen Anbietern der Marktübersicht, ohne Rangfolge.',
+    definition:
+      'Digitale Sichtbarkeit einer Tierarztpraxis heißt: Tierhalter finden sie online – im Kartendienst, in der Suche, in Portalen – und sehen dort die Angaben, die sie für einen Besuch brauchen.',
     lead: [
       'Sichtbarkeit entsteht heute an drei Stellen: im Kartendienst, in Bewertungen und in ' +
         'Communitys, in denen Tierhalter unterwegs sind. Eine eigene Website ist ' +
@@ -171,6 +179,8 @@ export const artikel: Artikel[] = [
     description:
       'Wie Online-Terminbuchung in Tierarztpraxen funktioniert, welche Anbieter es im DACH-Raum ' +
       'gibt und woran die Einführung in der Praxis scheitern kann.',
+    definition:
+      'Online-Terminvereinbarung ist die Buchung eines Praxistermins durch den Tierhalter selbst, über Website oder App und ohne Anruf – der Termin landet direkt im Kalender der Praxis.',
     lead: [
       'Online-Terminvereinbarung nimmt Anrufe vom Empfang und macht die Praxis außerhalb der ' +
         'Öffnungszeiten buchbar. Die eigentliche Entscheidung ist aber nicht das Buchungsfenster, ' +
@@ -263,6 +273,8 @@ export const artikel: Artikel[] = [
     description:
       'Digitale Anamnesebögen und Self-Check-in für Tierarztpraxen: was sie leisten, woran sie ' +
       'scheitern und welche Anbieter es im DACH-Raum gibt.',
+    definition:
+      'Intake, die digitale Patientenaufnahme, sind die Angaben, die Tierhalter vor dem Termin selbst erfassen: Stammdaten, Anlass und Vorgeschichte. Self-Check-in ist die Anmeldung beim Eintreffen, ohne Schlange am Empfang.',
     lead: [
       'Intake verlagert das Ausfüllen nach vorne: Stammdaten, Vorgeschichte und Einwilligungen ' +
         'kommen vor dem Besuch, per Link oder am Tablet im Wartebereich. Der Empfang tippt ' +
@@ -351,6 +363,8 @@ export const artikel: Artikel[] = [
     description:
       'Wie KI-Dokumentation in der Tierarztpraxis funktioniert, wo ihre Grenzen liegen und ' +
       'welche Anbieter es gibt – ohne Rangfolge, ohne Bewertung.',
+    definition:
+      'KI-Dokumentationsassistenten sind Programme, die das Gespräch in der Sprechstunde aufzeichnen und daraus einen Entwurf für die Patientenakte schreiben, oft im SOAP-Format; geprüft und freigegeben wird er von der Tierärztin oder dem Tierarzt.',
     lead: [
       'Ein Assistent hört das Gespräch mit und erzeugt daraus einen Entwurf des ' +
         'Behandlungseintrags. Die Tierärztin prüft und gibt frei. Das ist der Kern – alles andere ' +
@@ -452,6 +466,8 @@ export const artikel: Artikel[] = [
     description:
       'Welche Newsletter und Fachmedien die deutschsprachige Veterinärbranche informieren – und ' +
       'warum sie in eine Marktübersicht digitaler Lösungen gehören.',
+    definition:
+      'Branchen-Newsletter und Fachmedien sind die Kanäle, über die Tierärztinnen, Tierärzte und Praxisteams von neuen Produkten, Fortbildungen und Entwicklungen erfahren – per E-Mail, Fachportal oder Magazin.',
     lead: [
       'Diese Kategorie fällt aus dem Rahmen: Sie enthält keine Software, sondern Medien. Sie ' +
         'steht trotzdem in der Übersicht, weil sie erklärt, wie der Markt überhaupt von neuen ' +
@@ -519,6 +535,8 @@ export const artikel: Artikel[] = [
     description:
       'Plattformen, über die Tierhalter direkt einen Tierarzt per Video erreichen – was sie von ' +
       'praxiseigenen Angeboten trennt und was das für Praxen heißt.',
+    definition:
+      'Eine Online-Videosprechstunde für Tierhalter ist eine tierärztliche Beratung per Video bei einem Anbieter mit eigenen Tierärztinnen und Tierärzten – unabhängig von der Praxis, in der das Tier sonst behandelt wird.',
     lead: [
       'Hier geht es um Plattformen mit eigenem Tierärzteteam, an die sich Tierhalter direkt ' +
         'wenden – ohne ihre Praxis. Das ist ein anderes Geschäftsmodell als eine Videosprechstunde, ' +
@@ -595,6 +613,8 @@ export const artikel: Artikel[] = [
     description:
       'Wie eine Tierarztpraxis ihren eigenen Kunden Videotermine anbietet: Abgrenzung zu ' +
       'offenen Plattformen, Auswahlkriterien und Anbieter im DACH-Raum.',
+    definition:
+      'Eine praxiseigene Videosprechstunde ist ein Videotermin, den eine Tierarztpraxis ihren eigenen Patienten anbietet – mit dem eigenen Team und mit Zugriff auf die eigene Akte.',
     lead: [
       'Die Praxis berät ihre eigenen Patienten per Video, unter ihrem Namen und auf Basis der ' +
         'vorhandenen Akte. Das ist der entscheidende Unterschied zu offenen Plattformen: Hier ' +
@@ -681,6 +701,8 @@ export const artikel: Artikel[] = [
     description:
       'Was ein Patientenportal für Tierarztpraxen leistet, worin es sich von einer Tierhalter-App ' +
       'unterscheidet und welche Anbieter es im DACH-Raum gibt.',
+    definition:
+      'Eine Tierhalter-App oder ein Patientenportal ist der digitale Zugang des Tierhalters zu seiner Praxis: Termine, Impfungen, Befunde, Rechnungen und Nachrichten an einem Ort.',
     lead: [
       'Ein Portal oder eine App gibt dem Tierhalter einen eigenen Zugang: Impfungen, Befunde, ' +
         'Rechnungen, Termine, Nachrichten. Für die Praxis ist es vor allem eine Entlastung des ' +
@@ -767,6 +789,8 @@ export const artikel: Artikel[] = [
     description:
       'Welche Tierarzt-Suchportale es in Deutschland, Österreich und der Schweiz gibt – und was ' +
       'eine Praxis mit ihren oft veralteten Einträgen tun sollte.',
+    definition:
+      'Tierärzte-Suchmaschinen sind Portale und Verzeichnisse, in denen Tierhalter nach Ort, Fachrichtung oder Notdienst eine Tierarztpraxis suchen.',
     lead: [
       '{Anzahl} Portale, keines davon DACH-weit. Deutschland hat mehrere kommerzielle ' +
         'Suchportale, Österreich eines, die Schweiz keines – dort ist die Suche des ' +
@@ -870,6 +894,8 @@ export const artikel: Artikel[] = [
     description:
       'Digitale Nachschlagewerke für Tierärzte im DACH-Raum zu Arzneimitteln und klinischen ' +
       'Fragen – und woran man eine belastbare Auskunft erkennt.',
+    definition:
+      'Klinische Wissens- und Arzneimitteldienste sind Nachschlagewerke für Tierärztinnen und Tierärzte – zu Zulassung, Dosierung, Wirkstoffen und Vergiftungen –, die während der Behandlung eine belastbare Antwort liefern.',
     lead: [
       '{Anzahl} Angebote mit sehr unterschiedlicher Herkunft: VETIDATA ist ein Informationsdienst ' +
         'der Universität Leipzig, das Tierarzneimittel-Kompendium der Schweiz kommt aus der ' +
@@ -960,6 +986,8 @@ export const artikel: Artikel[] = [
     description:
       'Welche Register es für gechippte Hunde und Katzen im DACH-Raum gibt, was amtlich und was ' +
       'freiwillig ist – und welche Rolle die Tierarztpraxis dabei spielt.',
+    definition:
+      'Ein Heimtierregister ist eine Datenbank, die die Chipnummer eines Tieres mit seinem Halter verknüpft, damit ein entlaufenes oder gefundenes Tier zurückgegeben werden kann.',
     lead: [
       'Ein Chip allein bringt kein Tier nach Hause. Erst der Eintrag in einem Register verbindet ' +
         'die Chipnummer mit einem Menschen. In Österreich und der Schweiz ist dieser Eintrag für ' +

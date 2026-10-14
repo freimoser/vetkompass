@@ -294,6 +294,7 @@ const STIL = `      :root {
         margin: 0 0 2.5rem;
       }
       .lead p:last-child { margin-bottom: 0; }
+      .lead .definition { color: var(--ink); font-weight: 600; }
       .lead strong { color: var(--ink); }
       table { border-collapse: collapse; width: 100%; margin: 0 0 1.5rem; font-size: 0.9375rem; }
       th, td {
@@ -693,6 +694,11 @@ function hauptartikel() {
       <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(HAUPTARTIKEL.pfad)}</p>
 
       <div class="lead">
+        <p class="definition">
+          Tierarzt-Software – auch Praxissoftware oder PIMS genannt – ist das zentrale
+          Verwaltungssystem einer Tierarztpraxis: Patientenakte, Termine, Abrechnung und
+          Warenwirtschaft in einem System.
+        </p>
         <p>
           <strong>Kurz:</strong> Für Tierarztpraxen im deutschsprachigen Raum sind in dieser
           Übersicht ${kernPims.length} Praxissoftware-Anbieter erfasst, dazu ${addOns.length}
@@ -833,6 +839,7 @@ function kategorieArtikel(seiteInfo) {
         Kategorie ${a.kategorie} der <a href="./#kategorie-${esc(kat.slug)}">Marktübersicht</a></p>
 
       <div class="lead">
+        <p class="definition">${esc(a.definition)}</p>
 ${a.lead.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
       </div>
 
@@ -1053,6 +1060,11 @@ function entwicklungsSeite() {
       <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(ENTWICKLUNG.pfad)}</p>
 
       <div class="lead">
+        <p class="definition">
+          Die Marktübersicht „Die digitale Tierarztpraxis“ ist eine anbieterübergreifende
+          Sammlung digitaler Lösungen für Tierarztpraxen im DACH-Raum, geordnet nach
+          Lösungsfeldern und ohne Rangfolge.
+        </p>
         <p>
           <strong>Am ${datumDe(erste.datum)} erschien die erste Fassung mit ${erste.anbieter} Anbietern.
           Heute führt die Übersicht ${providers.length} Anbieter in ${zahlwort(categories.length)} Lösungsfeldern.</strong>
@@ -1226,6 +1238,7 @@ function volltext() {
     }
 
     const a = s.inhalt;
+    teile.push(md(a.definition), '');
     for (const p of a.lead) teile.push(md(p), '');
     for (const ab of a.abschnitte) {
       teile.push(`### ${ab.h2}`, '');
