@@ -70,7 +70,7 @@ export const LEGAL: LegalConfig = {
   zip: '80805',
   city: 'München',
   country: 'Deutschland',
-  email: '91Serdar@gmail.com',
+  email: 'kontakt@freimoser.de',
   phone: '',
   vatId: '',
   smallBusiness: false,
