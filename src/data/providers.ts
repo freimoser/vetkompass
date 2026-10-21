@@ -467,7 +467,7 @@ export const providers: Provider[] = [
     id: 'tierarzt-online',
     name: 'tierarzt-online',
     logo: 'logos/tierarzt-online.svg',
-    website: 'https://tierarzt-online.org',
+    website: 'https://www.tierarzt-online.org',
     countries: [],
     categories: [7, 8],
     description:

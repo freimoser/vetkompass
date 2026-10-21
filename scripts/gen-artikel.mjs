@@ -928,6 +928,16 @@ ${offenlegung(a.kategorie)}`;
 const datumDe = (iso) => iso.split('-').reverse().join('.');
 const tausender = (n) => n.toLocaleString('de-DE');
 const HEUTE = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Berlin' }).format(new Date());
+/*
+  Der letzte Punkt im Diagramm trägt den Tag der letzten Datenänderung, nicht
+  den Bautag. Sonst ändert sich die Seite bei jedem Build, und Sitemap und
+  dateModified melden Google eine Änderung, die es nicht gab. Stimmt der
+  letzte Meilenstein mit den Daten überein, gilt sein Datum; sonst ist heute
+  wirklich etwas neu.
+*/
+const LETZTER = MEILENSTEINE[MEILENSTEINE.length - 1];
+const STAND =
+  LETZTER.anbieter === providers.length && LETZTER.kategorien === categories.length ? LETZTER.datum : HEUTE;
 
 for (const [beitrag, ids] of Object.entries(AUS_HINWEISEN)) {
   for (const id of ids) {
@@ -944,13 +954,13 @@ function wachstumsDiagramm() {
     if (letzter && letzter.datum === m.datum) letzter.anbieter = m.anbieter;
     else punkte.push({ datum: m.datum, anbieter: m.anbieter });
   }
-  if (punkte[punkte.length - 1].datum !== HEUTE) punkte.push({ datum: HEUTE, anbieter: providers.length });
+  if (punkte[punkte.length - 1].datum !== STAND) punkte.push({ datum: STAND, anbieter: providers.length });
   else punkte[punkte.length - 1].anbieter = providers.length;
 
   const B = 720, H = 300, L = 46, R = 24, O = 22, U = 40;
   const tag = (iso) => Date.parse(`${iso}T12:00:00Z`) / 864e5;
   const x0 = tag(punkte[0].datum) - 3;
-  const x1 = tag(HEUTE) + 3;
+  const x1 = tag(STAND) + 3;
   const yMax = Math.ceil((Math.max(...punkte.map((p) => p.anbieter)) + 8) / 10) * 10;
   const x = (iso) => L + ((tag(iso) - x0) / (x1 - x0)) * (B - L - R);
   const y = (n) => O + (1 - n / yMax) * (H - O - U);
@@ -971,12 +981,12 @@ function wachstumsDiagramm() {
 
   const marken = [
     ...FASSUNGEN.map((f, i) => ({ datum: f.datum, anbieter: f.anbieter, text: `${i === 0 ? '1. Fassung' : f.titel.split(' ')[0]} · ${f.anbieter}` })),
-    { datum: HEUTE, anbieter: providers.length, text: `Heute · ${providers.length}` },
+    { datum: STAND, anbieter: providers.length, text: `Heute · ${providers.length}` },
   ];
 
   const svg = `<svg viewBox="0 0 ${B} ${H}" role="img" aria-labelledby="diagramm-titel diagramm-text" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Roboto, Arial, sans-serif">
           <title id="diagramm-titel">Anbieter in der Marktübersicht im Zeitverlauf</title>
-          <desc id="diagramm-text">Von ${punkte[0].anbieter} Anbietern am ${datumDe(punkte[0].datum)} auf ${providers.length} am ${datumDe(HEUTE)}. Die Werte stehen auch in der Chronik unten.</desc>
+          <desc id="diagramm-text">Von ${punkte[0].anbieter} Anbietern am ${datumDe(punkte[0].datum)} auf ${providers.length} am ${datumDe(STAND)}. Die Werte stehen auch in der Chronik unten.</desc>
 ${yTicks
   .map(
     (n) =>

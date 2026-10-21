@@ -36,6 +36,14 @@ function cloudflareWebAnalytics(token: string): Plugin {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
+  /*
+    index.html setzt Pfade direkt hinter die Adresse (%VITE_SITE_URL%og/…).
+    Ohne abschließenden Schrägstrich entstünde „….orgog/…“ – deshalb hier
+    vereinheitlichen, statt es jedem Deploy zu überlassen.
+  */
+  const siteUrl = (env.VITE_SITE_URL || '').trim();
+  if (siteUrl) process.env.VITE_SITE_URL = siteUrl.replace(/\/*$/, '/');
+
   return {
     /**
      * GitHub Pages liefert Projektseiten unter /<repo>/ aus.
