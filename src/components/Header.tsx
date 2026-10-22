@@ -20,6 +20,19 @@ function speichere(href: string, dateiname: string) {
   link.remove();
 }
 
+/*
+  Sichtbares Änderungsdatum der Startseite. scripts/seitenstand.mjs setzt es
+  beim Bauen aus dem Seitenregister ein, nur bei inhaltlicher Änderung neu.
+  Beim Vorrendern gibt es kein document: Das Element bleibt leer und wird
+  danach befüllt. Im Browser liest das Modul den vorgerenderten Wert vor der
+  Hydration – so rendert React denselben Text wie der Server. Ohne
+  vorgerendertes Datum (Entwicklungsserver) entfällt die Angabe.
+*/
+const GEAENDERT: string | null =
+  typeof document === 'undefined'
+    ? ''
+    : (document.querySelector('time[data-geaendert]')?.getAttribute('datetime') ?? null);
+
 export function Header() {
   const [erstelltGerade, setErstelltGerade] = useState(false);
   const bildUrl = asset(siteConfig.downloadImage);
@@ -73,6 +86,14 @@ export function Header() {
 
       <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-800">
         Stand: {siteConfig.edition}
+        {GEAENDERT !== null ? (
+          <span>
+            · aktualisiert am{' '}
+            <time data-geaendert dateTime={GEAENDERT || undefined}>
+              {GEAENDERT.split('-').reverse().join('.')}
+            </time>
+          </span>
+        ) : null}
         <span aria-hidden="true">·</span>
         <a href={resolveLink('entwicklung.html')} className="underline underline-offset-2 hover:text-brand-900">
           Entwicklung & alle Fassungen

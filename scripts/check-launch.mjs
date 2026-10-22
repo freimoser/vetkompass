@@ -481,6 +481,23 @@ for (const s of seiten) {
   }
 }
 
+/* -- 4k. Sichtbares Änderungsdatum ------------------------------------ */
+
+/*
+  Google rät, das Datum aus dateModified auch sichtbar zu zeigen. Jede
+  indexierbare Seite trägt deshalb ein befülltes <time data-geaendert>, das
+  zum dateModified im Schema passt. Ein leeres Element hieße: seitenstand.mjs
+  ist aus dem Build gefallen.
+*/
+for (const s of seiten) {
+  const html = lies(s.pfad);
+  if (/<meta name="robots" content="noindex/.test(html) || !html.includes('rel="canonical"')) continue;
+  const sichtbar = html.match(/<time data-geaendert datetime="(\d{4}-\d{2}-\d{2})">\d{2}\.\d{2}\.\d{4}<\/time>/)?.[1];
+  const schema = html.match(/"dateModified":\s*"([^"]+)"/)?.[1];
+  if (!sichtbar) blocker.push(`${s.route}: kein sichtbares Änderungsdatum (<time data-geaendert>).`);
+  else if (schema && schema !== sichtbar) blocker.push(`${s.route}: sichtbares Datum ${sichtbar} ≠ dateModified ${schema}.`);
+}
+
 /* -- 5. Symbole --------------------------------------------------------- */
 
 for (const datei of ['favicon.svg', 'favicon.ico', 'favicon-96.png', 'apple-touch-icon.png']) {

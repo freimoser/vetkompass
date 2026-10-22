@@ -500,7 +500,8 @@ export const providers: Provider[] = [
     id: 'vemed',
     name: 'Vemed',
     logo: 'logos/vemed.png',
-    website: undefined, // TODO: Website ergänzen
+    // Eigene Seite: „Vemed – Software für den Tierarzt“ (geprüft 22.10.2026).
+    website: 'https://www.vemed.net',
     countries: [],
     categories: [6],
     description:
