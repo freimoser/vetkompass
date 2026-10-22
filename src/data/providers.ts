@@ -231,7 +231,8 @@ export const providers: Provider[] = [
     id: 'idexx-animana',
     name: 'IDEXX Animana',
     logo: 'logos/idexx-animana.png',
-    website: 'https://software.idexx.de',
+    // software.idexx.de lieferte am 22.10.2026 dauerhaft 502; die Produktseite bei idexx.de ist erreichbar.
+    website: 'https://www.idexx.de/de/veterinary/software-services/animana/',
     countries: [],
     categories: [6],
     description:
