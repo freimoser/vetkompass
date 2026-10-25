@@ -982,12 +982,12 @@ export const artikel: Artikel[] = [
     kategorie: 12,
     slug: 'heimtierregister',
     h1: 'Heimtierregister: Wie ein Fundtier über den Chip nach Hause kommt',
-    titleTag: 'Heimtierregister in Deutschland, Österreich und der Schweiz',
+    titleTag: 'Haustierregister und Heimtierregister in DE, AT und CH',
     description:
-      'Welche Register es für gechippte Hunde und Katzen im DACH-Raum gibt, was amtlich und was ' +
-      'freiwillig ist – und welche Rolle die Tierarztpraxis dabei spielt.',
+      'Welche Haustierregister es für gechippte Hunde und Katzen im DACH-Raum gibt, was amtlich ' +
+      'und was freiwillig ist – und welche Rolle die Praxis spielt.',
     definition:
-      'Ein Heimtierregister ist eine Datenbank, die die Chipnummer eines Tieres mit seinem Halter verknüpft, damit ein entlaufenes oder gefundenes Tier zurückgegeben werden kann.',
+      'Ein Heimtierregister, oft auch Haustierregister genannt, ist eine Datenbank, die die Chipnummer eines Tieres mit seinem Halter verknüpft, damit ein entlaufenes oder gefundenes Tier zurückgegeben werden kann.',
     lead: [
       'Ein Chip allein bringt kein Tier nach Hause. Erst der Eintrag in einem Register verbindet ' +
         'die Chipnummer mit einem Menschen. In Österreich und der Schweiz ist dieser Eintrag für ' +
