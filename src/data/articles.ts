@@ -536,7 +536,7 @@ export const artikel: Artikel[] = [
       'Plattformen, über die Tierhalter direkt einen Tierarzt per Video erreichen – was sie von ' +
       'praxiseigenen Angeboten trennt und was das für Praxen heißt.',
     definition:
-      'Eine Online-Videosprechstunde für Tierhalter ist eine tierärztliche Beratung per Video bei einem Anbieter mit eigenen Tierärztinnen und Tierärzten – unabhängig von der Praxis, in der das Tier sonst behandelt wird.',
+      'Ein Online-Tierarzt, genauer eine offene Online-Videosprechstunde, ist eine tierärztliche Beratung per Video bei einem Anbieter mit eigenen Tierärztinnen und Tierärzten – unabhängig von der Praxis, in der das Tier sonst behandelt wird.',
     lead: [
       'Hier geht es um Plattformen mit eigenem Tierärzteteam, an die sich Tierhalter direkt ' +
         'wenden – ohne ihre Praxis. Das ist ein anderes Geschäftsmodell als eine Videosprechstunde, ' +
@@ -785,7 +785,7 @@ export const artikel: Artikel[] = [
     kategorie: 10,
     slug: 'tieraerzte-suchmaschinen',
     h1: 'Tierärzte-Suchmaschinen: Wo Tierhalter nach einer Praxis suchen',
-    titleTag: 'Tierarzt-Suchmaschinen und Verzeichnisse im DACH-Raum',
+    titleTag: 'Tierarzt finden: Suchportale und Verzeichnisse im DACH-Raum',
     description:
       'Welche Tierarzt-Suchportale es in Deutschland, Österreich und der Schweiz gibt – und was ' +
       'eine Praxis mit ihren oft veralteten Einträgen tun sollte.',
