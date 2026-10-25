@@ -12,7 +12,8 @@
     "icons": "node scripts/gen-icons.mjs",
     "check:launch": "node scripts/check-launch.mjs",
     "verify": "npm run lint && npm run build && npm run check:launch",
-    "check:anbieter": "node scripts/check-anbieter.mjs"
+    "check:anbieter": "node scripts/check-anbieter.mjs",
+    "check:daten": "node scripts/check-daten.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.46.0",

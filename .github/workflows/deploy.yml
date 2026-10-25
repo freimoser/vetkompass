@@ -92,6 +92,11 @@ jobs:
       - name: Livegang-Prüfung
         run: npm run check:launch
 
+      # Widersprüche in den Daten erscheinen auf Karte, Artikeln und llms.txt
+      # zugleich. Braucht kein Netz.
+      - name: Datenprüfung
+        run: npm run check:daten
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
