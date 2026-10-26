@@ -243,3 +243,16 @@ Verbleibende Hinweise, eingeordnet:
   kaum etwas. Zurückgestellt.
 - **Bilder ohne width/height:** Die Kachel hat eine feste Höhe, deshalb
   verschiebt sich nichts (CLS 0). Kein Befund.
+
+## GEO-Audit vorher/nachher (geo-optimizer, FINAL GEO SCORE), 22.10. → 26.10.2026
+
+| Seite | vorher | nachher | Was gewirkt hat |
+|---|---:|---:|---|
+| Startseite | 78 | **83** | sichtbares Datum, FAQPage, alle Anbieter als ItemList, Atom-Feed |
+| /tierarzt-software.html | 79 | **80** | Feed-Verweis, Article mit Bild |
+| /klinisches-wissen.html | – | **81** | „Kurz beantwortet“ mit FAQPage, eigenes Vorschaubild |
+
+Weiter offen und bewusst nicht bedient: `ai.txt`, `/ai/*.json` (kein Standard),
+„Organization fehlt“ (Herausgeber ist eine Person). Der größte verbleibende
+Hebel liegt außerhalb der Seite: Bing-Index (ChatGPT-Suche) und Erwähnungen
+auf anderen Seiten.
