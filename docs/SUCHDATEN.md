@@ -72,3 +72,30 @@ mit belegbaren Angaben schreiben lässt (siehe Redaktionelle Leitlinien).
 | **Online-Tierarzt: Video, Chat, Telefon** – Formen der Fernberatung für Tierhalter | 1.600 + 70 + 50 | mittel: Kategorie 7 existiert, Artikel ist anbieterorientiert | Abgrenzung zur Fernbehandlung nach Berufsordnung, belegt |
 | **Chip und Registrierung** – Pflicht je Land, Ablauf in der Praxis | 210 + Marken | hoch: ergänzt Kategorie 12 | Rechtslage AT/CH aus amtlichen Quellen |
 | **Begriffsseite „Was ist ein PIMS?“** | 0 gemessen | GEO: Definition, nicht Suche | Begriffsteil im Hauptartikel ausbauen statt neue Seite |
+
+## 26.10.2026 – Antwortmaschinen: werden wir zitiert? (ChatGPT, gpt-4.1-mini mit Websuche, DE)
+
+Ausgangsmessung zu KEYWORD-RECHERCHE.md, 7.5. Abgefragt über DataForSEO
+(LLM Responses), Websuche erzwungen, Standort Deutschland.
+
+| Frage | tiermedizin-in-digital.org zitiert? | Stattdessen zitiert |
+|---|---|---|
+| Gibt es eine Marktübersicht digitaler Lösungen für Tierarztpraxen im DACH-Raum? | nein | tierarztsoftware-vergleich.de (neu, Pressemitteilung auf openpr.de), musterpraxis.de, tiernotdienst.de |
+| Welche KI-Dokumentationsassistenten gibt es für Tierarztpraxen in Deutschland? | nein | Anbieterseiten: vetfox.ai, heybello.de, hairki.de (PetKi), vetpal.de (Emma), manta.vet |
+| Was steht auf tiermedizin-in-digital.org? | **ja, inhaltlich richtig** (64 Anbieter, zwölf Kategorien, Oktober 2026) | – |
+
+### Was daraus folgt
+
+1. **Lesbar ja, gefunden nein.** Direkt gefragt, gibt ChatGPT die Seite korrekt
+   wieder – die Vorrenderung und llms.txt wirken. Bei offenen Fragen taucht sie
+   nicht auf. ChatGPTs Websuche stützt sich auf den Bing-Index: **Der Import in
+   die Bing Webmaster Tools ist deshalb der wichtigste offene Schritt für GEO.**
+2. **Neuer Wettbewerber:** tierarztsoftware-vergleich.de, ein Vergleichsportal
+   mit „redaktionellen Bewertungen“. Unsere Abgrenzung bleibt: keine Bewertung,
+   zwölf Felder statt nur Praxissoftware.
+3. **KI-Telefonassistenz ist der blinde Fleck der Karte.** Fünf Anbieter, die
+   ChatGPT auf die Frage nach KI-Assistenten nennt, fehlen bei uns: VETFOX,
+   HeyBello, PetKi, Emma (vetpal.de), Manta. Die Keyword-Recherche hatte das
+   Segment schon am 23.09. gefunden (4B), es wurde nie eingeordnet. Nächster
+   Schritt: jeden Anbieter auf der eigenen Seite prüfen und in Kategorie 4
+   aufnehmen, deren Beschreibung „Unterstützung im Praxisalltag“ einschließt.
