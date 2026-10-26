@@ -221,3 +221,25 @@ wurde zunächst die falsche Zahl berichtet.
 - Bing Webmaster Tools: Import aus der Search Console.
 - Link zu Post 1 (20.09.) für das Archiv auf /entwicklung.html.
 - Andreas Moll: Darstellung von Hunderunden und Katzenmedizin.
+
+## Messung 26.10.2026: Lighthouse mobil (live)
+
+Lighthouse 12.6 lokal gegen die Live-Seite, weil das Tageskontingent der
+PageSpeed-Schnittstelle erschöpft war. Vergleichswert für spätere Runden.
+
+| Seite | Leistung | Barrierefreiheit | Best Practices | SEO | LCP | CLS | TBT |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Startseite | 99 | 100 | 100 | 100 | 1,7 s | 0 | 0 ms |
+| /tierarzt-software.html | 100 | 100 | 100 | 100 | 0,9 s | 0 | 0 ms |
+
+Verbleibende Hinweise, eingeordnet:
+
+- **Cache-Dauer der Dateien:** GitHub Pages liefert alles mit 10 Minuten
+  aus und lässt sich nicht einstellen. Kein Handlungsbedarf, solange GitHub
+  Pages der Hoster ist.
+- **Bildgrößen (rund 110 KB):** Die Logos liegen größer vor als angezeigt,
+  weil dieselben Dateien die 3840 px breite Karte speisen. Verkleinerte
+  Web-Kopien wären möglich, bringen bei 99 Punkten und verzögertem Laden aber
+  kaum etwas. Zurückgestellt.
+- **Bilder ohne width/height:** Die Kachel hat eine feste Höhe, deshalb
+  verschiebt sich nichts (CLS 0). Kein Befund.
