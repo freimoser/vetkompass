@@ -384,9 +384,9 @@ export const artikel: Artikel[] = [
           'Für die Auswahl ist die Unterscheidung entscheidend, weil sie an verschiedenen Stellen ' +
             'Zeit spart. Wer am Telefon ertrinkt, dem hilft der beste Dokumentationsassistent ' +
             'nicht.',
-          'Anmerkung zur Einordnung: Die Kategorie dieser Übersicht heißt „KI-Dokumentations- und ' +
-            'Praxisassistenten" und deckt Telefonassistenz derzeit nicht eigenständig ab. Das ist ' +
-            'eine bekannte Lücke.',
+          'Anmerkung zur Einordnung: Telefonassistenz war in dieser Kategorie lange eine bekannte ' +
+            'Lücke. Seit dem 26.10.2026 stehen auch diese Anbieter in der Liste unten; welche der ' +
+            'drei Aufgaben ein Anbieter übernimmt, steht in seiner Beschreibung.',
         ],
       },
       {

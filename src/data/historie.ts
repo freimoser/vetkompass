@@ -150,6 +150,16 @@ export const MEILENSTEINE: Meilenstein[] = [
       'jeweils auf der eigenen Website geprüft. Zwei Vorschläge passten nicht: eine Lösung für ' +
       'Humanmedizin und eine reine Tierhalter-App.',
   },
+  {
+    datum: '2026-10-26',
+    anbieter: 68,
+    kategorien: 12,
+    titel: 'KI-Telefonassistenz eingeordnet',
+    text:
+      'Vier Anbieter, die Anrufe in der Praxis per KI annehmen, in Kategorie 4. Gefunden über eine ' +
+      'Stichprobe in ChatGPT, die zeigte, welche Anbieter Antwortmaschinen nennen und hier fehlten. ' +
+      'Jeder ist auf der eigenen Website geprüft.',
+  },
 ];
 
 /**

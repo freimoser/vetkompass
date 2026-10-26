@@ -858,6 +858,60 @@ export const providers: Provider[] = [
       'Plattform für die Tiermedizin mit Fachbeiträgen, Fallbeispielen und News, dazu Jobs, Fortbildungen und Personalsoftware für Praxen.',
     tags: ['Fachmedien', 'Jobs', 'Fortbildung', 'Personal'],
   },
+  /*
+    KI-Telefonassistenz, aufgenommen am 26.10.2026. Anlass: Auf die Frage nach
+    KI-Assistenten für Tierarztpraxen nannte ChatGPT mit Websuche fünf
+    Anbieter, die hier fehlten (docs/SUCHDATEN.md). Vier sind auf der eigenen
+    Seite als Lösung für Tierarztpraxen belegt; PetKi nicht – die Seite ist
+    branchenübergreifend und ohne JavaScript leer.
+  */
+  {
+    // vetfox.ai: „KI Telefonassistenz in Tierarztpraxen und -kliniken“, „Anrufannahme … 24/7“.
+    id: 'vetfox',
+    name: 'VETFOX',
+    website: 'https://www.vetfox.ai',
+    countries: [],
+    categories: [4],
+    description:
+      'KI-Telefonassistenz für Tierarztpraxen und -kliniken: nimmt Anrufe rund um die Uhr an und ist auf tierärztliche Abläufe abgestimmt.',
+    tags: ['KI', 'Telefonassistenz', 'Anrufannahme'],
+  },
+  {
+    // heybello.de: „BetriebsKI macht aus einem Diktat fertige Dokumente … Optional:
+    // Bello nimmt zusätzlich Ihre Anrufe entgegen.“
+    id: 'heybello',
+    name: 'HeyBello',
+    website: 'https://www.heybello.de',
+    countries: [],
+    categories: [4],
+    description:
+      'KI für Tierarztpraxen, die aus Diktaten fertige Dokumente erstellt, Praxiswissen ordnet und den Dienstplan unterstützt; optional nimmt ein Sprachassistent Anrufe an.',
+    tags: ['KI', 'Diktat', 'Telefonassistenz', 'Dokumentation'],
+  },
+  {
+    // vetpal.de: „Emma geht ans Telefon und bucht, verschiebt und storniert Termine.
+    // Sie beantwortet Fragen und leitet Notfälle intelligent weiter.“
+    id: 'vetpal-emma',
+    name: 'Emma (Vetpal)',
+    website: 'https://www.vetpal.de',
+    countries: [],
+    categories: [4],
+    description:
+      'KI-Rezeptionistin für Tierarztpraxen: nimmt Anrufe an, bucht, verschiebt und storniert Termine und leitet Notfälle weiter.',
+    tags: ['KI', 'Telefonassistenz', 'Terminbuchung'],
+  },
+  {
+    // manta.vet: KI-Telefonassistent, „Manta Scribe schreibt die Behandlung live mit“.
+    // Land laut manta.vet (geprüft 26.10.2026): „für den Praxisalltag in Deutschland gebaut“.
+    id: 'manta',
+    name: 'Manta',
+    website: 'https://www.manta.vet',
+    countries: ['DE'],
+    categories: [4],
+    description:
+      'KI-Telefonassistent, der Anrufe annimmt, Notfälle erkennt und Termine bucht; dazu Manta Scribe für die automatische Dokumentation der Behandlung.',
+    tags: ['KI', 'Telefonassistenz', 'Dokumentation', 'Scribe'],
+  },
 ];
 
 export const providersById = new Map(providers.map((provider) => [provider.id, provider]));

@@ -53,7 +53,7 @@ export const categories: Category[] = [
     title: 'KI-Dokumentations- & Praxisassistenten',
     shortTitle: 'KI-Assistenten',
     description:
-      'KI-basierte Lösungen für Dokumentation, Sprachaufzeichnung, Zusammenfassungen und Unterstützung im Praxisalltag.',
+      'KI-basierte Lösungen für Dokumentation, Sprachaufzeichnung, Zusammenfassungen, Telefonassistenz und Unterstützung im Praxisalltag.',
     placement: { column: 'left', width: 'half' },
     logoColumns: 2,
   },
