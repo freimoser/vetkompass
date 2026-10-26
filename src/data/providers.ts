@@ -530,7 +530,9 @@ export const providers: Provider[] = [
     name: 'VET7.well',
     logo: 'logos/vet7well.jpg',
     website: 'https://www.vet7.net',
-    countries: [],
+    // Länder laut vet7.net (geprüft 26.10.2026): „über 300 zufriedene Kunden aus
+    // Österreich, Deutschland und der Schweiz“.
+    countries: ['DE', 'AT', 'CH'],
     categories: [6],
     description: 'Praxismanagementsystem für die tierärztliche Praxis.',
     tags: ['PIMS', 'Praxissoftware'],
@@ -562,7 +564,10 @@ export const providers: Provider[] = [
     name: 'VetDream',
     logo: 'logos/vetdream.png',
     website: 'https://www.vetdream.de',
-    countries: [],
+    // Länder laut vetdream.de, Meilensteine (geprüft 26.10.2026): „Offizieller
+    // Launch Kleintiermedizin“ 2025 mit einer Klinik in Deutschland, „Herbst 2025
+    // Launch Österreich“.
+    countries: ['DE', 'AT'],
     categories: [2, 6],
     description:
       'Praxissoftware mit digitalen Zusatzfunktionen, unter anderem für die Online-Terminvereinbarung.',
@@ -573,7 +578,9 @@ export const providers: Provider[] = [
     name: 'Vetera',
     logo: 'logos/vetera.png',
     website: 'https://www.vetera.net',
-    countries: [],
+    // Länder laut vetera.net (geprüft 26.10.2026): „Softwareanbieter für die
+    // Tiermedizin in der DACH-Region“.
+    countries: ['DE', 'AT', 'CH'],
     categories: [6],
     description:
       'Praxismanagementsystem für Patientenakte, Terminplanung, Dokumentation und Abrechnung.',
