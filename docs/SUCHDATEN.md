@@ -111,9 +111,12 @@ Seite des Anbieters als Lösung für Tierarztpraxen belegt ist.
 | Petflare, VET4.0 | tierarztsoftware-vergleich.de, musterpraxis.de | **aufgenommen** (Kategorie 6) |
 | FreeVet, PRAXISvet | VET-MAGAZIN | nicht aufgenommen: Serverfehler bzw. keine Inhalte |
 | deltavet, petware, tierdok, NOA-Solutions, InVetera | tiernotdienst.de | nicht aufgenommen: keine Produktseite auffindbar, deltavet.de geparkt, noa-solutions.de ist ein Wetterdienst. **Die Liste dort ist vermutlich maschinell erzeugt – keine Quelle für diese Übersicht.** |
-| Doctolib Telefonassistent (ehem. Aaron), Entrich Technologies, fonio, voisa | musterpraxis.de, Telefon-KI | offen – prüfen, ob für Tierarztpraxen oder branchenübergreifend |
-| ScribeNote, VetRec | musterpraxis.de, KI-Dokumentation | offen – Marktbezug DACH prüfen |
-| eTermin, Terminland | musterpraxis.de, Online-Terminbuchung | offen – branchenübergreifende Buchungssysteme, Tierarzt-Bezug prüfen |
-| Pfotendoctor | musterpraxis.de, Telemedizin | offen |
-| confidu, go4vet | musterpraxis.de, Digitale Services für Tierhalter | offen |
-| lisca-vet, Pfotenklee, praxivisio, SEOwerk | musterpraxis.de, Marketing | offen – Agenturen oder Plattformen? Kategorie 1 führt Plattformen, keine Agenturen |
+| Doctolib Telefonassistent (ehem. Aaron), Entrich Technologies, fonio, voisa | musterpraxis.de, Telefon-KI | nicht aufgenommen: branchenübergreifend, kein Tierarzt-Bezug auf der Seite |
+| ScribeNote, VetRec | musterpraxis.de, KI-Dokumentation | nicht aufgenommen: nur englisch, US-Markt |
+| eTermin, Terminland | musterpraxis.de, Online-Terminbuchung | nicht aufgenommen: branchenübergreifend, kein Tierarzt-Bezug auf der Seite |
+| Pfotendoctor | musterpraxis.de, Telemedizin | **aufgenommen** (Kategorie 7) |
+| go4vet | musterpraxis.de | **aufgenommen** (Kategorie 10, Tierarzt-Finder, DE/AT) |
+| confidu | musterpraxis.de | nicht aufgenommen: reine Tierhalter-App (Ernährung, Produkte) |
+| praxivisio, SEOwerk | musterpraxis.de, Marketing | nicht aufgenommen: Agenturen ohne Tierarzt-Bezug auf der Seite |
+| Pfotenklee | musterpraxis.de | nicht aufgenommen: Geschenkgutscheine für Tierhalter |
+| lisca.vet | musterpraxis.de, Marketing | **Entscheidung offen (Thomas):** Marketing-Agentur für Tierarztpraxen. Kategorie 1 führt bisher Plattformen, keine Agenturen |

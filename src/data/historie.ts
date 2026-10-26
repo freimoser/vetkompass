@@ -152,15 +152,15 @@ export const MEILENSTEINE: Meilenstein[] = [
   },
   {
     datum: '2026-10-26',
-    anbieter: 71,
+    anbieter: 73,
     kategorien: 12,
     titel: 'KI-Telefonassistenz eingeordnet',
     text:
       'Vier Anbieter, die Anrufe in der Praxis per KI annehmen, in Kategorie 4. Gefunden über eine ' +
       'Stichprobe in ChatGPT, die zeigte, welche Anbieter Antwortmaschinen nennen und hier fehlten. ' +
       'Jeder ist auf der eigenen Website geprüft. Dazu die Praxissoftware Lupa, die einer der ' +
-      'neuen Anbieter als Schnittstelle nennt, sowie Petflare und VET4.0 aus dem Abgleich mit ' +
-      'anderen Übersichten.',
+      'neuen Anbieter als Schnittstelle nennt, sowie Petflare, VET4.0, Pfotendoctor und go4vet ' +
+      'aus dem Abgleich mit anderen Übersichten.',
   },
 ];
 

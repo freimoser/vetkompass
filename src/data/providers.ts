@@ -964,6 +964,31 @@ export const providers: Provider[] = [
       'Praxismanagementsystem der BTE GmbH mit Client/Server-Technik, ausgelegt auch für mobile Endgeräte.',
     tags: ['PIMS', 'Praxissoftware'],
   },
+  {
+    // pfotendoctor.de: „Online-Tierarztbesuch per Smartphone“, „24/7 per Videochat“.
+    // Ohne Logo: Die Wortbildmarke liegt nur weiß auf transparent vor.
+    id: 'pfotendoctor',
+    name: 'Pfotendoctor',
+    website: 'https://pfotendoctor.de',
+    countries: [],
+    categories: [7],
+    description:
+      'Tierärztliche Beratung per Videochat rund um die Uhr, gebucht über Website oder App.',
+    tags: ['Telemedizin', 'Videosprechstunde', 'Online-Tierarzt'],
+  },
+  {
+    // go4vet.com: „Tierarzt-Finder – Tierärzte in deiner Nähe finden“. Länder laut
+    // go4vet.com (geprüft 26.10.2026): „15.000+ Tierärzt:innen in Österreich und
+    // Deutschland“. Ohne Logo: nur ein Bildschirmfoto als Vorschaubild.
+    id: 'go4vet',
+    name: 'go4vet',
+    website: 'https://www.go4vet.com',
+    countries: ['DE', 'AT'],
+    categories: [10],
+    description:
+      'Plattform für Tierhalter mit Tierarzt-Finder für Deutschland und Österreich, Notdienstsuche und Ratgeberartikeln.',
+    tags: ['Tierarztsuche', 'Notdienst', 'Ratgeber'],
+  },
 ];
 
 export const providersById = new Map(providers.map((provider) => [provider.id, provider]));
