@@ -47,8 +47,17 @@ await build({
   logLevel: 'warn',
 });
 
-const { render } = await import(pathToFileURL(join(SSR_OUT, 'entry-server.js')).href);
+const { render, strukturdaten } = await import(pathToFileURL(join(SSR_OUT, 'entry-server.js')).href);
 const markup = render();
+
+/*
+  Fragen und Anbieterliste als zweites JSON-LD neben dem aus index.html. Nur
+  mit Domain – ohne absolute Adressen gäbe es keine gültigen @id.
+*/
+const siteUrl = (process.env.VITE_SITE_URL || '').trim().replace(/\/*$/, '/');
+const ld = /^https?:\/\//.test(siteUrl)
+  ? `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': strukturdaten(siteUrl) })}</script>\n  </head>`
+  : '</head>';
 
 const html = readFileSync(INDEX, 'utf8');
 if (!html.includes(LEER)) {
@@ -60,7 +69,7 @@ if (!html.includes(LEER)) {
   process.exit(1);
 }
 
-writeFileSync(INDEX, html.replace(LEER, `<div id="root">${markup}</div>`), 'utf8');
+writeFileSync(INDEX, html.replace(LEER, `<div id="root">${markup}</div>`).replace('</head>', ld), 'utf8');
 rmSync(SSR_OUT, { recursive: true, force: true });
 
 /* Gemessen ausgeben, nicht behauptet – die Zahl ist der Beleg, dass es wirkte. */

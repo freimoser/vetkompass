@@ -7,6 +7,7 @@ import { ProviderModal } from './components/ProviderModal';
 import { ArticleSection } from './components/ArticleSection';
 import { AboutSection } from './components/AboutSection';
 import { TransparencySection } from './components/TransparencySection';
+import { FaqSection } from './components/FaqSection';
 import { SubmitProviderSection } from './components/SubmitProviderSection';
 import { Footer } from './components/Footer';
 import { categories } from './data/categories';
@@ -87,6 +88,7 @@ export default function App() {
           <ArticleSection />
           <AboutSection />
           <TransparencySection />
+          <FaqSection />
           <SubmitProviderSection />
         </main>
 
