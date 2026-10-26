@@ -412,7 +412,19 @@ const STIL = `      :root {
         th, td { border: 0; padding: 0.15rem 0; }
       }`;
 
-function seite({ pfad, titleTag, description, schema, koerper, krume }) {
+/*
+  Vorschaubild je Lösungsfeld (scripts/gen-grafik.mjs, og/kategorie/<slug>.png).
+  Ohne Kategorie – Entwicklungsseite – bleibt das Gesamtbild.
+*/
+function vorschau(kategorie) {
+  const kat = kategorie ? kategorieVon(kategorie) : null;
+  return kat
+    ? { bild: `/og/kategorie/${kat.slug}.png`, alt: `${kat.title}: Anbieter im DACH-Markt, aus der Marktübersicht Die digitale Tierarztpraxis.` }
+    : { bild: '/og/marktuebersicht.png', alt: 'Marktübersicht: digitale Lösungen für Tierarztpraxen im DACH-Markt, gegliedert nach Lösungsfeldern.' };
+}
+
+function seite({ pfad, titleTag, description, schema, koerper, krume, kategorie }) {
+  const og = vorschau(kategorie);
   /*
     BreadcrumbList auf jeder Artikelseite: Marktübersicht → Artikel. Sie ordnet
     die Seite für Suchmaschinen ins Themenfeld ein und ersetzt in den
@@ -439,7 +451,13 @@ function seite({ pfad, titleTag, description, schema, koerper, krume }) {
   const website = hatDomain
     ? [{ '@type': 'WebSite', '@id': `${siteUrl}/#website`, url: `${siteUrl}/`, name: MARKE, inLanguage: 'de' }]
     : [];
-  const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': [...website, ...schema, ...krumen] }, null, 2)
+  // Google empfiehlt für Article ein Bild; es ist dasselbe wie die Social-Vorschau.
+  const mitBild = schema.map((n) =>
+    hatDomain && n['@type'] === 'Article' && !n.image
+      ? { ...n, image: { '@type': 'ImageObject', url: absolut(og.bild), width: 1200, height: 630 } }
+      : n,
+  );
+  const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': [...website, ...mitBild, ...krumen] }, null, 2)
     .split('\n')
     .map((l) => `      ${l}`)
     .join('\n');
@@ -465,7 +483,7 @@ ${hatDomain ? `    <link rel="canonical" href="${esc(absolut(pfad))}" />\n` : ''
     <meta property="og:site_name" content="${esc(MARKE)}" />
 ${
   hatDomain
-    ? `    <meta property="og:url" content="${esc(absolut(pfad))}" />\n    <meta property="og:image" content="${esc(absolut('/og/marktuebersicht.png'))}" />\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />\n    <meta property="og:image:alt" content="Marktübersicht: digitale Lösungen für Tierarztpraxen im DACH-Markt, gegliedert nach Lösungsfeldern." />\n    <meta name="twitter:image" content="${esc(absolut('/og/marktuebersicht.png'))}" />\n`
+    ? `    <meta property="og:url" content="${esc(absolut(pfad))}" />\n    <meta property="og:image" content="${esc(absolut(og.bild))}" />\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />\n    <meta property="og:image:alt" content="${esc(og.alt)}" />\n    <meta name="twitter:image" content="${esc(absolut(og.bild))}" />\n`
     : ''
 }    <meta name="twitter:card" content="summary_large_image" />
 
@@ -795,6 +813,7 @@ ${offenlegung(6)}`;
 
   return seite({
     pfad: HAUPTARTIKEL.pfad,
+    kategorie: HAUPTARTIKEL.kategorie,
     krume: 'Praxissoftware (PIMS)',
     titleTag: `${titel} ${kernPims.length} Anbieter im DACH-Markt`,
     description: beschreibung,
@@ -919,6 +938,7 @@ ${offenlegung(a.kategorie)}`;
 
   return seite({
     pfad: seiteInfo.pfad,
+    kategorie: a.kategorie,
     krume: kat.title,
     titleTag: a.titleTag,
     description: a.description,

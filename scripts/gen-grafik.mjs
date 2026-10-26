@@ -713,6 +713,43 @@ try {
     .png({ compressionLevel: 9 })
     .toFile(join(PUBLIC, 'og', 'marktuebersicht.png'));
 
+  /*
+    Ein Vorschaubild je Lösungsfeld. Wer einen Artikel teilt, soll im Feed
+    sehen, worum es in diesem Artikel geht – nicht wieder die ganze Karte,
+    die bei 550 px Breite ohnehin niemand lesen kann. Links Titel und Zahl,
+    rechts die Karte dieses Feldes, gezeichnet wie in der großen Übersicht.
+  */
+  mkdirSync(join(PUBLIC, 'og', 'kategorie'), { recursive: true });
+  for (const kat of categories) {
+    const KB = 600;
+    const k = messeKarte(kat, KB, 96);
+    const platzH = OG_H - 80;
+    const skala = Math.min(1, platzH / k.hoehe);
+    const kx = OG_W - 40 - KB * skala;
+    const ky = (OG_H - k.hoehe * skala) / 2;
+    const titel = umbruch(kat.title, 470, 40, 0.56).slice(0, 4);
+    const n = providers.filter((p) => p.categories.includes(kat.id)).length;
+    const titelY = 160;
+    const nachTitel = titelY + (titel.length - 1) * 50;
+    const katSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_W * 2}" height="${OG_H * 2}" viewBox="0 0 ${OG_W} ${OG_H}" font-family="${SCHRIFT}">
+  <rect width="${OG_W}" height="${OG_H}" fill="${FARBE.hintergrund}"/>
+  <rect x="0" y="0" width="10" height="${OG_H}" fill="${FARBE.brand}"/>
+  <text x="52" y="92" font-size="17" font-weight="700" letter-spacing="2.5" fill="${FARBE.brand}">${esc(MARKE.toUpperCase())} · FELD ${kat.id}</text>
+${titel.map((z, i) => `  <text x="52" y="${titelY + i * 50}" font-size="40" font-weight="700" fill="${FARBE.ink}">${esc(z)}</text>`).join('\n')}
+  <text x="52" y="${nachTitel + 110}" font-size="64" font-weight="700" fill="${FARBE.brand}">${n}</text>
+  <text x="52" y="${nachTitel + 142}" font-size="20" fill="${FARBE.soft}">Anbieter im DACH-Markt</text>
+  <text x="52" y="${OG_H - 70}" font-size="17" fill="${FARBE.muted}">Die digitale Tierarztpraxis · Marktübersicht ${EDITION.split(' ')[1]}</text>
+  <text x="52" y="${OG_H - 44}" font-size="17" fill="${FARBE.muted}">Alphabetisch, ohne Rangfolge · Stand ${EDITION}</text>
+  <g transform="translate(${kx.toFixed(1)} ${ky.toFixed(1)}) scale(${skala.toFixed(4)})">
+  ${zeichneKarte(k, 0, 0)}
+  </g>
+</svg>`;
+    await sharp(Buffer.from(katSvg), { density: 144 })
+      .resize({ width: OG_W, height: OG_H })
+      .png({ compressionLevel: 9 })
+      .toFile(join(PUBLIC, 'og', 'kategorie', `${kat.slug}.png`));
+  }
+
   png = true;
 } catch (fehler) {
   /*
