@@ -727,15 +727,24 @@ try {
     const skala = Math.min(1, platzH / k.hoehe);
     const kx = OG_W - 40 - KB * skala;
     const ky = (OG_H - k.hoehe * skala) / 2;
-    const titel = umbruch(kat.title, 470, 40, 0.56).slice(0, 4);
+    // Umbruch für die breitere DejaVu des Build-Servers gerechnet (0,62 statt
+    // 0,56) – sonst reichte „KI-Dokumentations- &“ dort bis an die Karte.
+    // Kleiner setzen, bis höchstens drei Zeilen bleiben und kein Bruchstück
+    // wie „KI-“ allein in einer Zeile steht.
+    let tg = 40;
+    let titel = umbruch(kat.title, 440, tg, 0.62);
+    while (tg > 30 && (titel.length > 3 || titel.some((z) => z.length < 5))) {
+      tg -= 2;
+      titel = umbruch(kat.title, 440, tg, 0.62);
+    }
     const n = providers.filter((p) => p.categories.includes(kat.id)).length;
     const titelY = 160;
-    const nachTitel = titelY + (titel.length - 1) * 50;
+    const nachTitel = titelY + (titel.length - 1) * tg * 1.25;
     const katSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_W * 2}" height="${OG_H * 2}" viewBox="0 0 ${OG_W} ${OG_H}" font-family="${SCHRIFT}">
   <rect width="${OG_W}" height="${OG_H}" fill="${FARBE.hintergrund}"/>
   <rect x="0" y="0" width="10" height="${OG_H}" fill="${FARBE.brand}"/>
   <text x="52" y="92" font-size="17" font-weight="700" letter-spacing="2.5" fill="${FARBE.brand}">${esc(MARKE.toUpperCase())} · FELD ${kat.id}</text>
-${titel.map((z, i) => `  <text x="52" y="${titelY + i * 50}" font-size="40" font-weight="700" fill="${FARBE.ink}">${esc(z)}</text>`).join('\n')}
+${titel.map((z, i) => `  <text x="52" y="${(titelY + i * tg * 1.25).toFixed(1)}" font-size="${tg}" font-weight="700" fill="${FARBE.ink}">${esc(z)}</text>`).join('\n')}
   <text x="52" y="${nachTitel + 110}" font-size="64" font-weight="700" fill="${FARBE.brand}">${n}</text>
   <text x="52" y="${nachTitel + 142}" font-size="20" fill="${FARBE.soft}">Anbieter im DACH-Markt</text>
   <text x="52" y="${OG_H - 70}" font-size="17" fill="${FARBE.muted}">Die digitale Tierarztpraxis · Marktübersicht ${EDITION.split(' ')[1]}</text>
