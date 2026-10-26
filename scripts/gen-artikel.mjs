@@ -828,10 +828,37 @@ ${offenlegung(6)}`;
 /* Kategorie-Artikel                                                  */
 /* ================================================================== */
 
+/*
+  „Kurz beantwortet“: drei Fragen je Artikel, deren Antworten ausschließlich
+  aus den Daten und dem Artikel selbst stammen – Anbieterliste, Definition,
+  Prüffragen. Nichts davon ist neu geschrieben, es ist dieselbe Aussage als
+  abgeschlossener Absatz. Antwortmaschinen zitieren solche Absätze, weil sie
+  ohne den Rest der Seite verständlich sind (GEO-Runde 26.10.2026).
+*/
+function kurzeFragen(a, kat, liste) {
+  const namen = liste.map((p) => p.variants?.[kat.id]?.label ?? p.name);
+  const aufzaehlung = namen.length > 1 ? `${namen.slice(0, -1).join(', ')} und ${namen.at(-1)}` : namen[0];
+  return [
+    {
+      frage: `Welche Anbieter gibt es für ${kat.title}?`,
+      antwort:
+        `Die Marktübersicht führt in diesem Lösungsfeld ${zahlwort(namen.length)} Anbieter: ` +
+        `${aufzaehlung}. Die Liste ist alphabetisch, ohne Rangfolge und ohne Anspruch auf ` +
+        `Vollständigkeit (Stand: ${EDITION}).`,
+    },
+    { frage: `Was versteht man unter ${kat.title}?`, antwort: a.definition },
+    {
+      frage: 'Was sollte eine Praxis vor der Auswahl klären?',
+      antwort: `Unter anderem diese Fragen: ${a.worauf.slice(0, 3).join(' ')} Die vollständige Prüfliste steht oben im Artikel.`,
+    },
+  ];
+}
+
 function kategorieArtikel(seiteInfo) {
   const a = seiteInfo.inhalt;
   const kat = kategorieVon(a.kategorie);
   const liste = anbieterVon(a.kategorie);
+  const fragen = kurzeFragen(a, kat, liste);
 
   const koerper = `
       <h1>${esc(a.h1)}</h1>
@@ -866,6 +893,16 @@ ${tabelle(liste, kat.id)}
         Kein Anspruch auf Vollständigkeit. Fehlt ein Anbieter? <a href="./#anbieter-vorschlagen">Hinweise sind erwünscht</a>.
       </p>
 
+      <h2 id="fragen">Kurz beantwortet</h2>
+${fragen
+  .map(
+    (f) => `      <div class="frage">
+        <h3>${esc(f.frage)}</h3>
+        <p>${esc(f.antwort)}</p>
+      </div>`,
+  )
+  .join('\n')}
+
 ${abgrenzungsBlock(a.abgrenzung)}
 
       <h2 id="grenzen">Was dieser Artikel nicht leistet</h2>
@@ -898,6 +935,14 @@ ${offenlegung(a.kategorie)}`;
           position: i + 1,
           name: p.name,
           ...(p.website ? { url: p.website } : {}),
+        })),
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: fragen.map((f) => ({
+          '@type': 'Question',
+          name: f.frage,
+          acceptedAnswer: { '@type': 'Answer', text: f.antwort },
         })),
       },
     ],
