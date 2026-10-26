@@ -95,3 +95,15 @@ export const ENTWICKLUNG = {
   prioritaet: '0.6',
 };
 export const ZUSATZSEITEN = [ENTWICKLUNG];
+
+/**
+ * Anker eines Meilensteins auf der Entwicklungsseite. Der Atom-Feed
+ * (gen-seo.mjs) verlinkt jeden Eintrag hierher – eine Funktion für beide,
+ * damit Link und Ziel nicht auseinanderlaufen.
+ */
+export const meilensteinAnker = (m) =>
+  `${m.datum}-${m.titel
+    .toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')}`;

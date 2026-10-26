@@ -16,7 +16,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
-import { ALLE_ARTIKEL, ZUSATZSEITEN } from './seiten.mjs';
+import { ALLE_ARTIKEL, ZUSATZSEITEN, ENTWICKLUNG, meilensteinAnker } from './seiten.mjs';
+import { MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
 import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
 import { EDITION } from '../src/config/edition.ts';
@@ -74,7 +75,7 @@ writeFileSync(join(OUT, 'robots.txt'), robots, 'utf8');
 
 if (!hatDomain) {
   // Alte Stände entfernen, damit keine Datei mit falscher Domain liegenbleibt.
-  for (const datei of ['sitemap.xml', 'llms.txt', 'CNAME']) {
+  for (const datei of ['sitemap.xml', 'llms.txt', 'CNAME', 'feed.xml']) {
     rmSync(join(OUT, datei), { force: true });
   }
   console.log(
@@ -155,6 +156,11 @@ Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: ${EDITION}.
   Datum, wie sie gewachsen ist und nach welchen Regeln Hinweise aufgenommen
   werden.
 
+## Änderungen verfolgen
+
+- [feed.xml](${base}/feed.xml): Atom-Feed mit jeder Erweiterung und Korrektur
+  der Übersicht, mit Datum und Anbieterzahl.
+
 ## Verwandte Quelle
 
 - [${SCHWESTER.name}](${SCHWESTER.url}): ${SCHWESTER.beschreibung} Vom selben
@@ -205,6 +211,42 @@ beantwortet. Zuständig sind die Tierärztekammern und die geltenden Vorschrifte
 `;
 writeFileSync(join(OUT, 'llms.txt'), llms, 'utf8');
 
+/*
+  Atom-Feed der Änderungen. Die Übersicht wächst in Schüben – wer sie verfolgt,
+  soll nicht nachsehen müssen, ob sich etwas getan hat. Einträge sind die
+  Meilensteine aus src/data/historie.ts, jeder verlinkt auf seinen Anker auf
+  der Entwicklungsseite. Datumsangaben sind Tage (12:00 Uhr Berlin), weil die
+  Historie keine Uhrzeiten kennt – eine erfundene Uhrzeit wäre eine Angabe,
+  die nicht stimmt.
+*/
+const xml = (v) => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const feedHost = new URL(base).host;
+const zeit = (datum) => `${datum}T12:00:00+02:00`;
+const eintraege = [...MEILENSTEINE].reverse();
+const feed = `<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="de">
+  <title>${xml(MARKE)} – Änderungen an der Marktübersicht</title>
+  <subtitle>Neue Anbieter, neue Lösungsfelder und Korrekturen der Marktübersicht „Die digitale Tierarztpraxis“.</subtitle>
+  <link rel="self" type="application/atom+xml" href="${base}/feed.xml"/>
+  <link rel="alternate" type="text/html" href="${base}${ENTWICKLUNG.pfad}"/>
+  <id>${base}/feed.xml</id>
+  <updated>${zeit(eintraege[0].datum)}</updated>
+  <author><name>Thomas Freimoser</name></author>
+${eintraege
+  .map(
+    (m) => `  <entry>
+    <title>${xml(m.titel)} (${m.anbieter} Anbieter)</title>
+    <link rel="alternate" type="text/html" href="${base}${ENTWICKLUNG.pfad}#${meilensteinAnker(m)}"/>
+    <id>tag:${feedHost},${m.datum}:${meilensteinAnker(m)}</id>
+    <updated>${zeit(m.datum)}</updated>
+    <summary>${xml(m.text)}</summary>
+  </entry>`,
+  )
+  .join('\n')}
+</feed>
+`;
+writeFileSync(join(OUT, 'feed.xml'), feed, 'utf8');
+
 console.log(
-  `robots.txt, sitemap.xml (${INDEXIERBAR.length} Adresse) und llms.txt erzeugt für ${base}`,
+  `robots.txt, sitemap.xml (${INDEXIERBAR.length} Adresse), llms.txt und feed.xml erzeugt für ${base}`,
 );

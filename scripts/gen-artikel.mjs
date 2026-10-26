@@ -26,7 +26,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
-import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL } from './seiten.mjs';
+import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL, meilensteinAnker } from './seiten.mjs';
 import { AUS_HINWEISEN, BETEILIGUNG, FASSUNGEN, MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
 import { HERAUSGEBER, MARKE, SCHWESTER } from '../src/config/verbund.ts';
@@ -472,6 +472,7 @@ function seite({ pfad, titleTag, description, schema, koerper, krume, kategorie 
     <meta name="author" content="${esc(AUTOR)}" />
 ${hatDomain ? `    <link rel="canonical" href="${esc(absolut(pfad))}" />\n` : ''}    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="favicon-96.png" sizes="96x96" type="image/png" />
+${hatDomain ? `    <link rel="alternate" type="application/atom+xml" title="${esc(MARKE)} – Änderungen" href="${esc(absolut('/feed.xml'))}" />\n` : ''}
     <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <meta name="theme-color" content="#2b9ad8" />
@@ -1113,7 +1114,7 @@ function entwicklungsSeite() {
   }).join('\n');
 
   const chronik = MEILENSTEINE.map(
-    (m) => `        <li>
+    (m) => `        <li id="${meilensteinAnker(m)}">
           <time datetime="${m.datum}">${datumDe(m.datum)} · ${m.anbieter} Anbieter</time>
           <strong>${esc(m.titel)}.</strong> ${esc(m.text)}
         </li>`,

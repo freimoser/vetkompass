@@ -154,7 +154,7 @@ export const MEILENSTEINE: Meilenstein[] = [
     datum: '2026-10-26',
     anbieter: 73,
     kategorien: 12,
-    titel: 'KI-Telefonassistenz eingeordnet',
+    titel: 'Neun Anbieter, darunter KI-Telefonassistenz',
     text:
       'Vier Anbieter, die Anrufe in der Praxis per KI annehmen, in Kategorie 4. Gefunden über eine ' +
       'Stichprobe in ChatGPT, die zeigte, welche Anbieter Antwortmaschinen nennen und hier fehlten. ' +
