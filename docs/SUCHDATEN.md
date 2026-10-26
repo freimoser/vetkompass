@@ -99,3 +99,21 @@ Ausgangsmessung zu KEYWORD-RECHERCHE.md, 7.5. Abgefragt über DataForSEO
    Segment schon am 23.09. gefunden (4B), es wurde nie eingeordnet. Nächster
    Schritt: jeden Anbieter auf der eigenen Seite prüfen und in Kategorie 4
    aufnehmen, deren Beschreibung „Unterstützung im Praxisalltag“ einschließt.
+
+## 26.10.2026 – Abgleich mit anderen Übersichten: Anbieterkandidaten
+
+Quellen: musterpraxis.de (Kategorieseiten), tierarztsoftware-vergleich.de,
+tiernotdienst.de, VET-MAGAZIN. Aufgenommen wird nur, was auf der eigenen
+Seite des Anbieters als Lösung für Tierarztpraxen belegt ist.
+
+| Kandidat | Gefunden bei | Stand |
+|---|---|---|
+| Petflare, VET4.0 | tierarztsoftware-vergleich.de, musterpraxis.de | **aufgenommen** (Kategorie 6) |
+| FreeVet, PRAXISvet | VET-MAGAZIN | nicht aufgenommen: Serverfehler bzw. keine Inhalte |
+| deltavet, petware, tierdok, NOA-Solutions, InVetera | tiernotdienst.de | nicht aufgenommen: keine Produktseite auffindbar, deltavet.de geparkt, noa-solutions.de ist ein Wetterdienst. **Die Liste dort ist vermutlich maschinell erzeugt – keine Quelle für diese Übersicht.** |
+| Doctolib Telefonassistent (ehem. Aaron), Entrich Technologies, fonio, voisa | musterpraxis.de, Telefon-KI | offen – prüfen, ob für Tierarztpraxen oder branchenübergreifend |
+| ScribeNote, VetRec | musterpraxis.de, KI-Dokumentation | offen – Marktbezug DACH prüfen |
+| eTermin, Terminland | musterpraxis.de, Online-Terminbuchung | offen – branchenübergreifende Buchungssysteme, Tierarzt-Bezug prüfen |
+| Pfotendoctor | musterpraxis.de, Telemedizin | offen |
+| confidu, go4vet | musterpraxis.de, Digitale Services für Tierhalter | offen |
+| lisca-vet, Pfotenklee, praxivisio, SEOwerk | musterpraxis.de, Marketing | offen – Agenturen oder Plattformen? Kategorie 1 führt Plattformen, keine Agenturen |

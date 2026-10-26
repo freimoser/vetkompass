@@ -930,6 +930,40 @@ export const providers: Provider[] = [
       'Praxisverwaltungssoftware für Tierarztpraxen mit KI-Funktionen, unter anderem für klinische Notizen sowie Zahlungen und Rechnungsstellung.',
     tags: ['PIMS', 'Praxissoftware', 'KI', 'Cloud'],
   },
+  /*
+    Abgleich mit den Seiten, die ChatGPT statt dieser Übersicht nennt
+    (26.10.2026): Petflare (tierarztsoftware-vergleich.de) und VET4.0
+    (musterpraxis.de). Nicht aufgenommen: FreeVet (Website zeigt einen
+    Serverfehler), PRAXISvet (keine Inhalte), deltavet, petware, tierdok,
+    NOA-Solutions, InVetera – genannt auf tiernotdienst.de, aber ohne
+    auffindbare Produktseite; deltavet.de ist geparkt.
+  */
+  {
+    // petflare.io: „Praxissoftware für Tierärzte und Tierheilpraktiker“,
+    // Tierakte, Termine, „Abrechnung und GOT“, Tierhalter-Portal.
+    id: 'petflare',
+    name: 'Petflare',
+    logo: 'logos/petflare.svg',
+    website: 'https://petflare.io',
+    countries: [],
+    categories: [6],
+    description:
+      'Webbasierte Praxissoftware für Tierärzte und Tierheilpraktiker mit Tierakte, Terminkalender, GOT-Abrechnung und Tierhalter-Portal.',
+    tags: ['PIMS', 'Praxissoftware', 'Cloud', 'GOT'],
+  },
+  {
+    // vet40.de: „Diese grundlegend neu entwickelte Tierarztsoftware verwendet eine
+    // Client/Server-Technologie“. Ohne Logo: Die Seite zeigt nur das Firmenlogo
+    // der BTE GmbH, nicht den Produktnamen.
+    id: 'vet40',
+    name: 'VET4.0',
+    website: 'https://www.vet40.de',
+    countries: [],
+    categories: [6],
+    description:
+      'Praxismanagementsystem der BTE GmbH mit Client/Server-Technik, ausgelegt auch für mobile Endgeräte.',
+    tags: ['PIMS', 'Praxissoftware'],
+  },
 ];
 
 export const providersById = new Map(providers.map((provider) => [provider.id, provider]));
