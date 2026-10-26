@@ -867,6 +867,7 @@ export const providers: Provider[] = [
   */
   {
     // vetfox.ai: „KI Telefonassistenz in Tierarztpraxen und -kliniken“, „Anrufannahme … 24/7“.
+    // Ohne Logo: Die Seite zeigt nur ein Symbol ohne Namen.
     id: 'vetfox',
     name: 'VETFOX',
     website: 'https://www.vetfox.ai',
@@ -879,6 +880,7 @@ export const providers: Provider[] = [
   {
     // heybello.de: „BetriebsKI macht aus einem Diktat fertige Dokumente … Optional:
     // Bello nimmt zusätzlich Ihre Anrufe entgegen.“
+    // Ohne Logo: Keine Logodatei auf der Seite, nur ein Vorschaubild der Startseite.
     id: 'heybello',
     name: 'HeyBello',
     website: 'https://www.heybello.de',
@@ -893,6 +895,7 @@ export const providers: Provider[] = [
     // Sie beantwortet Fragen und leitet Notfälle intelligent weiter.“
     id: 'vetpal-emma',
     name: 'Emma (Vetpal)',
+    logo: 'logos/vetpal.svg',
     website: 'https://www.vetpal.de',
     countries: [],
     categories: [4],
@@ -905,12 +908,27 @@ export const providers: Provider[] = [
     // Land laut manta.vet (geprüft 26.10.2026): „für den Praxisalltag in Deutschland gebaut“.
     id: 'manta',
     name: 'Manta',
+    logo: 'logos/manta.svg',
     website: 'https://www.manta.vet',
     countries: ['DE'],
     categories: [4],
     description:
       'KI-Telefonassistent, der Anrufe annimmt, Notfälle erkennt und Termine bucht; dazu Manta Scribe für die automatische Dokumentation der Behandlung.',
     tags: ['KI', 'Telefonassistenz', 'Dokumentation', 'Scribe'],
+  },
+  {
+    // lupapets.com/de: „KI-basierte Praxisverwaltungssoftware für Tierarztpraxen“,
+    // mit deutscher Produktseite. Gefunden als angebundene Praxissoftware bei
+    // Manta (manta.vet, Integrationen), geprüft 26.10.2026.
+    id: 'lupa',
+    name: 'Lupa',
+    logo: 'logos/lupa.png',
+    website: 'https://lupapets.com/de/',
+    countries: [],
+    categories: [6],
+    description:
+      'Praxisverwaltungssoftware für Tierarztpraxen mit KI-Funktionen, unter anderem für klinische Notizen sowie Zahlungen und Rechnungsstellung.',
+    tags: ['PIMS', 'Praxissoftware', 'KI', 'Cloud'],
   },
 ];
 
