@@ -118,7 +118,7 @@ Seite des Anbieters als Lösung für Tierarztpraxen belegt ist.
 |---|---|---|
 | Petflare, VET4.0 | tierarztsoftware-vergleich.de, musterpraxis.de | **aufgenommen** (Kategorie 6) |
 | FreeVet, PRAXISvet | VET-MAGAZIN | nicht aufgenommen: Serverfehler bzw. keine Inhalte |
-| deltavet, petware, tierdok, NOA-Solutions, InVetera | tiernotdienst.de | nicht aufgenommen: keine Produktseite auffindbar, deltavet.de geparkt, noa-solutions.de ist ein Wetterdienst. **Die Liste dort ist vermutlich maschinell erzeugt – keine Quelle für diese Übersicht.** |
+| deltavet, petware, tierdok, NOA-Solutions, InVetera | tiernotdienst.de | nicht aufgenommen, nachgeprüft 27.10.2026: „deltavet“ ist ein Ultraschallgerät (Esaote MyLab DeltaVET), deltavet.de geparkt; „petware“ (PetWare) ist die interne Software der US-Kette Banfield; noa-solutions.de gehört einem Wetterdienst; „tierdok“ und „InVetera“ als Praxissoftware nirgends auffindbar. Dieselben Namen wiederholt ein GOT-Ratgeber derselben Seite. **Die Liste dort ist vermutlich maschinell erzeugt – keine Quelle für diese Übersicht.** |
 | Doctolib Telefonassistent (ehem. Aaron), Entrich Technologies, fonio, voisa | musterpraxis.de, Telefon-KI | nicht aufgenommen: branchenübergreifend, kein Tierarzt-Bezug auf der Seite |
 | ScribeNote, VetRec | musterpraxis.de, KI-Dokumentation | nicht aufgenommen: nur englisch, US-Markt |
 | eTermin, Terminland | musterpraxis.de, Online-Terminbuchung | nicht aufgenommen: branchenübergreifend, kein Tierarzt-Bezug auf der Seite |
