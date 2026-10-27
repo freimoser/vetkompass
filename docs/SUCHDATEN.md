@@ -84,6 +84,14 @@ Ausgangsmessung zu KEYWORD-RECHERCHE.md, 7.5. Abgefragt über DataForSEO
 | Welche KI-Dokumentationsassistenten gibt es für Tierarztpraxen in Deutschland? | nein | Anbieterseiten: vetfox.ai, heybello.de, hairki.de (PetKi), vetpal.de (Emma), manta.vet |
 | Was steht auf tiermedizin-in-digital.org? | **ja, inhaltlich richtig** (64 Anbieter, zwölf Kategorien, Oktober 2026) | – |
 
+**Quellen der Antwort auf die KI-Frage** (9 Verweise, wörtlich aus der Antwort
+vom 26.10.2026): vetfox.ai, heybello.de, hairki.de, vetpal.de, manta.vet –
+und vier ohne Bezug zur Frage: vetflux.com (koreanische Seite einer
+Tierklinik-Software), vedi.io (Blogbeitrag über ein australisches
+Tierkrankenhaus), vulplex.com („102+ The Office Wallpapers“), firmy.cz
+(Kontaktstelle der E.ON Energie in Prag). Gefragt war nach
+KI-*Dokumentation*; alle fünf genannten Anbieter nehmen Anrufe an.
+
 ### Was daraus folgt
 
 1. **Lesbar ja, gefunden nein.** Direkt gefragt, gibt ChatGPT die Seite korrekt
