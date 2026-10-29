@@ -555,7 +555,8 @@ export const artikel: Artikel[] = [
           'Ein Teil dieses Markts entsteht inzwischen an einer Stelle, die man nicht sofort dort ' +
             'sucht: bei Tierversicherungen, die eine Videosprechstunde als Leistungsbestandteil ' +
             'mitliefern. Funktional ist das dasselbe Angebot, verkauft wird es über den ' +
-            'Versicherungsvertrag. Diese Übersicht bildet dieses Segment bislang nicht ab.',
+            'Versicherungsvertrag. Mit der Agria Tierversicherung steht seit Oktober 2026 ein erster ' +
+            'solcher Versicherer in der Übersicht; weitere Versicherer sind noch nicht geprüft.',
         ],
       },
       {
