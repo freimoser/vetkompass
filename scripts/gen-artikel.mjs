@@ -285,6 +285,11 @@ const STIL = `      :root {
       a { color: var(--brand); }
       a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
       /*
+        Das Wachstumsdiagramm skaliert mit der Breite. Auf 375 px schrumpften
+        die Beschriftungen auf rund 5 px – lesbar nur mit Lupe.
+      */
+      @media (max-width: 600px) { svg.wachstum text { font-size: 21px; } }
+      /*
         Tippflächen mindestens 24 px (WCAG 2.2, 2.5.8). Gemessen waren in Listen
         und Tabellen 18–23 px – mit dem Daumen trifft man daneben. Links im
         Fließtext sind ausgenommen, wie es das Kriterium auch vorsieht.
@@ -1066,7 +1071,7 @@ function wachstumsDiagramm() {
     { datum: STAND, anbieter: providers.length, text: `Heute · ${providers.length}` },
   ];
 
-  const svg = `<svg viewBox="0 0 ${B} ${H}" role="img" aria-labelledby="diagramm-titel diagramm-text" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Roboto, Arial, sans-serif">
+  const svg = `<svg class="wachstum" viewBox="0 0 ${B} ${H}" role="img" aria-labelledby="diagramm-titel diagramm-text" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Roboto, Arial, sans-serif">
           <title id="diagramm-titel">Anbieter in der Marktübersicht im Zeitverlauf</title>
           <desc id="diagramm-text">Von ${punkte[0].anbieter} Anbietern am ${datumDe(punkte[0].datum)} auf ${providers.length} am ${datumDe(STAND)}. Die Werte stehen auch in der Chronik unten.</desc>
 ${yTicks
@@ -1159,8 +1164,9 @@ function entwicklungsSeite() {
         <p>
           <strong>Am ${datumDe(erste.datum)} erschien die erste Fassung mit ${erste.anbieter} Anbietern.
           Heute führt die Übersicht ${providers.length} Anbieter in ${zahlwort(categories.length)} Lösungsfeldern.</strong>
-          Der größte Teil des Zuwachses kam aus Hinweisen von Tierärztinnen, Tierärzten und
-          Anbietern unter den LinkedIn-Beiträgen. Diese Seite hält jede Fassung fest, damit
+          ${ausHinweisen} der ${providers.length - erste.anbieter} neuen Anbieter kamen über Hinweise von
+          Tierärztinnen, Tierärzten und Anbietern unter den LinkedIn-Beiträgen, die übrigen aus
+          eigener Recherche. Diese Seite hält jede Fassung fest, damit
           nachvollziehbar bleibt, welcher Stand wann galt.
         </p>
       </div>
@@ -1169,7 +1175,7 @@ function entwicklungsSeite() {
       <ul class="kennzahlen">
         <li><strong>${erste.anbieter} → ${providers.length}</strong><span>Anbieter seit der ersten Fassung</span></li>
         <li><strong>${erste.kategorien} → ${categories.length}</strong><span>Lösungsfelder</span></li>
-        <li><strong>${personen}</strong><span>Mitwirkende in den Kommentaren</span></li>
+        <li><strong>${personen}</strong><span>Kommentierende, je Beitrag gezählt</span></li>
         <li><strong>${ausHinweisen}</strong><span>Anbieter über Hinweise aufgenommen</span></li>${
           letzteKennzahl
             ? `\n        <li><strong>${tausender(letzteKennzahl.linkedin.impressionen)}</strong><span>Impressionen des ${esc(letzteKennzahl.titel === 'Update nach dem Feedback' ? 'Update-Beitrags' : 'Beitrags')}</span></li>`
