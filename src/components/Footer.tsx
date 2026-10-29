@@ -62,7 +62,7 @@ export function Footer() {
                   {...(isExternalLink(link.href)
                     ? { target: '_blank', rel: 'noopener noreferrer' }
                     : {})}
-                  className="underline-offset-4 hover:text-brand-700 hover:underline"
+                  className="inline-flex min-h-6 items-center underline-offset-4 hover:text-brand-700 hover:underline"
                 >
                   {link.label}
                 </a>

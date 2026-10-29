@@ -65,7 +65,7 @@ export function CategoryCard({ group, onSelect, className = '' }: CategoryCardPr
                 onClick={() => setCollapsed((value) => !value)}
                 aria-expanded={open}
                 aria-controls={contentId}
-                className={`flex w-full items-start justify-between gap-2 rounded-lg text-left ${titleClasses}`}
+                className={`flex min-h-6 w-full items-start justify-between gap-2 rounded-lg text-left ${titleClasses}`}
               >
                 <span className="min-w-0 flex-1">{category.title}</span>
                 <span className="flex shrink-0 items-center gap-1 text-xs font-medium normal-case tracking-normal text-ink-500">
