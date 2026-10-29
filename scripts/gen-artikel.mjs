@@ -879,13 +879,13 @@ function kurzeFragen(a, kat, liste) {
   const aufzaehlung = namen.length > 1 ? `${namen.slice(0, -1).join(', ')} und ${namen.at(-1)}` : namen[0];
   return [
     {
-      frage: `Welche Anbieter gibt es für ${kat.title}?`,
+      frage: a.frageAnbieter,
       antwort:
         `Die Marktübersicht führt in diesem Lösungsfeld ${zahlwort(namen.length)} Anbieter: ` +
         `${aufzaehlung}. Die Liste ist alphabetisch, ohne Rangfolge und ohne Anspruch auf ` +
         `Vollständigkeit (Stand: ${EDITION}).`,
     },
-    { frage: `Was versteht man unter ${kat.title}?`, antwort: a.definition },
+    { frage: a.frageBegriff, antwort: a.definition },
     {
       frage: 'Was sollte eine Praxis vor der Auswahl klären?',
       antwort: `Unter anderem diese Fragen: ${a.worauf.slice(0, 3).join(' ')} Die vollständige Prüfliste steht oben im Artikel.`,

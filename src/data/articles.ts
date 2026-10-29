@@ -46,6 +46,13 @@ export interface Artikel {
    * 14.10.2026 fand auf keinem Artikel einen Einstieg mit Definition.
    */
   definition: string;
+  /**
+   * Die zwei Fragen in „Kurz beantwortet“, so formuliert, wie gesucht wird.
+   * Vorher aus dem Kategorietitel gebaut – „Was versteht man unter Digitale
+   * Sichtbarkeit“ ist kein Satz, den jemand tippt.
+   */
+  frageAnbieter: string;
+  frageBegriff: string;
   /** Der Kasten oben: die Antwort in zwei Sätzen, bevor irgendetwas erklärt wird. */
   lead: string[];
   abschnitte: ArtikelAbschnitt[];
@@ -75,6 +82,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 1,
     slug: 'digitale-sichtbarkeit',
+    frageAnbieter: 'Welche Anbieter gibt es für die digitale Sichtbarkeit von Tierarztpraxen?',
+    frageBegriff: 'Was bedeutet digitale Sichtbarkeit für eine Tierarztpraxis?',
     h1: 'Digitale Sichtbarkeit: Wie Tierhalter eine Tierarztpraxis finden',
     titleTag: 'Sichtbarkeit für Tierarztpraxen – Kanäle und Anbieter',
     description:
@@ -174,6 +183,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 2,
     slug: 'online-terminvereinbarung',
+    frageAnbieter: 'Welche Anbieter gibt es für die Online-Terminbuchung beim Tierarzt?',
+    frageBegriff: 'Was ist Online-Terminvereinbarung in der Tierarztpraxis?',
     h1: 'Online-Terminvereinbarung in der Tierarztpraxis',
     titleTag: 'Online-Terminbuchung in der Tierarztpraxis – Anbieter',
     description:
@@ -268,6 +279,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 3,
     slug: 'intake-self-checkin',
+    frageAnbieter: 'Welche Anbieter gibt es für digitale Patientenaufnahme und Self-Check-in?',
+    frageBegriff: 'Was versteht man unter Intake und Self-Check-in?',
     h1: 'Intake und Self-Check-in: die Patientenaufnahme vor dem Termin',
     titleTag: 'Digitale Patientenaufnahme in der Tierarztpraxis',
     description:
@@ -358,6 +371,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 4,
     slug: 'ki-dokumentation',
+    frageAnbieter: 'Welche KI-Assistenten gibt es für Tierarztpraxen?',
+    frageBegriff: 'Was sind KI-Dokumentationsassistenten?',
     h1: 'KI in der Tierarztpraxis: Dokumentation und Praxisassistenten',
     titleTag: 'KI-Dokumentation für Tierarztpraxen – Anbieter im DACH-Raum',
     description:
@@ -461,6 +476,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 5,
     slug: 'branchen-newsletter',
+    frageAnbieter: 'Welche Newsletter und Fachmedien gibt es für Tierärzte?',
+    frageBegriff: 'Was sind Branchen-Newsletter und Fachmedien?',
     h1: 'Branchen-Newsletter und Fachmedien der deutschsprachigen Tiermedizin',
     titleTag: 'Fachmedien und Newsletter für Tierärzte im DACH-Raum',
     description:
@@ -530,6 +547,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 7,
     slug: 'online-videosprechstunde',
+    frageAnbieter: 'Welche Anbieter gibt es für den Online-Tierarzt per Video?',
+    frageBegriff: 'Was ist ein Online-Tierarzt?',
     h1: 'Online-Tierarzt: offene Videosprechstunden für Tierhalter',
     titleTag: 'Online-Tierarzt per Video – Anbieter für Tierhalter',
     description:
@@ -609,6 +628,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 8,
     slug: 'praxiseigene-videosprechstunde',
+    frageAnbieter: 'Welche Anbieter gibt es für eine praxiseigene Videosprechstunde?',
+    frageBegriff: 'Was ist eine praxiseigene Videosprechstunde?',
     h1: 'Praxiseigene Videosprechstunde: eigene Patienten per Video betreuen',
     titleTag: 'Videosprechstunde für die eigene Tierarztpraxis',
     description:
@@ -697,6 +718,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 9,
     slug: 'tierhalter-app',
+    frageAnbieter: 'Welche Tierhalter-Apps und Patientenportale gibt es?',
+    frageBegriff: 'Was ist eine Tierhalter-App oder ein Patientenportal?',
     h1: 'Tierhalter-App und Patientenportal: der digitale Draht zum Kunden',
     titleTag: 'Tierhalter-App und Patientenportal für Tierarztpraxen',
     description:
@@ -785,6 +808,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 10,
     slug: 'tieraerzte-suchmaschinen',
+    frageAnbieter: 'Welche Portale gibt es, um einen Tierarzt zu finden?',
+    frageBegriff: 'Was sind Tierärzte-Suchmaschinen?',
     h1: 'Tierärzte-Suchmaschinen: Wo Tierhalter nach einer Praxis suchen',
     titleTag: 'Tierarzt finden: Suchportale und Verzeichnisse im DACH-Raum',
     description:
@@ -890,6 +915,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 11,
     slug: 'klinisches-wissen',
+    frageAnbieter: 'Welche Nachschlagewerke zu Tierarzneimitteln gibt es?',
+    frageBegriff: 'Was sind klinische Wissens- und Arzneimitteldienste?',
     h1: 'Klinisches Wissen und Arzneimittelinformation für die Tierarztpraxis',
     titleTag: 'Tierarzneimittel-Info und klinisches Wissen für Tierärzte',
     description:
@@ -982,6 +1009,8 @@ export const artikel: Artikel[] = [
   {
     kategorie: 12,
     slug: 'heimtierregister',
+    frageAnbieter: 'Welche Haustierregister gibt es im DACH-Raum?',
+    frageBegriff: 'Was ist ein Heimtierregister?',
     h1: 'Heimtierregister: Wie ein Fundtier über den Chip nach Hause kommt',
     titleTag: 'Haustierregister und Heimtierregister in DE, AT und CH',
     description:
