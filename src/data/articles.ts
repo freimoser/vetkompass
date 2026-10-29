@@ -792,10 +792,10 @@ export const artikel: Artikel[] = [
     definition:
       'Tierärzte-Suchmaschinen sind Portale und Verzeichnisse, in denen Tierhalter nach Ort, Fachrichtung oder Notdienst eine Tierarztpraxis suchen.',
     lead: [
-      '{Anzahl} Portale, keines davon DACH-weit. Deutschland hat mehrere kommerzielle ' +
-        'Suchportale, Österreich eines, die Schweiz keines – dort ist die Suche des ' +
-        'Berufsverbands GST der einzige Eintrag. Dazu kommt für Deutschland die Suche des bpt. ' +
-        'Ein gemeinsames Verzeichnis für den ganzen Raum gibt es nicht.',
+      '{Anzahl} Portale, die meisten nur für Deutschland. Österreich hat eigene Portale, in ' +
+        'der Schweiz ist die Suche des Berufsverbands GST das einzige eigene Verzeichnis. Dazu ' +
+        'kommt für Deutschland die Suche des bpt. TASSO nimmt Praxen aus allen drei Ländern in ' +
+        'seine Tierarztsuche auf.',
       'Für eine Praxis heißt das: Sie steht in mehreren dieser Portale, ob sie will oder nicht. ' +
         'Die Einträge stammen meist aus öffentlichen Quellen und wurden oft nie von der Praxis ' +
         'geprüft – und genau dort liegt die Arbeit.',
