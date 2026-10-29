@@ -104,8 +104,13 @@ function page({ title, intro, body, basis }) {
         outline: 2px solid var(--brand);
         outline-offset: 2px;
       }
+      /* Tippflächen mindestens 24 px (WCAG 2.2, 2.5.8), wie in den Artikeln. */
+      .back, li > a:first-child, footer a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+      }
       .back {
-        display: inline-block;
         margin-bottom: 2rem;
         font-size: 0.875rem;
       }
