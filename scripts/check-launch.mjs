@@ -498,6 +498,40 @@ for (const s of seiten) {
   else if (schema && schema !== sichtbar) blocker.push(`${s.route}: sichtbares Datum ${sichtbar} ≠ dateModified ${schema}.`);
 }
 
+/* -- 4l. Strukturierte Daten vollständig ------------------------------- */
+
+/*
+  Gültiges JSON reicht nicht: Google zeigt Article und FAQ nur mit den
+  empfohlenen Feldern, und eine FAQ-Frage im Schema, die nicht auf der Seite
+  steht, verstößt gegen die Richtlinien. Geprüft wird je indexierbare Seite.
+*/
+for (const s of seiten) {
+  const html = lies(s.pfad);
+  if (/<meta name="robots" content="noindex/.test(html)) continue;
+  for (const [, roh] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    let daten;
+    try { daten = JSON.parse(roh); } catch { continue; }
+    for (const o of daten['@graph'] ?? [daten]) {
+      if (o['@type'] === 'Article') {
+        for (const feld of ['headline', 'image', 'datePublished', 'dateModified', 'author', 'publisher']) {
+          if (!o[feld]) blocker.push(`${s.route}: Article ohne ${feld}.`);
+        }
+        if ((o.headline ?? '').length > 110) blocker.push(`${s.route}: Article-headline über 110 Zeichen.`);
+      }
+      if (o['@type'] === 'FAQPage') {
+        const text = html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&');
+        for (const q of o.mainEntity ?? []) {
+          if (!q.acceptedAnswer?.text) blocker.push(`${s.route}: FAQ-Frage ohne Antwort.`);
+          if (!text.includes(q.name)) blocker.push(`${s.route}: FAQ-Frage nicht sichtbar: „${q.name}“.`);
+        }
+      }
+      if (o['@type'] === 'ItemList' && o.numberOfItems !== (o.itemListElement ?? []).length) {
+        blocker.push(`${s.route}: ItemList zählt ${o.numberOfItems}, enthält ${(o.itemListElement ?? []).length}.`);
+      }
+    }
+  }
+}
+
 /* -- 5. Symbole --------------------------------------------------------- */
 
 for (const datei of ['favicon.svg', 'favicon.ico', 'favicon-96.png', 'apple-touch-icon.png']) {
