@@ -770,8 +770,8 @@ ${tabelle(addOns, 6)}
         Lage nicht glaubwürdig, gleich wie sie ausfiele.
       </p>
       <p>
-        <strong>Die ehrliche Antwort auf „Welche ist die beste?" lautet deshalb: „Hier sind alle,
-        die es gibt."</strong> Den Rest entscheidet die Praxis – am besten mit zwei, drei
+        <strong>Die ehrliche Antwort auf „Welche ist die beste?" lautet deshalb: „Hier sind die,
+        die es gibt – soweit sie bekannt sind."</strong> Den Rest entscheidet die Praxis – am besten mit zwei, drei
         Teststellungen.
       </p>
 

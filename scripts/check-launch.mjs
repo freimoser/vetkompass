@@ -326,6 +326,15 @@ for (const seite of seiten) {
     }
   }
 
+  /*
+    Dasselbe Versprechen im Fließtext: „Hier sind alle, die es gibt“ stand bis
+    zum 29.10.2026 im Hauptartikel – während dieselbe Seite „kein Anspruch auf
+    Vollständigkeit“ sagt und in derselben Woche neun Anbieter dazukamen.
+  */
+  const sichtbarerText = html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  const imText = sichtbarerText.match(/\balle,? die es gibt\b|\bsämtliche Anbieter\b|\bvollständige Übersicht\b/i);
+  if (imText) blocker.push(`${seite.route}: Fließtext verspricht Vollständigkeit („${imText[0]}“).`);
+
   if (seite.route !== '/' && !/"BreadcrumbList"/.test(html)) {
     hinweis.push(`${seite.route} hat keine BreadcrumbList.`);
   }
