@@ -8,7 +8,7 @@
  *
  * Aufruf: node scripts/check-daten.mjs   (Exit 1 bei Fehlern)
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
@@ -117,6 +117,47 @@ for (const [beitrag, liste] of Object.entries(AUS_HINWEISEN)) {
 }
 for (const b of BETEILIGUNG) {
   if (b.mitAnbieterhinweis > b.personen) fehler.push(`Beteiligung ${b.beitrag}: mehr Hinweisgeber als Personen.`);
+}
+
+// Absolute Aussagen im Fließtext
+/*
+  „Gibt es nicht“, „einzige“, „bislang nicht“: Solche Sätze werden still falsch,
+  sobald ein Anbieter dazukommt. Zweimal passiert (29.10.2026): „keines davon
+  DACH-weit“ trotz TASSO, „Versicherer bildet die Übersicht nicht ab“ trotz
+  Agria. Ob ein Satz noch stimmt, kann nur ein Mensch entscheiden – das Register
+  merkt sich, bei welcher Anbieterzahl der Kategorie er zuletzt geprüft wurde,
+  und legt ihn wieder vor, sobald sich die Zahl ändert.
+  Nach der Durchsicht: node scripts/check-daten.mjs --aussagen-bestaetigen
+*/
+const REGISTER = join(ROOT, 'scripts', 'aussagen-register.json');
+const ABSOLUT = /\b(gibt es nicht|gibt es kein\w*|keine[sr]? davon|keines|bislang nicht|noch nicht geprüft|einzige[nrs]?|als einzige|ein erster|eine erste)\b/i;
+const register = existsSync(REGISTER) ? JSON.parse(readFileSync(REGISTER, 'utf8')) : {};
+const neu = {};
+const zurDurchsicht = [];
+for (const a of artikel) {
+  const anzahl = providers.filter((p) => p.categories.includes(a.kategorie)).length;
+  const saetze = [a.definition, ...a.lead, ...a.abschnitte.flatMap((x) => x.absaetze)].flatMap((t) =>
+    t.split(/(?<=[.!?])\s+/),
+  );
+  for (const satz of saetze) {
+    if (!ABSOLUT.test(satz)) continue;
+    const schluessel = `${a.slug}: ${satz.slice(0, 80)}`;
+    neu[schluessel] = anzahl;
+    if (register[schluessel] !== anzahl) {
+      zurDurchsicht.push(
+        `${a.slug} (jetzt ${anzahl} Anbieter${register[schluessel] ? `, geprüft bei ${register[schluessel]}` : ', noch nie geprüft'}): „${satz.slice(0, 140)}“`,
+      );
+    }
+  }
+}
+if (process.argv.includes('--aussagen-bestaetigen')) {
+  writeFileSync(REGISTER, JSON.stringify(neu, null, 2) + '\n', 'utf8');
+  console.log(`Aussagen-Register geschrieben: ${Object.keys(neu).length} Sätze als geprüft vermerkt.`);
+} else if (zurDurchsicht.length) {
+  hinweis.push(
+    `${zurDurchsicht.length} absolute Aussage(n) zur Durchsicht – die Kategorie hat sich geändert:\n      ` +
+      zurDurchsicht.join('\n      '),
+  );
 }
 
 // Ausgabe
