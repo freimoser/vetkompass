@@ -380,11 +380,11 @@ export const artikel: Artikel[] = [
           'Ambient-Dokumentation hört das Gespräch mit und strukturiert es zu einem Eintrag. Reine ' +
             'Spracherkennung wandelt Diktiertes in Text um – hilfreich, aber etwas anderes: Hier ' +
             'spricht jemand bewusst für das Protokoll. KI-Telefonassistenz wiederum nimmt Anrufe ' +
-            'an und dokumentiert gar nichts.',
+            'an – eine dritte Aufgabe, auch wenn manche Anbieter sie mit der Dokumentation verbinden.',
           'Für die Auswahl ist die Unterscheidung entscheidend, weil sie an verschiedenen Stellen ' +
             'Zeit spart. Wer am Telefon ertrinkt, dem hilft der beste Dokumentationsassistent ' +
             'nicht.',
-          'Anmerkung zur Einordnung: Telefonassistenz war in dieser Kategorie lange eine bekannte ' +
+          'Anmerkung zur Einordnung: Telefonassistenz war in dieser Kategorie eine bekannte ' +
             'Lücke. Seit dem 26.10.2026 stehen auch diese Anbieter in der Liste unten; welche der ' +
             'drei Aufgaben ein Anbieter übernimmt, steht in seiner Beschreibung.',
         ],

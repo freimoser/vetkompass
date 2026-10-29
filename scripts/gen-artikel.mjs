@@ -113,7 +113,7 @@ function zeile(p, id) {
   return `        <tr>
           <th scope="row">${name}</th>
           <td>${esc(beschreibung(p, id))}</td>
-          <td class="nowrap">${esc(maerkte(p))}</td>
+          <td class="nowrap"><span class="nur-mobil">Märkte: </span>${esc(maerkte(p))}</td>
         </tr>`;
 }
 
@@ -418,11 +418,17 @@ const STIL = `      :root {
         color: var(--muted);
       }
       footer a { color: var(--muted); }
+      .nur-mobil { display: none; }
       @media (max-width: 34rem) {
         table, thead, tbody, tr, th, td { display: block; }
         thead { display: none; }
         tbody tr { border-bottom: 1px solid var(--line); padding: 0.75rem 0; }
         th, td { border: 0; padding: 0.15rem 0; }
+        /*
+          Ohne Spaltenkopf stand unter jedem Anbieter nur „nicht geprüft“ – das
+          las sich wie „Anbieter nicht geprüft“. Gemeint sind die Länder.
+        */
+        .nur-mobil { display: inline; }
       }`;
 
 /*
