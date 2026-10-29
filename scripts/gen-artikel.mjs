@@ -682,7 +682,7 @@ const FRAGEN = [
     antwort:
       `Diese Übersicht führt ${kernPims.length} Praxissoftware-Anbieter für den deutschsprachigen ` +
       `Markt sowie ${addOns.length} Add-on-Anbieter, die bestehende Praxissoftware erweitern. Die ` +
-      'vollständige Liste steht in diesem Artikel, alphabetisch sortiert. Sie erhebt keinen ' +
+      'Liste steht in diesem Artikel, alphabetisch sortiert. Sie erhebt keinen ' +
       'Anspruch auf Vollständigkeit.',
   },
   {
