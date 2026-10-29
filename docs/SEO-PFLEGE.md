@@ -256,3 +256,15 @@ Weiter offen und bewusst nicht bedient: `ai.txt`, `/ai/*.json` (kein Standard),
 „Organization fehlt“ (Herausgeber ist eine Person). Der größte verbleibende
 Hebel liegt außerhalb der Seite: Bing-Index (ChatGPT-Suche) und Erwähnungen
 auf anderen Seiten.
+
+## Gegenmessung 29.10.2026: Lighthouse mobil (live), nach der Prüfrunde
+
+| Seite | Leistung | Barrierefreiheit | Best Practices | SEO | LCP | CLS |
+|---|---:|---:|---:|---:|---:|---:|
+| Startseite | 98 | 100 | 100 | 100 | 1,7 s | 0 |
+| /ki-dokumentation.html | 100 | 100 | 100 | 100 | 0,9 s | 0 |
+| /entwicklung.html | 100 | 100 | 100 | 100 | 0,9 s | 0 |
+
+Unverändert gegenüber dem 26.10. (Startseite 99 → 98 liegt im Messrauschen).
+Die Änderungen der Prüfrunde – Tippflächen, FAQ, Feed-Verweise, größere
+Wortmarken – haben nichts verschlechtert.
