@@ -284,6 +284,14 @@ const STIL = `      :root {
       ul, ol { padding-left: 1.25rem; }
       a { color: var(--brand); }
       a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+      /*
+        Tippflächen mindestens 24 px (WCAG 2.2, 2.5.8). Gemessen waren in Listen
+        und Tabellen 18–23 px – mit dem Daumen trifft man daneben. Links im
+        Fließtext sind ausgenommen, wie es das Kriterium auch vorsieht.
+      */
+      .back, .verweise a, .artikelliste a, th a, footer a {
+        display: inline-flex; align-items: center; min-height: 24px;
+      }
       code { font-size: 0.9em; background: #f0f8fd; padding: 0.05rem 0.3rem; border-radius: 0.25rem; }
       .back { display: inline-block; margin-bottom: 2rem; font-size: 0.875rem; }
       .lead {
@@ -926,12 +934,20 @@ ${fragen
 ${abgrenzungsBlock(a.abgrenzung)}
 
       <h2 id="grenzen">Was dieser Artikel nicht leistet</h2>
-      <p>${esc(a.grenzen)}</p>
+      <p>${esc(a.grenzen)}</p>${
+        /*
+          Der Standardsatz nur, wenn der Artikel die Rechtsfrage nicht schon
+          selbst abgrenzt – sonst stand dieselbe Aussage zweimal untereinander.
+        */
+        /Recht/.test(a.grenzen)
+          ? ''
+          : `
       <p>
         <strong>Keine Rechtsauskunft.</strong> Rechts-, Gebühren- und berufsrechtliche Fragen
         werden hier nicht beantwortet. Zuständig sind die Tierärztekammern und die jeweils
         geltenden Vorschriften.
-      </p>
+      </p>`
+      }
 
 ${weiterlesen(seiteInfo.pfad)}
 
