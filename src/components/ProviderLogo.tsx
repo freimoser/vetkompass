@@ -44,8 +44,14 @@ export function ProviderLogo({ entry, onSelect }: ProviderLogoProps) {
               Lange Namen kleiner und nur am eigenen Bindestrich getrennt –
               sonst zerlegt die Silbentrennung „Tierarzneimittel-Kompendium
               der Schweiz“ in vier Bruchstücke und schneidet den Rest ab.
+              Kurze Namen größer: „go4vet“ in Fließtextgröße wirkte neben den
+              Logos wie eine Lücke, nicht wie ein gleichwertiger Eintrag.
             */
-            entry.label.length > 22 ? 'text-xs hyphens-manual' : 'text-[0.9375rem] hyphens-auto'
+            entry.label.length > 22
+              ? 'text-xs hyphens-manual'
+              : entry.label.length <= 10
+                ? 'text-lg tracking-tight hyphens-auto'
+                : 'text-[0.9375rem] hyphens-auto'
           }`}
         >
           {entry.label}
