@@ -84,20 +84,27 @@ export function Header() {
 
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-500">{siteConfig.intro(providers.length, zahlwort(categories.length))}</p>
 
-      <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-800">
-        Stand: {siteConfig.edition}
+      {/*
+        Drei Teile, die je für sich nicht umbrechen dürfen. Als ein Flex-Block
+        zerfiel die Zeile auf dem Handy in drei schmale Spalten („Stand: /
+        Oktober / 2026“ untereinander) – jetzt bricht sie zwischen den Teilen.
+      */}
+      <p className="mt-4 inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-2xl border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-800 sm:rounded-full">
+        <span className="whitespace-nowrap">Stand: {siteConfig.edition}</span>
         {GEAENDERT !== null ? (
-          <span>
+          <span className="whitespace-nowrap">
             · aktualisiert am{' '}
             <time data-geaendert dateTime={GEAENDERT || undefined}>
               {GEAENDERT.split('-').reverse().join('.')}
             </time>
           </span>
         ) : null}
-        <span aria-hidden="true">·</span>
-        <a href={resolveLink('entwicklung.html')} className="underline underline-offset-2 hover:text-brand-900">
-          Entwicklung & alle Fassungen
-        </a>
+        <span className="whitespace-nowrap">
+          <span aria-hidden="true">· </span>
+          <a href={resolveLink('entwicklung.html')} className="underline underline-offset-2 hover:text-brand-900">
+            Entwicklung & alle Fassungen
+          </a>
+        </span>
       </p>
 
       <div className="no-print mt-7 flex flex-wrap items-center gap-3">
