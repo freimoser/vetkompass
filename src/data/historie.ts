@@ -162,6 +162,16 @@ export const MEILENSTEINE: Meilenstein[] = [
       'neuen Anbieter als Schnittstelle nennt, sowie Petflare, VET4.0, Pfotendoctor und go4vet ' +
       'aus dem Abgleich mit anderen Übersichten.',
   },
+  {
+    datum: '2026-11-04',
+    anbieter: 74,
+    kategorien: 12,
+    titel: 'Stand November 2026',
+    text:
+      'Praxissoftware VetSet aufgenommen, gefunden in einer weiteren Übersicht und auf der ' +
+      'eigenen Website geprüft. Eine zweite Stichprobe in ChatGPT nannte ein Register „ÖHUND“, ' +
+      'das sich nirgends belegen ließ – nicht aufgenommen.',
+  },
 ];
 
 /**

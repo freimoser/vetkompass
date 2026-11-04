@@ -989,6 +989,22 @@ export const providers: Provider[] = [
       'Plattform für Tierhalter mit Tierarzt-Finder für Deutschland und Österreich, Notdienstsuche und Ratgeberartikeln.',
     tags: ['Tierarztsuche', 'Notdienst', 'Ratgeber'],
   },
+  {
+    // vetset.de: „Die Software für den Tierarzt“, Kunden- und Patientenverwaltung,
+    // Rechnungen „auf Basis der GoT (bzw. der Honorarordnung für Österreich)“,
+    // Impfkartei. Eigenes Produkt desselben Herstellers wie VetStar (vetstar.de:
+    // „Beachten Sie auch unsere Tierarztsoftware VetStar“). Länder laut vetset.de
+    // (geprüft 04.11.2026): Deutschland und Österreich; Schweiz nur „auf Anfrage“.
+    // Gefunden in der Übersicht auf hundeportal24.eu. Ohne Logo: keine Logodatei.
+    id: 'vetset',
+    name: 'VetSet',
+    website: 'https://www.vetset.de',
+    countries: ['DE', 'AT'],
+    categories: [6],
+    description:
+      'Praxissoftware für Windows mit Kunden- und Patientenverwaltung, Krankenblatt, Rechnungen nach GOT bzw. österreichischer Honorarordnung und Impfkartei; vom selben Hersteller wie VetStar.',
+    tags: ['PIMS', 'Praxissoftware', 'GOT'],
+  },
 ];
 
 export const providersById = new Map(providers.map((provider) => [provider.id, provider]));

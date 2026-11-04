@@ -8,4 +8,4 @@
  * Nachziehen, wenn sich die Übersicht inhaltlich ändert: neue Anbieter,
  * neue Kategorien, korrigierte Einordnungen.
  */
-export const EDITION = 'Oktober 2026';
+export const EDITION = 'November 2026';
