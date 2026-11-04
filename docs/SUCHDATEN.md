@@ -128,3 +128,27 @@ Seite des Anbieters als Lösung für Tierarztpraxen belegt ist.
 | praxivisio, SEOwerk | musterpraxis.de, Marketing | nicht aufgenommen: Agenturen ohne Tierarzt-Bezug auf der Seite |
 | Pfotenklee | musterpraxis.de | nicht aufgenommen: Geschenkgutscheine für Tierhalter |
 | lisca.vet | musterpraxis.de, Marketing | **Entscheidung offen (Thomas):** Marketing-Agentur für Tierarztpraxen. Kategorie 1 führt bisher Plattformen, keine Agenturen |
+
+## 04.11.2026 – Antwortmaschinen, zweite Messung (ChatGPT, gpt-4.1-mini mit Websuche, DE)
+
+| Frage | zitiert? | Stattdessen |
+|---|---|---|
+| Gibt es eine Marktübersicht digitaler Lösungen für Tierarztpraxen im DACH-Raum? | nein | musterpraxis.de, tierarztsoftware-vergleich.de (Pressemitteilung connektar.de), tiernotdienst.de, **neu: hundeportal24.eu** („Tierarztsoftware-Marktübersicht“) |
+| Welche Haustierregister gibt es in Deutschland, Österreich und der Schweiz? | nein | Wikipedia (TASSO, FINDEFIX), go4vet.com, rundum.dog |
+
+Unverändert zur ersten Messung: gelesen ja, zitiert nein. Erwartbar, solange
+die Seite nicht im Bing-Index steht (ChatGPT-Suche).
+
+**Fehler in der Antwort, die diese Seite richtig hat:**
+- „ANIS … in der Hunde und Katzen registriert werden müssen“ – Hunde werden in
+  der Schweiz in AMICUS registriert, ANIS ist für Katzen und andere Heimtiere
+  (amicus.ch, anis.ch; so auch /heimtierregister.html).
+- „ÖHUND“ als Register des ÖKV in Österreich – nirgends belegt. Amtlich ist die
+  Heimtierdatenbank; „eine Registrierung in einem Hunderegister … ersetzt die
+  Meldung in der Heimtierdatenbank nicht“ (Sozialministerium, Merkblatt).
+  Nicht aufgenommen.
+
+**Google-Index am 04.11.2026** (site:-Abfrage): 11 von 14 Seiten indexiert.
+Es fehlen /tierarzt-software.html, /online-videosprechstunde.html und
+/praxiseigene-videosprechstunde.html. Der Index zeigt noch Stände vor dem
+26.10. (z. B. „64 Anbieter“) – die Sitemap meldet die neueren lastmod-Daten.
