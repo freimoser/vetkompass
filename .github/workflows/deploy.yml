@@ -112,3 +112,20 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Meldet die Sitemap-Adressen an IndexNow (Bing). Nur, wenn die
+  # Repository-Variable INDEXNOW auf 1 steht – eingeschaltet wird es bewusst:
+  #   gh variable set INDEXNOW --body 1
+  indexnow:
+    needs: deploy
+    if: vars.INDEXNOW == '1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: IndexNow
+        env:
+          VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
+        run: node scripts/indexnow.mjs

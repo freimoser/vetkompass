@@ -628,7 +628,7 @@ export const providers: Provider[] = [
     categories: [4],
     description:
       'KI-Assistent für die tierärztliche Dokumentation, der Notizen automatisiert und bei Anrufen und Nachrichten unterstützt.',
-    tags: ['KI', 'Dokumentation', 'Praxisassistent'],
+    tags: ['KI', 'Dokumentation', 'Praxisassistent', 'Anrufe'],
   },
   {
     id: 'vetoffice-plus',
@@ -869,6 +869,7 @@ export const providers: Provider[] = [
     // vetfox.ai: „KI Telefonassistenz in Tierarztpraxen und -kliniken“, „Anrufannahme … 24/7“.
     // Ohne Logo: Die Seite zeigt nur ein Symbol ohne Namen.
     id: 'vetfox',
+    aufgenommen: '2026-10-26',
     name: 'VETFOX',
     website: 'https://www.vetfox.ai',
     countries: [],
@@ -882,6 +883,7 @@ export const providers: Provider[] = [
     // Bello nimmt zusätzlich Ihre Anrufe entgegen.“
     // Ohne Logo: Keine Logodatei auf der Seite, nur ein Vorschaubild der Startseite.
     id: 'heybello',
+    aufgenommen: '2026-10-26',
     name: 'HeyBello',
     website: 'https://www.heybello.de',
     countries: [],
@@ -894,6 +896,7 @@ export const providers: Provider[] = [
     // vetpal.de: „Emma geht ans Telefon und bucht, verschiebt und storniert Termine.
     // Sie beantwortet Fragen und leitet Notfälle intelligent weiter.“
     id: 'vetpal-emma',
+    aufgenommen: '2026-10-26',
     name: 'Emma (Vetpal)',
     logo: 'logos/vetpal.svg',
     website: 'https://www.vetpal.de',
@@ -907,6 +910,7 @@ export const providers: Provider[] = [
     // manta.vet: KI-Telefonassistent, „Manta Scribe schreibt die Behandlung live mit“.
     // Land laut manta.vet (geprüft 26.10.2026): „für den Praxisalltag in Deutschland gebaut“.
     id: 'manta',
+    aufgenommen: '2026-10-26',
     name: 'Manta',
     logo: 'logos/manta.svg',
     website: 'https://www.manta.vet',
@@ -921,6 +925,7 @@ export const providers: Provider[] = [
     // mit deutscher Produktseite. Gefunden als angebundene Praxissoftware bei
     // Manta (manta.vet, Integrationen), geprüft 26.10.2026.
     id: 'lupa',
+    aufgenommen: '2026-10-26',
     name: 'Lupa',
     logo: 'logos/lupa.png',
     website: 'https://lupapets.com/de/',
@@ -942,6 +947,7 @@ export const providers: Provider[] = [
     // petflare.io: „Praxissoftware für Tierärzte und Tierheilpraktiker“,
     // Tierakte, Termine, „Abrechnung und GOT“, Tierhalter-Portal.
     id: 'petflare',
+    aufgenommen: '2026-10-26',
     name: 'Petflare',
     logo: 'logos/petflare.svg',
     website: 'https://petflare.io',
@@ -956,6 +962,7 @@ export const providers: Provider[] = [
     // Client/Server-Technologie“. Ohne Logo: Die Seite zeigt nur das Firmenlogo
     // der BTE GmbH, nicht den Produktnamen.
     id: 'vet40',
+    aufgenommen: '2026-10-26',
     name: 'VET4.0',
     website: 'https://www.vet40.de',
     countries: [],
@@ -968,6 +975,7 @@ export const providers: Provider[] = [
     // pfotendoctor.de: „Online-Tierarztbesuch per Smartphone“, „24/7 per Videochat“.
     // Ohne Logo: Die Wortbildmarke liegt nur weiß auf transparent vor.
     id: 'pfotendoctor',
+    aufgenommen: '2026-10-26',
     name: 'Pfotendoctor',
     website: 'https://pfotendoctor.de',
     countries: [],
@@ -981,6 +989,7 @@ export const providers: Provider[] = [
     // go4vet.com (geprüft 26.10.2026): „15.000+ Tierärzt:innen in Österreich und
     // Deutschland“. Ohne Logo: nur ein Bildschirmfoto als Vorschaubild.
     id: 'go4vet',
+    aufgenommen: '2026-10-26',
     name: 'go4vet',
     website: 'https://www.go4vet.com',
     countries: ['DE', 'AT'],
@@ -997,6 +1006,7 @@ export const providers: Provider[] = [
     // (geprüft 04.11.2026): Deutschland und Österreich; Schweiz nur „auf Anfrage“.
     // Gefunden in der Übersicht auf hundeportal24.eu. Ohne Logo: keine Logodatei.
     id: 'vetset',
+    aufgenommen: '2026-11-04',
     name: 'VetSet',
     website: 'https://www.vetset.de',
     countries: ['DE', 'AT'],

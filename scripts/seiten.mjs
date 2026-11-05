@@ -12,6 +12,7 @@
  * zwei Adressen mit demselben Inhalt.
  */
 import { artikel, artikelPfad, HAUPTARTIKEL as HAUPT } from '../src/data/articles.ts';
+import { ratgeber } from '../src/data/ratgeber.ts';
 import { categories } from '../src/data/categories.ts';
 import { providers } from '../src/data/providers.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
@@ -94,7 +95,15 @@ export const ENTWICKLUNG = {
   kurzTitel: 'Wie die Marktübersicht gewachsen ist',
   prioritaet: '0.6',
 };
-export const ZUSATZSEITEN = [ENTWICKLUNG];
+/** Ratgeber: Seiten zu einer Regel oder einem Ablauf quer zu den Lösungsfeldern. */
+export const RATGEBER_SEITEN = ratgeber.map((r) => ({
+  datei: artikelPfad(r.slug),
+  pfad: `/${artikelPfad(r.slug)}`,
+  kurzTitel: r.kurzTitel,
+  prioritaet: '0.7',
+  inhalt: r,
+}));
+export const ZUSATZSEITEN = [ENTWICKLUNG, ...RATGEBER_SEITEN];
 
 /**
  * Anker eines Meilensteins auf der Entwicklungsseite. Der Atom-Feed

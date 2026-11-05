@@ -16,7 +16,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
-import { ALLE_ARTIKEL, ZUSATZSEITEN, ENTWICKLUNG, meilensteinAnker } from './seiten.mjs';
+import { ALLE_ARTIKEL, ZUSATZSEITEN, ENTWICKLUNG, RATGEBER_SEITEN, meilensteinAnker } from './seiten.mjs';
 import { MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
 import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
@@ -155,6 +155,13 @@ Dokumentation bis zu Telemedizin und Tierhalter-Apps. Stand: ${EDITION}.
 - [Entwicklung](${base}/entwicklung.html): alle Fassungen der Übersicht mit
   Datum, wie sie gewachsen ist und nach welchen Regeln Hinweise aufgenommen
   werden.
+
+## Ratgeber
+
+Seiten zu einer Regel oder einem Ablauf, quer zu den Lösungsfeldern. Sie geben
+wieder, was die zitierten Quellen sagen; Quellen stehen auf jeder Seite.
+
+${RATGEBER_SEITEN.map((r) => `- [${r.inhalt.h1}](${base}${r.pfad}): ${r.inhalt.description}`).join('\n')}
 
 ## Änderungen verfolgen
 

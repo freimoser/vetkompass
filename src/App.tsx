@@ -8,6 +8,7 @@ import { ArticleSection } from './components/ArticleSection';
 import { AboutSection } from './components/AboutSection';
 import { TransparencySection } from './components/TransparencySection';
 import { FaqSection } from './components/FaqSection';
+import { NewProviders } from './components/NewProviders';
 import { SubmitProviderSection } from './components/SubmitProviderSection';
 import { Footer } from './components/Footer';
 import { categories } from './data/categories';
@@ -85,6 +86,7 @@ export default function App() {
             </div>
           </section>
 
+          <NewProviders />
           <ArticleSection />
           <AboutSection />
           <TransparencySection />

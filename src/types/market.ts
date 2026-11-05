@@ -105,6 +105,12 @@ export interface Provider {
    * namentlich, und jede Verbindung kann exakt so benannt werden, wie sie ist.
    */
   disclosureNote?: string;
+  /**
+   * Tag der Aufnahme (ISO), nur wo er belegt ist – aus der Versionsgeschichte.
+   * Speist „Neu in der Übersicht“ auf der Startseite. Ältere Einträge haben
+   * kein Datum: Ein geschätztes wäre eine Angabe, die nicht stimmt.
+   */
+  aufgenommen?: string;
 }
 
 /** Aktiver Zustand der Toolbar über der Marktübersicht. */

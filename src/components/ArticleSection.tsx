@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { anchors, resolveLink } from '../config/site';
 import { artikel, artikelPfad, HAUPTARTIKEL } from '../data/articles';
 import { categories } from '../data/categories';
+import { ratgeber } from '../data/ratgeber';
 import { zahlwort } from '../lib/zahlwort';
 
 /**
@@ -69,6 +70,30 @@ export function ArticleSection() {
           );
         })}
       </ul>
+
+      {/* Ratgeber: eine Regel oder ein Ablauf, quer zu den Lösungsfeldern. */}
+      {ratgeber.length > 0 ? (
+        <>
+          <h3 className="mt-10 text-xs font-bold uppercase tracking-[0.08em] text-ink-500">Ratgeber</h3>
+          <ul className="mt-3 grid list-none gap-x-6 gap-y-px p-0 sm:grid-cols-2 lg:grid-cols-3">
+            {ratgeber.map((r) => (
+              <li key={r.slug}>
+                <a
+                  href={resolveLink(artikelPfad(r.slug))}
+                  className="group flex h-full items-start gap-3 rounded-lg border border-transparent
+                             px-3 py-3.5 transition-colors hover:border-brand-100 hover:bg-brand-50/60"
+                >
+                  <span className="min-w-0 flex-1 text-sm font-medium leading-snug text-ink-900">{r.h1}</span>
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="mt-0.5 h-4 w-4 shrink-0 text-brand-300 transition-colors group-hover:text-brand-600"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
     </section>
   );
 }

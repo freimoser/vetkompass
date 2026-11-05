@@ -53,6 +53,11 @@ export interface Artikel {
    */
   frageAnbieter: string;
   frageBegriff: string;
+  /**
+   * Optionale Vergleichstabelle nach den Abschnitten – zitierfähiger als
+   * Fließtext. Jede Zelle muss aus einer der genannten Quellen belegbar sein.
+   */
+  vergleich?: { titel: string; kopf: string[]; zeilen: string[][]; quelle: string };
   /** Der Kasten oben: die Antwort in zwei Sätzen, bevor irgendetwas erklärt wird. */
   lead: string[];
   abschnitte: ArtikelAbschnitt[];
@@ -1009,6 +1014,20 @@ export const artikel: Artikel[] = [
   {
     kategorie: 12,
     slug: 'heimtierregister',
+    vergleich: {
+      titel: 'Die Register im Vergleich',
+      kopf: ['Register', 'Land', 'Betreiber', 'Für', 'Eintrag'],
+      zeilen: [
+        ['AMICUS', 'Schweiz', 'Identitas AG im Auftrag der Kantone', 'Hunde', 'vorgeschrieben'],
+        ['ANIS', 'Schweiz', 'Identitas AG', 'Katzen und andere Heimtiere', 'siehe anis.ch'],
+        ['FINDEFIX', 'Deutschland', 'Deutscher Tierschutzbund', 'Haustiere', 'freiwillig, kostenlos'],
+        ['Heimtierdatenbank', 'Österreich', 'Gesundheitsministerium (amtlich)', 'Hunde', 'für Hunde vorgeschrieben'],
+        ['TASSO', 'Deutschland, Österreich, Schweiz', 'TASSO e.V.', 'Haustiere', 'freiwillig, kostenfrei'],
+      ],
+      quelle:
+        'Angaben der Register auf amicus.ch, anis.ch, findefix.com, heimtierdatenbank.ehealth.gv.at ' +
+        'und tasso.net, geprüft am 05.11.2026. In Deutschland gibt es keine bundesweite Pflicht.',
+    },
     frageAnbieter: 'Welche Haustierregister gibt es im DACH-Raum?',
     frageBegriff: 'Was ist ein Heimtierregister?',
     h1: 'Heimtierregister: Wie ein Fundtier über den Chip nach Hause kommt',

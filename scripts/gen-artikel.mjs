@@ -26,7 +26,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
-import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL, meilensteinAnker } from './seiten.mjs';
+import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL, RATGEBER_SEITEN, meilensteinAnker } from './seiten.mjs';
 import { AUS_HINWEISEN, BETEILIGUNG, FASSUNGEN, MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
 import { HERAUSGEBER, MARKE, SCHWESTER } from '../src/config/verbund.ts';
@@ -199,7 +199,19 @@ function weiterlesen(aktuellerPfad) {
       </p>
       <ol class="artikelliste">
 ${punkte}
-      </ol>`;
+      </ol>${
+        RATGEBER_SEITEN.length
+          ? `
+      <h3>Ratgeber</h3>
+      <ul class="verweise">
+${RATGEBER_SEITEN.map((r) =>
+  r.pfad === aktuellerPfad
+    ? `        <li>${esc(r.inhalt.h1)} <span class="muted">— Sie sind hier</span></li>`
+    : `        <li><a href="${esc(r.datei)}">${esc(r.inhalt.h1)}</a></li>`,
+).join('\n')}
+      </ul>`
+          : ''
+      }`;
 }
 
 /**
@@ -893,6 +905,49 @@ function kurzeFragen(a, kat, liste) {
   ];
 }
 
+/*
+  Funktionsübersicht je Lösungsfeld, aus den Schlagworten der Einträge – keine
+  eigene Bewertung. Bisher nur für die KI-Assistenten, wo „KI“ drei
+  verschiedene Aufgaben meint (siehe Artikel). Ein Haken heißt: Die
+  Beschreibung des Anbieters nennt diese Aufgabe; kein Haken heißt nicht,
+  dass das Produkt sie nicht kann.
+*/
+const FUNKTIONEN = {
+  4: [
+    { label: 'Dokumentation', tags: ['Dokumentation'] },
+    { label: 'Diktat', tags: ['Diktat', 'Spracherkennung'] },
+    { label: 'Anrufe', tags: ['Telefonassistenz', 'Anrufannahme', 'Anrufe'] },
+  ],
+};
+
+function funktionsTabelle(kat, liste) {
+  const spalten = FUNKTIONEN[kat.id];
+  if (!spalten) return '';
+  const hat = (p, sp) => sp.tags.some((t) => (p.tags ?? []).includes(t));
+  const zeilen = liste.map((p) => {
+    const name = p.variants?.[kat.id]?.label ?? p.name;
+    return `          <tr><th scope="row">${esc(name)}</th>${spalten
+      .map((sp) => `<td><span class="nur-mobil">${esc(sp.label)}: </span>${hat(p, sp) ? '✓' : '–'}</td>`)
+      .join('')}</tr>`;
+  });
+  const summe = spalten.map((sp) => `${liste.filter((p) => hat(p, sp)).length} × ${sp.label}`).join(', ');
+  return `      <h2 id="funktionen">Wer welche Aufgabe nennt</h2>
+      <p>
+        Laut Beschreibung der Anbieter: ${esc(summe)}. Ein Haken heißt, die Aufgabe steht in der
+        Beschreibung – kein Haken heißt nicht, dass ein Produkt sie nicht kann.
+      </p>
+      <table>
+        <thead>
+          <tr><th scope="col">Anbieter</th>${spalten.map((sp) => `<th scope="col">${esc(sp.label)}</th>`).join('')}</tr>
+        </thead>
+        <tbody>
+${zeilen.join('\n')}
+        </tbody>
+      </table>
+
+`;
+}
+
 function kategorieArtikel(seiteInfo) {
   const a = seiteInfo.inhalt;
   const kat = kategorieVon(a.kategorie);
@@ -918,7 +973,30 @@ ${s.absaetze.map((p) => `      <p>${esc(p)}</p>`).join('\n')}`,
   )
   .join('\n\n')}
 
-      <h2 id="worauf">Worauf Praxen bei der Auswahl achten</h2>
+${
+  a.vergleich
+    ? `      <h2 id="vergleich">${esc(a.vergleich.titel)}</h2>
+      <table>
+        <thead>
+          <tr>${a.vergleich.kopf.map((k) => `<th scope="col">${esc(k)}</th>`).join('')}</tr>
+        </thead>
+        <tbody>
+${a.vergleich.zeilen
+  .map(
+    (z) =>
+      `          <tr><th scope="row">${esc(z[0])}</th>${z
+        .slice(1)
+        .map((zelle, i) => `<td><span class="nur-mobil">${esc(a.vergleich.kopf[i + 1])}: </span>${esc(zelle)}</td>`)
+        .join('')}</tr>`,
+  )
+  .join('\n')}
+        </tbody>
+      </table>
+      <p class="muted">${esc(a.vergleich.quelle)}</p>
+
+`
+    : ''
+}${funktionsTabelle(kat, liste)}      <h2 id="worauf">Worauf Praxen bei der Auswahl achten</h2>
       <ul class="pruefliste">
 ${a.worauf.map((f) => `        <li>${esc(f)}</li>`).join('\n')}
       </ul>
@@ -1260,6 +1338,97 @@ ${offenlegung(null)}`;
   });
 }
 
+/* ================================================================== */
+/* Ratgeber                                                           */
+/* ================================================================== */
+
+function ratgeberSeite(seiteInfo) {
+  const r = seiteInfo.inhalt;
+  const kat = kategorieVon(r.kategorie);
+  const liste = anbieterVon(r.kategorie);
+  const abschnitt = (a) => {
+    const tag = a.nummeriert ? 'ol' : 'ul';
+    return `      <h2>${esc(a.h2)}</h2>
+${(a.absaetze ?? []).map((p) => `      <p>${esc(p)}</p>`).join('\n')}${
+      a.liste
+        ? `
+      <${tag}>
+${a.liste.map((l) => `        <li>${esc(l)}</li>`).join('\n')}
+      </${tag}>`
+        : ''
+    }`;
+  };
+
+  const koerper = `
+      <h1>${esc(r.h1)}</h1>
+
+      <div class="lead">
+        <p class="definition">${esc(r.definition)}</p>
+${r.lead.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
+      </div>
+      <p class="meta">Ratgeber von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(seiteInfo.pfad)} ·
+        gehört zu <a href="${esc(ARTIKEL_NACH_KATEGORIE.get(r.kategorie)?.datei ?? './')}">${esc(kat.title)}</a></p>
+
+${r.abschnitte.map(abschnitt).join('\n\n')}
+
+      <h2 id="worauf">Fragen an die Software</h2>
+      <ul class="pruefliste">
+${r.pruefliste.map((f) => `        <li>${esc(f)}</li>`).join('\n')}
+      </ul>
+
+      <h2 id="anbieter">${esc(kat.title)} in der Übersicht</h2>
+      <p>
+        Diese Anbieter führt die Marktübersicht in diesem Feld, alphabetisch und ohne Rangfolge.
+        Ob und wie ein System die oben genannten Punkte umsetzt, beantworten die Anbieter.
+      </p>
+${tabelle(liste, kat.id)}
+
+      <h2 id="fragen">Häufige Fragen</h2>
+${r.fragen
+  .map(
+    (f) => `      <div class="frage">
+        <h3>${esc(f.frage)}</h3>
+        <p>${esc(f.antwort)}</p>
+      </div>`,
+  )
+  .join('\n')}
+
+      <h2 id="grenzen">Was dieser Ratgeber nicht leistet</h2>
+      <p>${esc(r.grenzen)}</p>
+
+      <h2 id="quellen">Quellen</h2>
+      <ol>
+${r.quellen.map((q) => `        <li><a href="${esc(q.url)}" rel="noopener external">${esc(q.titel)}</a> (abgerufen am ${datumDe(q.abgerufen)})</li>`).join('\n')}
+      </ol>
+
+${weiterlesen(seiteInfo.pfad)}
+
+${offenlegung(r.kategorie)}`;
+
+  return seite({
+    pfad: seiteInfo.pfad,
+    kategorie: r.kategorie,
+    krume: r.kurzTitel,
+    titleTag: r.titleTag,
+    description: r.description,
+    schema: [
+      {
+        ...artikelSchema(seiteInfo.pfad, r.h1, r.description),
+        citation: r.quellen.map((q) => ({ '@type': 'CreativeWork', name: q.titel, url: q.url })),
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: r.fragen.map((f) => ({
+          '@type': 'Question',
+          name: f.frage,
+          acceptedAnswer: { '@type': 'Answer', text: f.antwort },
+        })),
+      },
+    ],
+    koerper,
+  });
+}
+
 const woerter = (html) =>
   html
     .replace(/<script[\s\S]*?<\/script>/g, '')
@@ -1280,6 +1449,13 @@ const entwicklung = entwicklungsSeite();
 writeFileSync(join(OUT, ENTWICKLUNG.datei), entwicklung, 'utf8');
 gesamt += woerter(entwicklung);
 zeilen.push(`  ${ENTWICKLUNG.datei.padEnd(36)} ${woerter(entwicklung)} Wörter`);
+
+for (const s of RATGEBER_SEITEN) {
+  const html = ratgeberSeite(s);
+  writeFileSync(join(OUT, s.datei), html, 'utf8');
+  gesamt += woerter(html);
+  zeilen.push(`  ${s.datei.padEnd(36)} ${woerter(html)} Wörter`);
+}
 
 for (const s of ALLE_ARTIKEL) {
   if (!s.inhalt) continue;

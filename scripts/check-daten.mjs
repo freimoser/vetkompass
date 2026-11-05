@@ -51,6 +51,7 @@ for (const p of providers) {
     if (!existsSync(join(ROOT, 'public', logo))) fehler.push(`${p.id}: Logo ${logo} fehlt.`);
   }
 
+  if (p.aufgenommen && !/^\d{4}-\d{2}-\d{2}$/.test(p.aufgenommen)) fehler.push(`${p.id}: aufgenommen ist kein ISO-Datum (${p.aufgenommen}).`);
   if (!p.website) hinweis.push(`${p.id}: keine Website.`);
   else {
     if (!/^https:\/\//.test(p.website)) fehler.push(`${p.id}: Website ohne https (${p.website}).`);

@@ -172,6 +172,16 @@ export const MEILENSTEINE: Meilenstein[] = [
       'eigenen Website geprüft. Eine zweite Stichprobe in ChatGPT nannte ein Register „ÖHUND“, ' +
       'das sich nirgends belegen ließ – nicht aufgenommen.',
   },
+  {
+    datum: '2026-11-05',
+    anbieter: 74,
+    kategorien: 12,
+    titel: 'Erster Ratgeber: die GOT in der Praxissoftware',
+    text:
+      'Was die Gebührenordnung für Tierärzte für die Rechnung vorschreibt, belegt aus dem ' +
+      'Verordnungstext. Dazu ein Vergleich der Haustierregister je Land und eine Übersicht, ' +
+      'welcher KI-Assistent welche Aufgabe nennt.',
+  },
 ];
 
 /**
