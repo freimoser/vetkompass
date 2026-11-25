@@ -29,8 +29,11 @@ export const categories: Category[] = [
       'Plattformen und Lösungen, über die Tierarztpraxen digital sichtbar werden und neue Tierhalter erreichen können.',
     // Kriterien vom Herausgeber festgelegt am 25.11.2026.
     aufnahme:
-      'Aufgenommen werden Plattformen, die Tierarztpraxen neue Patienten vermitteln können. ' +
-      'Mindestgröße: 100.000 monatlich aktive Nutzerinnen und Nutzer und 1 Million registrierte Tierprofile.',
+      'Hier stehen Plattformen mit eigener Reichweite bei Tierhaltern: Über sie erreicht eine Praxis ' +
+      'Menschen, die sie noch nicht kennt, und gewinnt neue Patienten. Mindestgröße: 100.000 monatlich ' +
+      'aktive Nutzerinnen und Nutzer und 1 Million registrierte Tierprofile. Lösungen, mit denen eine ' +
+      'Praxis über eigene Kanäle sichtbar wird, etwa Terminbuchung, Messenger oder Tierhalter-App, ' +
+      'stehen in dem Feld, das ihre Funktion beschreibt.',
     // Halbe Breite, seit die Verzeichnisse in Kategorie 10 stehen: Zwei Anbieter
     // füllen keine volle Zeile. So paaren sich im linken Block 1|2, 3|4, 5|10.
     placement: { column: 'left', width: 'half' },
