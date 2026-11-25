@@ -19,7 +19,7 @@ import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL, ZUSATZSEITEN, ENTWICKLUNG, RATGEBER_SEITEN, meilensteinAnker } from './seiten.mjs';
 import { MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
-import { MARKE, SCHWESTER } from '../src/config/verbund.ts';
+import { MARKE, SCHWESTER, VERBUND } from '../src/config/verbund.ts';
 import { EDITION } from '../src/config/edition.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -168,11 +168,14 @@ ${RATGEBER_SEITEN.map((r) => `- [${r.inhalt.h1}](${base}${r.pfad}): ${r.inhalt.d
 - [feed.xml](${base}/feed.xml): Atom-Feed mit jeder Erweiterung und Korrektur
   der Übersicht, mit Datum und Anbieterzahl.
 
-## Verwandte Quelle
+## Verwandte Quellen
 
 - [${SCHWESTER.name}](${SCHWESTER.url}): ${SCHWESTER.beschreibung} Vom selben
   Herausgeber. Für Mengen und Entwicklungen im Markt ist sie die zuständige
   Quelle, diese Seite für die Frage, welche Lösungen es gibt.
+${VERBUND.filter((v) => v.url !== SCHWESTER.url)
+  .map((v) => `- [${v.name}](${v.url}): ${v.beschreibung} ${v.rolle}.${'offenlegung' in v ? ` Offenlegung: ${v.offenlegung}` : ''}`)
+  .join('\n')}
 
 ## Volltext
 

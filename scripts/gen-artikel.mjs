@@ -30,7 +30,7 @@ import { categories } from '../src/data/categories.ts';
 import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL, RATGEBER_SEITEN, UEBER, meilensteinAnker } from './seiten.mjs';
 import { AUS_HINWEISEN, BETEILIGUNG, FASSUNGEN, MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
-import { HERAUSGEBER, MARKE, SCHWESTER } from '../src/config/verbund.ts';
+import { HERAUSGEBER, MARKE, SCHWESTER, VERBUND } from '../src/config/verbund.ts';
 import { EDITION } from '../src/config/edition.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -483,6 +483,31 @@ function vorschau(kategorie) {
     : { bild: '/og/marktuebersicht.png', alt: 'Marktübersicht: digitale Lösungen für Tierarztpraxen im DACH-Markt, gegliedert nach Lösungsfeldern.' };
 }
 
+/*
+  Kasten „Aus dem Verbund“ neben jedem Artikel (Wunsch 25.11.2026): auf
+  breiten Bildschirmen rechts neben dem Text und beim Scrollen sichtbar, sonst
+  unter dem Artikel. Steht außerhalb von <main> – zählt deshalb nicht als
+  Inhaltsänderung im Seitenstand. Unternehmen mit Beteiligung oder Tätigkeit
+  des Herausgebers tragen die Offenlegung direkt am Eintrag.
+*/
+function verbundKasten() {
+  const eintraege = VERBUND.map(
+    (v) => `        <li>
+          <a href="${esc(v.url)}" rel="noopener">${esc(v.name)}</a>
+          <span class="rolle">${esc(v.rolle)}</span>
+          <span class="text">${esc(v.beschreibung)}</span>${
+            v.offenlegung ? `\n          <span class="offen">Offenlegung: ${esc(v.offenlegung)}</span>` : ''
+          }
+        </li>`,
+  ).join('\n');
+  return `    <aside class="verbund" aria-labelledby="verbund-titel" data-seitenstand="aus">
+      <p class="verbund-titel" id="verbund-titel">Aus dem Verbund</p>
+      <ul>
+${eintraege}
+      </ul>
+    </aside>`;
+}
+
 function seite({ pfad, titleTag, description, schema, koerper, krume, kategorie }) {
   const og = vorschau(kategorie);
   /*
@@ -571,10 +596,28 @@ ${ld}
     <style>
 ${STIL}
       ${KOPFLEISTE_CSS}
+      .raster > .verbund { max-width: 48rem; margin: 3rem auto 0; }
+      .verbund { border: 1px solid var(--line); border-radius: 0.75rem; background: #f7fbfe; padding: 1rem 1.1rem; font-size: 0.875rem; }
+      .verbund-titel { margin: 0 0 0.6rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); }
+      .verbund ul { list-style: none; margin: 0; padding: 0; }
+      .verbund li { margin: 0 0 0.9rem; }
+      .verbund li:last-child { margin-bottom: 0; }
+      .verbund a { font-weight: 600; display: inline-flex; min-height: 24px; align-items: center; }
+      .verbund .rolle, .verbund .text, .verbund .offen { display: block; }
+      .verbund .rolle { font-size: 0.75rem; color: var(--muted); }
+      .verbund .text { color: var(--ink-soft); margin-top: 0.2rem; }
+      .verbund .offen { color: var(--muted); font-style: italic; margin-top: 0.2rem; }
+      @media (min-width: 80rem) {
+        .raster { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 48rem) minmax(0, 1fr); column-gap: 2.5rem; align-items: start; }
+        .raster > main { grid-column: 2; margin: 0; }
+        .raster > .verbund { grid-column: 3; position: sticky; top: 5rem; max-width: 17rem; margin: 4.5rem 0 0; }
+      }
+      @media print { .verbund { display: none; } }
     </style>
   </head>
   <body>
 ${kopfleisteHtml()}
+    <div class="raster">
     <main>
 ${koerper}
 
@@ -601,6 +644,8 @@ ${koerper}
         </p>
       </footer>
     </main>
+${verbundKasten()}
+    </div>
 ${zaehlskript}  </body>
 </html>
 `;
@@ -820,6 +865,13 @@ ${tabelle(kernPims, 6)}
       <h3>${esc(kategorie6.subgroups[0].title)}</h3>
       <p>${esc(kategorie6.subgroups[0].description)}</p>
 ${tabelle(addOns, 6)}
+
+      <p>
+        Zum Vergleich mit der Humanmedizin: Welche Praxissoftware Arztpraxen nutzen, wer sie
+        liefert und wie vernetzt die ambulante Versorgung ist, zeigt
+        <a href="https://humanmedizin-in-zahlen.org/">Humanmedizin in Zahlen</a> – eine Seite
+        vom selben Herausgeber.
+      </p>
 
       <p class="muted">
         Diese Liste erhebt keinen Anspruch auf Vollständigkeit. Fehlt ein Anbieter, ist das fast

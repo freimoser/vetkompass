@@ -38,3 +38,37 @@ export const HERAUSGEBER = {
     'https://tiermedizin-in-zahlen.org/ueber-das-projekt.html#thomas-freimoser',
   ],
 } as const;
+
+/**
+ * Seiten und Angebote, auf die der Kasten „Aus dem Verbund“ neben jedem
+ * Artikel verweist (scripts/gen-artikel.mjs). Wunsch 25.11.2026.
+ *
+ * Beschreibungen decken sich mit den Seiten selbst (geprüft 25.11.2026).
+ * `offenlegung` steht sichtbar am Eintrag, wenn es um ein Unternehmen geht,
+ * an dem der Herausgeber beteiligt oder in dem er tätig ist.
+ */
+export const VERBUND = [
+  {
+    name: 'Tiermedizin in Zahlen',
+    url: 'https://tiermedizin-in-zahlen.org/',
+    rolle: 'Schwesterseite, vom selben Herausgeber',
+    beschreibung:
+      'Zahlen zu Tierärzten, Praxen und Haustieren in Deutschland – jede mit Quelle und Jahr.',
+  },
+  {
+    name: 'Humanmedizin in Zahlen',
+    url: 'https://humanmedizin-in-zahlen.org/',
+    rolle: 'Unsere Mitmediziner, vom selben Herausgeber',
+    beschreibung:
+      'Welche Praxissoftware Arztpraxen nutzen, wer sie liefert und wie vernetzt die ambulante Versorgung ist.',
+  },
+  {
+    name: 'FleXChange-Medical',
+    url: 'https://www.flexchange-medical.de/',
+    rolle: 'Schnittstellen in der Humanmedizin',
+    beschreibung:
+      'Einheitliche Schnittstelle, die Praxisverwaltungs- und Krankenhaussysteme an Patientenportale, ' +
+      'Labore und digitale Gesundheitsanwendungen anbindet.',
+    offenlegung: 'Der Herausgeber ist in der FleXChange-Medical GmbH aktiv.',
+  },
+] as const;
