@@ -21,6 +21,8 @@
  * würden sich gegenseitig Konkurrenz machen.
  */
 
+import { categories } from './categories.ts';
+
 export interface ArtikelAbschnitt {
   h2: string;
   absaetze: string[];
@@ -116,6 +118,8 @@ export const artikel: Artikel[] = [
           'Nicht in dieser Kategorie: Werkzeuge, die sich an bestehende Kundinnen und Kunden ' +
             'richten. Wer schon in der Kartei steht, wird nicht neu gewonnen, sondern gehalten – ' +
             'dafür sind Terminbuchung, Portal und Recall zuständig.',
+          // Dieselbe Quelle wie der Hinweis in der gefilterten Übersicht.
+          categories.find((c) => c.id === 1)!.aufnahme!,
         ],
       },
       {

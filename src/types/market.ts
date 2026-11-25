@@ -40,6 +40,12 @@ export interface Category {
   shortTitle: string;
   /** Erklärt neutral, was die Kategorie umfasst. */
   description: string;
+  /**
+   * Aufnahmekriterien, wenn die Kategorie über die Beschreibung hinaus
+   * Bedingungen hat (z. B. Mindestgrößen). Erscheint in der gefilterten
+   * Ansicht und im Kategorie-Artikel. Ohne Angabe gilt AUFNAHME_STANDARD.
+   */
+  aufnahme?: string;
   /** Position im Desktop-Raster. */
   placement: {
     column: LayoutColumn;

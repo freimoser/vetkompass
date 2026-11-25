@@ -15,6 +15,10 @@ import type { Category, CategoryId } from '../types/market';
  *
  * Auf Tablet und Mobile wird `placement` ignoriert und alles gestapelt.
  */
+/** Gilt für jede Kategorie ohne eigene Aufnahmekriterien. */
+export const AUFNAHME_STANDARD =
+  'Aufgenommen wird jede Lösung, die zur Beschreibung dieser Kategorie passt. Eine Mindestgröße gibt es hier nicht.';
+
 export const categories: Category[] = [
   {
     id: 1,
@@ -23,6 +27,10 @@ export const categories: Category[] = [
     shortTitle: 'Sichtbarkeit',
     description:
       'Plattformen und Lösungen, über die Tierarztpraxen digital sichtbar werden und neue Tierhalter erreichen können.',
+    // Kriterien vom Herausgeber festgelegt am 25.11.2026.
+    aufnahme:
+      'Aufgenommen werden Plattformen, die Tierarztpraxen neue Patienten vermitteln können. ' +
+      'Mindestgröße: 100.000 monatlich aktive Nutzerinnen und Nutzer und 1 Million registrierte Tierprofile.',
     // Halbe Breite, seit die Verzeichnisse in Kategorie 10 stehen: Zwei Anbieter
     // füllen keine volle Zeile. So paaren sich im linken Block 1|2, 3|4, 5|10.
     placement: { column: 'left', width: 'half' },
