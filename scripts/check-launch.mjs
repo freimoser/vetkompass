@@ -541,6 +541,21 @@ for (const s of seiten) {
   }
 }
 
+/* -- 4m. Zählskript auf jeder Seite ------------------------------------- */
+
+/*
+  Ist ein Analytics-Token gesetzt, muss jede ausgelieferte Seite das Skript
+  tragen. Am 25.11.2026 stand es nur auf der Startseite – die Artikel, auf denen
+  Suchbesucher landen, wären nie gezählt worden.
+*/
+if ((process.env.VITE_CF_ANALYTICS_TOKEN || '').trim()) {
+  for (const s of seiten) {
+    if (!lies(s.pfad).includes('static.cloudflareinsights.com/beacon.min.js')) {
+      blocker.push(`${s.route}: Analytics-Token gesetzt, aber kein Zählskript auf der Seite.`);
+    }
+  }
+}
+
 /* -- 5. Symbole --------------------------------------------------------- */
 
 for (const datei of ['favicon.svg', 'favicon.ico', 'favicon-96.png', 'apple-touch-icon.png']) {

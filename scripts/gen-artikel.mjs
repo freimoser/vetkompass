@@ -37,6 +37,17 @@ const OUT = join(ROOT, 'public');
 
 const siteUrl = (process.env.VITE_SITE_URL || '').trim().replace(/\/+$/, '');
 const hatDomain = /^https?:\/\//.test(siteUrl);
+
+/*
+  Cloudflare Web Analytics auf jeder erzeugten Seite – nicht nur auf der
+  Startseite, die Vite baut. Bis zum 25.11.2026 fehlte das Zählskript auf allen
+  Artikeln; gezählt hätte nur die Startseite, Besucher aus der Suche landen aber
+  meist auf Artikeln. Ohne Token entsteht nichts (siehe vite.config.ts).
+*/
+const CF_TOKEN = (process.env.VITE_CF_ANALYTICS_TOKEN || '').trim();
+const zaehlskript = CF_TOKEN
+  ? `    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${JSON.stringify({ token: CF_TOKEN })}'></script>\n`
+  : '';
 const absolut = (pfad) => (hatDomain ? `${siteUrl}${pfad}` : '');
 
 const STAND_ISO = '2026-09-23';
@@ -555,7 +566,7 @@ ${koerper}
         </p>
       </footer>
     </main>
-  </body>
+${zaehlskript}  </body>
 </html>
 `;
 }

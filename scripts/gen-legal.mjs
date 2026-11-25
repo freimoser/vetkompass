@@ -47,6 +47,17 @@ const mailLink = LEGAL.email
   ? `<a href="mailto:${esc(LEGAL.email)}">${esc(LEGAL.email)}</a>`
   : gap('E-Mail-Adresse');
 
+/*
+  Cloudflare Web Analytics auf jeder erzeugten Seite – nicht nur auf der
+  Startseite, die Vite baut. Bis zum 25.11.2026 fehlte das Zählskript auf allen
+  Artikeln; gezählt hätte nur die Startseite, Besucher aus der Suche landen aber
+  meist auf Artikeln. Ohne Token entsteht nichts (siehe vite.config.ts).
+*/
+const CF_TOKEN = (process.env.VITE_CF_ANALYTICS_TOKEN || '').trim();
+const zaehlskript = CF_TOKEN
+  ? `    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${JSON.stringify({ token: CF_TOKEN })}'></script>\n`
+  : '';
+
 /** Gemeinsames Seitengerüst. Alle Rechtsseiten tragen `noindex, follow`. */
 function page({ title, intro, body, basis }) {
   return `<!doctype html>
@@ -155,7 +166,7 @@ ${body}
         <p class="muted">Stand: ${esc(EDITION)}</p>
       </footer>
     </main>
-  </body>
+${zaehlskript}  </body>
 </html>
 `;
 }
@@ -296,6 +307,13 @@ const messAbschnitt = FEATURES.cloudflareAnalytics
         berechtigtes Interesse daran zu erkennen, welche Inhalte genutzt werden.
         Ein Einwilligungsbanner für eine Verarbeitung, die keine Einwilligung
         braucht, wäre eine Formalie ohne Schutzwirkung.
+      </p>
+      <p>
+        Beim Laden des Messskripts wird – wie bei jedem Abruf im Internet – Ihre
+        IP-Adresse an Cloudflare übermittelt. <strong>Übermittlung in die USA.</strong>
+        Cloudflare, Inc. hat sich nach dem EU-U.S. Data Privacy Framework
+        zertifiziert; die Übermittlung stützt sich auf den Angemessenheitsbeschluss
+        der Europäischen Kommission vom 10. Juli 2023 (Art. 45 DSGVO).
       </p>
       <p>Ihr Widerspruchsrecht nach Art. 21 DSGVO bleibt unberührt.</p>`
   : `${h2('keineMessung', 'Reichweitenmessung')}
