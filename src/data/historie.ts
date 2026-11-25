@@ -184,13 +184,14 @@ export const MEILENSTEINE: Meilenstein[] = [
   },
   {
     datum: '2026-11-25',
-    anbieter: 76,
-    kategorien: 12,
-    titel: 'Alle Kommentar-Hinweise eingearbeitet',
+    anbieter: 90,
+    kategorien: 14,
+    titel: 'Alle Kommentar-Hinweise eingearbeitet, zwei neue Lösungsfelder',
     text:
       'Die offenen Hinweise aus den LinkedIn-Kommentaren nachgeprüft: VetNative und Petcario ' +
       'aufgenommen, AnimalChat zusätzlich bei den KI-Assistenten, VetDream beim Self-Check-in. ' +
-      'Aufgenommen wurde, was auf der Seite des Anbieters steht.',
+      'Neu sind die Felder Praxismarketing & Beratung (mit LISCA.vet) und Online-Fortbildung ' +
+      '(mit Myvetlearn). Dazu für 70 Anbieter ein belegtes Merkmal und für 38 die geprüften Märkte.',
   },
 ];
 
@@ -224,5 +225,5 @@ export const AUS_HINWEISEN: Record<string, string[]> = {
     'vetat-work',
     'vetnio',
   ],
-  Update: ['agria', 'petcario', 'petsvetcheck', 'primveterinary', 'vetnative', 'vetstage'],
+  Update: ['agria', 'lisca', 'myvetlearn', 'petcario', 'petsvetcheck', 'primveterinary', 'vetnative', 'vetstage'],
 };

@@ -5,8 +5,9 @@ import type { Category, CategoryId } from '../types/market';
  *
  * `placement` bildet die räumliche Struktur der Original-Grafik ab:
  *  - left:   Kategorien 1–5 und 10 (breiter Block links, zweispaltig)
- *  - center: Kategorie 6 (hohe Spalte in der Mitte)
- *  - right:  Kategorien 7–9, 11 und 12 (gestapelt rechts). 11 und 12 stehen
+ *  - center: Kategorie 6 (hohe Spalte in der Mitte), darunter 13
+ *            (25.11.2026: links angehängt war der linke Block 900 px länger)
+ *  - right:  Kategorien 7–9, 11, 12 und 14 (gestapelt rechts). 11 und 12 stehen
  *            rechts, weil der linke Block sonst über 1000 px länger war als
  *            die beiden anderen Spalten (gemessen am 14.10.2026 bei 1440 px).
  *
@@ -174,6 +175,42 @@ export const categories: Category[] = [
       'Register, in denen gechippte Tiere mit ihrem Halter verknüpft sind – damit ein Fundtier über die Chipnummer nach Hause findet.',
     placement: { column: 'right', width: 'full' },
     logoColumns: 3,
+  },
+  {
+    /*
+      Nachgetragen am 25.11.2026 aus den LinkedIn-Kommentaren (Hinweis auf
+      LISCA.vet). Eigene Kategorie, weil Kategorie 1 Plattformen mit eigener
+      Reichweite sammelt; hier steht Dienstleistung: Menschen, die eine Praxis
+      bei Marketing und Strategie beraten oder es für sie umsetzen.
+    */
+    id: 13,
+    slug: 'praxismarketing',
+    title: 'Praxismarketing & Beratung',
+    shortTitle: 'Praxismarketing',
+    description:
+      'Agenturen und Beratungen, die Tierarztpraxen bei Marketing, Website, Social Media, Arbeitgebermarke und Praxisentwicklung unterstützen.',
+    aufnahme:
+      'Aufgenommen werden Agenturen und Beratungen, die auf ihrer eigenen Website ein Angebot ' +
+      'ausdrücklich für Tierarztpraxen oder Tierkliniken ausweisen. Allgemeine Agenturen, die ' +
+      'Tierarztpraxen nur als eine Branche unter vielen nennen, stehen nicht hier.',
+    placement: { column: 'center', width: 'full' },
+    logoColumns: 2,
+  },
+  {
+    /*
+      Nachgetragen am 25.11.2026 aus den LinkedIn-Kommentaren (Hinweis auf
+      Myvetlearn). Abgrenzung zu Kategorie 5: Dort wird informiert, hier wird
+      gelernt – mit Kurs, Nachweis und anerkannten Stunden.
+    */
+    id: 14,
+    slug: 'online-fortbildung',
+    title: 'Online-Fortbildung',
+    shortTitle: 'Fortbildung',
+    description:
+      'Plattformen für Webinare, E-Learning und Online-Seminare, über die Tierärztinnen, Tierärzte und TFA sich fortbilden.',
+    placement: { column: 'right', width: 'full' },
+    logoColumns: 3,
+    
   },
 ];
 

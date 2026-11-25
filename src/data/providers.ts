@@ -1013,9 +1013,12 @@ export const providers: Provider[] = [
     countries: ['DE'],
     merkmal: 'Plattform für Jobs und Fortbildungen, mit Fortbildungs-Flatrate.',
     merkmalQuelle: 'https://www.vetstage.de (geprüft 25.11.2026)',
-    categories: [5],
+    categories: [5, 14],
     description:
       'Plattform für die Tiermedizin mit Fachbeiträgen, Fallbeispielen und News, dazu Jobs, Fortbildungen und Personalsoftware für Praxen.',
+    variants: {
+      14: { description: 'Fortbildungskalender für Tierärzte und TFA, filterbar nach ATF- und AG-TFA-Anerkennung, mit eigenen Online-Inhalten und Fortbildungs-Flatrate.' },
+    },
     tags: ['Fachmedien', 'Jobs', 'Fortbildung', 'Personal'],
   },
   /*
@@ -1240,6 +1243,189 @@ export const providers: Provider[] = [
     description:
       'Plattform für Tierhalter mit digitaler Tierakte und QR-Tiermarke, über die eine findende Person den Halter erreichen kann.',
     tags: ['Fundtiere', 'QR-Tiermarke', 'Tierhalter'],
+  },
+  {
+    // Hinweis Sonja Hegel (LinkedIn). lisca.vet: „Marketing für Tierarztpraxen und Tierkliniken“. Logo ohne Schriftzug – Name als Text.
+    id: 'lisca',
+    aufgenommen: '2026-11-25',
+    name: 'LISCA.vet',
+    website: 'https://lisca.vet',
+    countries: [],
+    categories: [13],
+    description:
+      'Agentur für Marketing von Tierarztpraxen und Tierkliniken: Strategieberatung, Websites, Arbeitgebermarke, Social-Media-Coaching und ein Instagram-Onlinekurs.',
+    tags: ['Marketing', 'Beratung', 'Social Media'],
+  },
+  {
+    // vet-site.de: „Professioneller Internetauftritt für Ihre Tierarztpraxis“. Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'vetsite',
+    aufgenommen: '2026-11-25',
+    name: 'VetSite',
+    logo: 'logos/vetsite.png',
+    website: 'https://vet-site.de',
+    countries: [],
+    categories: [13],
+    description:
+      'Websites, Social-Media-Betreuung und lokale Einträge für Tierarztpraxen, angeboten von einer Tierärztin und einem Webdesigner.',
+    tags: ['Marketing', 'Website'],
+  },
+  {
+    // tierarzt-website.de: „Website-Erstellung und Online-Marketing für Tierärzte, Tierkliniken …“. Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'tierarzt-website',
+    aufgenommen: '2026-11-25',
+    name: 'TIERARZT-WEBSITE',
+    logo: 'logos/tierarzt-website.png',
+    website: 'https://tierarzt-website.de',
+    countries: [],
+    categories: [13],
+    description:
+      'Website-Erstellung und Online-Marketing für Tierarztpraxen, Tierkliniken und weitere Berufe rund ums Tier.',
+    tags: ['Marketing', 'Website'],
+  },
+  {
+    // Logo nur in heller Fassung (weiße Schrift) – Name als Text. Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'digitalgrafik24',
+    aufgenommen: '2026-11-25',
+    name: 'digitalgrafik24',
+    website: 'https://www.tierklinik-marketing.com',
+    // Märkte geprüft 25.11.2026: https://www.tierklinik-marketing.com – „Tierklinik Marketing für Deutschland, Österreich und die Schweiz“
+    countries: ['DE', 'AT', 'CH'],
+    categories: [13],
+    description:
+      'Agentur mit eigenem Angebot für Tierkliniken und Tierarztpraxen: Webdesign, Suchmaschinenoptimierung, Werbung und Personalgewinnung.',
+    tags: ['Marketing', 'Website', 'Recruiting'],
+  },
+  {
+    // tieraerzteberatung.de/beratung/praxismarketing/: „Marketingkonzepte … der Tierarztpraxis“. Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'ivp-tieraerzteberatung',
+    aufgenommen: '2026-11-25',
+    name: 'IVP Tierärzteberatung',
+    logo: 'logos/ivp-tieraerzteberatung.png',
+    website: 'https://www.tieraerzteberatung.de',
+    countries: [],
+    categories: [13],
+    description:
+      'Unternehmensberatung für Tierärzte, unter anderem zu Existenzgründung, Praxisorganisation, Personal, Praxismarketing und Praxisabgabe.',
+    tags: ['Beratung', 'Marketing'],
+  },
+  {
+    // Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'ruhmservice',
+    aufgenommen: '2026-11-25',
+    name: 'RUHMservice',
+    logo: 'logos/ruhmservice.png',
+    website: 'https://www.ruhmservice.de',
+    // Märkte geprüft 25.11.2026: https://www.ruhmservice.de – „Spezialisiert auf Tierarztpraxen & Tierkliniken im DACH-Raum“
+    countries: ['DE', 'AT', 'CH'],
+    categories: [13],
+    description:
+      'Strategieberatung für Tierarztpraxen und Tierkliniken zu Praxisführung, Wirtschaftlichkeit, Team und Marketing, mit einer Praxisanalyse als Einstieg.',
+    tags: ['Beratung', 'Strategie'],
+  },
+  {
+    // tvd-finanz.de: „Marketing für Ihre Tierarztpraxis“. Betreibt auch fortbildung.vet. Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'tvd-finanz',
+    aufgenommen: '2026-11-25',
+    name: 'TVD Finanz',
+    logo: 'logos/tvd-finanz.png',
+    website: 'https://www.tvd-finanz.de/leistungen/tierarztpraxis-marketing/',
+    countries: [],
+    categories: [13],
+    description:
+      'Dienstleister für Tierärzte mit Praxisberatung; die Marketingleistungen umfassen Praxiswebsite, Texte, Google-Profil und Anzeigen.',
+    tags: ['Marketing', 'Beratung'],
+  },
+  {
+    // Hinweis Vetion.de (LinkedIn). myvetlearn.de: „offizielle Plattform der Akademie für tierärztliche Fortbildung und Vetion.de“. Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'myvetlearn',
+    aufgenommen: '2026-11-25',
+    name: 'Myvetlearn.de',
+    logo: 'logos/myvetlearn.png',
+    website: 'https://www.myvetlearn.de',
+    countries: [],
+    categories: [14],
+    description:
+      'Online-Fortbildungsplattform der Akademie für tierärztliche Fortbildung und von Vetion.de mit E-Learning-Kursen sowie Online-Seminaren live und auf Abruf.',
+    tags: ['Fortbildung', 'E-Learning', 'ATF'],
+  },
+  {
+    // fortbildung.vet: „Fortbildungsplattform für Tiermedizinstudierende, Tierärzte und Tiermedizinische Fachangestellte“. Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'fortbildung-vet',
+    aufgenommen: '2026-11-25',
+    name: 'fortbildung.vet',
+    logo: 'logos/fortbildung-vet.png',
+    website: 'https://fortbildung.vet',
+    countries: [],
+    categories: [14],
+    description:
+      'Fortbildungsplattform für Tierärzte, TFA und Studierende mit Webinaren live und auf Abruf; betrieben von TVD Finanz.',
+    tags: ['Fortbildung', 'Webinar'],
+  },
+  {
+    // vetinare.de: „ATF-anerkannte Web-Seminare seit 2015 – live oder flexibel als Aufzeichnung.“ Länder nur aus Kundenstimmen – nicht gezählt. Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'vetinare',
+    aufgenommen: '2026-11-25',
+    name: 'vetinare',
+    logo: 'logos/vetinare.png',
+    website: 'https://www.vetinare.de',
+    countries: [],
+    categories: [14],
+    description:
+      'Web-Seminare für Tierärzte und TFA, live oder als Aufzeichnung, nach Fachgebieten von Anästhesie bis Zytologie geordnet.',
+    tags: ['Fortbildung', 'Webinar', 'ATF'],
+  },
+  {
+    // akademie.vet: „Online-Seminare für Tierärzte, Veterinärmediziner und TFA.“ Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'akademie-vet',
+    aufgenommen: '2026-11-25',
+    name: 'akademie.vet',
+    logo: 'logos/akademie-vet.png',
+    website: 'https://www.akademie.vet',
+    countries: [],
+    categories: [14],
+    description:
+      'Online-Seminare für praktizierende und amtliche Tierärzte sowie TFA, darunter Kurse zur Aktualisierung der Fachkunde im Strahlenschutz.',
+    tags: ['Fortbildung', 'Strahlenschutz'],
+  },
+  {
+    // Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'vet-webinar',
+    aufgenommen: '2026-11-25',
+    name: 'vet-webinar',
+    logo: 'logos/vet-webinar.png',
+    website: 'https://www.vet-webinar.com/de/',
+    // Märkte geprüft 25.11.2026: https://www.vet-webinar.com/de/ – Anerkennung je Land: ATF, Bildungsordnung der Österreichischen Tierärztekammer, GST
+    countries: ['DE', 'AT', 'CH'],
+    categories: [14],
+    description:
+      'Plattform für Webinare und E-Learning-Kurse in der Veterinärmedizin, mit Anerkennung je nach Land über ATF, Österreichische Tierärztekammer oder GST.',
+    tags: ['Fortbildung', 'Webinar', 'E-Learning'],
+  },
+  {
+    // webinare-elanco.de: „Unsere Fortbildungen für Tierärzt/-innen sind selbstverständlich ATF-anerkannt.“ Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'elanco-webinare',
+    aufgenommen: '2026-11-25',
+    name: 'Webinare-Elanco.de',
+    logo: 'logos/elanco-webinare.png',
+    website: 'https://www.webinare-elanco.de',
+    countries: [],
+    categories: [14],
+    description:
+      'Webinarplattform des Tiergesundheitsunternehmens Elanco mit kostenfreien Live-Webinaren und Aufzeichnungen für Tierärzte und TFA.',
+    tags: ['Fortbildung', 'Webinar', 'Hersteller'],
+  },
+  {
+    // petcampus.de: „Fortbildungen speziell für Tiermedizinische Fachangestellte“. Quelle: eigene Website, geprüft 25.11.2026 (Recherche zu den LinkedIn-Hinweisen).
+    id: 'petcampus',
+    aufgenommen: '2026-11-25',
+    name: 'PETCAMPUS',
+    logo: 'logos/petcampus.png',
+    website: 'https://www.petcampus.de',
+    countries: [],
+    categories: [14],
+    description:
+      'Fortbildungsangebot unter dem Namen MSD Academy für Tiermedizinische Fachangestellte, mit E-Learning, Live-Fortbildungen und Aufzeichnungen.',
+    tags: ['Fortbildung', 'TFA', 'Hersteller'],
   },
 ];
 

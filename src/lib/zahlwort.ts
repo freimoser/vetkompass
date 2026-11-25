@@ -11,7 +11,7 @@
  * Reine Funktion ohne Importe, damit sie App und Build-Skripte gleichermaßen
  * lesen können (Node versteht TypeScript direkt).
  */
-const WOERTER = ['null', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf'];
+const WOERTER = ['null', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf', 'dreizehn', 'vierzehn'];
 
 export function zahlwort(n: number): string {
   return Number.isInteger(n) && n >= 2 && n < WOERTER.length ? WOERTER[n] : String(n);

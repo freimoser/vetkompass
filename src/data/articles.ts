@@ -1494,4 +1494,236 @@ export const artikel: Artikel[] = [
       'nach Land und Tierart, in Deutschland teils nach Bundesland. Kosten stehen hier nur, wo die ' +
       'Register sie selbst nennen.',
   },
+
+  /* ----------------------------------------------------------------- 13 */
+  {
+    kategorie: 13,
+    slug: 'praxismarketing',
+    frageAnbieter: 'Welche Marketing-Agenturen und Beratungen gibt es für Tierarztpraxen?',
+    frageBegriff: 'Was ist Praxismarketing für Tierarztpraxen?',
+    h1: 'Praxismarketing und Beratung für Tierarztpraxen',
+    titleTag: 'Praxismarketing für Tierarztpraxen – Agenturen, Beratung',
+    description:
+      'Was Agenturen und Beratungen für Tierarztpraxen leisten, welche es im DACH-Raum gibt und ' +
+      'welche Fragen vor einem Auftrag geklärt sein sollten.',
+    definition:
+      'Praxismarketing ist alles, womit eine Tierarztpraxis bestimmt, wie Tierhalter und Bewerber sie wahrnehmen – von Positionierung und Erscheinungsbild über Website und Social Media bis zur Arbeitgebermarke.',
+    lead: [
+      'In dieser Kategorie stehen keine Werkzeuge, sondern Menschen: Agenturen, die Website und ' +
+        'Social Media umsetzen, und Beratungen, die mit der Praxis klären, wofür sie stehen will. ' +
+        'Beides wird oft in einem Atemzug genannt, ist aber nicht dasselbe.',
+      'Viele Praxen suchen heute nicht in erster Linie Kunden, sondern Personal. Marketing für ' +
+        'eine Tierarztpraxis richtet sich deshalb oft an zwei Zielgruppen: Tierhalter und Bewerber.',
+    ],
+    abschnitte: [
+      {
+        h2: 'Was in dieser Kategorie zusammengefasst ist',
+        absaetze: [
+          'Dienstleister, die Tierarztpraxen bei Positionierung, Erscheinungsbild, Website, Social ' +
+            'Media, Anzeigen, Arbeitgebermarke oder Praxisentwicklung unterstützen – als Umsetzung, ' +
+            'als Beratung oder als Coaching, bei dem das Team es selbst lernt.',
+          'Nicht hier: Plattformen mit eigener Reichweite bei Tierhaltern. Sie stehen unter ' +
+            'Digitale Sichtbarkeit, Verzeichnisse unter Tierärzte-Suchmaschinen. Eine Agentur hat ' +
+            'keine eigene Reichweite – sie arbeitet mit den Kanälen, die es schon gibt.',
+          categories.find((c) => c.id === 13)!.aufnahme!,
+        ],
+      },
+      {
+        h2: 'Umsetzen lassen, beraten lassen oder selbst lernen',
+        absaetze: [
+          'Eine Agentur liefert Ergebnisse: eine Website, ein Logo, eine Kampagne. Eine Beratung ' +
+            'liefert Entscheidungen: Welche Leistungen sollen wachsen, welche Tierhalter will die ' +
+            'Praxis erreichen, wie soll sie als Arbeitgeber wirken. Ein Coaching liefert Können: ' +
+            'Das Team pflegt die Kanäle danach selbst.',
+          'Welche Form passt, hängt davon ab, wer in der Praxis Zeit dafür hat. Ein Social-Media-' +
+            'Auftritt, den niemand im Team weiterführt, endet mit dem Vertrag. Eine Website, die ' +
+            'nur die Agentur ändern kann, macht jede Änderung der Öffnungszeiten zum Auftrag.',
+        ],
+      },
+      {
+        h2: 'Was bei Tierarztpraxen anders ist',
+        absaetze: [
+          'Werbung von Tierärztinnen und Tierärzten unterliegt den Berufsordnungen der jeweiligen ' +
+            'Kammer, für Aussagen über Arzneimittel gelten zusätzliche Regeln. Eine Agentur aus ' +
+            'einer anderen Branche kennt diese Grenzen nicht zwangsläufig. Ob eine Maßnahme zulässig ' +
+            'ist, klärt im Zweifel die zuständige Kammer, nicht die Agentur.',
+          'Dazu kommen Fotos von Tieren, Tierhaltern und Teammitgliedern. Wer sie veröffentlicht, ' +
+            'braucht deren Einwilligung – das gilt für die Praxis, nicht nur für den Dienstleister.',
+        ],
+      },
+    ],
+    fragen: [
+      {
+        frage: 'Kann eine Agentur neue Patienten zusagen?',
+        antwort:
+          'Eine Agentur kann Auftritt und Auffindbarkeit verbessern. Ob Tierhalter dann kommen, ' +
+          'hängt auch an Erreichbarkeit, freien Terminen und Bewertungen. Zusagen zu Patientenzahlen ' +
+          'sind ein Anlass zu fragen, wie sie gemessen werden.',
+      },
+      {
+        frage: 'Lohnt sich Marketing, wenn die Praxis keine neuen Patienten aufnimmt?',
+        antwort:
+          'Dann geht es meist um Personal: Arbeitgebermarke und Karriereseite richten sich an ' +
+          'Bewerberinnen und Bewerber. Für Tierhalter genügt oft ein gepflegter Eintrag mit ' +
+          'Öffnungszeiten und Leistungen.',
+      },
+      {
+        frage: 'Wem sollten Social-Media-Konten und Domain gehören?',
+        antwort:
+          'Der Praxis. Laufen Konten oder Domain auf den Dienstleister, sind sie bei einem Wechsel ' +
+          'schwer zurückzuholen. Das lässt sich vor Vertragsbeginn festhalten.',
+      },
+    ],
+    worauf: [
+      'Wem gehören am Ende Domain, Website, Texte, Bilder und Social-Media-Konten – der Praxis oder dem Dienstleister?',
+      'Kann die Praxis Öffnungszeiten, Team und Leistungen auf der Website selbst ändern?',
+      'Welche Referenzen aus Tierarztpraxen gibt es, und lassen sie sich ansehen?',
+      'Woran wird Erfolg gemessen – und wer erhebt die Zahlen?',
+      'Kennt der Dienstleister die Werberegeln der Berufsordnung, und wer haftet für Inhalte?',
+      'Werden personenbezogene Daten von Tierhaltern oder Bewerbern verarbeitet? Dann braucht es einen Auftragsverarbeitungsvertrag.',
+      'Wie lang ist die Vertragslaufzeit, und was passiert mit Website und Konten bei Kündigung?',
+    ],
+    abgrenzung: [
+      {
+        kategorie: 1,
+        grund:
+          'Dort stehen Plattformen mit eigener Reichweite. Eine Agentur hilft, sie zu nutzen – ' +
+          'ersetzt sie aber nicht.',
+      },
+      {
+        kategorie: 10,
+        grund:
+          'Ein gepflegter Eintrag in Verzeichnissen und Kartendiensten ist oft der erste Auftrag ' +
+          'einer Agentur. Welche Portale es gibt, steht dort.',
+      },
+      {
+        kategorie: 2,
+        grund:
+          'Marketing endet dort, wo jemand einen Termin will. Ob die Website buchbar ist, ' +
+          'entscheidet die Terminlösung, nicht das Design.',
+      },
+      {
+        kategorie: 14,
+        grund:
+          'Wer Marketing selbst lernen will statt es einzukaufen: Auch Praxismanagement gibt es ' +
+          'als Online-Fortbildung.',
+      },
+    ],
+    begriffe: [],
+    grenzen:
+      'Keine Preise, keine Erfolgsversprechen und keine Empfehlung für einen bestimmten ' +
+      'Dienstleister. Keine Rechtsberatung zu Werberegeln: Maßgeblich ist die Berufsordnung der ' +
+      'zuständigen Kammer.',
+  },
+
+  /* ----------------------------------------------------------------- 14 */
+  {
+    kategorie: 14,
+    slug: 'online-fortbildung',
+    frageAnbieter: 'Wo gibt es Online-Fortbildungen für Tierärzte und TFA?',
+    frageBegriff: 'Was ist eine Online-Fortbildung in der Tiermedizin?',
+    h1: 'Online-Fortbildung für Tierärzte und TFA',
+    titleTag: 'Online-Fortbildung für Tierärzte und TFA – Plattformen',
+    description:
+      'Welche Plattformen Online-Fortbildung für Tierärzte und TFA anbieten, wie anerkannte ' +
+      'Stunden ins Spiel kommen und worauf Praxisteams bei der Auswahl achten.',
+    definition:
+      'Eine Online-Fortbildung in der Tiermedizin ist ein Webinar, Online-Seminar oder E-Learning-Kurs, mit dem Tierärztinnen, Tierärzte und TFA sich ohne Anreise fortbilden – live zu einem festen Termin oder als Aufzeichnung.',
+    lead: [
+      'Online-Fortbildung ist für viele Praxisteams der Weg, Fortbildung neben Dienstplan und ' +
+        'Notdienst unterzubringen. Die Plattformen unterscheiden sich weniger in der Technik als ' +
+        'darin, wer sie betreibt, welche Stunden anerkannt werden und wie lange Inhalte abrufbar sind.',
+      'Neben unabhängigen Plattformen bieten auch Hersteller aus der Tiergesundheit Webinare an, ' +
+        'oft kostenfrei. Das ist kein Makel, aber ein Unterschied, den man kennen sollte.',
+    ],
+    abschnitte: [
+      {
+        h2: 'Was in dieser Kategorie zusammengefasst ist',
+        absaetze: [
+          'Plattformen, auf denen Tierärztinnen, Tierärzte und TFA Webinare, Online-Seminare und ' +
+            'E-Learning-Kurse belegen können – live, auf Abruf oder als Mischung aus beidem. Dazu ' +
+            'gehören Plattformen von Fachportalen, Dienstleistern und Herstellern.',
+          'Nicht hier: Fachmedien und Newsletter, die über Fortbildungen informieren, ohne sie ' +
+            'selbst anzubieten. Sie stehen unter Branchen-Newsletter.',
+        ],
+      },
+      {
+        h2: 'Anerkannte Stunden: ATF, AG TFA, ÖTK und GST',
+        absaetze: [
+          'In Deutschland werden Fortbildungen für Tierärztinnen und Tierärzte über die Akademie ' +
+            'für tierärztliche Fortbildung (ATF) anerkannt, für TFA über die AG TFA. In Österreich ' +
+            'zählen Bildungsstunden nach der Bildungsordnung der Österreichischen Tierärztekammer, ' +
+            'in der Schweiz Bildungspunkte nach den Richtlinien der GST.',
+          'Ob eine Fortbildung anerkannt ist, steht in der Regel beim Angebot – manchmal mit dem ' +
+            'Zusatz „beantragt“. Wer Stunden nachweisen muss, sollte vor der Buchung prüfen, ob ' +
+            'die Anerkennung schon erteilt ist und ob sie im eigenen Land gilt.',
+        ],
+      },
+      {
+        h2: 'Live, auf Abruf oder als Kurs mit Abschlusstest',
+        absaetze: [
+          'Live-Webinare erlauben Fragen an die Referentin oder den Referenten, verlangen aber ' +
+            'einen festen Termin. Aufzeichnungen passen sich dem Dienstplan an. E-Learning-Kurse ' +
+            'mit Modulen und Abschlusstest sind die Form, in der etwa Kurse zur Aktualisierung der ' +
+            'Fachkunde im Strahlenschutz online angeboten werden.',
+          'Für die Praxis als Ganzes zählt, ob sich Fortbildung für das Team organisieren lässt: ' +
+            'gemeinsame Zugänge, Praxislizenzen oder Abos und eine Übersicht, wer welche Stunden ' +
+            'schon hat.',
+        ],
+      },
+    ],
+    fragen: [
+      {
+        frage: 'Zählt eine Aufzeichnung genauso wie ein Live-Webinar?',
+        antwort:
+          'Das hängt von der Anerkennung ab: Manche Aufzeichnungen sind mit Lernerfolgskontrolle ' +
+          'anerkannt, andere nur die Live-Teilnahme. Die Angabe steht in der Regel beim Angebot.',
+      },
+      {
+        frage: 'Können TFA dieselben Plattformen nutzen?',
+        antwort:
+          'Viele Plattformen haben eigene Angebote für TFA, anerkannt über die AG TFA. Einzelne ' +
+          'richten sich ausschließlich an TFA.',
+      },
+      {
+        frage: 'Worauf achten bei kostenfreien Webinaren von Herstellern?',
+        antwort:
+          'Auch sie können anerkannt sein; das steht beim Angebot. Inhaltlich lohnt der Blick ' +
+          'darauf, ob Produkte des Herstellers im Mittelpunkt stehen.',
+      },
+    ],
+    worauf: [
+      'Ist die Fortbildung bereits anerkannt oder erst beantragt – und gilt die Anerkennung im eigenen Land?',
+      'Wird die Anerkennung für Tierärzte (ATF) oder für TFA (AG TFA) erteilt?',
+      'Wie lange bleibt eine Aufzeichnung nach dem Kauf abrufbar?',
+      'Wie wird die Teilnahme nachgewiesen, und wie kommt die Bescheinigung zur Praxis?',
+      'Gibt es Praxis- oder Teamzugänge, oder braucht jede Person ein eigenes Konto?',
+      'Wer betreibt die Plattform, und wer finanziert kostenfreie Angebote?',
+    ],
+    abgrenzung: [
+      {
+        kategorie: 5,
+        grund:
+          'Fachmedien berichten über Fortbildungen, hier werden sie belegt. Einzelne Anbieter ' +
+          'stehen deshalb in beiden Kategorien.',
+      },
+      {
+        kategorie: 11,
+        grund:
+          'Fortbildung baut Wissen auf Vorrat auf. Für die konkrete Frage am Patienten sind ' +
+          'Nachschlagewerke und Arzneimittelinformation zuständig.',
+      },
+      {
+        kategorie: 13,
+        grund:
+          'Praxismanagement und Marketing kann man lernen oder einkaufen. Wer es einkauft, ' +
+          'findet die Dienstleister dort.',
+      },
+    ],
+    begriffe: [],
+    grenzen:
+      'Keine Bewertung von Referentinnen, Referenten oder Inhalten und keine Preise. Ob eine ' +
+      'Fortbildung für eine bestimmte Pflicht anerkannt wird, entscheidet die zuständige Stelle, ' +
+      'nicht dieser Artikel.',
+  },
 ];
