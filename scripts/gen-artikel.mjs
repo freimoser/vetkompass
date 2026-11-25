@@ -27,7 +27,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
-import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL, RATGEBER_SEITEN, meilensteinAnker } from './seiten.mjs';
+import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL, RATGEBER_SEITEN, UEBER, meilensteinAnker } from './seiten.mjs';
 import { AUS_HINWEISEN, BETEILIGUNG, FASSUNGEN, MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
 import { HERAUSGEBER, MARKE, SCHWESTER } from '../src/config/verbund.ts';
@@ -130,7 +130,7 @@ function zeile(p, id, mitMaerkten) {
   const markt = p.countries.length ? p.countries.map((c) => LAND[c]).join(', ') : '–';
   return `        <tr>
           <th scope="row">${name}</th>
-          <td>${esc(beschreibung(p, id))}</td>${
+          <td>${esc(beschreibung(p, id))}${p.merkmal ? `<br><span class="merkmal">${esc(p.merkmal)}</span>` : ''}</td>${
             mitMaerkten ? `\n          <td class="nowrap"><span class="nur-mobil">Märkte: </span>${esc(markt)}</td>` : ''
           }
         </tr>`;
@@ -363,6 +363,7 @@ const STIL = `      :root {
       .begriff, .frage { margin: 0 0 1.75rem; }
       .begriff h3 span { font-weight: 400; }
       .muted { color: var(--muted); font-size: 0.9375rem; }
+      .merkmal { color: var(--muted); font-size: 0.875rem; }
       .meta { color: var(--muted); font-size: 0.875rem; margin: 0 0 2rem; }
       .pruefliste li { margin-bottom: 0.6rem; }
       .verweise { list-style: none; padding: 0; }
@@ -806,7 +807,7 @@ function hauptartikel() {
           sie sind eine Grundentscheidung, keine Lücke.
         </p>
       </div>
-      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(HAUPTARTIKEL.pfad)}</p>
+      <p class="meta">Von <a href="ueber.html">${esc(AUTOR)}</a>, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(HAUPTARTIKEL.pfad)}</p>
 
       <h2 id="anbieter">Praxissoftware für Tierarztpraxen: die Anbieter</h2>
       <p>
@@ -960,11 +961,12 @@ function kurzeFragen(a, kat, liste) {
         `${aufzaehlung}. Die Liste ist alphabetisch, ohne Rangfolge und ohne Anspruch auf ` +
         `Vollständigkeit (Stand: ${EDITION}).`,
     },
-    { frage: a.frageBegriff, antwort: a.definition },
-    {
-      frage: 'Was sollte eine Praxis vor der Auswahl klären?',
-      antwort: `Unter anderem diese Fragen: ${a.worauf.slice(0, 3).join(' ')} Die vollständige Prüfliste steht oben im Artikel.`,
-    },
+    /*
+      Bis 25.11.2026 standen hier die Definition und drei Punkte der Prüfliste
+      noch einmal – wörtlich wie oben im Artikel (SEO-Audit: doppelter Text).
+      Jetzt eigene Fragen je Artikel, die der Text nicht schon beantwortet.
+    */
+    ...(a.fragen ?? []),
   ];
 }
 
@@ -1024,7 +1026,7 @@ function kategorieArtikel(seiteInfo) {
         <p class="definition">${esc(a.definition)}</p>
 ${a.lead.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
       </div>
-      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(seiteInfo.pfad)} ·
+      <p class="meta">Von <a href="ueber.html">${esc(AUTOR)}</a>, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(seiteInfo.pfad)} ·
         Kategorie ${a.kategorie} der <a href="./#kategorie-${esc(kat.slug)}">Marktübersicht</a></p>
 
 ${begriffsBlock(a.begriffe, seiteInfo.datei)}
@@ -1253,6 +1255,88 @@ ${marken
   return svg;
 }
 
+/*
+  Über den Herausgeber. Nur Angaben, die schon veröffentlicht sind: Werdegang
+  wie auf tiermedizin-in-zahlen.org/ueber-das-projekt.html, Beteiligungen wie in
+  der Offenlegung. Nichts ergänzen, was der Herausgeber nicht selbst
+  veröffentlicht hat.
+*/
+function ueberSeite() {
+  const titleTag = 'Über den Herausgeber – Thomas Freimoser';
+  const description =
+    'Wer die Marktübersicht „Die digitale Tierarztpraxis“ herausgibt: Werdegang, ' +
+    'Beteiligungen und wie die Übersicht entsteht.';
+  const angebote = VERBUNDENE_ANGEBOTE.map(
+    (a) => `          <li><a href="${esc(a.url)}" rel="${REL_OFFENLEGUNG}">${esc(a.name)}</a> — ${esc(a.beschreibung)}</li>`,
+  ).join('\n');
+  const koerper = `
+      <h1>Über den Herausgeber</h1>
+
+      <div class="lead">
+        <p class="definition">
+          Die Marktübersicht „Die digitale Tierarztpraxis“ gibt ${esc(AUTOR)} aus München heraus.
+          Sie ist ein privates Projekt und gehört zum Verbund mit
+          <a href="${esc(SCHWESTER.url)}">${esc(SCHWESTER.name)}</a>.
+        </p>
+      </div>
+
+      <h2>Werdegang</h2>
+      <p>
+        ${esc(AUTOR)} arbeitet seit über 15 Jahren in der Gesundheits-IT. Zehn Jahre davon war er
+        in der Humanmedizin tätig, mit einer eigenen Firma für Schnittstellen und
+        Datenauswertung. Seit 2020 arbeitet er in der Tiermedizin-IT und hat dort ein
+        Unternehmen mitgegründet.
+      </p>
+      <p>
+        Er ist kein Tierarzt. Die Übersicht beschreibt digitale Lösungen aus Sicht der
+        Software und der Abläufe in der Praxis; medizinische, rechtliche oder wirtschaftliche
+        Beratung gibt sie nicht.
+      </p>
+
+      <h2>Beteiligungen</h2>
+      <p>
+        ${esc(AUTOR)} arbeitet für die Petleo GmbH und ist als Late Co-Founder an ihr beteiligt.
+        Darüber hinaus ist er in der FleXchange-Medical GmbH aktiv. Petleo steht in mehreren
+        Lösungsfeldern der Übersicht; jeder Artikel sagt, ob das für seine Kategorie gilt.
+      </p>
+
+      <h2>Wie die Übersicht entsteht</h2>
+      <p>
+        Jeder Anbieter wird auf seiner eigenen Website geprüft und dort eingeordnet, wo die
+        Funktion beschrieben ist. Die Sortierung ist alphabetisch, es gibt keine Rangfolge,
+        keine Bewertung und keine bezahlten Platzierungen; die Aufnahme ist kostenfrei. Wie die
+        Übersicht seit der ersten Fassung gewachsen ist, steht auf der Seite
+        <a href="${ENTWICKLUNG.datei}">${esc(ENTWICKLUNG.kurzTitel)}</a>.
+      </p>
+
+      <h2>Weitere Angebote und Kontakt</h2>
+      <ul>
+${angebote}
+        <li><a href="https://www.linkedin.com/in/thomas-freimoser" rel="me">${esc(AUTOR)} auf LinkedIn</a></li>
+        <li><a href="https://freimoser.de/" rel="me">freimoser.de</a></li>
+        <li><a href="impressum.html#kontakt">Kontakt und Impressum</a></li>
+      </ul>
+
+      <p class="meta">Stand: ${esc(EDITION)}, ${geaendertAm(UEBER.pfad)}</p>`;
+
+  return seite({
+    pfad: UEBER.pfad,
+    titleTag,
+    description,
+    krume: 'Über den Herausgeber',
+    schema: [
+      {
+        '@type': 'ProfilePage',
+        ...(hatDomain ? { '@id': `${absolut(UEBER.pfad)}#seite` } : {}),
+        name: titleTag,
+        inLanguage: 'de',
+        mainEntity: PERSON,
+      },
+    ],
+    koerper,
+  });
+}
+
 function entwicklungsSeite() {
   const erste = FASSUNGEN[0];
   const personen = BETEILIGUNG.reduce((a, b) => a + b.personen, 0);
@@ -1319,7 +1403,7 @@ function entwicklungsSeite() {
           nachvollziehbar bleibt, welcher Stand wann galt.
         </p>
       </div>
-      <p class="meta">Von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(ENTWICKLUNG.pfad)}</p>
+      <p class="meta">Von <a href="ueber.html">${esc(AUTOR)}</a>, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(ENTWICKLUNG.pfad)}</p>
 
       <ul class="kennzahlen">
         <li><strong>${erste.anbieter} → ${providers.length}</strong><span>Anbieter seit der ersten Fassung</span></li>
@@ -1431,7 +1515,7 @@ ${a.liste.map((l) => `        <li>${esc(l)}</li>`).join('\n')}
         <p class="definition">${esc(r.definition)}</p>
 ${r.lead.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
       </div>
-      <p class="meta">Ratgeber von ${esc(AUTOR)}, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(seiteInfo.pfad)} ·
+      <p class="meta">Ratgeber von <a href="ueber.html">${esc(AUTOR)}</a>, ${esc(ROLLE)} · Stand: ${esc(EDITION)}, ${geaendertAm(seiteInfo.pfad)} ·
         gehört zu <a href="${esc(ARTIKEL_NACH_KATEGORIE.get(r.kategorie)?.datei ?? './')}">${esc(kat.title)}</a></p>
 
 ${r.abschnitte.map(abschnitt).join('\n\n')}
@@ -1510,6 +1594,11 @@ writeFileSync(join(OUT, HAUPTARTIKEL.datei), haupt, 'utf8');
 gesamt += woerter(haupt);
 zeilen.push(`  ${HAUPTARTIKEL.datei.padEnd(36)} ${woerter(haupt)} Wörter`);
 
+const ueber = ueberSeite();
+writeFileSync(join(OUT, UEBER.datei), ueber, 'utf8');
+gesamt += woerter(ueber);
+zeilen.push(`  ${UEBER.datei.padEnd(36)} ${woerter(ueber)} Wörter`);
+
 const entwicklung = entwicklungsSeite();
 writeFileSync(join(OUT, ENTWICKLUNG.datei), entwicklung, 'utf8');
 gesamt += woerter(entwicklung);
@@ -1547,7 +1636,7 @@ for (const s of ALLE_ARTIKEL) {
 const md = (t) => String(t).replace(/\s+/g, ' ').trim();
 const anbieterZeilen = (liste, id) =>
   liste
-    .map((p) => `- ${p.name}: ${md(beschreibung(p, id))}${p.countries.length ? ` (Märkte: ${p.countries.map((c) => LAND[c]).join(', ')})` : ''}`)
+    .map((p) => `- ${p.name}: ${md(beschreibung(p, id))}${p.merkmal ? ` ${md(p.merkmal)}` : ''}${p.countries.length ? ` (Märkte: ${p.countries.map((c) => LAND[c]).join(', ')})` : ''}`)
     .join('\n');
 
 function volltext() {

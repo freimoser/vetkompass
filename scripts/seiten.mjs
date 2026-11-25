@@ -103,7 +103,14 @@ export const RATGEBER_SEITEN = ratgeber.map((r) => ({
   prioritaet: '0.7',
   inhalt: r,
 }));
-export const ZUSATZSEITEN = [ENTWICKLUNG, ...RATGEBER_SEITEN];
+/** Wer die Übersicht herausgibt (SEO-Audit 25.11.2026: keine Autorenseite auf der eigenen Domain). */
+export const UEBER = {
+  datei: 'ueber.html',
+  pfad: '/ueber.html',
+  kurzTitel: 'Über den Herausgeber',
+  prioritaet: '0.5',
+};
+export const ZUSATZSEITEN = [ENTWICKLUNG, ...RATGEBER_SEITEN, UEBER];
 
 /**
  * Anker eines Meilensteins auf der Entwicklungsseite. Der Atom-Feed

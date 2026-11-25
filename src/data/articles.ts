@@ -35,6 +35,11 @@ export interface ArtikelAbgrenzung {
   grund: string;
 }
 
+export interface ArtikelFrage {
+  frage: string;
+  antwort: string;
+}
+
 export interface Artikel {
   kategorie: number;
   /** Dateiname ohne Endung. Entspricht dem Kategorie-Slug. */
@@ -54,7 +59,18 @@ export interface Artikel {
    * Sichtbarkeit“ ist kein Satz, den jemand tippt.
    */
   frageAnbieter: string;
+  /**
+   * Seit dem SEO-Audit vom 25.11.2026 nicht mehr in „Kurz beantwortet“:
+   * Die Antwort war wörtlich die Definition, die direkt darüber steht.
+   */
   frageBegriff: string;
+  /**
+   * Weitere Fragen in „Kurz beantwortet“, nach der Anbieterfrage. Regel aus
+   * dem SEO-Audit vom 25.11.2026: Keine Antwort wiederholt Definition, Lead
+   * oder eine Prüffrage – jede ergänzt eine Abgrenzung, eine Folge für den
+   * Praxisalltag oder eine datierte Angabe, in ein bis drei Sätzen.
+   */
+  fragen: ArtikelFrage[];
   /**
    * Optionale Vergleichstabelle nach den Abschnitten – zitierfähiger als
    * Fließtext. Jede Zelle muss aus einer der genannten Quellen belegbar sein.
@@ -91,6 +107,29 @@ export const artikel: Artikel[] = [
     slug: 'digitale-sichtbarkeit',
     frageAnbieter: 'Welche Anbieter gibt es für die digitale Sichtbarkeit von Tierarztpraxen?',
     frageBegriff: 'Was bedeutet digitale Sichtbarkeit für eine Tierarztpraxis?',
+    fragen: [
+      {
+        frage: 'Was bringt Sichtbarkeit einer Praxis, die keine neuen Patienten aufnimmt?',
+        antwort:
+          'Weniger Anrufe, die ins Leere laufen. Wer im Profil vermerkt, dass derzeit keine neuen ' +
+          'Patienten aufgenommen werden, und Tierarten und Leistungen klar nennt, filtert Anfragen, ' +
+          'bevor sie am Empfang ankommen.',
+      },
+      {
+        frage: 'Wie antwortet eine Praxis öffentlich auf eine Bewertung?',
+        antwort:
+          'Sachlich, kurz und ohne Behandlungsdetails. Schon die Bestätigung, dass ein Tier in der ' +
+          'Praxis war, kann die Verschwiegenheit berühren; besser ist das Angebot, die Sache im ' +
+          'direkten Gespräch zu klären.',
+      },
+      {
+        frage: 'Kann sich ein Eintrag im Kartendienst ohne Zutun der Praxis ändern?',
+        antwort:
+          'Ja. Kartendienste nehmen auch Änderungsvorschläge von Nutzern an. Wer den Eintrag nicht ' +
+          'regelmäßig ansieht – spätestens vor Feiertagen und Urlaubszeiten –, bemerkt eine falsche ' +
+          'Angabe oft erst durch einen verärgerten Anruf.',
+      },
+    ],
     h1: 'Digitale Sichtbarkeit: Wie Tierhalter eine Tierarztpraxis finden',
     titleTag: 'Sichtbarkeit für Tierarztpraxen – Kanäle und Anbieter',
     description:
@@ -194,6 +233,30 @@ export const artikel: Artikel[] = [
     slug: 'online-terminvereinbarung',
     frageAnbieter: 'Welche Anbieter gibt es für die Online-Terminbuchung beim Tierarzt?',
     frageBegriff: 'Was ist Online-Terminvereinbarung in der Tierarztpraxis?',
+    fragen: [
+      {
+        frage: 'Ersetzt die Online-Buchung das Telefon am Empfang?',
+        antwort:
+          'Nein, sie verschiebt nur einen Teil der Anrufe. Planbare Anlässe wandern ins Netz, ' +
+          'dringende und unklare Fälle bleiben am Telefon – und die Buchungsseite sollte genau ' +
+          'dorthin verweisen.',
+      },
+      {
+        frage: 'Sollte die Online-Buchung auch neuen Kunden offenstehen?',
+        antwort:
+          'Das ist eine Steuerungsentscheidung, keine technische. Je nach System lassen sich ' +
+          'Neukunden ganz ausschließen, auf bestimmte Terminarten begrenzen oder erst nach ' +
+          'Bestätigung durch die Praxis zulassen. Für ausgelastete Praxen ist das ein einfacher ' +
+          'Hebel, ohne die Buchung abzuschalten.',
+      },
+      {
+        frage: 'Wie viel vom Kalender gibt man online frei?',
+        antwort:
+          'Selten den ganzen. Ein gangbarer Weg ist ein Kontingent je Tag oder je Terminart; der ' +
+          'Rest bleibt für Telefon und Notfälle. Nach einigen Wochen lässt sich das Kontingent an ' +
+          'der tatsächlichen Nutzung ausrichten.',
+      },
+    ],
     h1: 'Online-Terminvereinbarung in der Tierarztpraxis',
     titleTag: 'Online-Terminbuchung in der Tierarztpraxis – Anbieter',
     description:
@@ -290,6 +353,30 @@ export const artikel: Artikel[] = [
     slug: 'intake-self-checkin',
     frageAnbieter: 'Welche Anbieter gibt es für digitale Patientenaufnahme und Self-Check-in?',
     frageBegriff: 'Was versteht man unter Intake und Self-Check-in?',
+    fragen: [
+      {
+        frage: 'Link vorab oder Tablet im Wartebereich?',
+        antwort:
+          'Der Link vor dem Termin bringt mehr, weil zu Hause in Ruhe ausgefüllt wird. Das Tablet ' +
+          'fängt diejenigen auf, die den Link nicht genutzt haben – es braucht dann einen festen ' +
+          'Platz, Reinigung und jemanden, der es nach jedem Tierhalter zurücksetzt. Meist braucht ' +
+          'es beides.',
+      },
+      {
+        frage: 'Was geschieht mit Fotos und Dokumenten, die Tierhalter hochladen?',
+        antwort:
+          'Vorbefunde anderer Praxen, Impfpass oder Fotos einer Wunde sind oft der nützlichste Teil ' +
+          'eines Intake. Zu klären ist, ob sie an der richtigen Patientenakte ankommen und wer sie ' +
+          'vor dem Termin ansieht – sonst liegen sie ungelesen in einem Postfach.',
+      },
+      {
+        frage: 'Eignet sich Intake auch für Notfälle?',
+        antwort:
+          'Nur eingeschränkt. Im Notfall zählt die Zeit bis zur Behandlung, nicht ein vollständiger ' +
+          'Datensatz. Sinnvoll ist ein sehr kurzer Bogen nach der Erstversorgung oder das Nachholen ' +
+          'beim nächsten regulären Termin.',
+      },
+    ],
     h1: 'Intake und Self-Check-in: die Patientenaufnahme vor dem Termin',
     titleTag: 'Digitale Patientenaufnahme in der Tierarztpraxis',
     description:
@@ -382,6 +469,29 @@ export const artikel: Artikel[] = [
     slug: 'ki-dokumentation',
     frageAnbieter: 'Welche KI-Assistenten gibt es für Tierarztpraxen?',
     frageBegriff: 'Was sind KI-Dokumentationsassistenten?',
+    fragen: [
+      {
+        frage: 'Wissen Tierhalter, dass im Behandlungsraum mitgeschnitten wird?',
+        antwort:
+          'Das sollten sie vorher erfahren, etwa über einen Hinweis bei der Anmeldung. Praktisch ' +
+          'braucht es außerdem einen Weg, die Aufnahme auf Wunsch auszuschalten. Die rechtliche ' +
+          'Bewertung gehört in eine Datenschutzberatung.',
+      },
+      {
+        frage: 'Spart KI-Dokumentation vom ersten Tag an Zeit?',
+        antwort:
+          'Selten. In den ersten Wochen liest das Team die Entwürfe genauer und passt Vorlagen an. ' +
+          'Belastbar ist ein Vergleich erst nach der Eingewöhnung – und dann an denselben ' +
+          'Terminarten wie vorher.',
+      },
+      {
+        frage: 'Schreibt ein Assistent auch Berichte für Tierhalter oder Überweisungen?',
+        antwort:
+          'Das hängt am Produkt und steht, wenn überhaupt, in der Beschreibung des Anbieters. Für ' +
+          'die Auswahl ist es zweitrangig: Aus dem Akteneintrag entstehen alle weiteren Texte, also ' +
+          'muss zuerst er stimmen.',
+      },
+    ],
     h1: 'KI in der Tierarztpraxis: Dokumentation und Praxisassistenten',
     titleTag: 'KI in der Tierarztpraxis: Dokumentation, Diktat, Telefon',
     description:
@@ -406,7 +516,7 @@ export const artikel: Artikel[] = [
             'spricht jemand bewusst für das Protokoll. KI-Telefonassistenz wiederum nimmt Anrufe ' +
             'an – eine dritte Aufgabe, auch wenn manche Anbieter sie mit der Dokumentation verbinden.',
           'Für die Auswahl ist die Unterscheidung entscheidend, weil sie an verschiedenen Stellen ' +
-            'Zeit spart. Wer am Telefon ertrinkt, dem hilft der beste Dokumentationsassistent ' +
+            'Zeit spart. Wer am Telefon ertrinkt, dem hilft auch ein guter Dokumentationsassistent ' +
             'nicht.',
           'Anmerkung zur Einordnung: Telefonassistenz war in dieser Kategorie eine bekannte ' +
             'Lücke. Seit dem 26.10.2026 stehen auch diese Anbieter in der Liste unten; welche der ' +
@@ -487,6 +597,28 @@ export const artikel: Artikel[] = [
     slug: 'branchen-newsletter',
     frageAnbieter: 'Welche Newsletter und Fachmedien gibt es für Tierärzte?',
     frageBegriff: 'Was sind Branchen-Newsletter und Fachmedien?',
+    fragen: [
+      {
+        frage: 'Woran erkennt man einen bezahlten Beitrag?',
+        antwort:
+          'An Kennzeichnungen wie „Anzeige“, „Advertorial“ oder „gesponsert“ – und daran, dass ein ' +
+          'Text nur ein Produkt behandelt und auf eine Bestellseite führt. Fehlt die Kennzeichnung, ' +
+          'zeigt das Impressum, wer das Medium herausgibt.',
+      },
+      {
+        frage: 'Können Fachbeiträge als Fortbildung zählen?',
+        antwort:
+          'Teilweise. Einzelne Fachzeitschriften und Plattformen bieten Beiträge mit Lernkontrolle ' +
+          'an, die als Fortbildung anerkannt sein können. Was angerechnet wird, regelt die ' +
+          'Fortbildungsordnung der zuständigen Kammer.',
+      },
+      {
+        frage: 'Wie viele Newsletter sollte ein Praxisteam abonnieren?',
+        antwort:
+          'So viele, wie tatsächlich gelesen werden. Ein Newsletter, der seit Monaten ungeöffnet ' +
+          'bleibt, ist ein Zeichen zum Abmelden – er verdeckt nur die Ausgaben, die gebraucht werden.',
+      },
+    ],
     h1: 'Branchen-Newsletter und Fachmedien der deutschsprachigen Tiermedizin',
     titleTag: 'Fachmedien und Newsletter für Tierärzte im DACH-Raum',
     description:
@@ -513,6 +645,42 @@ export const artikel: Artikel[] = [
             'Einschätzung aus dem Markt, keine Erhebung.',
           'Wer die Kanäle nicht kennt, über die dieser Markt redet, versteht seine Bewegungen ' +
             'nicht. Deshalb gehören sie in eine Marktübersicht.',
+        ],
+      },
+      {
+        h2: 'Welche Arten von Fachmedien es gibt',
+        absaetze: [
+          'Fachzeitschriften mit wissenschaftlichem Anspruch bringen Übersichtsartikel, Fallberichte ' +
+            'und Studien, oft nach Begutachtung durch Fachkolleginnen und -kollegen. Sie erscheinen ' +
+            'in größeren Abständen und dienen dem medizinischen Wissen, nicht der Marktbeobachtung.',
+          'Kammer- und Verbandsorgane berichten über Berufspolitik, Rechtsänderungen und ' +
+            'Fortbildungstermine. Sie erreichen Mitglieder unabhängig davon, ob diese gerade nach ' +
+            'etwas suchen – und sind deshalb oft der Ort, an dem eine Praxis zuerst von einer neuen ' +
+            'Vorschrift erfährt.',
+          'Branchennews und Newsletter haben die kürzeste Taktung. Sie melden neue Produkte, ' +
+            'Übernahmen, Personalien und Messetermine. Neue digitale Lösungen tauchen erfahrungsgemäß ' +
+            'hier zuerst auf, lange bevor eine Fachzeitschrift über sie schreibt.',
+          'Dazu kommen Fortbildungsplattformen, Webinare und Podcasts, bei denen die Grenze zwischen ' +
+            'Information und Fortbildung fließend ist, sowie Kundenmagazine von Herstellern und ' +
+            'Großhandel. Letztere können nützlich sein, sind aber nicht unabhängig von dem, was ' +
+            'der Herausgeber verkauft.',
+        ],
+      },
+      {
+        h2: 'Wie Praxen Fachmedien im Alltag nutzen',
+        absaetze: [
+          'Kaum ein Team liest alles. Praktikabel ist eine Aufteilung: Eine Person sichtet Medizin, ' +
+            'eine Praxisorganisation und Technik, und was relevant ist, kommt in die nächste ' +
+            'Teambesprechung. So hängt die Information nicht an der einen Kollegin, die zufällig ' +
+            'den richtigen Newsletter abonniert hat.',
+          'Bei Produktentscheidungen ist ein Bericht ein Anlass, keine Grundlage. Wer über eine neue ' +
+            'Lösung liest, erfährt, dass es sie gibt – ob sie in die eigene Praxis passt, zeigen ' +
+            'erst ein Test mit echten Abläufen und ein Gespräch mit einer Praxis, die sie schon ' +
+            'einsetzt. Auch das Datum zählt: Ein Bericht beschreibt den Stand beim Schreiben, nicht ' +
+            'den heutigen.',
+          'Für Praxisinhaberinnen und -inhaber haben Fachmedien noch eine zweite Funktion: Sie zeigen, ' +
+            'worüber andere Praxen gerade sprechen – Personalmangel, Übernahmen durch Gruppen, ' +
+            'Gebührenfragen. Das hilft, die eigene Lage einzuordnen.',
         ],
       },
       {
@@ -558,6 +726,22 @@ export const artikel: Artikel[] = [
     slug: 'online-videosprechstunde',
     frageAnbieter: 'Welche Anbieter gibt es für den Online-Tierarzt per Video?',
     frageBegriff: 'Was ist ein Online-Tierarzt?',
+    fragen: [
+      {
+        frage: 'Welche Angaben sollten Tierhalter für eine Online-Beratung bereithalten?',
+        antwort:
+          'Gewicht, aktuelle Medikamente, Impfstatus und, wenn vorhanden, die letzten Befunde. Die ' +
+          'Plattform kennt die Akte nicht – was nicht genannt wird, fließt nicht in die ' +
+          'Einschätzung ein.',
+      },
+      {
+        frage: 'Können Tierärztinnen aus einer Praxis für eine Plattform beraten?',
+        antwort:
+          'Das hängt vom Anbieter und vom Arbeitsvertrag ab. Wer es erwägt, sollte vorher klären, ' +
+          'ob daraus eine Konkurrenz zur eigenen Praxis entsteht und wem der Kontakt zum Tierhalter ' +
+          'nach der Beratung gehört.',
+      },
+    ],
     h1: 'Online-Tierarzt: offene Videosprechstunden für Tierhalter',
     titleTag: 'Online-Tierarzt per Video – Anbieter für Tierhalter',
     description:
@@ -597,6 +781,46 @@ export const artikel: Artikel[] = [
           'Was tierärztlich per Video zulässig ist – insbesondere Diagnosestellung, Verschreibung ' +
             'und Arzneimittelabgabe – ist eine Rechtsfrage und wird hier bewusst nicht beantwortet. ' +
             'Zuständig sind die Tierärztekammern und die geltenden Vorschriften.',
+        ],
+      },
+      {
+        h2: 'Offene Plattform und praxiseigene Sprechstunde im Vergleich',
+        absaetze: [
+          'Technisch sehen beide gleich aus: ein Bildschirm, eine Kamera, ein Gespräch. Der ' +
+            'Unterschied liegt darin, wem der Kontakt gehört. Bei einer offenen Plattform ist der ' +
+            'Tierhalter Kunde des Anbieters. Er bucht dort, bezahlt dort und kommt beim nächsten ' +
+            'Mal vermutlich wieder dorthin. Bei einer praxiseigenen Videosprechstunde bleibt die ' +
+            'Beziehung bei der Praxis, die das Tier ohnehin betreut.',
+          'Ebenso unterschiedlich ist, wo die Dokumentation liegt. Die Plattform führt eigene ' +
+            'Aufzeichnungen in ihrem System. Die Haustierarztpraxis sieht davon nur, was der ' +
+            'Tierhalter weitergibt oder was der Anbieter auf Wunsch übermittelt. Umgekehrt kennt die ' +
+            'Tierärztin auf der Plattform in der Regel weder Vorbefunde noch Medikation – sie ' +
+            'arbeitet mit dem, was ihr im Gespräch erzählt wird.',
+        ],
+      },
+      {
+        h2: 'Wann trotzdem eine Untersuchung nötig ist',
+        absaetze: [
+          'Allgemein gilt: Sobald ein Befund nur durch Anfassen, Abhören, Messen oder Bildgebung zu ' +
+            'erheben ist, führt der Weg in eine Praxis. Dazu gehören Lahmheiten, deren Ursache ' +
+            'unklar ist, Atemprobleme, Bauchschmerzen, Fieber und alles, was sich innerhalb weniger ' +
+            'Stunden verschlechtert. Eine Videoberatung kann solche Fälle früher in die Praxis ' +
+            'bringen, aber nicht abschließen.',
+          'Für die weiterbehandelnde Praxis heißt das: Ein Tier, das nach einer Online-Beratung ' +
+            'kommt, bringt eine Einschätzung mit, aber keinen Befund. Die Anamnese beginnt trotzdem ' +
+            'von vorn, auch wenn der Tierhalter das Gefühl hat, alles schon erzählt zu haben.',
+        ],
+      },
+      {
+        h2: 'Was die Kategorie für eine Praxis bedeutet',
+        absaetze: [
+          'Für eine Praxis gibt es drei Haltungen zu diesem Markt. Sie kann ihn ignorieren, weil ihre ' +
+            'Kundschaft ihn kaum nutzt. Sie kann eine eigene Videosprechstunde anbieten, damit ' +
+            'Bestandskunden nicht zu einer Plattform ausweichen. Oder sie kann gezielt mit einer ' +
+            'Plattform zusammenarbeiten, etwa als Anlaufstelle vor Ort.',
+          'Welche Haltung passt, hängt davon ab, wie oft Tierhalter außerhalb der Öffnungszeiten ' +
+            'anrufen und wie gut die Praxis selbst erreichbar ist. Das lässt sich am eigenen ' +
+            'Anrufaufkommen besser ablesen als an jeder Marktbeschreibung.',
         ],
       },
     ],
@@ -639,6 +863,29 @@ export const artikel: Artikel[] = [
     slug: 'praxiseigene-videosprechstunde',
     frageAnbieter: 'Welche Anbieter gibt es für eine praxiseigene Videosprechstunde?',
     frageBegriff: 'Was ist eine praxiseigene Videosprechstunde?',
+    fragen: [
+      {
+        frage: 'Welche Ausstattung braucht die Praxis?',
+        antwort:
+          'Meist reichen ein Rechner mit Kamera, ein Headset und ein ruhiger Raum. Wichtiger als ' +
+          'die Technik ist ein fester Platz, an dem der Empfang nicht mithört und an dem die Akte ' +
+          'auf demselben Bildschirm offen sein kann.',
+      },
+      {
+        frage: 'Wie bereiten Tierhalter einen Videotermin vor?',
+        antwort:
+          'Mit gutem Licht, einer zweiten Person, die das Tier hält, und Fotos oder kurzen Videos ' +
+          'vorab – etwa vom Gangbild oder von einer Wunde. Eine kurze Anleitung mit der ' +
+          'Terminbestätigung spart im Gespräch die ersten Minuten.',
+      },
+      {
+        frage: 'Wie führt eine Praxis Videotermine im Team ein?',
+        antwort:
+          'Mit wenigen, klar benannten Anlässen, etwa Nachkontrollen nach Operationen, und einer ' +
+          'Person, die die ersten Termine begleitet. Wer mit allen Anlässen zugleich startet, ' +
+          'erkennt schwer, wo es hakt.',
+      },
+    ],
     h1: 'Praxiseigene Videosprechstunde: eigene Patienten per Video betreuen',
     titleTag: 'Videosprechstunde für die eigene Tierarztpraxis',
     description:
@@ -676,6 +923,47 @@ export const artikel: Artikel[] = [
           'Besonders zu prüfen ist der Zugang für den Tierhalter. Alles, was eine Installation, ' +
             'ein Konto oder ein Passwort verlangt, kostet Termine – gerade bei älteren ' +
             'Tierhaltern. Ein Link, der im Browser funktioniert, ist der verlässlichste Weg.',
+        ],
+      },
+      {
+        h2: 'Die Beziehung bleibt in der eigenen Praxis',
+        absaetze: [
+          'Bietet eine Praxis selbst keine Videotermine an, weichen manche Tierhalter für schnelle ' +
+            'Fragen auf offene Plattformen aus. Dort berät ein fremdes Team ohne Kenntnis der Akte, ' +
+            'und die Praxis erfährt davon oft erst, wenn das Tier doch vorgestellt wird. Eine ' +
+            'eigene Videosprechstunde hält diese Fragen im Haus: Die Beratung kommt von Menschen, ' +
+            'die das Tier kennen, und sie schließt an die bisherige Behandlung an.',
+          'Das heißt nicht, dass jede Praxis Videotermine braucht. Es heißt, dass die Entscheidung ' +
+            'dagegen eine Folge hat, die im Kalender nicht auftaucht.',
+        ],
+      },
+      {
+        h2: 'Wann aus dem Videotermin ein Praxisbesuch wird',
+        absaetze: [
+          'Ein Videotermin ersetzt keine Untersuchung. Sobald etwas abgetastet, abgehört, gemessen ' +
+            'oder bildgebend dargestellt werden muss, braucht es den Termin vor Ort. Das gilt auch, ' +
+            'wenn sich ein bekanntes Krankheitsbild anders entwickelt als erwartet.',
+          'Hilfreich ist, die Grenze vorher im Team festzulegen statt im Gespräch zu entscheiden: ' +
+            'Welche Anlässe sind für Video vorgesehen, und bei welchen Anzeichen wird jedenfalls ein ' +
+            'Praxistermin vereinbart? Wer das schriftlich hat, entscheidet einheitlich – egal, wer ' +
+            'gerade vor der Kamera sitzt. Und der Tierhalter bekommt den Folgetermin möglichst noch ' +
+            'im selben Gespräch, nicht mit dem Hinweis, er möge anrufen.',
+          'Was rechtlich per Video zulässig ist, beantworten die Tierärztekammern und die geltenden ' +
+            'Vorschriften; diese Übersicht gibt dazu keine Auskunft.',
+        ],
+      },
+      {
+        h2: 'Wo der Videotermin dokumentiert wird',
+        absaetze: [
+          'Ein Videotermin gehört in dieselbe Akte wie jeder andere Termin – mit Anlass, ' +
+            'Einschätzung, Empfehlung und der Information, dass die Beurteilung per Video erfolgte. ' +
+            'Gerade dieser letzte Punkt ist wichtig, wenn später jemand nachvollziehen will, auf ' +
+            'welcher Grundlage entschieden wurde.',
+          'Fotos und kurze Videos, die der Tierhalter vorab oder im Gespräch schickt, sind Teil der ' +
+            'Vorgeschichte. Sie sollten in der Patientenakte liegen, nicht im Postfach einer ' +
+            'Mitarbeiterin oder auf einem Diensthandy. Ob das Gespräch selbst aufgezeichnet wird, ' +
+            'ist eine eigene Entscheidung mit Datenschutzfolgen und sollte nicht stillschweigend ' +
+            'durch die Voreinstellung einer Software getroffen werden.',
         ],
       },
       {
@@ -729,6 +1017,28 @@ export const artikel: Artikel[] = [
     slug: 'tierhalter-app',
     frageAnbieter: 'Welche Tierhalter-Apps und Patientenportale gibt es?',
     frageBegriff: 'Was ist eine Tierhalter-App oder ein Patientenportal?',
+    fragen: [
+      {
+        frage: 'Wie kommen Tierhalter zum ersten Mal ins Portal?',
+        antwort:
+          'Über einen Anlass: Der Zugang wird beim Termin eingerichtet oder kommt mit der nächsten ' +
+          'Impferinnerung. Ein Aushang im Wartezimmer bewegt wenig; mehr bewegt etwas, das im Portal ' +
+          'sofort sichtbar ist und sonst einen Anruf kosten würde.',
+      },
+      {
+        frage: 'Sollten Laborbefunde sofort im Portal erscheinen?',
+        antwort:
+          'Nicht unbedingt. Ein auffälliger Wert, den ein Tierhalter abends allein liest, erzeugt ' +
+          'Sorge und Anrufe. Gangbar sind eine Freigabe durch die Tierärztin oder eine Freischaltung ' +
+          'nach dem Befundgespräch – das System sollte beides zulassen.',
+      },
+      {
+        frage: 'Was ist mit Tierhaltern, die kein Smartphone nutzen?',
+        antwort:
+          'Für sie bleiben Telefon, E-Mail und Papier. Ein Portal ist ein zusätzlicher Weg; Abläufe, ' +
+          'die nur noch digital funktionieren, schließen einen Teil der Kundschaft aus.',
+      },
+    ],
     h1: 'Tierhalter-App und Patientenportal: der digitale Draht zum Kunden',
     titleTag: 'Tierhalter-App und Patientenportal für Tierarztpraxen',
     description:
@@ -819,6 +1129,29 @@ export const artikel: Artikel[] = [
     slug: 'tieraerzte-suchmaschinen',
     frageAnbieter: 'Welche Portale gibt es, um einen Tierarzt zu finden?',
     frageBegriff: 'Was sind Tierärzte-Suchmaschinen?',
+    fragen: [
+      {
+        frage: 'Kann eine Praxis ihren Eintrag in einem Portal löschen lassen?',
+        antwort:
+          'Das hängt vom Portal ab und ist rechtlich nicht einfach zu beantworten. Erreichbarer ist ' +
+          'meist die Korrektur – ein gelöschter Eintrag kann zudem aus einer öffentlichen Quelle ' +
+          'zurückkommen, dann wieder ungeprüft.',
+      },
+      {
+        frage: 'Was ist nach einer Praxisübernahme oder einem Umzug zu tun?',
+        antwort:
+          'Bestehende Einträge umstellen statt neue anzulegen, damit Bewertungen und Verweise ' +
+          'erhalten bleiben und keine Dubletten entstehen. Eine Liste der Portale mit Zugängen spart ' +
+          'beim nächsten Mal die Suche.',
+      },
+      {
+        frage: 'Wer in der Praxis sollte die Einträge pflegen?',
+        antwort:
+          'Eine benannte Person, nicht „der Empfang“ allgemein. Sie verwahrt die verbindliche ' +
+          'Schreibweise und die Zugänge und erfährt Änderungen an Zeiten oder Nummern zur selben ' +
+          'Zeit wie die Website.',
+      },
+    ],
     h1: 'Tierärzte-Suchmaschinen: Wo Tierhalter nach einer Praxis suchen',
     titleTag: 'Tierarzt finden: Suchportale und Verzeichnisse im DACH-Raum',
     description:
@@ -926,6 +1259,28 @@ export const artikel: Artikel[] = [
     slug: 'klinisches-wissen',
     frageAnbieter: 'Welche Nachschlagewerke zu Tierarzneimitteln gibt es?',
     frageBegriff: 'Was sind klinische Wissens- und Arzneimitteldienste?',
+    fragen: [
+      {
+        frage: 'Reicht die Packungsbeilage nicht aus?',
+        antwort:
+          'Für die zugelassene Anwendung oft schon. Bei einer anderen Tierart, einer Umwidmung oder ' +
+          'einem Tier, das Lebensmittel liefert, nicht mehr – dann geht es um Regeln und ' +
+          'Wartezeiten, die ein Beipackzettel nicht abdeckt.',
+      },
+      {
+        frage: 'Wie hält man die Quelle einer Entscheidung in der Akte fest?',
+        antwort:
+          'Ein kurzer Vermerk genügt: Nachschlagewerk, Abrufdatum und die übernommene Angabe. Bei ' +
+          'Umwidmungen ist das besonders sinnvoll, weil die Begründung später gefragt sein kann.',
+      },
+      {
+        frage: 'Lässt sich ein Nachschlagewerk in die Praxissoftware einbinden?',
+        antwort:
+          'Das hängt an beiden Seiten. Ohne Anbindung hilft schon ein fester Platz in der ' +
+          'Lesezeichenleiste am Behandlungsrechner – eine Suche, die drei Klicks entfernt ist, ' +
+          'findet im Behandlungsraum seltener statt.',
+      },
+    ],
     h1: 'Klinisches Wissen und Arzneimittelinformation für die Tierarztpraxis',
     titleTag: 'Tierarzneimittel-Info und klinisches Wissen für Tierärzte',
     description:
@@ -1034,6 +1389,29 @@ export const artikel: Artikel[] = [
     },
     frageAnbieter: 'Welche Haustierregister gibt es im DACH-Raum?',
     frageBegriff: 'Was ist ein Heimtierregister?',
+    fragen: [
+      {
+        frage: 'Was unterscheidet den Heimtierausweis von der Registrierung?',
+        antwort:
+          'Der EU-Heimtierausweis dokumentiert Chipnummer und Impfungen, etwa für Reisen, und liegt ' +
+          'beim Halter. Ein Register ist die Datenbank, in der ein Finder die Nummer nachschlagen ' +
+          'kann. Ein Tier kann einen Ausweis haben und trotzdem nirgends registriert sein.',
+      },
+      {
+        frage: 'Lohnt sich in Deutschland ein Eintrag in mehreren Registern?',
+        antwort:
+          'Er kann sinnvoll sein, weil nicht jeder Finder und nicht jedes Tierheim in jedem Register ' +
+          'sucht. Wichtiger als die Zahl der Einträge ist, dass jeder davon nach Umzug oder ' +
+          'Halterwechsel aktualisiert wird.',
+      },
+      {
+        frage: 'Was tun, wenn eine Chipnummer in den bekannten Registern fehlt?',
+        antwort:
+          'Die ersten drei Ziffern nennen nach ISO 11784 einen Ländercode oder einen Herstellercode – ' +
+          'daraus ergibt sich, wo weitergesucht wird. Bleibt die Suche erfolglos, ist das Fundtier ' +
+          'ein Fall für die örtliche Fundbehörde oder das Tierheim.',
+      },
+    ],
     h1: 'Heimtierregister: Wie ein Fundtier über den Chip nach Hause kommt',
     titleTag: 'Haustierregister und Heimtierregister in DE, AT und CH',
     description:

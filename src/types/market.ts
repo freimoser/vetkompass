@@ -99,6 +99,14 @@ export interface Provider {
   subgroups?: string[];
   /** Neutrale Kurzbeschreibung – keine Wertung, kein Marketing. */
   description: string;
+  /**
+   * Ein belegter, unterscheidender Fakt für Praxen (z. B. Cloud oder lokal,
+   * Tierarten, Schnittstellen, Hosting). Nur was auf der Seite des Anbieters
+   * steht; keine Preise (redaktionelle Regel). Quelle in `merkmalQuelle`.
+   */
+  merkmal?: string;
+  /** URL der Anbieterseite, die das Merkmal belegt, mit Prüfdatum. */
+  merkmalQuelle?: string;
   /** Freie Schlagworte, werden auch von der Suche berücksichtigt. */
   tags?: string[];
   /** Kategoriespezifische Abweichungen von Name/Logo. */

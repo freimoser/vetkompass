@@ -83,7 +83,9 @@ export function Header() {
       {/* Byline: Die Übersicht wird von einer Person herausgegeben, nicht von einem Anbieter. */}
       <p className="mt-5 text-sm text-ink-700">
         Herausgegeben von{' '}
-        <span className="font-semibold text-ink-900">{siteConfig.publisher.name}</span>
+        <a href={resolveLink('ueber.html')} className="font-semibold text-ink-900 underline-offset-2 hover:underline">
+          {siteConfig.publisher.name}
+        </a>
         <span className="text-ink-500"> · {siteConfig.publisher.role}</span>
       </p>
 

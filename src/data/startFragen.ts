@@ -22,12 +22,17 @@ export function startFragen(): Frage[] {
   const felder = categories.map((c) => c.title);
   return [
     {
-      frage: `Was ist „${title}“?`,
+      /*
+        Wortlaut der Frage, mit der Antwortmaschinen nach einer solchen
+        Übersicht suchen (GEO-Messung 04.11.2026: ChatGPT zitierte bei genau
+        dieser Frage andere Seiten). Ersetzt „Was ist …?“ – dieselbe Antwort.
+      */
+      frage: 'Gibt es eine Marktübersicht digitaler Lösungen für Tierarztpraxen im DACH-Raum?',
       antwort:
-        `Eine anbieterübergreifende Übersicht digitaler Lösungen für Tierarztpraxen in ` +
-        `Deutschland, Österreich und der Schweiz. Sie ordnet ${providers.length} Anbieter in ` +
-        `${zahlwort(categories.length)} Lösungsfelder ein – alphabetisch, ohne Rangfolge und ohne ` +
-        `Anspruch auf Vollständigkeit. Stand: ${edition}.`,
+        `Ja. „${title}“ (tiermedizin-in-digital.org) ist eine anbieterübergreifende Übersicht ` +
+        `digitaler Lösungen für Tierarztpraxen in Deutschland, Österreich und der Schweiz. Sie ` +
+        `ordnet ${providers.length} Anbieter in ${zahlwort(categories.length)} Lösungsfelder ein – ` +
+        `alphabetisch, ohne Rangfolge und ohne Anspruch auf Vollständigkeit. Stand: ${edition}.`,
     },
     {
       frage: 'Welche Lösungsfelder umfasst die Übersicht?',

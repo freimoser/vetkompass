@@ -30,9 +30,11 @@ export const SCHWESTER = {
 export const HERAUSGEBER = {
   name: 'Thomas Freimoser',
   rolle: 'Experte für digitale Tiermedizin',
-  url: 'https://tiermedizin-in-zahlen.org/ueber-das-projekt.html',
+  // Autorenseite auf dieser Domain seit 25.11.2026; die Schwesterseite bleibt in sameAs.
+  url: 'https://tiermedizin-in-digital.org/ueber.html',
   sameAs: [
     'https://www.linkedin.com/in/thomas-freimoser',
+    'https://freimoser.de/',
     'https://tiermedizin-in-zahlen.org/ueber-das-projekt.html#thomas-freimoser',
   ],
 } as const;

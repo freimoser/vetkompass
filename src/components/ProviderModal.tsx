@@ -152,6 +152,7 @@ export function ProviderModal({ entry, onClose }: ProviderModalProps) {
         ) : null}
 
         <p className="mt-3 text-sm leading-relaxed text-ink-700">{descriptionFor(provider, entry.categoryId)}</p>
+        {provider.merkmal ? <p className="mt-2 text-sm leading-relaxed text-ink-500">{provider.merkmal}</p> : null}
 
         {/* Wirtschaftliche Verbindung offenlegen – Text kommt aus den Daten. */}
         {provider.disclosureNote ? (

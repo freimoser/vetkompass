@@ -87,6 +87,8 @@ export const providers: Provider[] = [
     logo: 'logos/bpt-tierarztsuche.svg',
     website: 'https://www.tieraerzteverband.de/bpt/ueber-den-bpt/tierarztsuche/',
     countries: ['DE'],
+    merkmal: 'Praxissuche filterbar nach Tierart, von kleinen Heimtieren bis zu Pferden und Schweinen.',
+    merkmalQuelle: 'https://www.tieraerzteverband.de/bpt/ueber-den-bpt/tierarztsuche/ (geprüft 25.11.2026)',
     categories: [10],
     description:
       'Praxissuche des Bundesverbands Praktizierender Tierärzte e.V. Gelistet werden Mitgliedspraxen.',
@@ -103,6 +105,8 @@ export const providers: Provider[] = [
     logo: 'logos/covet.svg',
     website: 'https://www.co.vet/de',
     countries: [],
+    merkmal: 'Schnittstellen u. a. zu ezyVet, Animana, Provet Cloud und Cornerstone; Protokolle gehen zurück in die Praxissoftware.',
+    merkmalQuelle: 'https://co.vet/de/integrations/ (geprüft 25.11.2026)',
     categories: [4, 6],
     subgroups: ['pims-addons'],
     description:
@@ -115,6 +119,8 @@ export const providers: Provider[] = [
     logo: 'logos/debevet.svg',
     website: 'https://www.debevet.de',
     countries: [],
+    merkmal: 'Für Klein-, Nutztier- und Pferdepraxen, mit Anbindung an HI-Tier und QS-Vetproof.',
+    merkmalQuelle: 'https://www.debevet.de (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Cloudbasiertes Praxismanagementsystem für Kleintier-, Nutztier- und Pferdepraxen sowie Tiertherapie.',
@@ -126,6 +132,8 @@ export const providers: Provider[] = [
     logo: 'logos/digitail.png',
     website: 'https://www.digitail.com',
     countries: [],
+    merkmal: 'Cloud-Praxissoftware mit eingebauter KI, u. a. SOAP-Diktat und Zusammenfassung der Krankenakte.',
+    merkmalQuelle: 'https://digitail.com (geprüft 25.11.2026)',
     categories: [4],
     description:
       'Digitale Lösung mit KI-gestützten Funktionen für Dokumentation und Unterstützung im Praxisalltag.',
@@ -137,6 +145,8 @@ export const providers: Provider[] = [
     logo: 'logos/doktor-fressnapf.png',
     website: 'https://dr.fressnapf.de',
     countries: [],
+    merkmal: 'Video-Beratung für Hunde, Katzen, Vögel, Kaninchen, Nager, Reptilien und Amphibien.',
+    merkmalQuelle: 'https://dr.fressnapf.de (geprüft 25.11.2026)',
     categories: [7],
     description:
       'Angebot für Tierhalter, über das eine veterinärmedizinische Online-Beratung per Video erreichbar ist.',
@@ -147,7 +157,10 @@ export const providers: Provider[] = [
     name: 'DOGORAMA',
     logo: 'logos/dogorama.png',
     website: 'https://www.dogorama.app',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://dogorama.app/de-de/ – Länderauswahl Deutsch (DE), Deutsch (AT), Deutsch (CH)
+    countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Radar mit Giftköder-Warnungen, Tierärzten und Hundewiesen in der Umgebung.',
+    merkmalQuelle: 'https://dogorama.app/de-de/ (geprüft 25.11.2026)',
     categories: [1],
     description:
       'Plattform rund um Hunde und Hundehalter, über die Tierarztpraxen digital sichtbar werden können.',
@@ -159,6 +172,8 @@ export const providers: Provider[] = [
     logo: 'logos/dr-sam.png',
     website: 'https://drsam.de',
     countries: [],
+    merkmal: 'Beratung ohne Termin per Chat, Telefon oder Video, dazu ein Shop für Gesundheitsprodukte.',
+    merkmalQuelle: 'https://www.drsam.de (geprüft 25.11.2026)',
     categories: [7],
     description:
       'Online-Tierarztangebot, über das Tierhalter eine veterinärmedizinische Beratung digital in Anspruch nehmen können.',
@@ -170,6 +185,8 @@ export const providers: Provider[] = [
     logo: 'logos/easyvet.png',
     website: 'https://www.vetz.de',
     countries: [],
+    merkmal: 'Bestellschnittstellen zu heiland.com und zum WDT-Marktplatz; Bildverwaltung easyIMAGE in derselben Produktfamilie.',
+    merkmalQuelle: 'https://www.vetz.de (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Praxismanagementsystem für Patientenakte, Terminplanung, Dokumentation und Abrechnung.',
@@ -181,6 +198,8 @@ export const providers: Provider[] = [
     logo: 'logos/evovell.png',
     website: 'https://www.evovell.com',
     countries: [],
+    merkmal: 'Hosting in Deutschland; die Tierarztansicht berücksichtigt GOT und STIKO Vet.',
+    merkmalQuelle: 'https://www.evovell.com/tierarzt (geprüft 25.11.2026)',
     categories: [9],
     description:
       'App für Tierhalter, die Gesundheitsdaten, Termine und tierärztliche Unterlagen für Hund, Katze und Pferd bündelt.',
@@ -191,7 +210,10 @@ export const providers: Provider[] = [
     name: 'felmo',
     logo: 'logos/felmo.png',
     website: 'https://www.felmo.de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://felmo.de – „Mobiler Tierarzt Berlin … Hamburg … München“
+    countries: ['DE'],
+    merkmal: 'Hausbesuche für Hunde und Katzen, abgerechnet nach GOT, dazu eine Praxis für Chirurgie und Diagnostik.',
+    merkmalQuelle: 'https://felmo.de (geprüft 25.11.2026)',
     categories: [7, 9],
     description:
       'Tierärztliches Angebot mit digitalen Services für Tierhalter, unter anderem Online-Beratung und App-Zugang zu Terminen und Dokumenten.',
@@ -202,7 +224,10 @@ export const providers: Provider[] = [
     name: 'FirstVet',
     logo: 'logos/firstvet.png',
     website: 'https://firstvet.com/de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://firstvet.com/de/preise-und-weiterfuehrende-informationen – Länderauswahl mit Germany
+    countries: ['DE'],
+    merkmal: 'Video-Sprechstunde täglich von 7 bis 24 Uhr.',
+    merkmalQuelle: 'https://firstvet.com/de/preise-und-weiterfuehrende-informationen (geprüft 25.11.2026)',
     categories: [7],
     description:
       'Online-Videosprechstunde, über die Tierhalter direkt eine veterinärmedizinische Beratung erreichen können.',
@@ -216,6 +241,8 @@ export const providers: Provider[] = [
     name: 'GST Tierarzt-Finder',
     website: 'https://www.gstsvs.ch/de/tierarzt-finder/praxissuche',
     countries: ['CH'],
+    merkmal: 'Suche nach PLZ oder Ort im Umkreis bis 50 km, filterbar nach Tierart.',
+    merkmalQuelle: 'https://www.gstsvs.ch/de/tierarzt-finder/praxissuche (geprüft 25.11.2026)',
     categories: [10],
     description:
       'Praxissuche der Gesellschaft Schweizer Tierärztinnen und Tierärzte (GST). Gelistet werden Mitgliedspraxen und -kliniken.',
@@ -226,7 +253,10 @@ export const providers: Provider[] = [
     name: 'HaustierDocs',
     logo: 'logos/haustierdocs.png',
     website: 'https://www.haustierdocs.de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://haustierdocs.de – „bundesweites Netzwerk praktizierender Tierärzte in Deutschland“
+    countries: ['DE'],
+    merkmal: 'Videoberatung per Rückruf rund um die Uhr, abgerechnet nach GOT.',
+    merkmalQuelle: 'https://haustierdocs.de (geprüft 25.11.2026)',
     categories: [7],
     description:
       'Online-Angebot, über das Tierhalter tierärztliche Beratung digital in Anspruch nehmen können.',
@@ -238,6 +268,8 @@ export const providers: Provider[] = [
     logo: 'logos/hunderunde.png',
     website: 'https://hunderunden.de', // geprüft 14.10.2026: Mollmedia, „Hunderunden ist Teil von Just4Vets“
     countries: [],
+    merkmal: 'Portal für Hundehalter mit Praxisfinder; gehört zum Veterinärportal Just4Vets.',
+    merkmalQuelle: 'https://hunderunden.de (geprüft 25.11.2026)',
     categories: [5],
     description:
       'Digitales Informationsangebot mit Newsletter-Format für die deutschsprachige Tier- und Veterinärbranche.',
@@ -249,7 +281,10 @@ export const providers: Provider[] = [
     logo: 'logos/idexx-animana.png',
     // software.idexx.de lieferte am 22.10.2026 dauerhaft 502; die Produktseite bei idexx.de ist erreichbar.
     website: 'https://www.idexx.de/de/veterinary/software-services/animana/',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://www.idexx.de/de/veterinary/software-services/animana/ – deutsche Produktseite mit Referenzpraxis in Deutschland
+    countries: ['DE'],
+    merkmal: 'Cloudbasiert mit automatischen Updates, im Browser nutzbar.',
+    merkmalQuelle: 'https://www.idexx.de/de/veterinary/software-services/animana/ (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Cloudbasiertes Praxismanagementsystem für Patientendaten, Termine, Dokumentation und Abrechnung.',
@@ -260,7 +295,10 @@ export const providers: Provider[] = [
     name: 'inBehandlung',
     logo: 'logos/inbehandlung.png',
     website: 'https://www.inbehandlung.de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://www.inbehandlung.de/funktionen/partner-und-schnittstellen/ – „Digitale Registrierkasse für Österreich“, Schweizer Schnittstelle IS ABV, HI-Tier (DE)
+    countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Cloud-Software mit Servern in Deutschland; Schnittstellen u. a. zu HI-Tier, Barsoi, fiskaly und IS ABV.',
+    merkmalQuelle: 'https://www.inbehandlung.de/funktionen/partner-und-schnittstellen/ (geprüft 25.11.2026)',
     categories: [2, 6, 8],
     description:
       'Praxissoftware mit zusätzlichen digitalen Services wie Online-Terminvereinbarung und praxiseigener Videosprechstunde.',
@@ -272,6 +310,8 @@ export const providers: Provider[] = [
     logo: 'logos/just4vets.png',
     website: 'https://just4vets.online', // geprüft 14.10.2026: „Fachportal für Tierärzt:innen“ (just4vets.com zeigt keinen Inhalt)
     countries: [],
+    merkmal: 'Fachportal mit Fachbeiträgen, Fortbildungen, Branchen-News und Praxisfinder.',
+    merkmalQuelle: 'https://hunderunden.de (geprüft 25.11.2026)',
     categories: [5],
     description:
       'Informations- und Newsletter-Angebot für Tierärztinnen, Tierärzte und Praxisteams.',
@@ -286,6 +326,8 @@ export const providers: Provider[] = [
     // 21.09.2026); Andreas Moll soll noch festlegen, wie er erscheinen möchte.
     website: 'https://just4vets.online/katzenmedizin',
     countries: [],
+    merkmal: 'Fachmagazin im Just4Vets-Portal, erscheint in nummerierten Ausgaben.',
+    merkmalQuelle: 'https://just4vets.online/katzenmedizin (geprüft 25.11.2026)',
     categories: [5],
     description:
       'Fachportal und Informationsangebot zur Katzenmedizin für die deutschsprachige Veterinärbranche.',
@@ -304,7 +346,10 @@ export const providers: Provider[] = [
     // aber nicht. Bleibt in Kategorie 2.
     logo: 'logos/petla.svg',
     website: 'https://petla.app',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://petla.app/tierarzt – „über 15.000 Praxen in Deutschland“
+    countries: ['DE'],
+    merkmal: 'Server in Deutschland; App für iOS und Android.',
+    merkmalQuelle: 'https://petla.app (geprüft 25.11.2026)',
     categories: [2],
     description: 'Lösung für die Online-Terminvereinbarung in Tierarztpraxen.',
     tags: ['Terminbuchung'],
@@ -315,6 +360,8 @@ export const providers: Provider[] = [
     logo: 'logos/petleo.png',
     website: 'https://www.petleo.net',
     countries: [],
+    merkmal: 'App mit Online-Terminbuchung, Gesundheitsdaten, Kalender und Karte mit Praxen und gemeldeten Giftködern.',
+    merkmalQuelle: 'https://pet.petleo.net (geprüft 25.11.2026)',
     // Ein Datensatz, viele Kategorien – bewusst keine Kopien je Kategorie.
     categories: [1, 2, 3, 4, 5, 6, 8, 9],
     subgroups: ['pims-addons'],
@@ -376,6 +423,8 @@ export const providers: Provider[] = [
     logo: 'logos/petsapp.png',
     website: 'https://www.petsapp.com',
     countries: [],
+    merkmal: 'Chat per SMS und WhatsApp, Buchung, Zahlung und KI-Protokoll; läuft parallel zur bestehenden Praxissoftware.',
+    merkmalQuelle: 'https://petsapp.com (geprüft 25.11.2026)',
     categories: [2, 9],
     description:
       'Kommunikations- und App-Lösung für die Interaktion zwischen Tierarztpraxis und Tierhalter, inklusive Terminfunktionen.',
@@ -387,6 +436,8 @@ export const providers: Provider[] = [
     logo: 'logos/petsxl.png',
     website: 'https://www.petsxl.com',
     countries: [],
+    merkmal: 'QR-Check-in in der Praxis, digitale Patientenaufnahme und Online-Bezahlung von Rechnungen.',
+    merkmalQuelle: 'https://www.petsxl.com (geprüft 25.11.2026)',
     categories: [2, 3, 9],
     description:
       'Digitale Services für Tierarztpraxen mit Online-Terminvereinbarung, digitaler Patientenaufnahme und Tierhalter-Portal.',
@@ -398,6 +449,8 @@ export const providers: Provider[] = [
     logo: 'logos/provet-cloud.png',
     website: 'https://www.provet.com',
     countries: [],
+    merkmal: 'Läuft im Browser ohne eigenen Server in der Praxis; nach ISO 27001 zertifiziert.',
+    merkmalQuelle: 'https://www.provet.com (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Cloudbasiertes Praxismanagementsystem für Tierarztpraxen und Kliniken.',
@@ -408,7 +461,10 @@ export const providers: Provider[] = [
     name: 'ReportAssistant',
     logo: 'logos/reportassistant.png',
     website: 'https://www.reportassistant.de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://reportassistant.de/ – „geprüft auf den Praxisalltag in Deutschland“
+    countries: ['DE'],
+    merkmal: 'KI-Dokumentation und KI-Telefonassistent auf einer Plattform, Hosting in Deutschland.',
+    merkmalQuelle: 'https://reportassistant.de/ (geprüft 25.11.2026)',
     categories: [4],
     description:
       'KI-gestützte Unterstützung beim Erstellen tiermedizinischer Berichte und Dokumentation.',
@@ -420,6 +476,8 @@ export const providers: Provider[] = [
     logo: 'logos/scribblevet.png',
     website: 'https://www.scribblevet.com',
     countries: [],
+    merkmal: 'Gesprochen werden kann in jeder Sprache, die Notizen entstehen auf Englisch.',
+    merkmalQuelle: 'https://instinct.vet/products/scribblevet/ (geprüft 25.11.2026)',
     categories: [4],
     description:
       'KI-Assistent für die Dokumentation, der Gespräche in strukturierte Notizen überführt.',
@@ -438,7 +496,10 @@ export const providers: Provider[] = [
     name: 'Tierarzt-im-Netz.de',
     logo: 'logos/tierarzt-im-netz.png',
     website: 'https://tierarzt-im-netz.de',
+    // Märkte geprüft 25.11.2026: https://tierarzt-im-netz.de/ – „über 12.000 Tierärzten und Tierkliniken in ganz Deutschland“
     countries: ['DE'],
+    merkmal: 'Verzeichnis mit Suche nach 24-Stunden-Notdiensten und Tierkliniken.',
+    merkmalQuelle: 'https://tierarzt-im-netz.de/ (geprüft 25.11.2026)',
     categories: [10],
     description:
       'Suchportal für Tierarztpraxen und Tierkliniken, laut eigener Website (Stand 27.09.2026) mit über 12.000 Einträgen. Praxen können ihren Eintrag selbst anlegen und pflegen.',
@@ -452,7 +513,10 @@ export const providers: Provider[] = [
     // Text-Wortmarke, auf die die Karte dann zurückfällt, ist aussagekräftiger.
     name: 'Tierarztkompass',
     website: 'https://tierarztkompass.de',
+    // Märkte geprüft 25.11.2026: https://tierarztkompass.de/ – „Dein Kompass für Tierärzte in Deutschland“
     countries: ['DE'],
+    merkmal: 'Einträge mit Adresse, Telefon, Öffnungszeiten und Bewertungen; Suche ohne Anmeldung.',
+    merkmalQuelle: 'https://tierarztkompass.de/ (geprüft 25.11.2026)',
     categories: [10],
     description:
       'Suchportal für Tierarztpraxen nach Ort und Bundesland, laut eigener Website (Stand 27.09.2026) mit 12.985 Praxen.',
@@ -463,7 +527,10 @@ export const providers: Provider[] = [
     name: 'TierarztListe',
     logo: 'logos/tierarztliste.svg',
     website: 'https://tierarztliste.online',
+    // Märkte geprüft 25.11.2026: https://tierarztliste.online/ – „Alle Tierärzte Deutschlands auf einen Blick“
     countries: ['DE'],
+    merkmal: 'Umkreissuche und Gliederung nach Bundesländern und Städten.',
+    merkmalQuelle: 'https://tierarztliste.online/ (geprüft 25.11.2026)',
     categories: [10],
     description:
       'Suchportal für Tierarztpraxen mit Adressen, Öffnungszeiten und Bewertungen, laut eigener Website (Stand 27.09.2026) mit über 9.000 Einträgen.',
@@ -475,6 +542,8 @@ export const providers: Provider[] = [
     logo: 'logos/tierarzt-onlineverzeichnis.svg',
     website: 'https://www.tierarzt-onlineverzeichnis.de',
     countries: ['DE'],
+    merkmal: 'Bei vielen Einträgen mit Sprechzeiten, Notdienst und Leistungen.',
+    merkmalQuelle: 'https://www.tierarzt-onlineverzeichnis.de/ (geprüft 25.11.2026)',
     categories: [10],
     description:
       'Suchportal für Tierärzte und Tierkliniken mit Sprechzeiten und Notdiensten, laut eigener Website (Stand 27.09.2026) mit 11.000 Einträgen.',
@@ -486,6 +555,8 @@ export const providers: Provider[] = [
     logo: 'logos/tierarzt-online.svg',
     website: 'https://www.tierarzt-online.org',
     countries: [],
+    merkmal: 'Videoberatung per App auf Smartphone, Tablet oder PC; Tierhalter können auch den eigenen Haustierarzt wählen.',
+    merkmalQuelle: 'https://www.tierarzt-online.org/ (geprüft 25.11.2026)',
     categories: [7, 8],
     description:
       'Tierärztliche Beratung per Videochat – sowohl als Angebot für Tierhalter als auch für Praxen, die eigene Videotermine anbieten.',
@@ -496,7 +567,10 @@ export const providers: Provider[] = [
     name: 'Tierarzt Plus Partner',
     logo: 'logos/tierarzt-plus-partner.png',
     website: 'https://www.tierarztpluspartner.de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://www.tierarztpluspartner.de/ – „In vielen Regionen Deutschlands …“
+    countries: ['DE'],
+    merkmal: 'Netzwerk aus Kleintierpraxen und -kliniken; Standorte nach Bundesland filterbar.',
+    merkmalQuelle: 'https://www.tierarztpluspartner.de/ueber-uns/ (geprüft 25.11.2026)',
     categories: [7],
     description:
       'Angebot mit veterinärmedizinischer Online-Beratung für Tierhalter.',
@@ -508,6 +582,8 @@ export const providers: Provider[] = [
     logo: 'logos/tpv-systeme.png',
     website: 'https://www.tpv-systeme.de',
     countries: [],
+    merkmal: 'Windows-Software, seit 1997 entwickelt; GoBD-konform, mit EC-Cash-Schnittstelle.',
+    merkmalQuelle: 'https://www.tpv-systeme.de/ (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Praxissoftware für die Verwaltung von Patientendaten, Terminen und Abrechnung in der Tierarztpraxis.',
@@ -520,6 +596,8 @@ export const providers: Provider[] = [
     // Eigene Seite: „Vemed – Software für den Tierarzt“ (geprüft 22.10.2026).
     website: 'https://www.vemed.net',
     countries: [],
+    merkmal: 'Für Kleintier-, Misch- und Großtierpraxen; Einsatz im Netzwerk oder als Einzelplatz.',
+    merkmalQuelle: 'https://www.vemed.net/ (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Praxismanagementsystem für die tierärztliche Praxisorganisation und Dokumentation.',
@@ -548,7 +626,10 @@ export const providers: Provider[] = [
     website: 'https://www.vet7.net',
     // Länder laut vet7.net (geprüft 26.10.2026): „über 300 zufriedene Kunden aus
     // Österreich, Deutschland und der Schweiz“.
+    // Märkte geprüft 25.11.2026: https://www.vet7.net/preise/ – „für Tierärzte in Österreich, Deutschland und der Schweiz verfügbar“
     countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Varianten für Kleintier-, Groß- und Nutztier- sowie Pferdepraxen, Tierphysiotherapie und -homöopathie.',
+    merkmalQuelle: 'https://www.vet7.net/ (geprüft 25.11.2026)',
     categories: [6],
     description: 'Praxismanagementsystem für die tierärztliche Praxis.',
     tags: ['PIMS', 'Praxissoftware'],
@@ -558,7 +639,10 @@ export const providers: Provider[] = [
     name: 'Veterinäre.at',
     logo: 'logos/veterinaere-at.png',
     website: 'https://www.veterinaere.at',
+    // Märkte geprüft 25.11.2026: https://www.veterinaere.at/ – „Daten von mehr als 900 Tierärzten in Österreich“
     countries: ['AT'],
+    merkmal: 'Filterbar nach Kleintieren, Pferden, Nutztieren und 24-Stunden-Dienst.',
+    merkmalQuelle: 'https://www.veterinaere.at/ (geprüft 25.11.2026)',
     categories: [10],
     description:
       'Suchportal für österreichische Tierarztpraxen und Kliniken mit Notfalldienst-Übersicht, nach eigener Angabe mit über 900 Einträgen.',
@@ -570,6 +654,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetat-work.png',
     website: 'https://vetat.work',
     countries: [],
+    merkmal: 'Cloudbasiert; Daten in der WDT-Cloud mit Sitz in Deutschland.',
+    merkmalQuelle: 'https://vetatwork.wdt.de/ueber-vetatwork/ (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Praxismanagementsystem der WDT Wirtschaftsgenossenschaft deutscher Tierärzte für Verwaltungsaufgaben und Praxisabläufe.',
@@ -588,6 +674,8 @@ export const providers: Provider[] = [
     // Signatur“. Die genannte VetKI steht dort als „KI Features (coming
     // soon)“ – Kategorie 4 erst, wenn sie verfügbar ist.
     countries: ['DE', 'AT'],
+    merkmal: 'Betrieb auf eigenem Server, in der Cloud oder hybrid.',
+    merkmalQuelle: 'https://www.vetdream.de/ (geprüft 25.11.2026)',
     categories: [2, 3, 6],
     description:
       'Praxissoftware mit digitalen Zusatzfunktionen, unter anderem für die Online-Terminvereinbarung.',
@@ -603,7 +691,10 @@ export const providers: Provider[] = [
     website: 'https://www.vetera.net',
     // Länder laut vetera.net (geprüft 26.10.2026): „Softwareanbieter für die
     // Tiermedizin in der DACH-Region“.
+    // Märkte geprüft 25.11.2026: https://www.vetera.net/ – „Softwareanbieter für die Tiermedizin in der DACH-Region“
     countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Schnittstellen, u. a. zu internen und externen Laboren, ohne Aufpreis aktivierbar.',
+    merkmalQuelle: 'https://www.vetera.net/ (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Praxismanagementsystem für Patientenakte, Terminplanung, Dokumentation und Abrechnung.',
@@ -614,7 +705,8 @@ export const providers: Provider[] = [
     name: 'VetGuru',
     logo: 'logos/vetguru.png',
     website: 'https://www.vetguru.de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://www.vetguru.de/ – „vorläufig ausschließlich in Deutschland angeboten“
+    countries: ['DE'],
     categories: [8],
     description:
       'Lösung, mit der Tierarztpraxen ihren eigenen Kunden Video- und Telemedizin-Termine anbieten können.',
@@ -637,6 +729,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetmeta.png',
     website: 'https://vetmeta.com', // geprüft 14.10.2026: VetMeta GmbH, Hamburg, KI-Behandlungsdokumentation
     countries: [],
+    merkmal: 'Server in Deutschland, keine Trainingsnutzung der Daten; Oberfläche Deutsch, Englisch und Spanisch.',
+    merkmalQuelle: 'https://vetmeta.com/ (geprüft 25.11.2026)',
     categories: [4],
     description:
       'KI-gestützter Assistent für Dokumentation und Unterstützung im tierärztlichen Praxisalltag.',
@@ -647,7 +741,10 @@ export const providers: Provider[] = [
     name: 'Vetnio',
     logo: 'logos/vetnio.png',
     website: 'https://www.vetnio.com',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://vetnio.com/contact – „For DACH, contact …“
+    countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Verbindet KI-Dokumentation, Diagnoseunterstützung und Assistenz für Anrufe und Nachrichten; geräteunabhängig.',
+    merkmalQuelle: 'https://vetnio.com/de/home (geprüft 25.11.2026)',
     categories: [4],
     description:
       'KI-Assistent für die tierärztliche Dokumentation, der Notizen automatisiert und bei Anrufen und Nachrichten unterstützt.',
@@ -659,6 +756,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetoffice-plus.png',
     website: 'https://www.vetoffice.de',
     countries: [],
+    merkmal: 'Optionale Online-Terminvergabe für Tierhalter; Schnittstellen für Röntgenbilder und Befunde.',
+    merkmalQuelle: 'https://www.vetoffice.de/ (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Software für die tierärztliche Praxis und Klinik mit Funktionen für Patientenakte, Termine und Abrechnung.',
@@ -681,6 +780,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetsoap.png',
     website: 'https://www.vetsoap.ai', // geprüft 14.10.2026: Logo identisch, schärfere Fassung von dort übernommen
     countries: [],
+    merkmal: 'Erstellt aus einer Audioaufnahme eine SOAP-Notiz; US-Anbieter.',
+    merkmalQuelle: 'https://www.vetsoap.ai/ (geprüft 25.11.2026)',
     categories: [4],
     description:
       'KI-Assistent, der tierärztliche Gespräche in strukturierte Dokumentation im SOAP-Format überführt.',
@@ -692,6 +793,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetsxl.png',
     website: 'https://www.vetsxl.com',
     countries: [],
+    merkmal: 'Web-Anwendung, Oberfläche u. a. auf Deutsch, Englisch, Französisch, Niederländisch und Italienisch.',
+    merkmalQuelle: 'https://www.myvetsxl.com/de/Languages/default.aspx (geprüft 25.11.2026)',
     categories: [6],
     subgroups: ['pims-addons'],
     description:
@@ -704,6 +807,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetstar.png',
     website: 'https://www.vetstar.de',
     countries: [],
+    merkmal: 'Modular aufgebaut, für Einzelplatz- oder Netzbetrieb.',
+    merkmalQuelle: 'https://www.vetstar.de/ (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Praxismanagementsystem für die Verwaltung von Patientendaten, Terminen und Abrechnung.',
@@ -714,7 +819,10 @@ export const providers: Provider[] = [
     name: 'Vetstoria',
     logo: 'logos/vetstoria.png',
     website: 'https://www.vetstoria.com',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://www.vetstoria.com/integrations/ – Länderfilter Germany, Austria, Switzerland
+    countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Echtzeit-Anbindung an Praxissoftware, u. a. Vetera und IDEXX Animana.',
+    merkmalQuelle: 'https://www.vetstoria.com/integrations/ (geprüft 25.11.2026)',
     categories: [2],
     description:
       'Lösung für die Online-Terminvereinbarung, die sich in bestehende Praxissoftware integrieren lässt.',
@@ -736,7 +844,10 @@ export const providers: Provider[] = [
     name: 'Agria Tierversicherung',
     logo: 'logos/agria.svg',
     website: 'https://www.agriatierversicherung.de/digitale-tierarztliche-beratung/',
+    // Märkte geprüft 25.11.2026: https://www.agriatierversicherung.de/digitale-tierarztliche-beratung/ – „digitale tierärztliche Beratung in Deutschland“
     countries: ['DE'],
+    merkmal: 'Videoberatung in der Agria-App täglich von 7 bis 24 Uhr, für Agria-Kunden ohne Begrenzung.',
+    merkmalQuelle: 'https://www.agriatierversicherung.de/digitale-tierarztliche-beratung/ (geprüft 25.11.2026)',
     categories: [7],
     description:
       'Tierversicherung mit digitaler tierärztlicher Beratung im Videocall über die Agria-App, für Versicherte inklusive; für Hund, Katze und Pferd.',
@@ -750,6 +861,8 @@ export const providers: Provider[] = [
     logo: 'logos/amicus.png',
     website: 'https://www.amicus.ch',
     countries: ['CH'],
+    merkmal: 'Führt die Hunderegistrierung im Auftrag der Kantone; Fundmeldungen gehen an die kantonale Meldestelle.',
+    merkmalQuelle: 'https://www.amicus.ch (geprüft 25.11.2026)',
     categories: [12],
     description:
       'Nationale Datenbank zur Registrierung von Hunden in der Schweiz, im Auftrag der Kantone; registriert wird durch die Tierärztin oder den Tierarzt.',
@@ -761,6 +874,8 @@ export const providers: Provider[] = [
     logo: 'logos/anis.png',
     website: 'https://www.anis.ch',
     countries: ['CH'],
+    merkmal: 'Registriert Heimtiere außer Hunden; Hunde werden über Amicus registriert.',
+    merkmalQuelle: 'https://www.anis.ch (geprüft 25.11.2026)',
     categories: [12],
     description:
       'Schweizer Datenbank zur Registrierung von Heimtieren, vorwiegend Katzen; gechippt und gemeldet wird über die Tierarztpraxis.',
@@ -776,6 +891,8 @@ export const providers: Provider[] = [
     // Land laut findefix.com (geprüft 25.11.2026): „das Haustierregister des Deutschen
     // Tierschutzbundes“ – so auch in der Vergleichstabelle auf /heimtierregister.html.
     countries: ['DE'],
+    merkmal: 'Haustierregister des Deutschen Tierschutzbundes; Registrierung für Tierhalter kostenlos.',
+    merkmalQuelle: 'https://www.findefix.com (geprüft 25.11.2026)',
     categories: [12],
     description:
       'Haustierregister des Deutschen Tierschutzbundes, kostenfrei; Praxen registrieren direkt aus der Praxissoftware, u. a. aus easyVET, Vetera, VETINF und Animana.',
@@ -789,6 +906,8 @@ export const providers: Provider[] = [
     name: 'Heimtierdatenbank Österreich',
     website: 'https://heimtierdatenbank.ehealth.gv.at',
     countries: ['AT'],
+    merkmal: 'Anwendung des Gesundheitsministeriums; Zugang über ID Austria oder Handy-Signatur.',
+    merkmalQuelle: 'https://heimtierdatenbank.ehealth.gv.at (geprüft 25.11.2026)',
     categories: [12],
     description:
       'Amtliche Heimtierdatenbank des österreichischen Gesundheitsministeriums; die Meldung kann der chippende Tierarzt im Auftrag des Halters übernehmen.',
@@ -803,6 +922,8 @@ export const providers: Provider[] = [
     logo: 'logos/petsvetcheck.svg',
     website: 'https://petsvetcheck.de',
     countries: [],
+    merkmal: 'Wissensdatenbank zu über 550 Erkrankungen beim Hund und über 570 bei der Katze, dazu ein Symptom-Checker ohne Diagnosen.',
+    merkmalQuelle: 'https://petsvetcheck.de (geprüft 25.11.2026)',
     categories: [3],
     description:
       'Digitale Voranamnese mit Dringlichkeitseinschätzung für Tierhalter; der Gesprächsverlauf geht an Praxis oder Klinik, eingebunden über Website, QR-Code oder Schnittstelle.',
@@ -817,6 +938,8 @@ export const providers: Provider[] = [
     logo: 'logos/primveterinary.png',
     website: 'https://www.primveterinary.com',
     countries: [],
+    merkmal: 'Für verifizierte Tierärzte kostenlos; englischsprachig, Antworten u. a. auf Basis von Fachverlagsinhalten.',
+    merkmalQuelle: 'https://www.primveterinary.com (geprüft 25.11.2026)',
     categories: [11],
     description:
       'Englischsprachige Plattform mit evidenzbasierten Antworten für Tierärztinnen und Tierärzte, mit Quellenangaben aus der Fachliteratur; als Web und App.',
@@ -831,6 +954,8 @@ export const providers: Provider[] = [
     logo: 'logos/tasso.svg',
     website: 'https://www.tasso.net',
     countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Registrierung kostenlos; 24-Stunden-Notruf-Hotline und App für iOS und Android.',
+    merkmalQuelle: 'https://www.tasso.net (geprüft 25.11.2026)',
     categories: [10, 12],
     description:
       'Kostenfreies Haustierregister; Praxen registrieren per Schnittstelle oder Formular und fragen Transpondernummern ab. Dazu eine Tierarztsuche mit kostenlosem Praxiseintrag.',
@@ -843,6 +968,8 @@ export const providers: Provider[] = [
     name: 'Tierarzneimittel-Kompendium der Schweiz',
     website: 'https://www.vetpharm.uzh.ch/PERLDOCS/kompend3.htm',
     countries: ['CH'],
+    merkmal: 'Dienstleistung des Instituts für Veterinärpharmakologie und -toxikologie der Universität Zürich.',
+    merkmalQuelle: 'https://www.vetpharm.uzh.ch/PERLDOCS/kompend3.htm (geprüft 25.11.2026)',
     categories: [11],
     description:
       'Verzeichnis der Tierarzneimittel in der Schweiz, herausgegeben vom Institut für Veterinärpharmakologie und -toxikologie der Universität Zürich; Suche nach Wirkstoff, ATCvet-Code und Tierart.',
@@ -854,6 +981,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetidata.png',
     website: 'https://vetidata.de',
     countries: [],
+    merkmal: 'Informationsdienst zu Arzneimittelanwendung, Toxikologie und Arzneimittelrecht; Zugang nach Registrierung.',
+    merkmalQuelle: 'https://vetidata.de (geprüft 25.11.2026)',
     categories: [11],
     description:
       'Veterinärmedizinischer Informationsdienst der Universität Leipzig zu Arzneimittelanwendung, Toxikologie und Arzneimittelrecht; Zugang mit Berufsnachweis.',
@@ -864,7 +993,10 @@ export const providers: Provider[] = [
     name: 'Vetion.de',
     logo: 'logos/vetion.png',
     website: 'https://www.vetion.de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://www.vetion.de/impressum/ – „Zulassungsstand in Deutschland“
+    countries: ['DE'],
+    merkmal: 'Portal mit News, Gesetzessammlung, Online-Fortbildungen, Terminkalender und Jobbörse.',
+    merkmalQuelle: 'https://www.vetion.de (geprüft 25.11.2026)',
     categories: [5],
     description: 'Fachportal für die Tiermedizin mit News, Online-Fortbildungen, Jobs und Newsletter.',
     tags: ['Fachmedien', 'Newsletter', 'Fortbildung'],
@@ -877,7 +1009,10 @@ export const providers: Provider[] = [
     name: 'VetStage',
     logo: 'logos/vetstage.svg',
     website: 'https://www.vetstage.de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://www.vetstage.de – „Ausbildungspraxen des bpt – Deutschlandweit“
+    countries: ['DE'],
+    merkmal: 'Plattform für Jobs und Fortbildungen, mit Fortbildungs-Flatrate.',
+    merkmalQuelle: 'https://www.vetstage.de (geprüft 25.11.2026)',
     categories: [5],
     description:
       'Plattform für die Tiermedizin mit Fachbeiträgen, Fallbeispielen und News, dazu Jobs, Fortbildungen und Personalsoftware für Praxen.',
@@ -898,6 +1033,8 @@ export const providers: Provider[] = [
     name: 'VETFOX',
     website: 'https://www.vetfox.ai',
     countries: [],
+    merkmal: 'KI-Telefonassistenz bucht Termine auch außerhalb der Sprechzeiten, nimmt Medikamentenbestellungen an und stuft Dringlichkeit ein.',
+    merkmalQuelle: 'https://www.vetfox.ai (geprüft 25.11.2026)',
     categories: [4],
     description:
       'KI-Telefonassistenz für Tierarztpraxen und -kliniken: nimmt Anrufe rund um die Uhr an und ist auf tierärztliche Abläufe abgestimmt.',
@@ -912,6 +1049,8 @@ export const providers: Provider[] = [
     name: 'HeyBello',
     website: 'https://www.heybello.de',
     countries: [],
+    merkmal: 'Macht aus einem Diktat ein SOAP-Dokument oder einen Überweisungsschein; Server in Deutschland.',
+    merkmalQuelle: 'https://www.heybello.de (geprüft 25.11.2026)',
     categories: [4],
     description:
       'KI für Tierarztpraxen, die aus Diktaten fertige Dokumente erstellt, Praxiswissen ordnet und den Dienstplan unterstützt; optional nimmt ein Sprachassistent Anrufe an.',
@@ -925,7 +1064,10 @@ export const providers: Provider[] = [
     name: 'Emma (Vetpal)',
     logo: 'logos/vetpal.svg',
     website: 'https://www.vetpal.de',
-    countries: [],
+    // Märkte geprüft 25.11.2026: https://www.vetpal.de – „Über 400 Praxen und Kliniken in DACH“
+    countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Bedient Telefon, WhatsApp und E-Mail; Termine landen direkt in der Praxissoftware.',
+    merkmalQuelle: 'https://www.vetpal.de (geprüft 25.11.2026)',
     categories: [4],
     description:
       'KI-Rezeptionistin für Tierarztpraxen: nimmt Anrufe an, bucht, verschiebt und storniert Termine und leitet Notfälle weiter.',
@@ -939,7 +1081,10 @@ export const providers: Provider[] = [
     name: 'Manta',
     logo: 'logos/manta.svg',
     website: 'https://www.manta.vet',
+    // Märkte geprüft 25.11.2026: https://www.manta.vet – „für den Praxisalltag in Deutschland gebaut“
     countries: ['DE'],
+    merkmal: 'Anbindung u. a. an Vetera, vetpraxis.de, inBehandlung, Lupa, Provet Cloud und VetDream; Server in der EU.',
+    merkmalQuelle: 'https://www.manta.vet (geprüft 25.11.2026)',
     categories: [4],
     description:
       'KI-Telefonassistent, der Anrufe annimmt, Notfälle erkennt und Termine bucht; dazu Manta Scribe für die automatische Dokumentation der Behandlung.',
@@ -955,6 +1100,8 @@ export const providers: Provider[] = [
     logo: 'logos/lupa.png',
     website: 'https://lupapets.com/de/',
     countries: [],
+    merkmal: 'Integrationen u. a. mit IDEXX, Heiland und DATEV.',
+    merkmalQuelle: 'https://lupapets.com/de/pricing/ (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Praxisverwaltungssoftware für Tierarztpraxen mit KI-Funktionen, unter anderem für klinische Notizen sowie Zahlungen und Rechnungsstellung.',
@@ -977,6 +1124,8 @@ export const providers: Provider[] = [
     logo: 'logos/petflare.svg',
     website: 'https://petflare.io',
     countries: [],
+    merkmal: 'Browserbasiert mit GOT-Abrechnung; Hosting in Deutschland (BSI-C5-testierte Infrastruktur).',
+    merkmalQuelle: 'https://petflare.io/preise (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Webbasierte Praxissoftware für Tierärzte und Tierheilpraktiker mit Tierakte, Terminkalender, GOT-Abrechnung und Tierhalter-Portal.',
@@ -991,6 +1140,8 @@ export const providers: Provider[] = [
     name: 'VET4.0',
     website: 'https://www.vet40.de',
     countries: [],
+    merkmal: 'Client/Server-Software mit Tablet-Version, die offline arbeitet und sich bei Verbindung synchronisiert.',
+    merkmalQuelle: 'https://www.vet40.de (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Praxismanagementsystem der BTE GmbH mit Client/Server-Technik, ausgelegt auch für mobile Endgeräte.',
@@ -1004,6 +1155,8 @@ export const providers: Provider[] = [
     name: 'Pfotendoctor',
     website: 'https://pfotendoctor.de',
     countries: [],
+    merkmal: 'Video-Sprechstunde rund um die Uhr; alle Tierärzte beraten zu Hunden und Katzen.',
+    merkmalQuelle: 'https://pfotendoctor.de (geprüft 25.11.2026)',
     categories: [7],
     description:
       'Tierärztliche Beratung per Videochat rund um die Uhr, gebucht über Website oder App.',
@@ -1018,6 +1171,8 @@ export const providers: Provider[] = [
     name: 'go4vet',
     website: 'https://www.go4vet.com',
     countries: ['DE', 'AT'],
+    merkmal: 'Tierarztsuche, dazu ein KI-Assistent zur ersten Einschätzung von Symptomen.',
+    merkmalQuelle: 'https://www.go4vet.com (geprüft 25.11.2026)',
     categories: [10],
     description:
       'Plattform für Tierhalter mit Tierarzt-Finder für Deutschland und Österreich, Notdienstsuche und Ratgeberartikeln.',
@@ -1035,6 +1190,8 @@ export const providers: Provider[] = [
     name: 'VetSet',
     website: 'https://www.vetset.de',
     countries: ['DE', 'AT'],
+    merkmal: 'Liest Medikamentenpreislisten für Deutschland und Österreich ein; für Kleintier-, Pferde- und Großtierpraxis.',
+    merkmalQuelle: 'https://www.vetset.de (geprüft 25.11.2026)',
     categories: [6],
     description:
       'Praxissoftware für Windows mit Kunden- und Patientenverwaltung, Krankenblatt, Rechnungen nach GOT bzw. österreichischer Honorarordnung und Impfkartei; vom selben Hersteller wie VetStar.',
@@ -1053,6 +1210,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetnative.png',
     website: 'https://www.vetnative.com',
     countries: [],
+    merkmal: 'Bestellabwicklung und Lieferung im eltiga-Shop übernimmt Richter Pharma.',
+    merkmalQuelle: 'https://www.vetnative.com (geprüft 25.11.2026)',
     categories: [2, 6, 9],
     description:
       'Cloudbasierte Plattform für Tierarztpraxen mit Praxissoftware (elovet), Online-Terminbuchung und Tierhalter-App (eltiga).',
@@ -1075,6 +1234,8 @@ export const providers: Provider[] = [
     logo: 'logos/petcario.png',
     website: 'https://petcario.com',
     countries: [],
+    merkmal: 'Digitales Tierprofil für Hunde und Katzen mit QR-Tiermarken aus Edelstahl.',
+    merkmalQuelle: 'https://petcario.com (geprüft 25.11.2026)',
     categories: [12],
     description:
       'Plattform für Tierhalter mit digitaler Tierakte und QR-Tiermarke, über die eine findende Person den Halter erreichen kann.',

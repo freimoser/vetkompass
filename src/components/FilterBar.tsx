@@ -14,7 +14,11 @@ const emptyFilters: MarketFilters = { query: '', category: 'all', country: 'all'
 
 /**
  * Toolbar über der Marktübersicht: Suche und Kategorienfilter.
- * Klebt am oberen Rand, damit Filter auch beim Scrollen erreichbar bleiben.
+ *
+ * Nur die Kategorie-Chips kleben unter der Kopfleiste. Vorher klebte die ganze
+ * Toolbar: Auf dem Smartphone belegten Kopfleiste und Toolbar zusammen 201 px,
+ * ein Viertel des Bildschirms (SEO-Audit 25.11.2026). Die Suche wird oben
+ * benutzt und darf mitscrollen.
  */
 export function FilterBar({ filters, onChange, resultSummary }: FilterBarProps) {
   const hasActiveFilters =
@@ -23,9 +27,8 @@ export function FilterBar({ filters, onChange, resultSummary }: FilterBarProps) 
   const setCategory = (category: CategoryId | 'all') => onChange({ ...filters, category });
 
   return (
-    <div className="no-print sticky top-14 z-30 -mx-4 border-b border-brand-100 bg-white/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
-      <div className="mx-auto flex max-w-[1560px] flex-col gap-3">
-        <div className="flex flex-wrap items-center gap-3">
+    <>
+      <div className="no-print mx-auto flex max-w-[1560px] flex-wrap items-center gap-3 pt-3">
           <SearchBar
             value={filters.query}
             onChange={(query) => onChange({ ...filters, query })}
@@ -52,7 +55,9 @@ export function FilterBar({ filters, onChange, resultSummary }: FilterBarProps) 
           <p aria-live="polite" className="ml-auto text-sm text-ink-500">
             {resultSummary}
           </p>
-        </div>
+      </div>
+
+      <div className="no-print sticky top-14 z-30 -mx-4 mt-3 border-b border-brand-100 bg-white/95 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6">
 
         {/*
           Mobil eine horizontal scrollbare Leiste, ab md umbrechend – so bleibt
@@ -62,7 +67,8 @@ export function FilterBar({ filters, onChange, resultSummary }: FilterBarProps) 
           role="group"
           aria-label="Nach Kategorie filtern"
           className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 md:flex-wrap md:overflow-visible
-                     md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                     md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                     [mask-image:linear-gradient(to_right,black_88%,transparent)] md:[mask-image:none]"
         >
           <button
             type="button"
@@ -91,6 +97,6 @@ export function FilterBar({ filters, onChange, resultSummary }: FilterBarProps) 
           })}
         </div>
       </div>
-    </div>
+    </>
   );
 }
