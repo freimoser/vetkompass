@@ -228,7 +228,8 @@ writeFileSync(join(OUT, 'llms.txt'), llms, 'utf8');
 */
 const xml = (v) => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const feedHost = new URL(base).host;
-const zeit = (datum) => `${datum}T12:00:00+02:00`;
+// UTC statt fester Sommerzeit (+02:00 war von Ende Oktober bis März falsch).
+const zeit = (datum) => `${datum}T10:00:00Z`;
 const eintraege = [...MEILENSTEINE].reverse();
 const feed = `<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="de">

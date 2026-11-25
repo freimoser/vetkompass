@@ -108,7 +108,6 @@ const esc = (v) =>
 
 const LAND = { DE: 'Deutschland', AT: 'Österreich', CH: 'Schweiz' };
 /* Leere Länderliste heißt „nicht geprüft“ – nie einen Markt behaupten, der nicht belegt ist. */
-const maerkte = (p) => (p.countries.length ? p.countries.map((c) => LAND[c]).join(', ') : 'nicht geprüft');
 const alphabetisch = (a, b) => a.name.localeCompare(b.name, 'de', { sensitivity: 'base' });
 
 const kategorieVon = (id) => categories.find((c) => c.id === id);
@@ -118,25 +117,40 @@ const anbieterVon = (id) => providers.filter((p) => p.categories.includes(id)).s
 /** Kurzbeschreibung in einer Kategorie – wie `descriptionFor` in src/lib/market.ts. */
 const beschreibung = (p, id) => p.variants?.[id]?.description ?? p.description;
 
-function zeile(p, id) {
+/*
+  Märkte: Ein Strich heißt „nicht geprüft“ – nie einen Markt behaupten, der
+  nicht belegt ist. Früher stand „nicht geprüft“ in fast jeder Zeile (98-mal,
+  SEO-Audit 25.11.2026: liest sich wie eine leere Tabelle). Ist in einer
+  Tabelle für keinen Anbieter ein Markt geprüft, entfällt die Spalte ganz.
+*/
+function zeile(p, id, mitMaerkten) {
   const name = p.website
     ? `<a href="${esc(p.website)}" rel="${REL_ANBIETER}">${esc(p.name)}</a>`
     : esc(p.name);
+  const markt = p.countries.length ? p.countries.map((c) => LAND[c]).join(', ') : '–';
   return `        <tr>
           <th scope="row">${name}</th>
-          <td>${esc(beschreibung(p, id))}</td>
-          <td class="nowrap"><span class="nur-mobil">Märkte: </span>${esc(maerkte(p))}</td>
+          <td>${esc(beschreibung(p, id))}</td>${
+            mitMaerkten ? `\n          <td class="nowrap"><span class="nur-mobil">Märkte: </span>${esc(markt)}</td>` : ''
+          }
         </tr>`;
 }
 
-const tabelle = (liste, id) => `      <table>
+function tabelle(liste, id) {
+  const mitMaerkten = liste.some((p) => p.countries.length);
+  return `      <table>
         <thead>
-          <tr><th scope="col">Anbieter</th><th scope="col">Kurzbeschreibung</th><th scope="col">Märkte</th></tr>
+          <tr><th scope="col">Anbieter</th><th scope="col">Kurzbeschreibung</th>${mitMaerkten ? '<th scope="col">Märkte</th>' : ''}</tr>
         </thead>
         <tbody>
-${liste.map((p) => zeile(p, id)).join('\n')}
+${liste.map((p) => zeile(p, id, mitMaerkten)).join('\n')}
         </tbody>
-      </table>`;
+      </table>${
+        mitMaerkten && liste.some((p) => !p.countries.length)
+          ? '\n      <p class="muted">Märkte: – heißt noch nicht geprüft. Eingetragen ist nur, was auf der Seite des Anbieters steht.</p>'
+          : ''
+      }`;
+}
 
 /**
  * Querverweise mit Begründung.
@@ -883,8 +897,25 @@ ${offenlegung(6)}`;
     description: beschreibung,
     schema: [
       artikelSchema(HAUPTARTIKEL.pfad, titel, beschreibung),
+      // Wie auf jeder anderen Kategorieseite (SEO-Audit 25.11.2026: fehlte hier).
+      ...[
+        ['Praxissoftware (PIMS)', kernPims],
+        ['PIMS – Add-ons für digitale Services', addOns],
+      ].map(([name, liste]) => ({
+        '@type': 'ItemList',
+        name: `Anbieter: ${name}`,
+        numberOfItems: liste.length,
+        itemListOrder: 'https://schema.org/ItemListOrderAscending',
+        itemListElement: liste.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: p.name,
+          ...(p.website ? { url: p.website } : {}),
+        })),
+      })),
       {
         '@type': 'DefinedTermSet',
+        ...(hatDomain ? { '@id': `${absolut(HAUPTARTIKEL.pfad)}#begriffe` } : {}),
         name: 'Begriffe der digitalen Tierarztpraxis',
         inLanguage: 'de',
         hasDefinedTerm: BEGRIFFE.map((b) => ({
@@ -1516,7 +1547,7 @@ for (const s of ALLE_ARTIKEL) {
 const md = (t) => String(t).replace(/\s+/g, ' ').trim();
 const anbieterZeilen = (liste, id) =>
   liste
-    .map((p) => `- ${p.name}: ${md(beschreibung(p, id))} (Märkte: ${maerkte(p)})`)
+    .map((p) => `- ${p.name}: ${md(beschreibung(p, id))}${p.countries.length ? ` (Märkte: ${p.countries.map((c) => LAND[c]).join(', ')})` : ''}`)
     .join('\n');
 
 function volltext() {
