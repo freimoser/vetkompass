@@ -227,6 +227,8 @@ if (start) {
 for (const datei of [
   'downloads/digitale-tierarztpraxis-marktuebersicht.svg',
   'downloads/digitale-tierarztpraxis-marktuebersicht.png',
+  'downloads/digitale-tierarztpraxis-marktuebersicht-16x9.png',
+  'downloads/digitale-tierarztpraxis-marktuebersicht-1x1.png',
 ]) {
   const pfad = join(DIST, datei);
   if (!existsSync(pfad)) {

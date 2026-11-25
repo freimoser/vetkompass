@@ -182,6 +182,16 @@ export const MEILENSTEINE: Meilenstein[] = [
       'Verordnungstext. Dazu ein Vergleich der Haustierregister je Land und eine Übersicht, ' +
       'welcher KI-Assistent welche Aufgabe nennt.',
   },
+  {
+    datum: '2026-11-25',
+    anbieter: 76,
+    kategorien: 12,
+    titel: 'Alle Kommentar-Hinweise eingearbeitet',
+    text:
+      'Die offenen Hinweise aus den LinkedIn-Kommentaren nachgeprüft: VetNative und Petcario ' +
+      'aufgenommen, AnimalChat zusätzlich bei den KI-Assistenten, VetDream beim Self-Check-in. ' +
+      'Aufgenommen wurde, was auf der Seite des Anbieters steht.',
+  },
 ];
 
 /**
@@ -214,5 +224,5 @@ export const AUS_HINWEISEN: Record<string, string[]> = {
     'vetat-work',
     'vetnio',
   ],
-  Update: ['agria', 'petsvetcheck', 'primveterinary', 'vetstage'],
+  Update: ['agria', 'petcario', 'petsvetcheck', 'primveterinary', 'vetnative', 'vetstage'],
 };

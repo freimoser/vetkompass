@@ -153,8 +153,8 @@ function page({ title, intro, body, basis }) {
     </style>
   </head>
   <body>
-    <main>
 ${kopfleisteHtml()}
+    <main>
       <h1>${esc(title)}</h1>
 ${intro ? `      <div class="lead">\n${intro}\n      </div>` : ''}
 ${body}

@@ -630,6 +630,7 @@ ${kopfRechts
 
   <line x1="${PAD}" y1="${H - FUSS + 16}" x2="${W - PAD}" y2="${H - FUSS + 16}" stroke="${FARBE.linie}" stroke-width="2"/>
   <text x="${PAD}" y="${H - FUSS + 42}" font-size="12" fill="${FARBE.muted}">Alle Marken-, Produkt- und Unternehmensnamen sowie Logos sind Eigentum der jeweiligen Rechteinhaber. Nennung ausschließlich zu Informationszwecken; eine geschäftliche Verbindung entsteht daraus nicht.</text>
+  <text x="${W - PAD}" y="${H - FUSS + 52}" text-anchor="end" font-size="20" font-weight="700" fill="${FARBE.brand}">tiermedizin-in-digital.org</text>
   <text x="${PAD}" y="${H - FUSS + 60}" font-size="12" fill="${FARBE.muted}">Sortierung innerhalb jeder Kategorie rein alphabetisch. Der Herausgeber ist an einem der genannten Anbieter beteiligt – Offenlegung im Abschnitt „Zur Transparenz“ der Website.</text>
 </svg>
 `;
@@ -700,6 +701,7 @@ try {
   <text x="206" y="404" font-size="20" fill="${FARBE.soft}">Lösungsfelder</text>
   <text x="52" y="500" font-size="17" fill="${FARBE.muted}">Ohne Rangfolge, alphabetisch</text>
   <text x="52" y="526" font-size="17" fill="${FARBE.muted}">Stand ${EDITION} · Bild vom ${datumDe}</text>
+  <text x="52" y="580" font-size="22" font-weight="700" fill="${FARBE.brand}">tiermedizin-in-digital.org</text>
   <rect x="${KARTE_X}" y="${KARTE_Y + 6}" width="${KARTE_B}" height="${KARTE_H}" rx="6" fill="#0f4c75" opacity="0.18" filter="url(#schatten)"/>
   <rect x="${KARTE_X - 1}" y="${KARTE_Y - 1}" width="${KARTE_B + 2}" height="${KARTE_H + 2}" rx="6" fill="#ffffff" stroke="${FARBE.kartenRand}"/>
 </svg>`;
@@ -760,64 +762,105 @@ ${titel.map((z, i) => `  <text x="52" y="${(titelY + i * tg * 1.25).toFixed(1)}"
   }
 
   /*
-    Formate für Posts und Folien (Wunsch 25.11.2026: Das Original ist fast
-    quadratisch-hoch und passt weder auf eine Folie noch in einen Feed-Post).
-    Die Karte wird ohne ihren eigenen Kopf übernommen; den Kopf zeichnet das
-    Format selbst – links bei 16:9, oben bei 1:1. Im Kopf bleibt Platz für den
-    Download-Stempel, seine Lage steht in src/config/bildstempel.ts.
+    Formate für Posts und Folien (Wunsch 25.11.2026). Die Karten werden für
+    jedes Format neu in Spalten verteilt – nicht die hochformatige Karte
+    verkleinert in einen Rahmen gesetzt (erste Fassung: viel Leerfläche,
+    winzige Logos). Gewählt wird die Spaltenzahl, bei der die Logos am
+    größten werden. Kopf mit Website-Adresse; Platz für den Download-Stempel
+    laut src/config/bildstempel.ts.
   */
-  const koerper = await sharp(puffer)
-    .extract({ left: 0, top: (KOPF - 8) * 2, width: W * 2, height: H * 2 - (KOPF - 8) * 2 })
-    .png()
-    .toBuffer();
-  const koerperVerh = W / (H - (KOPF - 8));
+  const URL_TEXT = 'tiermedizin-in-digital.org';
   const jahr = EDITION.split(' ')[1];
-  const formatKopf = {
-    '16x9': (f) => `
-  <rect x="0" y="0" width="10" height="${f.h}" fill="${FARBE.brand}"/>
-  <text x="56" y="120" font-size="20" font-weight="700" letter-spacing="3" fill="${FARBE.brand}">${esc(MARKE.toUpperCase())}</text>
-  <text x="56" y="210" font-size="60" font-weight="700" fill="${FARBE.ink}">Die digitale</text>
-  <text x="56" y="282" font-size="60" font-weight="700" fill="${FARBE.ink}">Tierarztpraxis</text>
-  <text x="56" y="336" font-size="28" fill="${FARBE.soft}">Marktübersicht ${jahr} · DACH</text>
-  <text x="56" y="500" font-size="88" font-weight="700" fill="${FARBE.brand}">${anzahl}</text>
-  <text x="56" y="540" font-size="24" fill="${FARBE.soft}">Anbieter</text>
-  <text x="270" y="500" font-size="88" font-weight="700" fill="${FARBE.brand}">${kategorienAnzahl}</text>
-  <text x="270" y="540" font-size="24" fill="${FARBE.soft}">Lösungsfelder</text>
-  <text x="56" y="660" font-size="20" fill="${FARBE.muted}">Alphabetisch, ohne Rangfolge</text>
-  <text x="56" y="690" font-size="20" fill="${FARBE.muted}">Stand ${EDITION} · Bild vom ${datumDe}</text>
-  <text x="56" y="720" font-size="20" fill="${FARBE.muted}">Herausgegeben von ${esc(AUTOR)}</text>
-  <text x="56" y="1024" font-size="24" font-weight="700" fill="${FARBE.brand}">tiermedizin-in-digital.org</text>`,
-    '1x1': (f) => `
-  <rect x="0" y="0" width="${f.w}" height="8" fill="${FARBE.brand}"/>
-  <text x="28" y="44" font-size="14" font-weight="700" letter-spacing="2.5" fill="${FARBE.brand}">${esc(MARKE.toUpperCase())}</text>
-  <text x="28" y="88" font-size="36" font-weight="700" fill="${FARBE.ink}">Die digitale Tierarztpraxis</text>
-  <text x="28" y="116" font-size="17" fill="${FARBE.soft}">Marktübersicht ${jahr} · ${anzahl} Anbieter in ${kategorienAnzahl} Lösungsfeldern · DACH</text>
-  <text x="28" y="140" font-size="14" fill="${FARBE.muted}">Alphabetisch, ohne Rangfolge · Stand ${EDITION} · tiermedizin-in-digital.org</text>`,
-  };
-  // Fläche, in die die Karte passt (logische Koordinaten des Formats).
-  const formatFlaeche = {
-    '16x9': { x: 580, y: 28, w: 1920 - 580 - 28, h: 1080 - 56 },
-    '1x1': { x: 20, y: 156, w: 1080 - 40, h: 1080 - 156 - 16 },
+  const SP_GAP = 20;
+  function verteile(spalten, breite) {
+    const cw = (breite - (spalten - 1) * SP_GAP) / spalten;
+    const bahnen = Array.from({ length: spalten }, (_, i) => ({ x: i * (cw + SP_GAP), karten: [], hoehe: 0 }));
+    for (const kat of categories) {
+      const ziel = bahnen.reduce((m, b) => (b.hoehe < m.hoehe ? b : m), bahnen[0]);
+      const k = messeKarte(kat, cw);
+      ziel.karten.push(k);
+      ziel.hoehe += (ziel.karten.length > 1 ? SP_GAP : 0) + k.hoehe;
+    }
+    return { cw, bahnen, hoehe: Math.max(...bahnen.map((b) => b.hoehe)) };
+  }
+  function fuelle(v, ziel) {
+    for (const bahn of v.bahnen) {
+      const fehlt = ziel - bahn.hoehe;
+      if (fehlt <= 0) continue;
+      const reihen = bahn.karten.reduce((n, k) => n + reihenVon(k.gruppen, k.spalten), 0);
+      const proReihe = Math.min(fehlt / reihen, KACHEL_H_MAX - KACHEL_H_BASIS);
+      bahn.karten = bahn.karten.map((k) => messeKarte(k.kategorie, k.breite, KACHEL_H_BASIS + proReihe));
+      bahn.hoehe = bahn.karten.reduce((h, k, i) => h + k.hoehe + (i > 0 ? SP_GAP : 0), 0);
+      const rest = ziel - bahn.hoehe;
+      if (rest > 0.5) {
+        const letzte = bahn.karten[bahn.karten.length - 1];
+        letzte.gestreckt = letzte.hoehe + rest;
+        bahn.hoehe = ziel;
+      }
+    }
+  }
+  const FORMAT_KOPF = {
+    '16x9': { pad: 64, kopf: 208, fuss: 52, titel: 54, unter: 25, url: 40, marke: 18, klein: 17, fussText: 13 },
+    '1x1': { pad: 48, kopf: 176, fuss: 58, titel: 44, unter: 19, url: 28, marke: 15, klein: 14, fussText: 11 },
   };
   for (const f of BILDFORMATE) {
-    if (!formatKopf[f.id]) continue;
-    const fl = formatFlaeche[f.id];
-    let kw = fl.w;
-    let kh = kw / koerperVerh;
-    if (kh > fl.h) {
-      kh = fl.h;
-      kw = kh * koerperVerh;
+    const m = FORMAT_KOPF[f.id];
+    if (!m) continue;
+    const innenB = f.w - 2 * m.pad;
+    const flaecheH = f.h - m.kopf - m.fuss;
+    /*
+      Spaltenzahl: so viele, dass keine Spalte schmaler als 310 wird (sonst
+      laufen Titel wie „NEUKUNDENGEWINNUNG“ über den Rand), und davon die,
+      deren Höhe am besten zur Fläche passt – dann bleibt am wenigsten leer.
+      Danach werden die Spalten auf gleiche Höhe gebracht und das Ganze
+      eingepasst.
+    */
+    let beste = null;
+    for (let n = 2; n <= 8; n++) {
+      const v = verteile(n, innenB);
+      if (v.cw < 310) break;
+      fuelle(v, v.hoehe);
+      const passung = Math.min(v.hoehe / flaecheH, flaecheH / v.hoehe);
+      if (!beste || passung > beste.passung) beste = { n, v, passung };
     }
-    const kx = Math.round((fl.x + (fl.w - kw) / 2) * 2);
-    const ky = Math.round((fl.y + (fl.h - kh) / 2) * 2);
-    const karteF = await sharp(koerper).resize({ width: Math.round(kw * 2) }).png().toBuffer();
-    const grundSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${f.w * 2}" height="${f.h * 2}" viewBox="0 0 ${f.w} ${f.h}" font-family="${SCHRIFT}">
-  <rect width="${f.w}" height="${f.h}" fill="${FARBE.hintergrund}"/>${formatKopf[f.id](f)}
+    const { v } = beste;
+    // Etwas Luft darf durch höhere Kacheln gefüllt werden, viel nicht.
+    if (v.hoehe < flaecheH && v.hoehe > flaecheH * 0.8) fuelle(v, flaecheH);
+    const skala = Math.min(1, flaecheH / v.hoehe);
+    const yMitte = skala < 1 ? 0 : Math.max(0, (flaecheH - v.hoehe) / 2);
+    const inhaltB = innenB * skala;
+    const x0 = m.pad + (innenB - inhaltB) / 2;
+    const y0 = m.kopf + yMitte;
+    const kartenF = v.bahnen
+      .flatMap((bahn) => {
+        let y = 0;
+        return bahn.karten.map((k) => {
+          const teil = zeichneKarte(k, bahn.x, y);
+          y += (k.gestreckt ?? k.hoehe) + SP_GAP;
+          return teil;
+        });
+      })
+      .join('\n  ');
+    const st = f.stempel;
+    const formatSvg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${f.px}" height="${Math.round((f.px * f.h) / f.w)}" viewBox="0 0 ${f.w} ${f.h}" font-family="${SCHRIFT}">
+  <rect width="${f.w}" height="${f.h}" fill="${FARBE.hintergrund}"/>
+  <rect width="${f.w}" height="8" fill="${FARBE.brand}"/>
+  <text x="${m.pad}" y="50" font-size="${m.marke}" font-weight="700" letter-spacing="2.5" fill="${FARBE.brand}">${esc(MARKE.toUpperCase())}</text>
+  <text x="${m.pad}" y="${50 + m.titel + 6}" font-size="${m.titel}" font-weight="700" fill="${FARBE.ink}">Die digitale Tierarztpraxis</text>
+  <text x="${m.pad}" y="${50 + m.titel + 6 + m.unter + 16}" font-size="${m.unter}" fill="${FARBE.soft}">Marktübersicht ${jahr} · ${anzahl} Anbieter in ${kategorienAnzahl} Lösungsfeldern · DACH · alphabetisch, ohne Rangfolge</text>
+  <text x="${f.w - m.pad}" y="${50 + m.url}" text-anchor="end" font-size="${m.url}" font-weight="700" fill="${FARBE.brand}">${URL_TEXT}</text>
+  <text x="${f.w - m.pad}" y="${50 + m.url + m.klein + 12}" text-anchor="end" font-size="${m.klein}" fill="${FARBE.muted}">Stand ${EDITION} · Bild vom ${datumDe}</text>
+  <line x1="${m.pad}" y1="${m.kopf - 16}" x2="${f.w - m.pad}" y2="${m.kopf - 16}" stroke="${FARBE.linie}" stroke-width="2"/>
+  <g transform="translate(${x0.toFixed(1)} ${y0}) scale(${skala.toFixed(4)})">
+  ${kartenF}
+  </g>
+  <text x="${m.pad}" y="${f.h - m.fuss + 30}" font-size="${m.fussText}" fill="${FARBE.muted}">Marken und Logos sind Eigentum der jeweiligen Rechteinhaber; Nennung nur zur Information. Sortierung je Kategorie alphabetisch. Der Herausgeber ist an einem der genannten Anbieter beteiligt (Offenlegung auf der Website).</text>
 </svg>`;
-    await sharp(Buffer.from(grundSvg))
-      .composite([{ input: karteF, left: kx, top: ky }])
-      .png({ compressionLevel: 9 })
-      .toFile(join(PUBLIC, f.datei));
+    if (st.oben < 50 + m.url + m.klein + 20 || st.oben + st.hoehe > m.kopf - 20 || st.breite !== f.w) {
+      throw new Error(`Stempellage für ${f.id} passt nicht zum Kopf (src/config/bildstempel.ts).`);
+    }
+    await sharp(Buffer.from(formatSvg)).png({ compressionLevel: 9 }).toFile(join(PUBLIC, f.datei));
+    entscheidung[`format${f.id}`] = `${beste.n} Spalten, Skala ${skala.toFixed(2)}, Passung ${beste.passung.toFixed(2)}`;
   }
 
   png = true;
@@ -841,6 +884,7 @@ console.log(
   `Marktübersicht erzeugt: ${W}×${H} (PNG ${W * 2}×${H * 2}), ${anzahl} Anbieter in ${kategorienAnzahl} Kategorien, Stand ${datumDe}.\n` +
     `  Bänder: ${entscheidung.baender.length ? entscheidung.baender.map((id) => `Kategorie ${id}`).join(', ') : 'keine'}\n` +
     `  Kachelhöhen: ${entscheidung.kachelHoehen.join(' · ')}\n` +
+    `  Formate: 16:9 ${entscheidung.format16x9 ?? '–'} · 1:1 ${entscheidung.format1x1 ?? '–'}\n` +
     (umgewandelt.length ? `  Für den Rasterer in PNG gewandelt: ${umgewandelt.join(', ')}\n` : '') +
     `  downloads/${BASISNAME}.svg${png ? `\n  downloads/${BASISNAME}.png\n  og/marktuebersicht.png` : ''}`,
 );

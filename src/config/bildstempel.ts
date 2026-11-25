@@ -38,19 +38,21 @@ export const BILDFORMATE = [
     label: '16:9',
     titel: 'Querformat 16:9 – für Folien und Link-Posts',
     datei: 'downloads/digitale-tierarztpraxis-marktuebersicht-16x9.png',
-    /** Logische Größe; das PNG ist doppelt so groß. */
-    w: 1920,
-    h: 1080,
-    stempel: { breite: 1920, rechts: 440, oben: 760, hoehe: 28 },
+    /** Logische Größe (Bildkoordinaten) und Breite des PNG in Pixeln. */
+    w: 2400,
+    h: 1350,
+    px: 3840,
+    stempel: { breite: 2400, rechts: 2400 - 64, oben: 130, hoehe: 28 },
   },
   {
     id: '1x1',
     label: '1:1',
     titel: 'Quadrat 1:1 – für Feed-Posts',
     datei: 'downloads/digitale-tierarztpraxis-marktuebersicht-1x1.png',
-    w: 1080,
-    h: 1080,
-    stempel: { breite: 1080, rechts: 1080 - 28, oben: 26, hoehe: 22 },
+    w: 1440,
+    h: 1440,
+    px: 2160,
+    stempel: { breite: 1440, rechts: 1440 - 48, oben: 114, hoehe: 22 },
   },
   {
     id: 'original',
@@ -59,6 +61,7 @@ export const BILDFORMATE = [
     datei: 'downloads/digitale-tierarztpraxis-marktuebersicht.png',
     w: BILDSTEMPEL.breite,
     h: 0,
+    px: BILDSTEMPEL.breite * 2,
     stempel: BILDSTEMPEL as Stempellage,
   },
 ] as const;

@@ -37,16 +37,32 @@ export const providers: Provider[] = [
     // Kategorie 9 am 13.10.2026 ergänzt (Hinweis Dr. Heinrich Wilkes,
     // Mitgründer, LinkedIn): animalchat.net beschreibt neben der
     // Video-Beratung die Chat-Beratung zwischen Praxis und Tierhalter.
-    // Weitere Kategorien, sobald die Funktion auf der Website steht.
+    // Kategorie 4 am 25.11.2026 ergänzt (Hinweis AnimalChat, LinkedIn):
+    // business.animalchat.net beschreibt die Telefonassistenz „Nora“ und
+    // Berichte aus dem Diktat, „auf Wunsch nach SOAP“ (geprüft 25.11.2026).
+    // Logos auf Wunsch des Anbieters: orange AnimalChat-Logo für die
+    // Tierhalter-App (animalchat.net/press), AnimalChat Business für die
+    // Praxis-Kategorien (business.animalchat.net/ressourcen).
+    // Kategorien 1, 3, 5, 7 und 10 aus demselben Hinweis: auf den Seiten
+    // nicht belegt (geprüft 25.11.2026).
     id: 'animalchat',
     name: 'AnimalChat',
-    logo: 'logos/animalchat.webp',
+    logo: 'logos/animalchat.png',
     website: 'https://animalchat.net',
     countries: [],
-    categories: [8, 9],
+    categories: [4, 8, 9],
     description:
       'Kommunikationslösung für Tierarztpraxen mit Nachrichten und Videosprechstunde, nach Anbieterangabe auf deutschen Servern gehostet.',
-    tags: ['Videosprechstunde', 'Kommunikation', 'Praxis'],
+    variants: {
+      4: {
+        label: 'AnimalChat Business',
+        logo: 'logos/animalchat-business.png',
+        description:
+          'KI-Assistenz für Tierarztpraxen: Telefonassistenz, die Anliegen außerhalb der Sprechzeit aufnimmt, und Berichte aus dem Diktat, auf Wunsch im SOAP-Format.',
+      },
+      8: { label: 'AnimalChat Business', logo: 'logos/animalchat-business.png' },
+    },
+    tags: ['Videosprechstunde', 'Kommunikation', 'Praxis', 'Anrufe', 'Diktat'],
   },
   {
     id: 'anidata',
@@ -567,11 +583,18 @@ export const providers: Provider[] = [
     // Länder laut vetdream.de, Meilensteine (geprüft 26.10.2026): „Offizieller
     // Launch Kleintiermedizin“ 2025 mit einer Klinik in Deutschland, „Herbst 2025
     // Launch Österreich“.
+    // Kategorie 3 am 25.11.2026 ergänzt (Hinweis Lisa Anhoffer, K&M Vet IT,
+    // LinkedIn): vetdream.de nennt „Digitale Patientenaufnahme inkl. digitale
+    // Signatur“. Die genannte VetKI steht dort als „KI Features (coming
+    // soon)“ – Kategorie 4 erst, wenn sie verfügbar ist.
     countries: ['DE', 'AT'],
-    categories: [2, 6],
+    categories: [2, 3, 6],
     description:
       'Praxissoftware mit digitalen Zusatzfunktionen, unter anderem für die Online-Terminvereinbarung.',
-    tags: ['PIMS', 'Praxissoftware', 'Terminbuchung'],
+    variants: {
+      3: { description: 'Praxissoftware mit digitaler Patientenaufnahme einschließlich digitaler Unterschrift.' },
+    },
+    tags: ['PIMS', 'Praxissoftware', 'Terminbuchung', 'Patientenaufnahme'],
   },
   {
     id: 'vetera',
@@ -1016,6 +1039,46 @@ export const providers: Provider[] = [
     description:
       'Praxissoftware für Windows mit Kunden- und Patientenverwaltung, Krankenblatt, Rechnungen nach GOT bzw. österreichischer Honorarordnung und Impfkartei; vom selben Hersteller wie VetStar.',
     tags: ['PIMS', 'Praxissoftware', 'GOT'],
+  },
+  {
+    // Hinweis Benjamin Gürtl, VetNative Digital GmbH (LinkedIn). vetnative.com
+    // (geprüft 25.11.2026): Praxissoftware elovet, Online-Buchung eltiga-Booking
+    // („Ihre Kund:innen können rund um die Uhr online buchen“) und die
+    // Tierhalter-App eltiga. Gewünscht waren zusätzlich 1, 3 und 4: Für 1
+    // gelten die Aufnahmekriterien der Kategorie; Intake und KI sind auf der
+    // Seite nicht beschrieben.
+    id: 'vetnative',
+    aufgenommen: '2026-11-25',
+    name: 'VetNative',
+    logo: 'logos/vetnative.png',
+    website: 'https://www.vetnative.com',
+    countries: [],
+    categories: [2, 6, 9],
+    description:
+      'Cloudbasierte Plattform für Tierarztpraxen mit Praxissoftware (elovet), Online-Terminbuchung und Tierhalter-App (eltiga).',
+    variants: {
+      2: { description: 'Online-Terminbuchung rund um die Uhr mit Erfassung von Halter- und Tierdaten (eltiga-Booking).' },
+      6: { label: 'VetNative elovet', description: 'Cloudbasierte Praxissoftware für Kunden und Patienten, Behandlungen, Termine, Kasse, Lager und Berichte.' },
+      9: { description: 'Tierhalter-App eltiga, für Praxen und ihre Kundinnen und Kunden kostenlos.' },
+    },
+    tags: ['PIMS', 'Praxissoftware', 'Terminbuchung', 'Tierhalter-App'],
+  },
+  {
+    // Hinweis Pierre Pivorius, Gründer (LinkedIn). petcario.com (geprüft
+    // 25.11.2026): digitale Tierakte und QR-Tiermarke; „Du legst fest, welche
+    // Angaben eine findende Person nach dem Scan sehen darf.“ Kein
+    // Chip-Register und keine Praxisanbindung beschrieben – daher nur das
+    // Fundtier-Feld.
+    id: 'petcario',
+    aufgenommen: '2026-11-25',
+    name: 'Petcario',
+    logo: 'logos/petcario.png',
+    website: 'https://petcario.com',
+    countries: [],
+    categories: [12],
+    description:
+      'Plattform für Tierhalter mit digitaler Tierakte und QR-Tiermarke, über die eine findende Person den Halter erreichen kann.',
+    tags: ['Fundtiere', 'QR-Tiermarke', 'Tierhalter'],
   },
 ];
 
