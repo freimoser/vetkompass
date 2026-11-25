@@ -23,7 +23,7 @@ export function FilterBar({ filters, onChange, resultSummary }: FilterBarProps) 
   const setCategory = (category: CategoryId | 'all') => onChange({ ...filters, category });
 
   return (
-    <div className="no-print sticky top-0 z-30 -mx-4 border-b border-brand-100 bg-white/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
+    <div className="no-print sticky top-14 z-30 -mx-4 border-b border-brand-100 bg-white/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
       <div className="mx-auto flex max-w-[1560px] flex-col gap-3">
         <div className="flex flex-wrap items-center gap-3">
           <SearchBar

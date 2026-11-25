@@ -21,6 +21,7 @@
  *
  * Aufruf: node scripts/gen-artikel.mjs
  */
+import { KOPFLEISTE_CSS, kopfleisteHtml } from './kopfleiste.mjs';
 import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -554,11 +555,12 @@ ${ld}
 
     <style>
 ${STIL}
+      ${KOPFLEISTE_CSS}
     </style>
   </head>
   <body>
     <main>
-      <a class="back" href="./">← ${esc(MARKE)} · Zur Marktübersicht</a>
+${kopfleisteHtml()}
 ${koerper}
 
       <footer>

@@ -32,11 +32,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /*
-      Kein scroll-padding: Die Sticky-Toolbar sitzt am Anfang des
-      Marktübersicht-Abschnitts und ist an allen Ankerzielen entweder selbst
-      das oberste Element oder bereits wieder aus dem Fluss gelöst.
-    */
+    /* Platz für die feste Kopfleiste (TopBar, h-14), damit Anker nicht darunter landen. */
+    scroll-padding-top: 4.5rem;
   }
 
   body {

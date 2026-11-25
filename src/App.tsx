@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { SearchX } from 'lucide-react';
 import { Header } from './components/Header';
+import { TopBar } from './components/TopBar';
 import { FilterBar } from './components/FilterBar';
 import { MarketMap } from './components/MarketMap';
 import { ProviderModal } from './components/ProviderModal';
@@ -50,6 +51,8 @@ export default function App() {
       >
         Zum Inhalt springen
       </a>
+
+      <TopBar />
 
       <div className="mx-auto max-w-[1560px] px-4 sm:px-6">
         <Header />

@@ -15,6 +15,7 @@
  *
  * Aufruf: node scripts/gen-legal.mjs
  */
+import { KOPFLEISTE_CSS, kopfleisteHtml } from './kopfleiste.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -148,11 +149,12 @@ function page({ title, intro, body, basis }) {
       .muted { color: var(--muted); font-size: 0.875rem; }
       footer { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line-soft); }
       @media print { .back { display: none; } }
+      ${KOPFLEISTE_CSS}
     </style>
   </head>
   <body>
     <main>
-      <a class="back" href="./">← Zurück zur Marktübersicht</a>
+${kopfleisteHtml()}
       <h1>${esc(title)}</h1>
 ${intro ? `      <div class="lead">\n${intro}\n      </div>` : ''}
 ${body}

@@ -5,6 +5,7 @@ import { providers } from '../data/providers';
 import { categories } from '../data/categories';
 import { zahlwort } from '../lib/zahlwort';
 import { bildMitStempel, dateinameMitDatum } from '../lib/bildstempel';
+import { BILDFORMATE } from '../config/bildstempel';
 
 /**
  * Kopfbereich der Seite. Bewusst kein Marketing-Hero – die Marktübersicht
@@ -34,28 +35,32 @@ const GEAENDERT: string | null =
     : (document.querySelector('time[data-geaendert]')?.getAttribute('datetime') ?? null);
 
 export function Header() {
-  const [erstelltGerade, setErstelltGerade] = useState(false);
-  const bildUrl = asset(siteConfig.downloadImage);
+  const [erstelltGerade, setErstelltGerade] = useState<string | null>(null);
 
   /*
     Beim Herunterladen kommt ein Zeitstempel ins Bild. Ohne Canvas-Unterstützung
     oder bei einem Fehler gibt es das Bild ohne Stempel – der Download klappt
     in jedem Fall.
   */
-  const herunterladen = async (event: MouseEvent<HTMLAnchorElement>) => {
+  const herunterladen = async (
+    event: MouseEvent<HTMLAnchorElement>,
+    format: (typeof BILDFORMATE)[number],
+  ) => {
     if (typeof createImageBitmap !== 'function' || erstelltGerade) return;
     event.preventDefault();
-    setErstelltGerade(true);
+    setErstelltGerade(format.id);
     const jetzt = new Date();
+    const url = asset(format.datei);
+    const name = format.datei.split('/').pop()!;
     try {
-      const blob = await bildMitStempel(bildUrl, jetzt);
+      const blob = await bildMitStempel(url, jetzt, format.stempel);
       const objekt = URL.createObjectURL(blob);
-      speichere(objekt, dateinameMitDatum(siteConfig.downloadFileName, jetzt));
+      speichere(objekt, dateinameMitDatum(name, jetzt));
       setTimeout(() => URL.revokeObjectURL(objekt), 10_000);
     } catch {
-      speichere(bildUrl, siteConfig.downloadFileName);
+      speichere(url, name);
     } finally {
-      setErstelltGerade(false);
+      setErstelltGerade(null);
     }
   };
 
@@ -114,17 +119,30 @@ export function Header() {
         <a href={`#${anchors.submit}`} className="btn-secondary">
           Anbieter ergänzen
         </a>
-        <a
-          href={bildUrl}
-          download={siteConfig.downloadFileName}
-          onClick={herunterladen}
-          aria-busy={erstelltGerade}
-          className="inline-flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium
-                     text-ink-700 underline-offset-4 hover:text-brand-700 hover:underline"
+        <div
+          role="group"
+          aria-label="Marktübersicht als Bild herunterladen"
+          className="flex flex-wrap items-center gap-2 text-sm text-ink-700"
         >
-          <Download aria-hidden="true" className="h-4 w-4" />
-          {erstelltGerade ? 'Bild wird erstellt …' : 'Marktübersicht als Bild herunterladen'}
-        </a>
+          <span className="inline-flex items-center gap-2 font-medium">
+            <Download aria-hidden="true" className="h-4 w-4" />
+            {erstelltGerade ? 'Bild wird erstellt …' : 'Als Bild herunterladen:'}
+          </span>
+          {BILDFORMATE.map((f) => (
+            <a
+              key={f.id}
+              href={asset(f.datei)}
+              download={f.datei.split('/').pop()}
+              title={f.titel}
+              onClick={(e) => herunterladen(e, f)}
+              aria-busy={erstelltGerade === f.id}
+              className="rounded-full border border-brand-200 px-3 py-1.5 font-medium text-brand-800
+                         hover:border-brand-400 hover:bg-brand-50"
+            >
+              {f.label}
+            </a>
+          ))}
+        </div>
       </div>
     </header>
   );

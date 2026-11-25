@@ -58,7 +58,7 @@ function sichtbarerText(html) {
   */
   const main = (html.match(/<main[\s\S]*?<\/main>/)?.[0] ?? html)
     .replace(DATUM_ELEMENT, ' ')
-    .replace(/<(nav|aside)\b[^>]*data-seitenstand="aus"[^>]*>[\s\S]*?<\/\1>/g, ' ');
+    .replace(/<(nav|aside|header)\b[^>]*data-seitenstand="aus"[^>]*>[\s\S]*?<\/\1>/g, ' ');
   return main
     .replace(/<script[\s\S]*?<\/script>/g, ' ')
     .replace(/<style[\s\S]*?<\/style>/g, ' ')

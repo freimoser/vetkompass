@@ -27,7 +27,7 @@ import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
 import { MARKE } from '../src/config/verbund.ts';
 import { EDITION } from '../src/config/edition.ts';
-import { BILDSTEMPEL } from '../src/config/bildstempel.ts';
+import { BILDFORMATE, BILDSTEMPEL } from '../src/config/bildstempel.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = join(ROOT, 'public');
@@ -757,6 +757,67 @@ ${titel.map((z, i) => `  <text x="52" y="${(titelY + i * tg * 1.25).toFixed(1)}"
       .resize({ width: OG_W, height: OG_H })
       .png({ compressionLevel: 9 })
       .toFile(join(PUBLIC, 'og', 'kategorie', `${kat.slug}.png`));
+  }
+
+  /*
+    Formate für Posts und Folien (Wunsch 25.11.2026: Das Original ist fast
+    quadratisch-hoch und passt weder auf eine Folie noch in einen Feed-Post).
+    Die Karte wird ohne ihren eigenen Kopf übernommen; den Kopf zeichnet das
+    Format selbst – links bei 16:9, oben bei 1:1. Im Kopf bleibt Platz für den
+    Download-Stempel, seine Lage steht in src/config/bildstempel.ts.
+  */
+  const koerper = await sharp(puffer)
+    .extract({ left: 0, top: (KOPF - 8) * 2, width: W * 2, height: H * 2 - (KOPF - 8) * 2 })
+    .png()
+    .toBuffer();
+  const koerperVerh = W / (H - (KOPF - 8));
+  const jahr = EDITION.split(' ')[1];
+  const formatKopf = {
+    '16x9': (f) => `
+  <rect x="0" y="0" width="10" height="${f.h}" fill="${FARBE.brand}"/>
+  <text x="56" y="120" font-size="20" font-weight="700" letter-spacing="3" fill="${FARBE.brand}">${esc(MARKE.toUpperCase())}</text>
+  <text x="56" y="210" font-size="60" font-weight="700" fill="${FARBE.ink}">Die digitale</text>
+  <text x="56" y="282" font-size="60" font-weight="700" fill="${FARBE.ink}">Tierarztpraxis</text>
+  <text x="56" y="336" font-size="28" fill="${FARBE.soft}">Marktübersicht ${jahr} · DACH</text>
+  <text x="56" y="500" font-size="88" font-weight="700" fill="${FARBE.brand}">${anzahl}</text>
+  <text x="56" y="540" font-size="24" fill="${FARBE.soft}">Anbieter</text>
+  <text x="270" y="500" font-size="88" font-weight="700" fill="${FARBE.brand}">${kategorienAnzahl}</text>
+  <text x="270" y="540" font-size="24" fill="${FARBE.soft}">Lösungsfelder</text>
+  <text x="56" y="660" font-size="20" fill="${FARBE.muted}">Alphabetisch, ohne Rangfolge</text>
+  <text x="56" y="690" font-size="20" fill="${FARBE.muted}">Stand ${EDITION} · Bild vom ${datumDe}</text>
+  <text x="56" y="720" font-size="20" fill="${FARBE.muted}">Herausgegeben von ${esc(AUTOR)}</text>
+  <text x="56" y="1024" font-size="24" font-weight="700" fill="${FARBE.brand}">tiermedizin-in-digital.org</text>`,
+    '1x1': (f) => `
+  <rect x="0" y="0" width="${f.w}" height="8" fill="${FARBE.brand}"/>
+  <text x="28" y="44" font-size="14" font-weight="700" letter-spacing="2.5" fill="${FARBE.brand}">${esc(MARKE.toUpperCase())}</text>
+  <text x="28" y="88" font-size="36" font-weight="700" fill="${FARBE.ink}">Die digitale Tierarztpraxis</text>
+  <text x="28" y="116" font-size="17" fill="${FARBE.soft}">Marktübersicht ${jahr} · ${anzahl} Anbieter in ${kategorienAnzahl} Lösungsfeldern · DACH</text>
+  <text x="28" y="140" font-size="14" fill="${FARBE.muted}">Alphabetisch, ohne Rangfolge · Stand ${EDITION} · tiermedizin-in-digital.org</text>`,
+  };
+  // Fläche, in die die Karte passt (logische Koordinaten des Formats).
+  const formatFlaeche = {
+    '16x9': { x: 580, y: 28, w: 1920 - 580 - 28, h: 1080 - 56 },
+    '1x1': { x: 20, y: 156, w: 1080 - 40, h: 1080 - 156 - 16 },
+  };
+  for (const f of BILDFORMATE) {
+    if (!formatKopf[f.id]) continue;
+    const fl = formatFlaeche[f.id];
+    let kw = fl.w;
+    let kh = kw / koerperVerh;
+    if (kh > fl.h) {
+      kh = fl.h;
+      kw = kh * koerperVerh;
+    }
+    const kx = Math.round((fl.x + (fl.w - kw) / 2) * 2);
+    const ky = Math.round((fl.y + (fl.h - kh) / 2) * 2);
+    const karteF = await sharp(koerper).resize({ width: Math.round(kw * 2) }).png().toBuffer();
+    const grundSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${f.w * 2}" height="${f.h * 2}" viewBox="0 0 ${f.w} ${f.h}" font-family="${SCHRIFT}">
+  <rect width="${f.w}" height="${f.h}" fill="${FARBE.hintergrund}"/>${formatKopf[f.id](f)}
+</svg>`;
+    await sharp(Buffer.from(grundSvg))
+      .composite([{ input: karteF, left: kx, top: ky }])
+      .png({ compressionLevel: 9 })
+      .toFile(join(PUBLIC, f.datei));
   }
 
   png = true;

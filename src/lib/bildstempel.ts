@@ -1,4 +1,4 @@
-import { BILDSTEMPEL } from '../config/bildstempel';
+import { BILDSTEMPEL, type Stempellage } from '../config/bildstempel';
 
 const zweistellig = (n: number) => String(n).padStart(2, '0');
 
@@ -11,7 +11,11 @@ const zweistellig = (n: number) => String(n).padStart(2, '0');
  * fremder Schrift unter den anderen sähe nach Fehler aus – eine Plakette in
  * der Markenfarbe ist erkennbar ein Stempel.
  */
-export async function bildMitStempel(url: string, jetzt = new Date()): Promise<Blob> {
+export async function bildMitStempel(
+  url: string,
+  jetzt = new Date(),
+  lage: Stempellage = BILDSTEMPEL,
+): Promise<Blob> {
   const antwort = await fetch(url);
   if (!antwort.ok) throw new Error(`Bild nicht geladen (${antwort.status})`);
   const bild = await createImageBitmap(await antwort.blob());
@@ -23,17 +27,17 @@ export async function bildMitStempel(url: string, jetzt = new Date()): Promise<B
   if (!ctx) throw new Error('Kein Canvas-Kontext');
   ctx.drawImage(bild, 0, 0);
 
-  const s = bild.width / BILDSTEMPEL.breite;
+  const s = bild.width / lage.breite;
   const text =
     `Heruntergeladen am ${zweistellig(jetzt.getDate())}.${zweistellig(jetzt.getMonth() + 1)}.` +
     `${jetzt.getFullYear()} · ${zweistellig(jetzt.getHours())}:${zweistellig(jetzt.getMinutes())} Uhr`;
 
-  ctx.font = `600 ${12 * s}px -apple-system, "Helvetica Neue", "Segoe UI", Arial, sans-serif`;
+  ctx.font = `600 ${lage.hoehe * 0.5 * s}px -apple-system, "Helvetica Neue", "Segoe UI", Arial, sans-serif`;
   const innen = 10 * s;
   const breite = ctx.measureText(text).width + 2 * innen;
-  const hoehe = BILDSTEMPEL.hoehe * s;
-  const x = BILDSTEMPEL.rechts * s - breite;
-  const y = BILDSTEMPEL.oben * s;
+  const hoehe = lage.hoehe * s;
+  const x = lage.rechts * s - breite;
+  const y = lage.oben * s;
 
   ctx.fillStyle = '#176595';
   ctx.beginPath();

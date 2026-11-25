@@ -16,3 +16,49 @@ export const BILDSTEMPEL = {
   oben: 106,
   hoehe: 24,
 } as const;
+
+/** Lage eines Stempels in Bildkoordinaten (`breite` = logische Bildbreite). */
+export interface Stempellage {
+  breite: number;
+  rechts: number;
+  oben: number;
+  hoehe: number;
+}
+
+/**
+ * Die Formate zum Herunterladen. Original ist die ganze Karte in voller
+ * Auflösung; 16:9 und 1:1 sind eigene Kompositionen für Posts und Folien
+ * (Kopf links bzw. oben, Karte daneben bzw. darunter). Erzeugt in
+ * scripts/gen-grafik.mjs, gestempelt in src/lib/bildstempel.ts – beide lesen
+ * die Stempellage von hier.
+ */
+export const BILDFORMATE = [
+  {
+    id: '16x9',
+    label: '16:9',
+    titel: 'Querformat 16:9 – für Folien und Link-Posts',
+    datei: 'downloads/digitale-tierarztpraxis-marktuebersicht-16x9.png',
+    /** Logische Größe; das PNG ist doppelt so groß. */
+    w: 1920,
+    h: 1080,
+    stempel: { breite: 1920, rechts: 440, oben: 760, hoehe: 28 },
+  },
+  {
+    id: '1x1',
+    label: '1:1',
+    titel: 'Quadrat 1:1 – für Feed-Posts',
+    datei: 'downloads/digitale-tierarztpraxis-marktuebersicht-1x1.png',
+    w: 1080,
+    h: 1080,
+    stempel: { breite: 1080, rechts: 1080 - 28, oben: 26, hoehe: 22 },
+  },
+  {
+    id: 'original',
+    label: 'Original',
+    titel: 'Ganze Karte in voller Auflösung – zum Hineinzoomen',
+    datei: 'downloads/digitale-tierarztpraxis-marktuebersicht.png',
+    w: BILDSTEMPEL.breite,
+    h: 0,
+    stempel: BILDSTEMPEL as Stempellage,
+  },
+] as const;
