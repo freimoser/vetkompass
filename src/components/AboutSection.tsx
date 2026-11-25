@@ -13,7 +13,7 @@ export function AboutSection() {
       <div className="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
         <div className="max-w-2xl space-y-4 text-sm leading-relaxed text-ink-700">
           <p>
-            Die <strong className="font-semibold">{siteConfig.title}</strong> soll Orientierung in
+            <strong className="font-semibold">{siteConfig.title}</strong> soll Orientierung in
             einem zunehmend vielfältigen Markt für digitale Lösungen in der Veterinärmedizin
             schaffen.
           </p>

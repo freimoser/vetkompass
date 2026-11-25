@@ -51,7 +51,14 @@ const register = existsSync(REGISTER) ? JSON.parse(readFileSync(REGISTER, 'utf8'
 const DATUM_ELEMENT = /<time data-geaendert[^>]*>[^<]*<\/time>/g;
 
 function sichtbarerText(html) {
-  const main = (html.match(/<main[\s\S]*?<\/main>/)?.[0] ?? html).replace(DATUM_ELEMENT, ' ');
+  /*
+    Navigation und Offenlegung (data-seitenstand="aus") zählen nicht: Ein neuer
+    Ratgeber-Link in „Weiterlesen“ hat am 05.11.2026 alle Seiten als geändert
+    gemeldet, obwohl sich kein Artikeltext geändert hatte.
+  */
+  const main = (html.match(/<main[\s\S]*?<\/main>/)?.[0] ?? html)
+    .replace(DATUM_ELEMENT, ' ')
+    .replace(/<(nav|aside)\b[^>]*data-seitenstand="aus"[^>]*>[\s\S]*?<\/\1>/g, ' ');
   return main
     .replace(/<script[\s\S]*?<\/script>/g, ' ')
     .replace(/<style[\s\S]*?<\/style>/g, ' ')

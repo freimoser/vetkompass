@@ -102,7 +102,7 @@ export const MEILENSTEINE: Meilenstein[] = [
     anbieter: 44,
     kategorien: 9,
     titel: 'Neun Anbieter aus den Kommentaren',
-    text: 'Jeder Hinweis wurde auf der Website des Anbieters geprüft und dort eingeordnet, wo die Funktion beschrieben ist.',
+    text: 'Jeder Hinweis wurde auf der Website des Anbieters geprüft und dort eingeordnet, wo die Funktion beschrieben ist. Ein zehnter Hinweis aus diesen Kommentaren, CoVet, folgte am 12.10.',
   },
   {
     datum: '2026-09-23',

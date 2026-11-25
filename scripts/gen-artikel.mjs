@@ -203,7 +203,8 @@ function weiterlesen(aktuellerPfad) {
       : `        <li>${nr} <a href="${esc(s.datei)}">${esc(kat?.title ?? s.kurzTitel)}</a></li>`;
   }).join('\n');
 
-  return `      <h2 id="weiterlesen">Alle ${zahlwort(categories.length)} Lösungsfelder</h2>
+  return `      <nav class="weiterlesen" aria-label="Weitere Artikel" data-seitenstand="aus">
+      <h2 id="weiterlesen">Alle ${zahlwort(categories.length)} Lösungsfelder</h2>
       <p>
         Die <a href="./">interaktive Marktübersicht</a> zeigt alle aufgenommenen Anbieter auf einen Blick.
         Diese Artikel erklären die einzelnen Felder:
@@ -222,7 +223,8 @@ ${RATGEBER_SEITEN.map((r) =>
 ).join('\n')}
       </ul>`
           : ''
-      }`;
+      }
+      </nav>`;
 }
 
 /**
@@ -244,7 +246,7 @@ function offenlegung(kategorieId) {
           </li>`,
   ).join('\n');
 
-  return `      <aside class="offenlegung" aria-labelledby="offenlegung-titel">
+  return `      <aside class="offenlegung" aria-labelledby="offenlegung-titel" data-seitenstand="aus">
         <h2 id="offenlegung-titel">Offenlegung</h2>
         <p>
           ${esc(AUTOR)} arbeitet für die Petleo GmbH und ist als Late Co-Founder an ihr
@@ -490,8 +492,24 @@ function seite({ pfad, titleTag, description, schema, koerper, krume, kategorie 
     Marke im Schema – dort stand nur „Die digitale Tierarztpraxis“ im Titel,
     „Tiermedizin in digital“ nur im og:site_name.
   */
+  /*
+    Website und Herausgeber je einmal als Knoten, alle anderen verweisen per
+    @id darauf. Bis 25.11.2026 stand die Person in jedem Artikel zweimal voll
+    ausgeschrieben (author, publisher) – gleich, aber fehleranfällig.
+  */
   const website = hatDomain
-    ? [{ '@type': 'WebSite', '@id': `${siteUrl}/#website`, url: `${siteUrl}/`, name: MARKE, inLanguage: 'de' }]
+    ? [
+        {
+          '@type': 'WebSite',
+          '@id': `${siteUrl}/#website`,
+          url: `${siteUrl}/`,
+          name: MARKE,
+          alternateName: 'Die digitale Tierarztpraxis',
+          inLanguage: 'de',
+          publisher: { '@id': `${siteUrl}/#herausgeber` },
+        },
+        PERSON,
+      ]
     : [];
   // Google empfiehlt für Article ein Bild; es ist dasselbe wie die Social-Vorschau.
   const mitBild = schema.map((n) =>
@@ -605,8 +623,9 @@ const artikelSchema = (pfad, headline, description) => ({
   inLanguage: 'de',
   datePublished: STAND_ISO,
   dateModified: STAND_ISO,
-  author: PERSON,
-  publisher: PERSON,
+  ...(hatDomain ? { '@id': `${absolut(pfad)}#article` } : {}),
+  author: hatDomain ? { '@id': `${siteUrl}/#herausgeber` } : PERSON,
+  publisher: hatDomain ? { '@id': `${siteUrl}/#herausgeber` } : PERSON,
   ...(hatDomain ? { isPartOf: { '@id': `${siteUrl}/#website` } } : {}),
   ...(hatDomain ? { mainEntityOfPage: absolut(pfad) } : {}),
   isAccessibleForFree: true,
@@ -832,11 +851,11 @@ ${FRAGEN.map(
 
       <h2 id="grenzen">Was diese Seite nicht leistet</h2>
       <p>
-        <strong>Keine Rechtsauskunft.</strong> Ob und unter welchen Bedingungen tierärztlich per
-        Video beraten, diagnostiziert oder verschrieben werden darf, ist eine Rechtsfrage. Sie
-        wird hier bewusst nicht beantwortet: Der Herausgeber ist Fachmann für digitale
-        Tiermedizin, nicht Jurist. Verbindliche Auskunft geben die zuständige Tierärztekammer und
-        die jeweils geltenden Vorschriften.
+        <strong>Keine Kaufberatung.</strong> Diese Seite sagt nichts darüber, welche Praxissoftware
+        zu einer bestimmten Praxis passt, was sie kostet, wie eine Datenübernahme beim Wechsel
+        abläuft oder welche Vertragsbedingungen gelten. Auskunft dazu geben die Anbieter. Zu
+        Rechts- und Gebührenfragen, etwa zur Abrechnung nach der GOT, geben die Tierärztekammern
+        und die geltenden Vorschriften verbindlich Auskunft.
       </p>
       <p>
         <strong>Keine Kaufberatung und kein Test.</strong> Kein Anbieter wurde im Praxisbetrieb
@@ -977,13 +996,6 @@ ${a.lead.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
 
 ${begriffsBlock(a.begriffe, seiteInfo.datei)}
 
-${a.abschnitte
-  .map(
-    (s) => `      <h2>${esc(s.h2)}</h2>
-${s.absaetze.map((p) => `      <p>${esc(p)}</p>`).join('\n')}`,
-  )
-  .join('\n\n')}
-
 ${
   a.vergleich
     ? `      <h2 id="vergleich">${esc(a.vergleich.titel)}</h2>
@@ -1007,7 +1019,16 @@ ${a.vergleich.zeilen
 
 `
     : ''
-}${funktionsTabelle(kat, liste)}      <h2 id="worauf">Worauf Praxen bei der Auswahl achten</h2>
+}${funktionsTabelle(kat, liste)}
+
+${a.abschnitte
+  .map(
+    (s) => `      <h2>${esc(s.h2)}</h2>
+${s.absaetze.map((p) => `      <p>${esc(p)}</p>`).join('\n')}`,
+  )
+  .join('\n\n')}
+
+      <h2 id="worauf">Worauf Praxen bei der Auswahl achten</h2>
       <ul class="pruefliste">
 ${a.worauf.map((f) => `        <li>${esc(f)}</li>`).join('\n')}
       </ul>
@@ -1531,6 +1552,24 @@ function volltext() {
     const a = s.inhalt;
     teile.push(md(a.definition), '');
     for (const p of a.lead) teile.push(md(p), '');
+    // Tabellen als Markdown – die zitierfähigsten Teile, bis 25.11.2026 fehlten sie hier.
+    if (a.vergleich) {
+      const v = a.vergleich;
+      teile.push(`### ${v.titel}`, '', `| ${v.kopf.join(' | ')} |`, `|${v.kopf.map(() => '---').join('|')}|`);
+      for (const z of v.zeilen) teile.push(`| ${z.join(' | ')} |`);
+      teile.push('', md(v.quelle), '');
+    }
+    const funktionen = FUNKTIONEN[a.kategorie];
+    if (funktionen) {
+      const liste = anbieterVon(a.kategorie);
+      const hat = (p, sp) => sp.tags.some((t) => (p.tags ?? []).includes(t));
+      teile.push('### Wer welche Aufgabe nennt (laut Beschreibung der Anbieter)', '');
+      teile.push(`| Anbieter | ${funktionen.map((f) => f.label).join(' | ')} |`, `|---|${funktionen.map(() => '---').join('|')}|`);
+      for (const p of liste) {
+        teile.push(`| ${p.variants?.[a.kategorie]?.label ?? p.name} | ${funktionen.map((f) => (hat(p, f) ? 'ja' : '–')).join(' | ')} |`);
+      }
+      teile.push('', 'Ein „–“ heißt nur, dass die Beschreibung die Aufgabe nicht nennt, nicht, dass das Produkt sie nicht kann.', '');
+    }
     for (const ab of a.abschnitte) {
       teile.push(`### ${ab.h2}`, '');
       for (const p of ab.absaetze) teile.push(md(p), '');
@@ -1538,6 +1577,22 @@ function volltext() {
     teile.push('### Worauf Praxen bei der Auswahl achten', '', a.worauf.map((w) => `- ${md(w)}`).join('\n'), '');
     teile.push('### Anbieter', '', anbieterZeilen(anbieterVon(a.kategorie), a.kategorie), '');
     teile.push('### Was dieser Artikel nicht leistet', '', md(a.grenzen), '');
+  }
+  for (const r of RATGEBER_SEITEN) {
+    const g = r.inhalt;
+    teile.push('---', '', `## Ratgeber: ${g.h1}`, '', `Quelle: ${absolut(r.pfad)}`, '');
+    teile.push(md(g.definition), '');
+    for (const p of g.lead) teile.push(md(p), '');
+    for (const ab of g.abschnitte) {
+      teile.push(`### ${ab.h2}`, '');
+      for (const p of ab.absaetze ?? []) teile.push(md(p), '');
+      if (ab.liste) teile.push(ab.liste.map((l, i) => (ab.nummeriert ? `${i + 1}. ` : '- ') + md(l)).join('\n'), '');
+    }
+    teile.push('### Fragen an die Software', '', g.pruefliste.map((w) => `- ${md(w)}`).join('\n'), '');
+    teile.push('### Häufige Fragen', '');
+    for (const f of g.fragen) teile.push(`**${f.frage}** ${md(f.antwort)}`, '');
+    teile.push('### Was dieser Ratgeber nicht leistet', '', md(g.grenzen), '');
+    teile.push('### Quellen', '', g.quellen.map((q) => `- ${q.titel}: ${q.url} (abgerufen ${datumDe(q.abgerufen)})`).join('\n'), '');
   }
   return teile.join('\n') + '\n';
 }

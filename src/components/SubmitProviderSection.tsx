@@ -44,7 +44,7 @@ export function SubmitProviderSection() {
         </h2>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink-700">
           Der Markt entwickelt sich schnell. Wenn eine relevante Lösung fehlt oder eine Zuordnung
-          nicht mehr aktuell ist, freuen wir uns über einen Hinweis.
+          nicht mehr aktuell ist, freue ich mich über einen Hinweis.
         </p>
 
         {hasContact ? (

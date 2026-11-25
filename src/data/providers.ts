@@ -750,7 +750,9 @@ export const providers: Provider[] = [
     name: 'FINDEFIX',
     logo: 'logos/findefix.svg',
     website: 'https://www.findefix.com',
-    countries: [],
+    // Land laut findefix.com (geprüft 25.11.2026): „das Haustierregister des Deutschen
+    // Tierschutzbundes“ – so auch in der Vergleichstabelle auf /heimtierregister.html.
+    countries: ['DE'],
     categories: [12],
     description:
       'Haustierregister des Deutschen Tierschutzbundes, kostenfrei; Praxen registrieren direkt aus der Praxissoftware, u. a. aus easyVET, Vetera, VETINF und Animana.',

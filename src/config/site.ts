@@ -88,7 +88,7 @@ export const siteConfig = {
   noAffiliationNotice:
     'Aus der Aufnahme in diese Übersicht folgt keine geschäftliche Verbindung, Partnerschaft, Zusammenarbeit oder Empfehlung.',
   removalNotice:
-    'Rechteinhaber, die eine Darstellung ihres Logos oder ihres Unternehmens hier nicht wünschen, melden sich bitte – wir entfernen den Eintrag kurzfristig.',
+    'Rechteinhaber, die eine Darstellung ihres Logos oder ihres Unternehmens hier nicht wünschen, melden sich bitte – der Eintrag wird dann kurzfristig entfernt.',
 
   /*
     Download-Grafik und Social-Vorschau. Beide werden von

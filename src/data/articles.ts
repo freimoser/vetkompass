@@ -379,7 +379,7 @@ export const artikel: Artikel[] = [
     frageAnbieter: 'Welche KI-Assistenten gibt es für Tierarztpraxen?',
     frageBegriff: 'Was sind KI-Dokumentationsassistenten?',
     h1: 'KI in der Tierarztpraxis: Dokumentation und Praxisassistenten',
-    titleTag: 'KI-Dokumentation für Tierarztpraxen – Anbieter im DACH-Raum',
+    titleTag: 'KI in der Tierarztpraxis: Dokumentation, Diktat, Telefon',
     description:
       'Wie KI-Dokumentation in der Tierarztpraxis funktioniert, wo ihre Grenzen liegen und ' +
       'welche Anbieter es gibt – ohne Rangfolge, ohne Bewertung.',
@@ -1019,14 +1019,14 @@ export const artikel: Artikel[] = [
       kopf: ['Register', 'Land', 'Betreiber', 'Für', 'Eintrag'],
       zeilen: [
         ['AMICUS', 'Schweiz', 'Identitas AG im Auftrag der Kantone', 'Hunde', 'vorgeschrieben'],
-        ['ANIS', 'Schweiz', 'Identitas AG', 'Katzen und andere Heimtiere', 'siehe anis.ch'],
+        ['ANIS', 'Schweiz', 'Identitas AG', 'sämtliche Heimtiere, vorwiegend Katzen', 'keine Angabe zur Pflicht auf anis.ch'],
         ['FINDEFIX', 'Deutschland', 'Deutscher Tierschutzbund', 'Haustiere', 'freiwillig, kostenlos'],
         ['Heimtierdatenbank', 'Österreich', 'Gesundheitsministerium (amtlich)', 'Hunde', 'für Hunde vorgeschrieben'],
         ['TASSO', 'Deutschland, Österreich, Schweiz', 'TASSO e.V.', 'Haustiere', 'freiwillig, kostenfrei'],
       ],
       quelle:
         'Angaben der Register auf amicus.ch, anis.ch, findefix.com, heimtierdatenbank.ehealth.gv.at ' +
-        'und tasso.net, geprüft am 05.11.2026. In Deutschland gibt es keine bundesweite Pflicht.',
+        'und tasso.net, geprüft am 05.11. und 25.11.2026. In Deutschland gibt es keine bundesweite Pflicht.',
     },
     frageAnbieter: 'Welche Haustierregister gibt es im DACH-Raum?',
     frageBegriff: 'Was ist ein Heimtierregister?',
@@ -1053,7 +1053,8 @@ export const artikel: Artikel[] = [
             'Schweiz werden Hunde in AMICUS registriert, im Auftrag der Kantone; für Katzen und ' +
             'andere Heimtiere gibt es ANIS. Beide betreibt die Identitas AG.',
           'In Deutschland sind die großen Register privat und für Halter kostenfrei: TASSO, ein ' +
-            'eingetragener Verein, und FINDEFIX, das Register des Deutschen Tierschutzbundes. ' +
+            'eingetragener Verein, und FINDEFIX, das Register des Deutschen Tierschutzbundes, das ' +
+            'früher „Deutsches Haustierregister“ hieß. ' +
             'Ein gechipptes Tier ist dort erst dann auffindbar, wenn jemand es angemeldet hat.',
         ],
       },
