@@ -100,6 +100,11 @@ export const artikelPfad = (slug: string): string => `${slug}.html`;
 /** Der Hauptartikel deckt Kategorie 6 (PIMS) ab und trägt den Begriffsteil. */
 export const HAUPTARTIKEL = { kategorie: 6, slug: 'tierarzt-software' } as const;
 
+/** Definition des Hauptartikels – eine Quelle für Artikel und Kasten in der Filteransicht. */
+export const HAUPTARTIKEL_DEFINITION =
+  'Tierarzt-Software – auch Praxissoftware oder PIMS genannt – ist das zentrale Verwaltungssystem ' +
+  'einer Tierarztpraxis: Patientenakte, Termine, Abrechnung und Warenwirtschaft in einem System.';
+
 export const artikel: Artikel[] = [
   /* ------------------------------------------------------------------ 1 */
   {

@@ -12,7 +12,8 @@ import { FaqSection } from './components/FaqSection';
 import { NewProviders } from './components/NewProviders';
 import { SubmitProviderSection } from './components/SubmitProviderSection';
 import { Footer } from './components/Footer';
-import { AUFNAHME_STANDARD, categories } from './data/categories';
+import { categories } from './data/categories';
+import { KategorieErklaerung } from './components/KategorieErklaerung';
 import { providers } from './data/providers';
 import { buildCategoryGroups, countUniqueProviders } from './lib/market';
 import { anchors } from './config/site';
@@ -64,14 +65,7 @@ export default function App() {
             <FilterBar filters={filters} onChange={setFilters} resultSummary={resultSummary} />
 
             <div className="pb-14 pt-5">
-              {aktiveKategorie && (
-                <div className="mb-4 max-w-3xl rounded-xl border border-brand-100 bg-brand-50/60 px-4 py-3 text-sm text-ink-700">
-                  <p className="font-semibold text-ink-900">
-                    Wer in Kategorie {aktiveKategorie.id} aufgenommen wird
-                  </p>
-                  <p className="mt-1">{aktiveKategorie.aufnahme ?? AUFNAHME_STANDARD}</p>
-                </div>
-              )}
+              {aktiveKategorie ? <KategorieErklaerung kategorie={aktiveKategorie} /> : null}
               {groups.length > 0 ? (
                 <MarketMap
                   groups={groups}

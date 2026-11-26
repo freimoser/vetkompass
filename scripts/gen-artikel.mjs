@@ -27,6 +27,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
+import { HAUPTARTIKEL_DEFINITION } from '../src/data/articles.ts';
 import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL, RATGEBER_SEITEN, UEBER, meilensteinAnker } from './seiten.mjs';
 import { AUS_HINWEISEN, BETEILIGUNG, FASSUNGEN, MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
@@ -836,9 +837,7 @@ function hauptartikel() {
 
       <div class="lead">
         <p class="definition">
-          Tierarzt-Software – auch Praxissoftware oder PIMS genannt – ist das zentrale
-          Verwaltungssystem einer Tierarztpraxis: Patientenakte, Termine, Abrechnung und
-          Warenwirtschaft in einem System.
+          ${esc(HAUPTARTIKEL_DEFINITION)}
         </p>
         <p>
           <strong>Kurz:</strong> Für Tierarztpraxen im deutschsprachigen Raum sind in dieser

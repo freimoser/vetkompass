@@ -18,7 +18,8 @@ import type { Category, CategoryId } from '../types/market';
  */
 /** Gilt für jede Kategorie ohne eigene Aufnahmekriterien. */
 export const AUFNAHME_STANDARD =
-  'Aufgenommen wird jede Lösung, die zur Beschreibung dieser Kategorie passt. Eine Mindestgröße gibt es hier nicht.';
+  'Aufgenommen wird jede Lösung, die zu dieser Beschreibung passt und deren Funktion auf der Website ' +
+  'des Anbieters beschrieben ist. Eine Mindestgröße gibt es hier nicht; die Aufnahme ist kostenfrei.';
 
 export const categories: Category[] = [
   {
