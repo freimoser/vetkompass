@@ -5,9 +5,9 @@ auf tiermedizin-in-zahlen.org mindestens einen Artikel geben, dessen Zahlen
 zeigen, warum das Feld für Praxen zählt. Die Zuordnung steht in
 `src/data/zahlenBruecke.ts`.
 
-**Abgedeckt:** 1, 2, 3, 4, 6, 7, 10, 11, 12, 13, 14
-**Fehlt:** 5 (Branchen-Newsletter), 8 (Praxiseigene Videosprechstunde),
-9 (Tierhalter-App / Patientenportal)
+**Abgedeckt:** alle 14 Felder. Am 26.11.2026 nachgetragen: 5 (fachmedien-tiermedizin),
+8 (telemedizin-tierarzt), 9 (tierarztbesuche-hund-katze), dazu 2, 3 und 14
+(tiermedizinische-fachangestellte). Die Prompts unten sind damit erledigt.
 
 Ist ein Artikel online, hier melden – dann trage ich ihn in die Brücke ein.
 

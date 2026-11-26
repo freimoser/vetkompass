@@ -32,6 +32,13 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
         '2025 kamen rechnerisch 2.291 Hunde und Katzen auf jeden Praxisinhaber (Bundestierärztekammer, IVH/ZZF), 2000 waren es 1.668. Online-Buchung nimmt einen Teil der Terminanfragen vom Telefon.',
       beleg: 'auf jeden kommen inzwischen 2.291 Hunde und Katzen statt 1.668',
     },
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/tiermedizinische-fachangestellte.html',
+      titel: 'Tiermedizinische Fachangestellte: Zahl, Ausbildung, Gehalt',
+      satz:
+        'Neue Ausbildungsverträge für Tiermedizinische Fachangestellte sanken laut Statistischem Bundesamt von 3.102 (2021) auf 2.466 (2025). Wenn am Empfang Personal fehlt, nimmt Online-Buchung Anfragen vom Telefon.',
+      beleg: 'Neue Ausbildungsverträge stiegen bis 2021 auf 3.102 und sinken seitdem: 2025 waren es 2.466',
+    },
   ],
   3: [
     {
@@ -40,6 +47,13 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
       satz:
         'Praxisinhaber arbeiten laut Gutachten zur Gebührenordnung (Befragung 2020) rund 50 Stunden pro Woche, rund 22 davon in Verwaltung, Personal und Fahrten. Digitale Aufnahme verlagert Formulare vor den Besuch.',
       beleg: 'rund 22 Stunden gingen in Verwaltung, Personal und Fahrten',
+    },
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/tiermedizinische-fachangestellte.html',
+      titel: 'Tiermedizinische Fachangestellte: Zahl, Ausbildung, Gehalt',
+      satz:
+        '32,2 Prozent der Tiermedizinischen Fachangestellten arbeiten laut Bundesagentur für Arbeit in Teilzeit (2025), 2013 waren es 24,8 Prozent. Digitale Aufnahme verlagert Formulare vor den Besuch und entlastet den Empfang.',
+      beleg: '32,2 Prozent arbeiten in Teilzeit (2013: 24,8 Prozent)',
     },
   ],
   4: [
@@ -56,6 +70,15 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
       satz:
         'Ende 2025 gab es laut Bundestierärztekammer 803 Praxisinhaber weniger als 2019. Weniger Inhaber tragen Dokumentation, Telefon und Notdienst; Assistenzsysteme setzen an diesen Stunden an.',
       beleg: 'Seit dem Höchststand 2019 gibt es 803 Praxisinhaber weniger',
+    },
+  ],
+  5: [
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/fachmedien-tiermedizin.html',
+      titel: 'Fachmedien für Tierärzte: Auflagen und Reichweiten',
+      satz:
+        'Der Newsletter von vetline.de erreichte laut Verlag im Juli 2025 rund 5.300 Empfänger je Versand, im Juli 2021 waren es 2.850. Gedruckte Fachzeitschriften verkaufen dagegen weniger; alle Zahlen sind Angaben der Verlage.',
+      beleg: 'Newsletter von vetline.de: rund 2.850 Empfänger je Versand im Juli 2021, 5.300 im Juli 2025',
     },
   ],
   6: [
@@ -81,6 +104,24 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
       satz:
         '75 Prozent der angestellten Tierärzte leisten Nacht- oder Wochenenddienste (Befragung des Bundes angestellter Tierärzte, Ende 2025). Online-Sprechstunden können Fragen nach Praxisschluss vorsortieren.',
       beleg: '75 Prozent leisten Nacht- oder Wochenenddienste',
+    },
+  ],
+  8: [
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/telemedizin-tierarzt.html',
+      titel: 'Telemedizin beim Tierarzt: was erlaubt ist, was es kostet',
+      satz:
+        'Eine Videoberatung rechnet die Praxis nach GOT 2022 als Beratung ohne Untersuchung ab: 11,26 Euro im einfachen, 33,78 Euro im dreifachen Satz. Wie viele Praxen Videosprechstunden anbieten, erhebt in Deutschland niemand repräsentativ.',
+      beleg: '11,26 Euro im einfachen Satz, 33,78 Euro im dreifachen',
+    },
+  ],
+  9: [
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/tierarztbesuche-hund-katze.html',
+      titel: 'Wie oft gehen Hunde und Katzen zum Tierarzt?',
+      satz:
+        'Fast alle Hunde waren irgendwann geimpft, nach den Intervallen der Impfleitlinie aktuell aber nur 46,8 Prozent (Online-Umfrage der LMU München). Erinnerungen an Impf- und Vorsorgetermine setzen genau dort an.',
+      beleg: 'aktuell nach Leitlinie aber nur 46,8 Prozent',
     },
   ],
   10: [
@@ -147,6 +188,13 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
       satz:
         '54,6 Prozent der angestellten Tierärztinnen und Tierärzte arbeiten laut Befragung des Bundes angestellter Tierärzte (Ende 2025) in Teilzeit. Fortbildung, die sich zeitlich frei einteilen lässt, passt dazu.',
       beleg: 'gut die Hälfte der Befragten (54,6 Prozent) arbeitet in Teilzeit',
+    },
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/tiermedizinische-fachangestellte.html',
+      titel: 'Tiermedizinische Fachangestellte: Zahl, Ausbildung, Gehalt',
+      satz:
+        'Laut Bundesagentur für Arbeit arbeiten 27.198 Tiermedizinische Fachangestellte sozialversicherungspflichtig (Juni 2025), 2013 waren es 14.591. Fortbildung, die sich zeitlich frei einteilen lässt, erreicht auch das Praxisteam neben den Tierärzten.',
+      beleg: 'In Deutschland arbeiten 27.198 Tiermedizinische Fachangestellte (TFA) sozialversicherungspflichtig',
     },
   ],
 };
