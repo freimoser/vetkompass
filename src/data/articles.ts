@@ -1548,8 +1548,9 @@ export const artikel: Artikel[] = [
       {
         h2: 'Was bei Tierarztpraxen anders ist',
         absaetze: [
-          'Werbung von Tierärztinnen und Tierärzten unterliegt den Berufsordnungen der jeweiligen ' +
-            'Kammer, für Aussagen über Arzneimittel gelten zusätzliche Regeln. Eine Agentur aus ' +
+          'Werbung von Tierärztinnen und Tierärzten unterliegt den Berufsordnungen der ' +
+            'Landestierärztekammern und dem Wettbewerbsrecht; für Aussagen über Arzneimittel gelten ' +
+            'eigene Werberegeln, bei Tierarzneimitteln auch aus dem EU-Recht. Eine Agentur aus ' +
             'einer anderen Branche kennt diese Grenzen nicht zwangsläufig. Ob eine Maßnahme zulässig ' +
             'ist, klärt im Zweifel die zuständige Kammer, nicht die Agentur.',
           'Dazu kommen Fotos von Tieren, Tierhaltern und Teammitgliedern. Wer sie veröffentlicht, ' +

@@ -29,13 +29,14 @@ export const categories: Category[] = [
     shortTitle: 'Sichtbarkeit',
     description:
       'Plattformen und Lösungen, über die Tierarztpraxen digital sichtbar werden und neue Tierhalter erreichen können.',
-    // Kriterien vom Herausgeber festgelegt am 25.11.2026.
+    // Kriterium seit 26.11.2026: öffentlich nachprüfbar statt Eigenangaben (MAU,
+    // Profile). Geprüft 25.11.2026 bei Google Play: DOGORAMA 500.000+, PetLEO 100.000+.
     aufnahme:
       'Hier stehen Plattformen mit eigener Reichweite bei Tierhaltern: Über sie erreicht eine Praxis ' +
-      'Menschen, die sie noch nicht kennt, und gewinnt neue Patienten. Mindestgröße: 100.000 monatlich ' +
-      'aktive Nutzerinnen und Nutzer und 1 Million registrierte Tierprofile. Lösungen, mit denen eine ' +
-      'Praxis über eigene Kanäle sichtbar wird, etwa Terminbuchung, Messenger oder Tierhalter-App, ' +
-      'stehen in dem Feld, das ihre Funktion beschreibt.',
+      'Menschen, die sie noch nicht kennt, und gewinnt neue Patienten. Mindestgröße: eine App für ' +
+      'Tierhalter mit mindestens 100.000 Downloads bei Google Play – eine Zahl, die jeder im Store ' +
+      'nachprüfen kann. Lösungen, mit denen eine Praxis über eigene Kanäle sichtbar wird, etwa ' +
+      'Terminbuchung, Messenger oder praxiseigene App, stehen in dem Feld, das ihre Funktion beschreibt.',
     // Halbe Breite, seit die Verzeichnisse in Kategorie 10 stehen: Zwei Anbieter
     // füllen keine volle Zeile. So paaren sich im linken Block 1|2, 3|4, 5|10.
     placement: { column: 'left', width: 'half' },
@@ -193,7 +194,8 @@ export const categories: Category[] = [
     aufnahme:
       'Aufgenommen werden Agenturen und Beratungen, die auf ihrer eigenen Website ein Angebot ' +
       'ausdrücklich für Tierarztpraxen oder Tierkliniken ausweisen. Allgemeine Agenturen, die ' +
-      'Tierarztpraxen nur als eine Branche unter vielen nennen, stehen nicht hier.',
+      'Tierarztpraxen nur als eine Branche unter vielen nennen, stehen nicht hier – ebenso wenig ' +
+      'Steuer-, Rechts- und Finanzberatung, die nicht Marketing oder Praxisentwicklung betrifft.',
     placement: { column: 'center', width: 'full' },
     logoColumns: 2,
   },

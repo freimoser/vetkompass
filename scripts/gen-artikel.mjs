@@ -518,7 +518,7 @@ ${verweise.map((v) => `          <li>${esc(v.satz)} <a href="${esc(v.url)}">${es
 function verbundKasten() {
   const eintraege = VERBUND.map(
     (v) => `        <li>
-          <a href="${esc(v.url)}" rel="noopener">${esc(v.name)}</a>
+          <a href="${esc(v.url)}" rel="${'offenlegung' in v ? REL_OFFENLEGUNG : 'noopener'}">${esc(v.name)}</a>
           <span class="rolle">${esc(v.rolle)}</span>
           <span class="text">${esc(v.beschreibung)}</span>${
             v.offenlegung ? `\n          <span class="offen">Offenlegung: ${esc(v.offenlegung)}</span>` : ''

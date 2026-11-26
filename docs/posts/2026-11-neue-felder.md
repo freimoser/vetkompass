@@ -37,8 +37,7 @@ Danke für die Hinweise an Sonja Hegel (LISCA.vet), Vetion.de (Myvetlearn), Benj
 
 - Personen im Kommentar nur verlinken (@), wenn du sie markieren willst – sie
   werden dann benachrichtigt.
-- Juliane Heckel (Steuerberatung) ist bewusst nicht aufgenommen: keine digitale
-  Lösung. Falls sie nachfragt: „Die Übersicht bildet digitale Lösungen ab;
-  Beratung ohne digitales Produkt steht nicht drin.“ – ehrlich, aber dann gilt
-  das auch für die Beratungen in Feld 13. Besser vorher entscheiden, ob Feld 13
-  auch klassische Beratung umfasst (derzeit ja: IVP, RUHMservice).
+- Juliane Heckel (Steuerberatung) ist bewusst nicht aufgenommen. Regel seit
+  26.11.2026 (Aufnahmekriterium Feld 13): Beratung gehört dazu, wenn sie Marketing
+  oder Praxisentwicklung betrifft; Steuer-, Rechts- und Finanzberatung nicht.
+  Falls sie nachfragt: genau so antworten.
