@@ -28,6 +28,7 @@ import { fileURLToPath } from 'node:url';
 import { providers } from '../src/data/providers.ts';
 import { categories } from '../src/data/categories.ts';
 import { HAUPTARTIKEL_DEFINITION } from '../src/data/articles.ts';
+import { ZAHLEN_BRUECKE } from '../src/data/zahlenBruecke.ts';
 import { ALLE_ARTIKEL, ARTIKEL_NACH_KATEGORIE, ENTWICKLUNG, HAUPTARTIKEL, RATGEBER_SEITEN, UEBER, meilensteinAnker } from './seiten.mjs';
 import { AUS_HINWEISEN, BETEILIGUNG, FASSUNGEN, MEILENSTEINE } from '../src/data/historie.ts';
 import { zahlwort } from '../src/lib/zahlwort.ts';
@@ -491,6 +492,29 @@ function vorschau(kategorie) {
   Inhaltsänderung im Seitenstand. Unternehmen mit Beteiligung oder Tätigkeit
   des Herausgebers tragen die Offenlegung direkt am Eintrag.
 */
+/*
+  „Was die Zahlen sagen“: Statistiken der Schwesterseite Tiermedizin in Zahlen,
+  die zeigen, warum ein Lösungsfeld für Praxen zählt (Wunsch 26.11.2026). Jede
+  Zahl steht wörtlich im verlinkten Artikel, siehe src/data/zahlenBruecke.ts.
+  Ohne passenden Artikel entfällt der Abschnitt – kein Platzhalter.
+*/
+function zahlenAbschnitt(kategorie) {
+  const verweise = ZAHLEN_BRUECKE[kategorie] ?? [];
+  if (!verweise.length) return '';
+  return `
+      <section class="zahlen" aria-labelledby="zahlen-titel">
+        <h2 id="zahlen-titel">Was die Zahlen sagen</h2>
+        <p>
+          Statistiken aus <a href="${esc(SCHWESTER.url)}">${esc(SCHWESTER.name)}</a>, der Schwesterseite
+          vom selben Herausgeber – jede Zahl mit Quelle und Jahr.
+        </p>
+        <ul>
+${verweise.map((v) => `          <li>${esc(v.satz)} <a href="${esc(v.url)}">${esc(v.titel)}</a></li>`).join('\n')}
+        </ul>
+      </section>
+`;
+}
+
 function verbundKasten() {
   const eintraege = VERBUND.map(
     (v) => `        <li>
@@ -937,6 +961,7 @@ ${FRAGEN.map(
         falsch.
       </p>
 
+${zahlenAbschnitt(6)}
 ${weiterlesen(HAUPTARTIKEL.pfad)}
 
 ${offenlegung(6)}`;
@@ -1155,7 +1180,7 @@ ${abgrenzungsBlock(a.abgrenzung)}
         geltenden Vorschriften.
       </p>`
       }
-
+${zahlenAbschnitt(a.kategorie)}
 ${weiterlesen(seiteInfo.pfad)}
 
 ${offenlegung(a.kategorie)}`;
@@ -1719,6 +1744,11 @@ function volltext() {
       for (const b of BEGRIFFE) teile.push(`**${b.term}** (${b.kurz}): ${md(b.text)}`, '');
       teile.push('### Häufig gestellte Fragen', '');
       for (const f of FRAGEN) teile.push(`**${f.frage}** ${md(f.antwort)}`, '');
+      if (ZAHLEN_BRUECKE[6]?.length) {
+        teile.push(`### Was die Zahlen sagen (${SCHWESTER.name})`, '');
+        for (const v of ZAHLEN_BRUECKE[6]) teile.push(`- ${md(v.satz)} Quelle: [${v.titel}](${v.url})`);
+        teile.push('');
+      }
       continue;
     }
 
@@ -1749,6 +1779,11 @@ function volltext() {
     }
     teile.push('### Worauf Praxen bei der Auswahl achten', '', a.worauf.map((w) => `- ${md(w)}`).join('\n'), '');
     teile.push('### Anbieter', '', anbieterZeilen(anbieterVon(a.kategorie), a.kategorie), '');
+    if (ZAHLEN_BRUECKE[a.kategorie]?.length) {
+      teile.push(`### Was die Zahlen sagen (${SCHWESTER.name})`, '');
+      for (const v of ZAHLEN_BRUECKE[a.kategorie]) teile.push(`- ${md(v.satz)} Quelle: [${v.titel}](${v.url})`);
+      teile.push('');
+    }
     teile.push('### Was dieser Artikel nicht leistet', '', md(a.grenzen), '');
   }
   for (const r of RATGEBER_SEITEN) {
