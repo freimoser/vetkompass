@@ -278,7 +278,8 @@ function gruppenVon(kategorie) {
 
 /** Titel- und Beschreibungszeilen samt ihrer Y-Positionen. */
 function kopfVon(kategorie, innenBreite) {
-  const titelZeilen = umbruch(kategorie.title.toUpperCase(), innenBreite - 44, 12, 0.72);
+  // Zweistellige Nummern (ab Kategorie 10) brauchen mehr Platz vor dem Titel.
+  const titelZeilen = umbruch(kategorie.title.toUpperCase(), innenBreite - titelEinzug(kategorie.id), 12, 0.72);
   /*
     Vier Zeilen, und wenn es dann immer noch nicht reicht, ein Auslassungs-
     zeichen. Ein Satz, der mitten im Wort endet, sieht aus wie ein Fehler –
@@ -434,13 +435,18 @@ function gleicheAn(bahnen) {
 /* Zeichnen                                                           */
 /* ================================================================== */
 
+/** Abstand des Titels von der Kartenkante: hinter der Nummer, ein- oder zweistellig. */
+function titelEinzug(id) {
+  return id >= 10 ? 60 : 44;
+}
+
 function zeichneKopf(k, x, y) {
   const teile = [
     `<text x="${x + KARTEN_PAD}" y="${y + KARTEN_PAD + 27}" font-size="32" font-weight="700" fill="${FARBE.brandHell}">${k.kategorie.id}</text>`,
   ];
   k.kopf.titelZeilen.forEach((zeile, i) =>
     teile.push(
-      `<text x="${x + KARTEN_PAD + 44}" y="${y + k.kopf.titelY + i * 15}" font-size="12" font-weight="700" letter-spacing="1.1" fill="${FARBE.ink}">${esc(zeile)}</text>`,
+      `<text x="${x + KARTEN_PAD + titelEinzug(k.kategorie.id)}" y="${y + k.kopf.titelY + i * 15}" font-size="12" font-weight="700" letter-spacing="1.1" fill="${FARBE.ink}">${esc(zeile)}</text>`,
     ),
   );
   k.kopf.beschrZeilen.forEach((zeile, i) =>
