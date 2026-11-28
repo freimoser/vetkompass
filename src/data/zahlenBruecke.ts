@@ -3,8 +3,9 @@
  * je Lösungsfeld Statistiken, die zeigen, warum das Feld für Praxen zählt.
  *
  * Jede Zahl steht wörtlich im verlinkten Artikel (`beleg`, geprüft am
- * 26.11.2026 gegen die Live-Seite). Felder ohne passenden Artikel bleiben leer;
- * die Anfragen an die Schwesterseite stehen in docs/prompts-tiermedizin-in-zahlen.md.
+ * 26.11.2026 gegen die Live-Seite). Seit 28.11.2026 sind alle 14 Felder
+ * abgedeckt (neue Artikel der Schwesterseite zu Fachmedien, Telemedizin,
+ * Tierarztbesuchen und TFA).
  */
 export interface ZahlenVerweis {
   url: string;
@@ -26,6 +27,13 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
   ],
   2: [
     {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/tiermedizinische-fachangestellte.html',
+      titel: 'Tiermedizinische Fachangestellte: Zahl, Ausbildung, Gehalt',
+      satz:
+        'Rechnerisch kommen auf jede Tierarztpraxis gut zweieinhalb TFA (2025, Bundesagentur für Arbeit und Kammerstatistik). Auf so kleine Teams verteilen sich auch die Terminanfragen.',
+      beleg: 'Rechnerisch kommen auf jede Tierarztpraxis gut zweieinhalb TFA (27.198 auf 10.385 Praxen',
+    },
+    {
       url: 'https://tiermedizin-in-zahlen.org/beitrag/tierarztmangel-deutschland.html',
       titel: 'Tierarztmangel in Deutschland: was die Zahlen zeigen',
       satz:
@@ -41,6 +49,13 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
     },
   ],
   3: [
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/tiermedizinische-fachangestellte.html',
+      titel: 'Tiermedizinische Fachangestellte: Zahl, Ausbildung, Gehalt',
+      satz:
+        '2025 wurden 2.466 neue TFA-Ausbildungsverträge geschlossen, nach 3.102 im Jahr 2021 (Statistisches Bundesamt). Weniger Nachwuchs ist ein Grund, die Aufnahme am Empfang schlanker zu organisieren.',
+      beleg: 'Neue Ausbildungsverträge stiegen bis 2021 auf 3.102 und sinken seitdem: 2025 waren es 2.466',
+    },
     {
       url: 'https://tiermedizin-in-zahlen.org/beitrag/ueberstunden-tierarztpraxis.html',
       titel: 'Überstunden in der Tierarztpraxis: was die Zahlen zeigen',
@@ -77,6 +92,13 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
       url: 'https://tiermedizin-in-zahlen.org/beitrag/fachmedien-tiermedizin.html',
       titel: 'Fachmedien für Tierärzte: Auflagen und Reichweiten',
       satz:
+        'Der Newsletter von vetline.de erreichte im Juli 2025 rund 5.300 Empfänger je Versand, 2021 waren es 2.850 (Mediadaten Schlütersche). Das zeigt die Größenordnung eines Branchen-Newsletters, ist aber Verlagsangabe.',
+      beleg: 'Newsletter von vetline.de: rund 2.850 Empfänger je Versand im Juli 2021, 5.300 im Juli 2025',
+    },
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/fachmedien-tiermedizin.html',
+      titel: 'Fachmedien für Tierärzte: Auflagen und Reichweiten',
+      satz:
         'Der Newsletter von vetline.de erreichte laut Verlag im Juli 2025 rund 5.300 Empfänger je Versand, im Juli 2021 waren es 2.850. Gedruckte Fachzeitschriften verkaufen dagegen weniger; alle Zahlen sind Angaben der Verlage.',
       beleg: 'Newsletter von vetline.de: rund 2.850 Empfänger je Versand im Juli 2021, 5.300 im Juli 2025',
     },
@@ -109,6 +131,13 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
   8: [
     {
       url: 'https://tiermedizin-in-zahlen.org/beitrag/telemedizin-tierarzt.html',
+      titel: 'Videosprechstunde beim Tierarzt: Recht, Kosten, Anbieter',
+      satz:
+        'Eine eigene GOT-Position für Videosprechstunden gibt es nicht: Nach GOT 2022 wird sie als Beratung ohne Untersuchung abgerechnet, 11,26 Euro im einfachen Satz. Das ist der Rahmen für die Kalkulation.',
+      beleg: 'GOT 2022: Beratung ohne Untersuchung, auch telefonisch (Nr. 1), 11,26 Euro im einfachen Satz',
+    },
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/telemedizin-tierarzt.html',
       titel: 'Telemedizin beim Tierarzt: was erlaubt ist, was es kostet',
       satz:
         'Eine Videoberatung rechnet die Praxis nach GOT 2022 als Beratung ohne Untersuchung ab: 11,26 Euro im einfachen, 33,78 Euro im dreifachen Satz. Wie viele Praxen Videosprechstunden anbieten, erhebt in Deutschland niemand repräsentativ.',
@@ -116,6 +145,13 @@ export const ZAHLEN_BRUECKE: Record<number, ZahlenVerweis[]> = {
     },
   ],
   9: [
+    {
+      url: 'https://tiermedizin-in-zahlen.org/beitrag/tierarztbesuche-hund-katze.html',
+      titel: 'Wie oft muss ein Hund zum Tierarzt? Empfehlung und Zahlen',
+      satz:
+        'In einer Online-Umfrage der LMU München (Dissertation 2021) waren nur 46,8 Prozent der Hunde nach Leitlinie aktuell geimpft. Ein direkter Kanal zum Halter kann an fällige Termine erinnern.',
+      beleg: 'nach den Intervallen der Impfleitlinie aktuell geschützt aber nur 46,8 Prozent',
+    },
     {
       url: 'https://tiermedizin-in-zahlen.org/beitrag/tierarztbesuche-hund-katze.html',
       titel: 'Wie oft gehen Hunde und Katzen zum Tierarzt?',

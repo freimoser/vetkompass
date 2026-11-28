@@ -268,3 +268,49 @@ auf anderen Seiten.
 Unverändert gegenüber dem 26.10. (Startseite 99 → 98 liegt im Messrauschen).
 Die Änderungen der Prüfrunde – Tippflächen, FAQ, Feed-Verweise, größere
 Wortmarken – haben nichts verschlechtert.
+
+## Runde 25.–28.11.2026: SEO-Audit (claude-seo) und Maßnahmen
+
+**Ausgangslage.** Search Console: 3 Seiten indexiert, 12 „gecrawlt – zurzeit
+nicht indexiert“. Bing: verifiziert, Sitemap gelesen, IndexNow aktiv,
+0 Impressionen.
+
+**Audit 25.11.2026: 78/100** (Technik 84, Inhalt 68, Schema 88, Leistung 96,
+KI-Suche 65, Suchintention 52). Kein technischer Grund für die fehlende
+Indexierung; Ursachen laut allen Teilprüfungen: junge Domain ohne Links von
+außen, gleich gebaute Artikel um dünne Anbietertabellen, FAQ-Antworten, die
+die Einleitung wörtlich wiederholten.
+
+**Verworfen nach Gegenprobe:** „Startseite ohne Meta-Description“ (Tag ist nur
+mehrzeilig), „Praxissoftware 21 gegen 25“ (21 PIMS + 4 Add-ons).
+
+| Befund | Maßnahme | Prüfung, die die Rückkehr verhindert |
+|---|---|---|
+| 98× „Märkte: nicht geprüft“ | Strich + Fußnote, Spalte entfällt ohne geprüfte Märkte | – |
+| Tabellen ohne Fakten | Feld `merkmal` mit Quelle je Anbieter (70+), geprüfte Märkte 20 → 38 | Merkmale ohne Preise (redaktionelle Regel) |
+| FAQ wiederholt Einleitung | eigene Fragen je Artikel (`fragen`), Generator hängt sie an | – |
+| Software-Seite ohne ItemList | zwei ItemLists (PIMS, Add-ons) | check-launch 4l |
+| Keine Autorenseite | /ueber.html, Bylines verlinkt, Person mit sameAs | check-launch: sameAs = HERAUSGEBER |
+| Suchfrage nicht wörtlich beantwortet | erste Startseiten-FAQ = „Gibt es eine Marktübersicht …?“ | – |
+| Mobil 201 px feste Leisten | nur Chips kleben (115 px) | – |
+| Keine Sicherheits-Header | Cloudflare Transform Rule (HSTS 180 Tage ohne Subdomains, nosniff, SAMEORIGIN, Referrer-, Permissions-Policy) | live geprüft |
+| Kurze Cache-Zeiten | Cache Rule: /assets/* ein Jahr (Hash im Namen), HTML unverändert 10 min | live geprüft |
+
+**Neu in dieser Runde:** Felder 13 (Praxismarketing & Beratung) und 14
+(Online-Fortbildung), Erklärkasten in der Filteransicht, Kasten „Aus dem
+Verbund“, Abschnitt „Was die Zahlen sagen“ mit belegten Zahlen der
+Schwesterseite (alle 14 Felder, `src/data/zahlenBruecke.ts`, jede Zahl
+wörtlich im verlinkten Artikel).
+
+**Entscheidungen des Herausgebers (26.11.2026):** Kategorie 1 nur mit
+öffentlich prüfbarer Mindestgröße (100.000+ Downloads bei Google Play);
+Feld 13 ohne Steuer-, Rechts- und Finanzberatung; Hersteller-Akademien in
+Feld 14 bleiben, gekennzeichnet; FleXChange-Link `nofollow`.
+
+**Nicht erledigt:** dritte Messung bei Antwortmaschinen – DataForSEO meldet
+am 28.11.2026 „Payment Required“ (Guthaben leer). Erwähnungen von außen
+(Entwürfe in docs/outreach-erwaehnungen.md) liegen beim Herausgeber.
+
+**Woran man den Erfolg misst (in 1–2 Wochen):** Search Console → Seiten:
+„Gecrawlt – zurzeit nicht indexiert“ sinkt unter 12; Bing-Impressionen über 0;
+Cloudflare Web Analytics: Besuche auf Artikelseiten, nicht nur der Startseite.
