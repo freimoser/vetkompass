@@ -193,6 +193,16 @@ export const MEILENSTEINE: Meilenstein[] = [
       'Neu sind die Felder Praxismarketing & Beratung (mit LISCA.vet) und Online-Fortbildung ' +
       '(mit Myvetlearn). Dazu für 70 Anbieter ein belegtes Merkmal und für 38 die geprüften Märkte.',
   },
+  {
+    datum: '2026-11-28',
+    anbieter: 91,
+    kategorien: 14,
+    titel: 'Zweiter Ratgeber, Feld 1 erweitert',
+    text:
+      'Ratgeber zum Wechsel der Praxissoftware: welche Daten mitmüssen und was AO, GoBD, ' +
+      'TÄHAV und DSGVO dazu sagen. DogPack und petsXL in Feld 1, das jetzt eine öffentlich ' +
+      'nachprüfbare Mindestgröße hat. Für fast alle Anbieter ein belegtes Merkmal.',
+  },
 ];
 
 /**

@@ -30,6 +30,8 @@ export interface Ratgeber {
   lead: string[];
   abschnitte: RatgeberAbschnitt[];
   pruefliste: string[];
+  /** Überschrift der Prüfliste; ohne Angabe „Fragen an die Software“. */
+  prueflisteTitel?: string;
   fragen: { frage: string; antwort: string }[];
   grenzen: string;
   quellen: { titel: string; url: string; abgerufen: string }[];
@@ -173,6 +175,240 @@ export const ratgeber: Ratgeber[] = [
         titel: 'Bundestierärztekammer: Gebührenordnung (GOT)',
         url: 'https://www.bundestieraerztekammer.de/tieraerzte/beruf/got/index.php',
         abgerufen: '2026-10-26',
+      },
+    ],
+  },
+  {
+    slug: 'praxissoftware-wechseln-datenuebernahme',
+    kategorie: 6,
+    kurzTitel: 'Praxissoftware wechseln',
+    prueflisteTitel: 'Prüfliste vor dem Wechsel',
+    h1: 'Praxissoftware wechseln: was bei der Datenübernahme zählt',
+    titleTag: 'Praxissoftware wechseln: was bei der Datenübernahme zählt',
+    description:
+      'Welche Daten eine Tierarztpraxis beim Softwarewechsel mitnehmen muss, welche ' +
+      'Aufbewahrungsregeln gelten und was sie alten und neuen Anbieter fragen sollte.',
+    definition:
+      'Die Datenübernahme beim Wechsel der Praxissoftware ist das Überführen aller Daten einer ' +
+      'Tierarztpraxis aus dem bisherigen in ein neues Programm: Tierhalter und Patienten, ' +
+      'Behandlungsdokumentation, Arzneimittelnachweise, Rechnungen und Lager.',
+    lead: [
+      'Ein Wechsel der Praxissoftware endet nicht mit dem ersten Tag im neuen Programm. Viele ' +
+        'Daten muss die Praxis noch Jahre später vorlegen können – dem Finanzamt, der ' +
+        'Behörde für Tierarzneimittel oder dem Tierhalter.',
+      'Diese Seite zeigt, welche Daten mitmüssen, was Abgabenordnung, GoBD, ' +
+        'Hausapothekenverordnung und Datenschutz dazu sagen und welche Fragen vor der ' +
+        'Kündigung des alten Vertrags geklärt sein sollten.',
+    ],
+    abschnitte: [
+      {
+        h2: 'Welche Daten mitmüssen',
+        liste: [
+          'Stammdaten: Tierhalter mit Kontaktdaten, Patienten mit Tierart, Rasse, Geburtsdatum ' +
+            'und Kennzeichnung.',
+          'Behandlungsdokumentation: Befunde, Diagnosen, Leistungen, Laborwerte, Bilder und ' +
+            'angehängte Dokumente – mit Datum und Bezug zum Patienten.',
+          'Arzneimittel: Abgabe und Anwendung. Als Nachweis gelten nach § 15 Abs. 4 TÄHAV ' +
+            'insbesondere Aufzeichnungen im Tagebuch der Praxis oder in der Patientenkartei.',
+          'Abrechnung: Rechnungen, Gutschriften, Zahlungen, offene Posten und Mahnungen.',
+          'Lager: Bestände, Chargen, Verfallsdaten und die Lieferscheine oder Rechnungen zum ' +
+            'Erwerb von Arzneimitteln (§ 15 Abs. 4 TÄHAV).',
+          'Organisation: Termine, Erinnerungen, Vorlagen, Benutzer und Änderungsprotokolle.',
+        ],
+      },
+      {
+        h2: 'Was das Steuerrecht verlangt',
+        absaetze: [
+          '§ 147 AO nennt die Unterlagen, die geordnet aufzubewahren sind, und die Fristen ' +
+            '(Abs. 3):',
+        ],
+        liste: [
+          'zehn Jahre: Bücher, Aufzeichnungen, Inventare, Jahresabschlüsse und die zum ' +
+            'Verständnis nötigen Organisationsunterlagen (Abs. 1 Nr. 1)',
+          'acht Jahre: Buchungsbelege (Abs. 1 Nr. 4)',
+          'sechs Jahre: empfangene und abgesandte Handels- oder Geschäftsbriefe sowie sonstige ' +
+            'Unterlagen, soweit sie für die Besteuerung von Bedeutung sind (Abs. 1 Nr. 2, 3 und 5)',
+        ],
+      },
+      {
+        h2: 'Elektronisch aufbewahren heißt: lesbar und auswertbar',
+        absaetze: [
+          'Wer Unterlagen als Daten aufbewahrt, muss sicherstellen, dass sie während der ganzen ' +
+            'Frist verfügbar sind, unverzüglich lesbar gemacht und maschinell ausgewertet werden ' +
+            'können (§ 147 Abs. 2 Nr. 2 AO). Für Kaufleute nennt § 257 HGB dieselben Fristen von ' +
+            'zehn, acht und sechs Jahren.',
+          'Die GoBD des Bundesfinanzministeriums regeln den Systemwechsel ausdrücklich ' +
+            '(Rz. 142). Die alte Hard- und Software muss nur dann nicht weiter vorgehalten werden, ' +
+            'wenn zwei Bedingungen erfüllt sind: Die Daten – einschließlich Metadaten, Stammdaten, ' +
+            'Bewegungsdaten und Verknüpfungen – werden vollständig und gleichwertig in das neue ' +
+            'System oder ein Archiv überführt. Und das neue System ermöglicht die gleichen ' +
+            'Auswertungen wie das alte.',
+          'Andernfalls ist die alte Hard- und Software für die Dauer der Aufbewahrungsfrist ' +
+            'vorzuhalten (Rz. 143).',
+        ],
+      },
+      {
+        h2: 'Was für Arzneimittelnachweise gilt',
+        absaetze: [
+          'Die Nachweise über Erwerb, Abgabe und Anwendung von Arzneimitteln und die ' +
+            'tierärztlichen Verschreibungen sind übersichtlich und zeitlich geordnet zu führen und ' +
+            'der Behörde auf Verlangen vorzulegen (§ 16 Abs. 1 TÄHAV).',
+          'Sie dürfen elektronisch geführt und aufbewahrt werden. Dann muss sichergestellt sein, ' +
+            'dass die Daten während der Aufbewahrungszeit jederzeit lesbar gemacht werden können ' +
+            'und unveränderlich sind. Die Frist richtet sich nach Art. 103 Abs. 5 der Verordnung ' +
+            '(EU) 2019/6; danach sind die Daten zu löschen, wenn sie nicht mehr erforderlich sind ' +
+            '(§ 16 Abs. 2 TÄHAV).',
+        ],
+      },
+      {
+        h2: 'Datenschutz: Vertrag und Löschung',
+        absaetze: [
+          'Verarbeitet ein Anbieter personenbezogene Daten im Auftrag der Praxis, braucht es einen ' +
+            'Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO. Er ist schriftlich abzufassen, ' +
+            'was auch elektronisch geht (Art. 28 Abs. 9). Nach Auffassung der Datenschutzkonferenz ' +
+            'gilt das auch für Fernwartung und Support, wenn dabei Zugriff auf personenbezogene ' +
+            'Daten möglich ist.',
+          'Endet der Auftrag, löscht der Auftragsverarbeiter alle personenbezogenen Daten oder gibt ' +
+            'sie zurück – nach Wahl der Praxis –, sofern keine Pflicht zur Speicherung besteht ' +
+            '(Art. 28 Abs. 3 Buchst. g DSGVO). Diese Wahl sollte die Praxis erst treffen, wenn die ' +
+            'Übernahme geprüft ist.',
+        ],
+      },
+      {
+        h2: 'Fragen an den bisherigen Anbieter',
+        liste: [
+          'In welchen Formaten lassen sich die Daten exportieren – getrennt nach Stammdaten, ' +
+            'Behandlungen, Rechnungen, Lager und Dokumenten?',
+          'Enthält der Export die Verknüpfungen, etwa welcher Befund zu welchem Patienten und ' +
+            'welche Rechnung zu welcher Behandlung gehört?',
+          'Was kostet der Export, und wie lange dauert er?',
+          'Gibt es nach Vertragsende einen Lesezugriff auf die alten Daten, wie lange und zu ' +
+            'welchen Kosten?',
+          'Wie bestätigt der Anbieter nach Vertragsende die Löschung oder Rückgabe der Daten?',
+        ],
+      },
+      {
+        h2: 'Fragen an den neuen Anbieter',
+        liste: [
+          'Welche Daten aus dem bisherigen System übernimmt er, und welche nicht?',
+          'Wer führt die Übernahme durch, was kostet sie, und gibt es vorher eine Probeübernahme?',
+          'Wie lange können altes und neues System parallel laufen?',
+          'Lassen sich übernommene Daten im neuen System genauso auswerten wie im alten?',
+          'Liegt ein Vertrag zur Auftragsverarbeitung vor, auch für die Übernahme selbst?',
+        ],
+      },
+      {
+        h2: 'Der Ablauf in acht Schritten',
+        nummeriert: true,
+        liste: [
+          'Bestand aufnehmen: welche Daten in welchem Modul liegen und seit wann.',
+          'Mit dem Steuerberater klären, welche Unterlagen wie lange aufzubewahren sind.',
+          'Beim bisherigen Anbieter Exportweg, Kosten, Dauer und Kündigungsfrist schriftlich ' +
+            'erfragen.',
+          'Mit dem neuen Anbieter Umfang der Übernahme festlegen und den Vertrag zur ' +
+            'Auftragsverarbeitung abschließen.',
+          'Probeübernahme mit einer Kopie der Daten; Stichproben bei Patientenakten, ' +
+            'Arzneimittelnachweisen, Rechnungen und Lager.',
+          'Stichtag festlegen, Lagerbestand und offene Posten zum Stichtag abgleichen.',
+          'Echte Übernahme; jede Umwandlung und jede Abweichung dokumentieren.',
+          'Parallelphase oder Lesezugriff nutzen, Altdaten archivieren und erst dann Löschung ' +
+            'oder Rückgabe beim bisherigen Anbieter veranlassen.',
+        ],
+      },
+    ],
+    pruefliste: [
+      'Ist erfasst, welche Daten im bisherigen System liegen, getrennt nach Stammdaten, Behandlungen, Arzneimitteln, Rechnungen und Lager?',
+      'Hat der Steuerberater bestätigt, welche Unterlagen wie lange aufzubewahren sind?',
+      'Liegen Exportformat, Kosten und Dauer des Exports schriftlich vor?',
+      'Enthält der Export die Verknüpfungen zwischen Patient, Behandlung, Arzneimittel und Rechnung?',
+      'Sind die Arzneimittelnachweise nach der Übernahme vollständig, zeitlich geordnet und unveränderlich?',
+      'Lassen sich die übernommenen Daten im neuen System so auswerten wie im alten?',
+      'Gibt es einen Vertrag zur Auftragsverarbeitung mit dem neuen Anbieter – und, falls nötig, mit dem Dienstleister für die Übernahme?',
+      'Ist geregelt, wie lange der Lesezugriff auf das alte System bleibt und wann die Löschung oder Rückgabe beim bisherigen Anbieter erfolgt?',
+    ],
+    fragen: [
+      {
+        frage: 'Wann beginnt die Aufbewahrungsfrist?',
+        antwort:
+          'Mit dem Schluss des Kalenderjahrs, in dem die Unterlage entstanden ist, etwa der ' +
+          'Buchungsbeleg (§ 147 Abs. 4 AO). Sie läuft nicht ab, solange die Unterlagen für Steuern ' +
+          'von Bedeutung sind, deren Festsetzungsfrist noch nicht abgelaufen ist (§ 147 Abs. 3 AO).',
+      },
+      {
+        frage: 'Reicht es, alte Rechnungen als PDF zu sichern?',
+        antwort:
+          'Nach den GoBD nicht, wenn dabei nicht mehr alle aufzeichnungs- und ' +
+          'aufbewahrungspflichtigen Daten übernommen werden. Eine Aufbewahrung nur als ' +
+          'Datenextrakt, Report oder Druckdatei ist dann unzulässig (Rz. 144).',
+      },
+      {
+        frage: 'Dürfen Daten bei der Übernahme verändert werden?',
+        antwort:
+          'Nur im Format, etwa beim Datums- oder Währungsformat. Inhaltliche Änderungen sind nicht ' +
+          'zulässig, und die vorgenommenen Umwandlungen sind zu dokumentieren (GoBD, Rz. 142).',
+      },
+      {
+        frage: 'Braucht auch ein Dienstleister, der nur die Daten umwandelt, einen Vertrag?',
+        antwort:
+          'Die Datenschutzkonferenz nennt Datenerfassung, Datenkonvertierung und das Einscannen ' +
+          'von Dokumenten als Beispiele, die regelmäßig Auftragsverarbeitung sein können. Dann ist ' +
+          'ein Vertrag nach Art. 28 DSGVO nötig.',
+      },
+    ],
+    grenzen:
+      'Keine Rechts- oder Steuerberatung. Wiedergegeben sind Gesetzes- und Verwaltungstexte mit ' +
+      'Stand vom 28.11.2026; verbindlich ist die jeweils geltende Fassung. Welche Unterlage unter ' +
+      'welche Aufbewahrungsfrist fällt und ob § 257 HGB für die Praxis gilt, klärt der ' +
+      'Steuerberater. Ob die Berufsordnung der zuständigen Landestierärztekammer weitere Pflichten ' +
+      'für die Behandlungsdokumentation vorsieht, ist hier nicht wiedergegeben; Auskunft gibt die ' +
+      'Kammer. Keine Aussage darüber, welche Software welche Funktion bietet. Für Österreich und die ' +
+      'Schweiz gelten andere Regelungen; sie sind nicht Gegenstand dieser Seite.',
+    quellen: [
+      {
+        titel: 'Abgabenordnung (AO), § 147 Ordnungsvorschriften für die Aufbewahrung von Unterlagen',
+        url: 'https://www.gesetze-im-internet.de/ao_1977/__147.html',
+        abgerufen: '2026-11-28',
+      },
+      {
+        titel: 'Handelsgesetzbuch (HGB), § 257 Aufbewahrung von Unterlagen, Aufbewahrungsfristen',
+        url: 'https://www.gesetze-im-internet.de/hgb/__257.html',
+        abgerufen: '2026-11-28',
+      },
+      {
+        titel:
+          'Bundesministerium der Finanzen: Schreiben vom 28.11.2019 zu den GoBD (IV A 4 - S 0316/19/10003 :001), Rz. 142–144, Abdruck der IHK München',
+        url: 'https://www.ihk-muenchen.de/ihk/documents/Recht-Steuern/Steuerrecht/2019-11-28-GoBD.pdf',
+        abgerufen: '2026-11-28',
+      },
+      {
+        titel: 'Bundesministerium der Finanzen: Schreiben vom 11.03.2024, Änderung der GoBD',
+        url: 'https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/AO-Anwendungserlass/2024-03-11-aenderung-gobd.pdf?__blob=publicationFile',
+        abgerufen: '2026-11-28',
+      },
+      {
+        titel: 'Bundesministerium der Finanzen: Schreiben vom 14.07.2025, 2. Änderung der GoBD',
+        url: 'https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2025-07-14-GoBD-2-aenderung.pdf?__blob=publicationFile&v=3',
+        abgerufen: '2026-11-28',
+      },
+      {
+        titel: 'Tierärztliche Hausapothekenverordnung (TÄHAV), § 15 Dokumentation über Erwerb, Abgabe und Anwendung',
+        url: 'https://www.gesetze-im-internet.de/t_hav_2025/__15.html',
+        abgerufen: '2026-11-28',
+      },
+      {
+        titel: 'Tierärztliche Hausapothekenverordnung (TÄHAV), § 16 Allgemeine Dokumentationspflichten',
+        url: 'https://www.gesetze-im-internet.de/t_hav_2025/__16.html',
+        abgerufen: '2026-11-28',
+      },
+      {
+        titel: 'Die Bundesbeauftragte für den Datenschutz und die Informationsfreiheit: DSGVO – BDSG, Texte und Erläuterungen (Stand März 2026), Art. 28 DSGVO',
+        url: 'https://www.bfdi.bund.de/SharedDocs/Downloads/DE/Broschueren/INFO1.pdf?__blob=publicationFile',
+        abgerufen: '2026-11-28',
+      },
+      {
+        titel: 'Datenschutzkonferenz (DSK): Kurzpapier Nr. 13 – Auftragsverarbeitung, Art. 28 DS-GVO',
+        url: 'https://www.datenschutzkonferenz-online.de/media/kp/dsk_kpnr_13.pdf',
+        abgerufen: '2026-11-28',
       },
     ],
   },

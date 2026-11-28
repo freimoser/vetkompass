@@ -1596,7 +1596,7 @@ ${r.lead.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
 
 ${r.abschnitte.map(abschnitt).join('\n\n')}
 
-      <h2 id="worauf">Fragen an die Software</h2>
+      <h2 id="worauf">${esc(r.prueflisteTitel ?? 'Fragen an die Software')}</h2>
       <ul class="pruefliste">
 ${r.pruefliste.map((f) => `        <li>${esc(f)}</li>`).join('\n')}
       </ul>
@@ -1796,7 +1796,7 @@ function volltext() {
       for (const p of ab.absaetze ?? []) teile.push(md(p), '');
       if (ab.liste) teile.push(ab.liste.map((l, i) => (ab.nummeriert ? `${i + 1}. ` : '- ') + md(l)).join('\n'), '');
     }
-    teile.push('### Fragen an die Software', '', g.pruefliste.map((w) => `- ${md(w)}`).join('\n'), '');
+    teile.push(`### ${g.prueflisteTitel ?? 'Fragen an die Software'}`, '', g.pruefliste.map((w) => `- ${md(w)}`).join('\n'), '');
     teile.push('### Häufige Fragen', '');
     for (const f of g.fragen) teile.push(`**${f.frage}** ${md(f.antwort)}`, '');
     teile.push('### Was dieser Ratgeber nicht leistet', '', md(g.grenzen), '');
