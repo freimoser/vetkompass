@@ -50,6 +50,8 @@ export const providers: Provider[] = [
     logo: 'logos/animalchat.png',
     website: 'https://animalchat.net',
     countries: [],
+    merkmal: 'Bündelt Anrufe, WhatsApp, Instagram, E-Mail und Chat in einem Posteingang der Praxis.',
+    merkmalQuelle: 'https://business.animalchat.net/ (geprüft 28.11.2026)',
     categories: [4, 8, 9],
     description:
       'Kommunikationslösung für Tierarztpraxen mit Nachrichten und Videosprechstunde, nach Anbieterangabe auf deutschen Servern gehostet.',
@@ -58,11 +60,11 @@ export const providers: Provider[] = [
         label: 'AnimalChat Business',
         logo: 'logos/animalchat-business.png',
         description:
-          'KI-Assistenz für Tierarztpraxen: Telefonassistenz, die Anliegen außerhalb der Sprechzeit aufnimmt, und Berichte aus dem Diktat, auf Wunsch im SOAP-Format.',
+          'KI-Assistenz für Tierarztpraxen: Berichte aus dem Diktat, auf Wunsch im SOAP-Format; eine Telefonassistenz für Anliegen außerhalb der Sprechzeit ist laut Anbieter im Aufbau.',
       },
       8: { label: 'AnimalChat Business', logo: 'logos/animalchat-business.png' },
     },
-    tags: ['Videosprechstunde', 'Kommunikation', 'Praxis', 'Anrufe', 'Diktat'],
+    tags: ['Videosprechstunde', 'Kommunikation', 'Praxis', 'Diktat'],
   },
   {
     id: 'anidata',
@@ -70,6 +72,8 @@ export const providers: Provider[] = [
     logo: 'logos/anidata.png',
     website: 'https://www.anidata.de',
     countries: [],
+    merkmal: 'Apothekenverwaltung mit Import der Barsoi-Liste; Einstiegsversion ANIDATA-LITE.',
+    merkmalQuelle: 'https://anidata.de/ (geprüft 28.11.2026)',
     categories: [6],
     description:
       'Praxismanagementsystem für die Organisation von Patientendaten, Terminen, Dokumentation und Abrechnung in der Tierarztpraxis.',
@@ -151,6 +155,24 @@ export const providers: Provider[] = [
     description:
       'Angebot für Tierhalter, über das eine veterinärmedizinische Online-Beratung per Video erreichbar ist.',
     tags: ['Telemedizin', 'Videosprechstunde', 'Tierhalter'],
+  },
+  {
+    // Kategorie 1, aufgenommen 28.11.2026: Google Play „1.000.000+“
+    // (com.dogpack, geprüft 28.11.2026); Rubrik Tierärzte mit deutschen Praxen
+    // (dogpackapp.com/de/services/veterinarians). Länder laut Play-Beschreibung:
+    // „hundefreundliche Orte in Deutschland, Österreich und der Schweiz“.
+    // Kein Logo in lesbarer Fassung (nur weiße Wortmarke) – Name als Text.
+    id: 'dogpack',
+    aufgenommen: '2026-11-28',
+    name: 'DogPack',
+    website: 'https://www.dogpackapp.com/de',
+    countries: ['DE', 'AT', 'CH'],
+    categories: [1],
+    description:
+      'Hunde-Community-App mit Karte für Hundewiesen, hundefreundliche Orte und Dienstleister wie Tierärzte, über die Praxen für Hundehalter sichtbar werden können.',
+    merkmal: 'Rubrik „Tierärzte“ mit Praxiseinträgen; Dienstleister können sich laut Anbieter kostenlos eintragen.',
+    merkmalQuelle: 'https://www.dogpackapp.com/de/services/veterinarians (geprüft 28.11.2026)',
+    tags: ['Community', 'Hunde', 'Sichtbarkeit'],
   },
   {
     id: 'dogorama',
@@ -438,9 +460,15 @@ export const providers: Provider[] = [
     countries: [],
     merkmal: 'QR-Check-in in der Praxis, digitale Patientenaufnahme und Online-Bezahlung von Rechnungen.',
     merkmalQuelle: 'https://www.petsxl.com (geprüft 25.11.2026)',
-    categories: [2, 3, 9],
+    // Kategorie 1 seit 28.11.2026: Google Play „100.000+“ (com.vetz.petsxl.app,
+    // geprüft 28.11.2026) und Standortfinder, über den Tierhalter Praxen finden –
+    // gleiche Maßstäbe wie bei Petleo.
+    categories: [1, 2, 3, 9],
     description:
       'Digitale Services für Tierarztpraxen mit Online-Terminvereinbarung, digitaler Patientenaufnahme und Tierhalter-Portal.',
+    variants: {
+      1: { description: 'Tierhalter-App mit Standortfinder, über den Tierhalter petsXL-Tierarztpraxen finden und sich mit ihnen verknüpfen können.' },
+    },
     tags: ['Terminbuchung', 'Intake', 'Tierhalter-App'],
   },
   {
@@ -474,7 +502,7 @@ export const providers: Provider[] = [
     id: 'scribblevet',
     name: 'ScribbleVet',
     logo: 'logos/scribblevet.png',
-    website: 'https://www.scribblevet.com',
+    website: 'https://instinct.vet/products/scribblevet/',
     countries: [],
     merkmal: 'Gesprochen werden kann in jeder Sprache, die Notizen entstehen auf Englisch.',
     merkmalQuelle: 'https://instinct.vet/products/scribblevet/ (geprüft 25.11.2026)',
@@ -608,7 +636,10 @@ export const providers: Provider[] = [
     name: 'VET-MAGAZIN.de',
     logo: 'logos/vet-magazin.png',
     website: 'https://www.vet-magazin.de',
-    countries: [],
+    // Märkte geprüft 28.11.2026: https://vet-magazin.de/deutschland-magazin.html – Länderausgaben Deutschland, Österreich, Schweiz
+    countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Eigene Ausgaben für Deutschland, Österreich und die Schweiz, jeweils mit E-Mail-Newsletter.',
+    merkmalQuelle: 'https://vet-magazin.de/deutschland-magazin.html (geprüft 28.11.2026)',
     categories: [5],
     description:
       'Online-Fachmagazin und Newsletter für die deutschsprachige Veterinärbranche.',
@@ -707,6 +738,8 @@ export const providers: Provider[] = [
     website: 'https://www.vetguru.de',
     // Märkte geprüft 25.11.2026: https://www.vetguru.de/ – „vorläufig ausschließlich in Deutschland angeboten“
     countries: ['DE'],
+    merkmal: 'Videosprechstunde läuft im Browser ohne App und Installation; Abrechnung nach GOT.',
+    merkmalQuelle: 'https://www.vetguru.de/ (geprüft 28.11.2026)',
     categories: [8],
     description:
       'Lösung, mit der Tierarztpraxen ihren eigenen Kunden Video- und Telemedizin-Termine anbieten können.',
@@ -716,8 +749,11 @@ export const providers: Provider[] = [
     id: 'vetinf',
     name: 'VETINF',
     logo: 'logos/vetinf.png',
-    website: 'https://www.vetinf.de',
-    countries: [],
+    website: 'https://vetinf.de',
+    // Märkte geprüft 28.11.2026: https://vetinf.de/die-software/ – „Tierarztpraxen und -kliniken aus Deutschland, Österreich … setzen auf Vetinf“
+    countries: ['DE', 'AT'],
+    merkmal: 'Installation vor Ort auf dem Praxisrechner; Schnittstellen zu Laborgeräten wie IDEXX oder Scil.',
+    merkmalQuelle: 'https://vetinf.de/die-software/ (geprüft 28.11.2026)',
     categories: [6],
     description:
       'Praxissoftware für die tierärztliche Praxisverwaltung, Dokumentation und Abrechnung.',
@@ -769,6 +805,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetpraxis-de.png',
     website: 'https://www.vetpraxis.de',
     countries: [],
+    merkmal: 'Cloud-Software, auch auf Smartphone und Tablet; Tierhalter-App MeineTiere.app mit Online-Terminbuchung.',
+    merkmalQuelle: 'https://www.vetpraxis.de/ (geprüft 28.11.2026)',
     categories: [6],
     description:
       'Praxissoftware für Organisation, Dokumentation und Abrechnung in der Tierarztpraxis.',
@@ -1251,6 +1289,8 @@ export const providers: Provider[] = [
     name: 'LISCA.vet',
     website: 'https://lisca.vet',
     countries: [],
+    merkmal: 'Gegründet von einer Tierärztin; 1:1-Social-Media-Coaching und ein Instagram-Onlinekurs.',
+    merkmalQuelle: 'https://lisca.vet/ (geprüft 28.11.2026)',
     categories: [13],
     description:
       'Agentur für Marketing von Tierarztpraxen und Tierkliniken: Strategieberatung, Websites, Arbeitgebermarke, Social-Media-Coaching und ein Instagram-Onlinekurs.',
@@ -1264,6 +1304,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetsite.png',
     website: 'https://vet-site.de',
     countries: [],
+    merkmal: 'Eine Tierärztin betreut Facebook und Instagram mit wöchentlichen Beiträgen, ein Webdesigner die Website.',
+    merkmalQuelle: 'https://vet-site.de/ (geprüft 28.11.2026)',
     categories: [13],
     description:
       'Websites, Social-Media-Betreuung und lokale Einträge für Tierarztpraxen, angeboten von einer Tierärztin und einem Webdesigner.',
@@ -1277,6 +1319,8 @@ export const providers: Provider[] = [
     logo: 'logos/tierarzt-website.png',
     website: 'https://tierarzt-website.de',
     countries: [],
+    merkmal: 'Sitz in NRW; Beratung, Corporate Design, Website und Online-Marketing.',
+    merkmalQuelle: 'https://tierarzt-website.de/ (geprüft 28.11.2026)',
     categories: [13],
     description:
       'Website-Erstellung und Online-Marketing für Tierarztpraxen, Tierkliniken und weitere Berufe rund ums Tier.',
@@ -1290,6 +1334,8 @@ export const providers: Provider[] = [
     website: 'https://www.tierklinik-marketing.com',
     // Märkte geprüft 25.11.2026: https://www.tierklinik-marketing.com – „Tierklinik Marketing für Deutschland, Österreich und die Schweiz“
     countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Website, Suchmaschinenoptimierung, Social Media, Print, Klinikfotos und Überweiserportal; Gebietsschutz je Region.',
+    merkmalQuelle: 'https://www.tierklinik-marketing.com/ (geprüft 28.11.2026)',
     categories: [13],
     description:
       'Agentur mit eigenem Angebot für Tierkliniken und Tierarztpraxen: Webdesign, Suchmaschinenoptimierung, Werbung und Personalgewinnung.',
@@ -1303,6 +1349,8 @@ export const providers: Provider[] = [
     logo: 'logos/ivp-tieraerzteberatung.png',
     website: 'https://www.tieraerzteberatung.de',
     countries: [],
+    merkmal: 'Betreibt die IVP-Akademie für betriebswirtschaftliche Weiterbildung; informiert über bezuschusste Beratung.',
+    merkmalQuelle: 'https://www.tieraerzteberatung.de/ (geprüft 28.11.2026)',
     categories: [13],
     description:
       'Unternehmensberatung für Tierärzte, unter anderem zu Existenzgründung, Praxisorganisation, Personal, Praxismarketing und Praxisabgabe.',
@@ -1317,6 +1365,8 @@ export const providers: Provider[] = [
     website: 'https://www.ruhmservice.de',
     // Märkte geprüft 25.11.2026: https://www.ruhmservice.de – „Spezialisiert auf Tierarztpraxen & Tierkliniken im DACH-Raum“
     countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Für Kleintier- und Großtierpraxen; Berater mit Ausbildung in veterinärmedizinischem Praxismanagement.',
+    merkmalQuelle: 'https://www.ruhmservice.de/ (geprüft 28.11.2026)',
     categories: [13],
     description:
       'Strategieberatung für Tierarztpraxen und Tierkliniken zu Praxisführung, Wirtschaftlichkeit, Team und Marketing, mit einer Praxisanalyse als Einstieg.',
@@ -1330,6 +1380,8 @@ export const providers: Provider[] = [
     logo: 'logos/tvd-finanz.png',
     website: 'https://www.tvd-finanz.de/leistungen/tierarztpraxis-marketing/',
     countries: [],
+    merkmal: 'Gründerpakete zur Praxisgründung; Leistungen von Logo und Website bis Beschilderung und Fahrzeugfolierung.',
+    merkmalQuelle: 'https://www.tvd-finanz.de/leistungen/tierarztpraxis-marketing/ (geprüft 28.11.2026)',
     categories: [13],
     description:
       'Dienstleister für Tierärzte mit Praxisberatung; die Marketingleistungen umfassen Praxiswebsite, Texte, Google-Profil und Anzeigen.',
@@ -1343,6 +1395,8 @@ export const providers: Provider[] = [
     logo: 'logos/myvetlearn.png',
     website: 'https://www.myvetlearn.de',
     countries: [],
+    merkmal: 'Seit 2004 offizielle Online-Plattform der Akademie für tierärztliche Fortbildung und von Vetion.de.',
+    merkmalQuelle: 'https://www.myvetlearn.de/ (geprüft 28.11.2026)',
     categories: [14],
     description:
       'Online-Fortbildungsplattform der Akademie für tierärztliche Fortbildung und von Vetion.de mit E-Learning-Kursen sowie Online-Seminaren live und auf Abruf.',
@@ -1356,6 +1410,8 @@ export const providers: Provider[] = [
     logo: 'logos/fortbildung-vet.png',
     website: 'https://fortbildung.vet',
     countries: [],
+    merkmal: 'Webinare live und auf Abruf sowie Seminare vor Ort, viele mit ATF- oder AG-TFA-Anerkennung; Praxiszugänge möglich.',
+    merkmalQuelle: 'https://fortbildung.vet/ (geprüft 28.11.2026)',
     categories: [14],
     description:
       'Fortbildungsplattform für Tierärzte, TFA und Studierende mit Webinaren live und auf Abruf; betrieben von TVD Finanz.',
@@ -1369,6 +1425,8 @@ export const providers: Provider[] = [
     logo: 'logos/vetinare.png',
     website: 'https://www.vetinare.de',
     countries: [],
+    merkmal: 'ATF-anerkannte Web-Seminare seit 2015, live oder als Aufzeichnung; eigener Bereich für TFA.',
+    merkmalQuelle: 'https://www.vetinare.de/ (geprüft 28.11.2026)',
     categories: [14],
     description:
       'Web-Seminare für Tierärzte und TFA, live oder als Aufzeichnung, nach Fachgebieten von Anästhesie bis Zytologie geordnet.',
@@ -1382,6 +1440,8 @@ export const providers: Provider[] = [
     logo: 'logos/akademie-vet.png',
     website: 'https://www.akademie.vet',
     countries: [],
+    merkmal: 'Online-Seminare filterbar nach ATF- und AG-TFA-Anerkennung, auch für amtliche Tierärzte und den Strahlenschutz.',
+    merkmalQuelle: 'https://www.akademie.vet/ (geprüft 28.11.2026)',
     categories: [14],
     description:
       'Online-Seminare für praktizierende und amtliche Tierärzte sowie TFA, darunter Kurse zur Aktualisierung der Fachkunde im Strahlenschutz.',
@@ -1396,6 +1456,8 @@ export const providers: Provider[] = [
     website: 'https://www.vet-webinar.com/de/',
     // Märkte geprüft 25.11.2026: https://www.vet-webinar.com/de/ – Anerkennung je Land: ATF, Bildungsordnung der Österreichischen Tierärztekammer, GST
     countries: ['DE', 'AT', 'CH'],
+    merkmal: 'Webinare live und im Archiv in vier Sprachen; Anerkennung je nach Land über ATF, ÖTK oder GST.',
+    merkmalQuelle: 'https://www.vet-webinar.com/de/ (geprüft 28.11.2026)',
     categories: [14],
     description:
       'Plattform für Webinare und E-Learning-Kurse in der Veterinärmedizin, mit Anerkennung je nach Land über ATF, Österreichische Tierärztekammer oder GST.',
@@ -1409,6 +1471,8 @@ export const providers: Provider[] = [
     logo: 'logos/elanco-webinare.png',
     website: 'https://www.webinare-elanco.de',
     countries: [],
+    merkmal: 'Live-Webinare und Aufzeichnungen, für Tierärzte ATF-anerkannt, teils mit AG-TFA-Stunden.',
+    merkmalQuelle: 'https://www.webinare-elanco.de/ (geprüft 28.11.2026)',
     categories: [14],
     description:
       'Webinarplattform des Tiergesundheitsunternehmens Elanco mit kostenfreien Live-Webinaren und Aufzeichnungen für Tierärzte und TFA.',
@@ -1422,6 +1486,8 @@ export const providers: Provider[] = [
     logo: 'logos/petcampus.png',
     website: 'https://www.petcampus.de',
     countries: [],
+    merkmal: 'Fortbildungen nur für TFA: E-Learning, Live-Webinare und Aufzeichnungen auf Abruf.',
+    merkmalQuelle: 'https://www.petcampus.de/ (geprüft 28.11.2026)',
     categories: [14],
     description:
       'Fortbildungsangebot unter dem Namen MSD Academy für Tiermedizinische Fachangestellte, mit E-Learning, Live-Fortbildungen und Aufzeichnungen.',
